@@ -1,0 +1,1179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SRI GREEN — Complete Website Strategic Audit</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap');
+
+  :root {
+    --green-dark: #0f2318;
+    --green-mid: #1a4028;
+    --green-accent: #2d7a4a;
+    --green-light: #4caf78;
+    --amber: #e8a832;
+    --red: #d44a3a;
+    --orange: #e0722a;
+    --blue: #3a7fd4;
+    --cream: #f8f4ee;
+    --paper: #fefcf8;
+    --text: #1a1a1a;
+    --muted: #5a6670;
+    --border: #d8d0c4;
+    --badge-red: #fde8e6;
+    --badge-green: #e6f4ec;
+    --badge-amber: #fef3de;
+    --badge-blue: #e6f0fc;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--paper);
+    color: var(--text);
+    line-height: 1.7;
+    font-size: 15px;
+  }
+
+  /* Cover */
+  .cover {
+    background: var(--green-dark);
+    color: white;
+    padding: 72px 60px 56px;
+    position: relative;
+    overflow: hidden;
+  }
+  .cover::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse 80% 60% at 80% 40%, rgba(45,122,74,0.35) 0%, transparent 70%);
+  }
+  .cover-label {
+    font-family: 'Syne', sans-serif;
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--green-light);
+    margin-bottom: 20px;
+    position: relative;
+  }
+  .cover h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: 42px;
+    font-weight: 800;
+    line-height: 1.15;
+    max-width: 620px;
+    position: relative;
+    margin-bottom: 16px;
+  }
+  .cover-sub {
+    font-size: 16px;
+    color: rgba(255,255,255,0.65);
+    max-width: 540px;
+    position: relative;
+    margin-bottom: 40px;
+  }
+  .cover-meta {
+    display: flex; gap: 32px; flex-wrap: wrap;
+    position: relative;
+  }
+  .cover-meta-item { font-size: 13px; color: rgba(255,255,255,0.5); }
+  .cover-meta-item strong { display: block; color: white; font-weight: 500; font-size: 14px; }
+
+  /* Score bar */
+  .score-bar {
+    background: var(--green-mid);
+    padding: 28px 60px;
+    display: flex; gap: 0; flex-wrap: wrap;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+  .score-item {
+    flex: 1; min-width: 130px;
+    padding: 12px 20px 12px 0;
+    border-right: 1px solid rgba(255,255,255,0.1);
+  }
+  .score-item:last-child { border-right: none; }
+  .score-label {
+    font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase;
+    color: rgba(255,255,255,0.45); margin-bottom: 6px;
+    font-family: 'Syne', sans-serif;
+  }
+  .score-value {
+    font-family: 'Syne', sans-serif;
+    font-size: 26px; font-weight: 700; color: white;
+    line-height: 1;
+  }
+  .score-bar-track {
+    height: 4px; background: rgba(255,255,255,0.1);
+    border-radius: 2px; margin-top: 8px;
+  }
+  .score-bar-fill { height: 100%; border-radius: 2px; }
+  .fill-red { background: #d44a3a; }
+  .fill-amber { background: #e8a832; }
+  .fill-green { background: #4caf78; }
+
+  /* Main layout */
+  .container { max-width: 960px; margin: 0 auto; padding: 0 40px; }
+
+  /* Section wrappers */
+  .section { padding: 56px 0 40px; border-bottom: 1px solid var(--border); }
+  .section:last-child { border-bottom: none; }
+
+  .section-eyebrow {
+    font-family: 'Syne', sans-serif;
+    font-size: 10px; letter-spacing: 3px; text-transform: uppercase;
+    color: var(--green-accent); margin-bottom: 10px;
+  }
+  .section-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 26px; font-weight: 700;
+    margin-bottom: 20px; line-height: 1.25;
+  }
+  .section-intro {
+    font-size: 16px; color: var(--muted);
+    max-width: 720px; margin-bottom: 32px; line-height: 1.75;
+  }
+
+  h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: 17px; font-weight: 700;
+    margin: 28px 0 10px;
+    color: var(--green-dark);
+  }
+  h4 {
+    font-size: 14px; font-weight: 600; text-transform: uppercase;
+    letter-spacing: 1px; color: var(--muted); margin: 20px 0 8px;
+  }
+  p { margin-bottom: 12px; }
+
+  /* Alert boxes */
+  .alert {
+    border-radius: 8px; padding: 16px 20px;
+    margin-bottom: 16px; display: flex; gap: 12px;
+    align-items: flex-start;
+  }
+  .alert-icon { font-size: 18px; line-height: 1.5; flex-shrink: 0; }
+  .alert-body { flex: 1; }
+  .alert-body strong { display: block; font-size: 14px; margin-bottom: 4px; }
+  .alert-body p { font-size: 14px; margin: 0; }
+  .alert-critical { background: var(--badge-red); border-left: 3px solid var(--red); }
+  .alert-warning { background: var(--badge-amber); border-left: 3px solid var(--amber); }
+  .alert-good { background: var(--badge-green); border-left: 3px solid var(--green-light); }
+  .alert-info { background: var(--badge-blue); border-left: 3px solid var(--blue); }
+
+  /* Comparison table */
+  .compare-table { width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 14px; }
+  .compare-table th {
+    background: var(--green-dark); color: white;
+    padding: 12px 16px; text-align: left;
+    font-family: 'Syne', sans-serif; font-size: 12px;
+    letter-spacing: 1px; text-transform: uppercase;
+  }
+  .compare-table th:first-child { border-radius: 6px 0 0 0; }
+  .compare-table th:last-child { border-radius: 0 6px 0 0; }
+  .compare-table td { padding: 11px 16px; border-bottom: 1px solid var(--border); vertical-align: top; }
+  .compare-table tr:last-child td { border-bottom: none; }
+  .compare-table tr:nth-child(even) td { background: var(--cream); }
+  .compare-table .bad { color: var(--red); font-weight: 500; }
+  .compare-table .good { color: var(--green-accent); font-weight: 500; }
+
+  /* Two-col grid */
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 20px 0; }
+  .card {
+    border: 1px solid var(--border);
+    border-radius: 10px; padding: 20px;
+    background: white;
+  }
+  .card-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 14px; font-weight: 700;
+    margin-bottom: 12px; display: flex; align-items: center; gap: 8px;
+  }
+  .badge {
+    font-size: 10px; letter-spacing: 1px; text-transform: uppercase;
+    padding: 2px 8px; border-radius: 20px; font-weight: 600;
+  }
+  .badge-red { background: var(--badge-red); color: var(--red); }
+  .badge-green { background: var(--badge-green); color: var(--green-accent); }
+  .badge-amber { background: var(--badge-amber); color: #a06b00; }
+  .badge-blue { background: var(--badge-blue); color: var(--blue); }
+
+  ul.audit-list { list-style: none; padding: 0; }
+  ul.audit-list li {
+    padding: 7px 0 7px 24px; border-bottom: 1px solid #f0ece6;
+    position: relative; font-size: 14px; line-height: 1.55;
+  }
+  ul.audit-list li:last-child { border-bottom: none; }
+  ul.audit-list li::before {
+    content: attr(data-icon);
+    position: absolute; left: 0; top: 7px;
+  }
+
+  /* Priority roadmap */
+  .roadmap-phase {
+    border-radius: 10px; overflow: hidden; margin-bottom: 20px;
+    border: 1px solid var(--border);
+  }
+  .roadmap-header {
+    padding: 14px 20px; display: flex; align-items: center; gap: 12px;
+  }
+  .phase-1-header { background: #fde8e6; }
+  .phase-2-header { background: #fef3de; }
+  .phase-3-header { background: #e6f4ec; }
+  .roadmap-header strong {
+    font-family: 'Syne', sans-serif; font-size: 14px;
+  }
+  .roadmap-body { padding: 16px 20px; }
+  .roadmap-body li {
+    font-size: 14px; margin-bottom: 8px; padding-left: 20px;
+    position: relative; line-height: 1.5;
+  }
+  .roadmap-body li::before { position: absolute; left: 0; }
+  .roadmap-body li.task::before { content: '→'; color: var(--muted); }
+
+  /* Copy rewrites */
+  .rewrite-block {
+    border-radius: 10px; overflow: hidden;
+    margin: 16px 0; border: 1px solid var(--border);
+  }
+  .rewrite-before, .rewrite-after {
+    padding: 14px 18px; font-size: 14px; line-height: 1.6;
+  }
+  .rewrite-before {
+    background: #fff5f5;
+    border-bottom: 1px dashed var(--border);
+  }
+  .rewrite-after { background: #f2faf6; }
+  .rewrite-label {
+    font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
+    font-weight: 700; margin-bottom: 6px;
+  }
+  .rewrite-before .rewrite-label { color: var(--red); }
+  .rewrite-after .rewrite-label { color: var(--green-accent); }
+
+  /* Keyword table */
+  .kw-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 12px; margin: 16px 0;
+  }
+  .kw-card {
+    background: var(--cream);
+    border-radius: 8px; padding: 14px 16px;
+    border: 1px solid var(--border);
+  }
+  .kw-card h5 {
+    font-family: 'Syne', sans-serif; font-size: 12px;
+    text-transform: uppercase; letter-spacing: 1px;
+    color: var(--green-accent); margin-bottom: 10px;
+  }
+  .kw-card li { font-size: 13px; list-style: none; padding: 3px 0; color: var(--text); }
+  .kw-card li::before { content: '# '; color: var(--muted); font-size: 11px; }
+
+  /* Page audit cards */
+  .page-audit {
+    border: 1px solid var(--border);
+    border-radius: 12px; overflow: hidden;
+    margin: 24px 0;
+  }
+  .page-audit-header {
+    background: var(--green-dark); color: white;
+    padding: 16px 24px; display: flex;
+    align-items: center; justify-content: space-between;
+  }
+  .page-audit-header h3 {
+    font-family: 'Syne', sans-serif; font-size: 16px;
+    color: white; margin: 0;
+  }
+  .page-audit-body { padding: 20px 24px; }
+  .page-audit-body .two-col { margin: 0; }
+
+  /* SEO table */
+  .seo-page {
+    background: var(--cream); border-radius: 10px;
+    padding: 20px; margin: 16px 0;
+    border: 1px solid var(--border);
+  }
+  .seo-page h4 { margin: 0 0 12px; color: var(--green-dark); font-size: 15px; text-transform: none; letter-spacing: 0; }
+  .seo-row { display: flex; gap: 8px; margin-bottom: 8px; font-size: 13px; }
+  .seo-row-label { font-weight: 600; min-width: 120px; color: var(--muted); flex-shrink: 0; }
+  .seo-row-val { color: var(--text); }
+  .mono { font-family: monospace; background: rgba(0,0,0,0.05); padding: 2px 6px; border-radius: 4px; font-size: 12px; }
+
+  /* Footer */
+  .doc-footer {
+    background: var(--green-dark); color: rgba(255,255,255,0.5);
+    padding: 24px 60px; font-size: 13px;
+    display: flex; justify-content: space-between;
+    margin-top: 40px;
+  }
+  .doc-footer strong { color: white; }
+
+  @media (max-width: 700px) {
+    .cover { padding: 40px 24px 32px; }
+    .cover h1 { font-size: 28px; }
+    .score-bar { padding: 16px 24px; }
+    .container { padding: 0 20px; }
+    .two-col { grid-template-columns: 1fr; }
+    .kw-grid { grid-template-columns: 1fr 1fr; }
+    .doc-footer { flex-direction: column; gap: 8px; padding: 24px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- COVER -->
+<div class="cover">
+  <div class="cover-label">Confidential Strategic Audit Report</div>
+  <h1>SRI GREEN — Complete Website Audit & Repositioning Blueprint</h1>
+  <p class="cover-sub">A full UX, branding, SEO, conversion, and content audit of agri-expo.vercel.app against its true business vision as a global B2B fruit &amp; vegetable powder export platform.</p>
+  <div class="cover-meta">
+    <div class="cover-meta-item"><strong>Website</strong>agri-expo.vercel.app</div>
+    <div class="cover-meta-item"><strong>Brand</strong>SRI GREEN Industries</div>
+    <div class="cover-meta-item"><strong>Audit Date</strong>May 2026</div>
+    <div class="cover-meta-item"><strong>Sections</strong>8 Audit Modules</div>
+  </div>
+</div>
+
+<!-- SCORES -->
+<div class="score-bar">
+  <div class="score-item">
+    <div class="score-label">Brand Clarity</div>
+    <div class="score-value">2/10</div>
+    <div class="score-bar-track"><div class="score-bar-fill fill-red" style="width:20%"></div></div>
+  </div>
+  <div class="score-item">
+    <div class="score-label">Professionalism</div>
+    <div class="score-value">4/10</div>
+    <div class="score-bar-track"><div class="score-bar-fill fill-red" style="width:40%"></div></div>
+  </div>
+  <div class="score-item">
+    <div class="score-label">SEO Readiness</div>
+    <div class="score-value">1/10</div>
+    <div class="score-bar-track"><div class="score-bar-fill fill-red" style="width:10%"></div></div>
+  </div>
+  <div class="score-item">
+    <div class="score-label">Conversion Effectiveness</div>
+    <div class="score-value">2/10</div>
+    <div class="score-bar-track"><div class="score-bar-fill fill-red" style="width:20%"></div></div>
+  </div>
+  <div class="score-item">
+    <div class="score-label">Export Positioning</div>
+    <div class="score-value">3/10</div>
+    <div class="score-bar-track"><div class="score-bar-fill fill-red" style="width:30%"></div></div>
+  </div>
+  <div class="score-item">
+    <div class="score-label">Content Quality</div>
+    <div class="score-value">3/10</div>
+    <div class="score-bar-track"><div class="score-bar-fill fill-red" style="width:30%"></div></div>
+  </div>
+  <div class="score-item">
+    <div class="score-label">User Experience</div>
+    <div class="score-value">4/10</div>
+    <div class="score-bar-track"><div class="score-bar-fill fill-red" style="width:40%"></div></div>
+  </div>
+  <div class="score-item">
+    <div class="score-label">Trustworthiness</div>
+    <div class="score-value">3/10</div>
+    <div class="score-bar-track"><div class="score-bar-fill fill-red" style="width:30%"></div></div>
+  </div>
+</div>
+
+<div class="container">
+
+<!-- ─────────────────────────────────────────
+     SECTION 1 — WEBSITE UNDERSTANDING
+──────────────────────────────────────────── -->
+<div class="section">
+  <div class="section-eyebrow">Module 01</div>
+  <div class="section-title">Full Website Understanding & Vision Gap Analysis</div>
+  <p class="section-intro">Before recommending improvements, we must first diagnose what the website currently says versus what it should say. The gap between these two things is large — and it is the root cause of every other issue on the site.</p>
+
+  <h3>What the Current Website Communicates</h3>
+  <p>The current website presents SRI GREEN as a premium artisanal food company — somewhere between a small-batch specialty food producer and a sustainability-focused farming cooperative. The copy emphasizes handcrafted quality, local farming heritage, community upliftment, and organic purity. The aesthetic feels craft-food-market rather than industrial B2B export supplier.</p>
+  <p>Most critically: the <strong>footer of every single page reads "SRI GREEN Artisanal Bakery. Handcrafted with joy."</strong> — which is catastrophically off-brand for a powder export company. This is a template remnant that was never removed, and it instantly destroys credibility with any serious international buyer.</p>
+
+  <h3>What the Current Target Audience Seems To Be</h3>
+  <p>Based on current messaging, the implied audience is specialty food enthusiasts, health-conscious retail consumers, and perhaps small food startups looking for artisanal ingredient supplies. The tone, vocabulary, and emotional appeal all point toward B2C retail — the opposite of the intended B2B export buyer.</p>
+
+  <h3>Vision Alignment Summary</h3>
+  <table class="compare-table">
+    <thead>
+      <tr><th>What Should Be True</th><th>What Is Currently True</th><th>Status</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Brand identity = B2B export powder supplier</td><td>Footer says "Artisanal Bakery"</td><td class="bad">⚠ Critical Failure</td></tr>
+      <tr><td>Title tag communicates the business</td><td>Title is "Create Next App" (default)</td><td class="bad">⚠ Critical Failure</td></tr>
+      <tr><td>Hero targets international importers</td><td>Hero has good export language but vague</td><td class="bad">⚠ Weak</td></tr>
+      <tr><td>Full product catalog (27+ SKUs)</td><td>Only ~8 products shown</td><td class="bad">⚠ Incomplete</td></tr>
+      <tr><td>B2B inquiry-optimized contact</td><td>Generic contact form, no qualification</td><td class="bad">⚠ Weak</td></tr>
+      <tr><td>Export certifications prominently displayed</td><td>Mentioned but not documented</td><td class="bad">⚠ Unverified</td></tr>
+      <tr><td>SEO-optimized for powder export keywords</td><td>No meta tags, no SEO structure</td><td class="bad">⚠ Critical Failure</td></tr>
+      <tr><td>"Portfolio" page makes sense for B2B</td><td>Named "Portfolio" (sounds like design agency)</td><td class="bad">⚠ Wrong Label</td></tr>
+      <tr><td>Copy speaks to manufacturers/importers</td><td>Copy uses "artisanal", "warmth", "wonder"</td><td class="bad">⚠ Wrong Audience</td></tr>
+      <tr><td>Product specs, MOQ, packaging details</td><td>None present anywhere</td><td class="bad">⚠ Missing</td></tr>
+      <tr><td>Global export capability stated clearly</td><td>Partially mentioned; "24+ Countries"</td><td class="good">✓ Partial</td></tr>
+      <tr><td>Vegetable + Fruit categories clear</td><td>Categories exist but incomplete</td><td class="good">✓ Partial</td></tr>
+    </tbody>
+  </table>
+
+  <div class="alert alert-critical">
+    <div class="alert-icon">🔴</div>
+    <div class="alert-body">
+      <strong>Single Most Damaging Issue</strong>
+      <p>Every page footer reads: "© 2024 SRI GREEN Artisanal Bakery. Handcrafted with joy." This is the first thing an international buyer sees after scrolling. It signals that the website is built on an unmodified template, that the business is not a professional exporter, and that they cannot be trusted with a bulk ingredient contract. This alone will lose serious buyers.</p>
+    </div>
+  </div>
+</div>
+
+
+<!-- ─────────────────────────────────────────
+     SECTION 2 — PAGE-BY-PAGE AUDIT
+──────────────────────────────────────────── -->
+<div class="section">
+  <div class="section-eyebrow">Module 02</div>
+  <div class="section-title">Page-by-Page Audit</div>
+  <p class="section-intro">Each page is assessed individually for purpose, strengths, failures, and specific improvement actions.</p>
+
+  <!-- HOME -->
+  <div class="page-audit">
+    <div class="page-audit-header">
+      <h3>Homepage — /</h3>
+      <span class="badge badge-amber">Needs Major Work</span>
+    </div>
+    <div class="page-audit-body">
+      <div class="two-col">
+        <div class="card">
+          <div class="card-title"><span class="badge badge-green">Strengths</span></div>
+          <ul class="audit-list">
+            <li data-icon="✓">Hero headline mentions "Global Export" — correct direction</li>
+            <li data-icon="✓">Two main category cards (Vegetable / Fruit) exist</li>
+            <li data-icon="✓">"Bulk Inquiry" CTA in nav is smart placement</li>
+            <li data-icon="✓">Trust icons (ISO, Global Gap, FDA, Organic) present</li>
+            <li data-icon="✓">"500+ Global Partners" and "Get a Custom Quote" section exists</li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="badge badge-red">Critical Issues</span></div>
+          <ul class="audit-list">
+            <li data-icon="✗">Footer = "SRI GREEN Artisanal Bakery. Handcrafted with joy."</li>
+            <li data-icon="✗">Page title is "Create Next App" — no SEO whatsoever</li>
+            <li data-icon="✗">Hero description too soft: "preserve natural flavor and nutrients" — sounds retail</li>
+            <li data-icon="✗">Dehydrated Onion and Premium Mango shown with "add" icon (e-commerce cart pattern — wrong for B2B)</li>
+            <li data-icon="✗">No meta description, no structured data</li>
+            <li data-icon="✗">Category descriptions too short and vague</li>
+            <li data-icon="✗">"100% Pure & Natural" badge is retail language, not B2B ingredient spec language</li>
+            <li data-icon="✗">No statement of MOQ, packaging, or lead time anywhere</li>
+            <li data-icon="✗">No country-specific export CTAs or shipping language</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PRODUCTS -->
+  <div class="page-audit">
+    <div class="page-audit-header">
+      <h3>Products Page — /product</h3>
+      <span class="badge badge-red">Critical Problems</span>
+    </div>
+    <div class="page-audit-body">
+      <div class="two-col">
+        <div class="card">
+          <div class="card-title"><span class="badge badge-green">Strengths</span></div>
+          <ul class="audit-list">
+            <li data-icon="✓">Fruit and Vegetable sections are separated</li>
+            <li data-icon="✓">Some brief product descriptions exist</li>
+            <li data-icon="✓">FSSC 22000, Lab Tested, Traceable, Non-GMO badges shown</li>
+            <li data-icon="✓">"View Specs" CTA on some cards is right direction</li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="badge badge-red">Critical Issues</span></div>
+          <ul class="audit-list">
+            <li data-icon="✗">Only 4 fruit + 4 vegetable products shown out of 27 SKUs — massive incompleteness</li>
+            <li data-icon="✗">"View Specs" links go nowhere — dead links destroy trust instantly</li>
+            <li data-icon="✗">No individual product detail pages with actual specs</li>
+            <li data-icon="✗">No: mesh size, moisture %, color value, bulk density, shelf life, packaging options</li>
+            <li data-icon="✗">Subtitle says "Global leaders in artisanal agricultural exports" — "artisanal" clashes with "industrial export"</li>
+            <li data-icon="✗">No filtering by category, application, or certification</li>
+            <li data-icon="✗">No inquiry CTA per product</li>
+            <li data-icon="✗">Page has no SEO optimization — title still "Create Next App"</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PORTFOLIO -->
+  <div class="page-audit">
+    <div class="page-audit-header">
+      <h3>Portfolio Page — /portfolio</h3>
+      <span class="badge badge-red">Wrong Concept</span>
+    </div>
+    <div class="page-audit-body">
+      <p style="font-size:14px; margin-bottom:16px;">The word "Portfolio" belongs to creative agencies and freelancers. For a B2B export supplier, this page needs to be renamed "Export Catalog" or "Product Range." The page itself contains some of the best content on the site — the mango seasonal availability notice, custom blend R&D positioning, and individual product category breakdowns — but it is buried under the wrong label and wrong page structure.</p>
+      <div class="two-col">
+        <div class="card">
+          <div class="card-title"><span class="badge badge-green">Strengths</span></div>
+          <ul class="audit-list">
+            <li data-icon="✓">"Crop Year 2024 — Peak Seasonal Quality Available Now" is excellent B2B language</li>
+            <li data-icon="✓">Onion, Garlic, Ginger, Vegetable Blends, Exotic Fruit categories shown</li>
+            <li data-icon="✓">"Need Custom Blend? Our R&D team works closely with food technologists" — excellent</li>
+            <li data-icon="✓">FSSC 22000, Lab Tested, Traceable, Non-GMO section present</li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="badge badge-red">Critical Issues</span></div>
+          <ul class="audit-list">
+            <li data-icon="✗">Page name "Portfolio" is completely wrong for B2B buyers</li>
+            <li data-icon="✗">"View Varieties" and "Explore Products" links go nowhere</li>
+            <li data-icon="✗">"Download Specs" button has no file behind it</li>
+            <li data-icon="✗">Mango hero section makes this feel like a mango-specific page</li>
+            <li data-icon="✗">No pricing range, MOQ information, or trade terms</li>
+            <li data-icon="✗">Vegetable Blends section has no image — broken layout</li>
+            <li data-icon="✗">Duplicate of Product page — these two pages need a clear differentiated purpose</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ABOUT -->
+  <div class="page-audit">
+    <div class="page-audit-header">
+      <h3>About Page — /about</h3>
+      <span class="badge badge-amber">Good Foundation, Wrong Tone</span>
+    </div>
+    <div class="page-audit-body">
+      <p style="font-size:14px; margin-bottom:16px;">This is actually the strongest page on the site in terms of content structure. It has an export map, certification list, and global presence messaging. However it leans too far into "social enterprise" territory — the "empowering artisans" angle, while admirable, dilutes the industrial export credibility that international buyers need to see.</p>
+      <div class="two-col">
+        <div class="card">
+          <div class="card-title"><span class="badge badge-green">Strengths</span></div>
+          <ul class="audit-list">
+            <li data-icon="✓">ISO 22000, GMP, HACCP certifications listed clearly</li>
+            <li data-icon="✓">"24+ Countries Served" with flag icons — good visual trust signal</li>
+            <li data-icon="✓">"Global Presence. Local Roots." is a strong tagline</li>
+            <li data-icon="✓">Hygiene pledge (HEPA, SS316, batch traceability) shows operational credibility</li>
+            <li data-icon="✓">CTA for "Request Sample Kit" and "Download Catalog" are correct B2B actions</li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="badge badge-red">Issues</span></div>
+          <ul class="audit-list">
+            <li data-icon="✗">"Empowering Artisans, Enriching Tables" — artisan language again</li>
+            <li data-icon="✗">"local baker looking for artisanal ingredients" in final CTA — completely wrong audience</li>
+            <li data-icon="✗">No year founded, no team size, no processing capacity information</li>
+            <li data-icon="✗">"Request Sample Kit" and "Download Catalog" are non-functional buttons</li>
+            <li data-icon="✗">No actual export compliance documentation referenced</li>
+            <li data-icon="✗">Map shows USA, UAE, Europe — needs Asia-Pacific, Southeast Asia added</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONTACT -->
+  <div class="page-audit">
+    <div class="page-audit-header">
+      <h3>Contact Page — /contact</h3>
+      <span class="badge badge-amber">Functional But Under-Optimized</span>
+    </div>
+    <div class="page-audit-body">
+      <p style="font-size:14px; margin-bottom:16px;">This is the most critical conversion page on the site, and it is doing a decent job structurally but missing key B2B qualification fields. A serious buyer from Germany wants to tell you: their company name, their required quantity, their product interest, and their country. The form currently only partially captures this.</p>
+      <div class="two-col">
+        <div class="card">
+          <div class="card-title"><span class="badge badge-green">Strengths</span></div>
+          <ul class="audit-list">
+            <li data-icon="✓">Both office and warehouse addresses are listed — good operational transparency</li>
+            <li data-icon="✓">Phone number and email visible</li>
+            <li data-icon="✓">Form has Company Name and Product Interest fields</li>
+            <li data-icon="✓">Technical Support / Lab team reference is a good trust signal</li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="badge badge-red">Issues</span></div>
+          <ul class="audit-list">
+            <li data-icon="✗">No Country field — essential for international inquiry routing</li>
+            <li data-icon="✗">No Quantity/Volume field — buyers won't know if MOQ fits them</li>
+            <li data-icon="✗">Product dropdown is limited to 4 options, missing most SKUs</li>
+            <li data-icon="✗">"Strategic proximity to Mumbai Port" — the address says New Delhi/Patna, not Mumbai</li>
+            <li data-icon="✗">No WhatsApp integration for instant international contact</li>
+            <li data-icon="✗">No expected response time commitment on inquiry form</li>
+            <li data-icon="✗">No downloadable spec sheet or catalog linked from this page</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ─────────────────────────────────────────
+     SECTION 3 — HOMEPAGE DEEP AUDIT
+──────────────────────────────────────────── -->
+<div class="section">
+  <div class="section-eyebrow">Module 03</div>
+  <div class="section-title">Homepage Deep Audit</div>
+
+  <h3>Hero Section</h3>
+  <div class="alert alert-warning">
+    <div class="alert-icon">⚠️</div>
+    <div class="alert-body">
+      <strong>Current Headline: "Premium Agricultural Powders for Global Export."</strong>
+      <p>This is actually acceptable as a starting point — it communicates what the company does. However, it speaks about the product rather than speaking to the buyer. A B2B buyer wants to know: what's in it for my manufacturing operation? The subheadline is weaker: "Sourcing the finest raw ingredients to produce export-grade dehydrated powders that preserve natural flavor and nutrients for industrial food production worldwide" — this is decent but buries the key benefit (industrial food production) at the end.</p>
+    </div>
+  </div>
+
+  <h3>Navigation</h3>
+  <ul class="audit-list">
+    <li data-icon="⚠">"Portfolio" is the wrong label for a B2B catalog page — should be "Export Catalog" or "Products"</li>
+    <li data-icon="⚠">No "Applications" menu item — a key B2B discovery path for ingredient buyers</li>
+    <li data-icon="⚠">No "Certifications" or "Quality" menu item — critical for regulatory buyers</li>
+    <li data-icon="✓">"Bulk Inquiry" CTA in nav is correctly positioned and labeled</li>
+    <li data-icon="⚠">Two separate nav menus visible (duplicate rendering issue)</li>
+  </ul>
+
+  <h3>Product Showcase</h3>
+  <ul class="audit-list">
+    <li data-icon="✗">The homepage shows only 4 products (Dehydrated Onion, Mango, Tomato + 2 category cards)</li>
+    <li data-icon="✗">The "add" icons on Onion and Mango cards suggest a shopping cart — this is B2C retail UX, not B2B</li>
+    <li data-icon="✗">The expandable/accordion style for individual products (with "add" button) completely contradicts export B2B positioning</li>
+    <li data-icon="⚠">Category cards (Vegetable Powders, Fruit Powders) are good — but need sub-count labels: "17 SKUs" and "10 SKUs"</li>
+  </ul>
+
+  <h3>Trust Building</h3>
+  <ul class="audit-list">
+    <li data-icon="✓">ISO Certified, Global Gap, 100% Organic, FDA Approved icons present</li>
+    <li data-icon="✗">"FDA Approved" is a very bold claim — needs to be verified or replaced with "FDA Compliant" or "FDA Registered Facility"</li>
+    <li data-icon="✗">"500+ Global Partners" — needs substantiation. If real, add logos or country list</li>
+    <li data-icon="✗">No testimonials, no named clients, no case studies</li>
+    <li data-icon="✗">No processing capacity numbers (tonnes/year)</li>
+  </ul>
+
+  <h3>Recommended Homepage Section Order</h3>
+  <div class="card" style="margin-top:12px;">
+    <ol style="padding-left:20px; font-size:14px; line-height:2;">
+      <li><strong>Navigation:</strong> Logo | Products | Applications | Quality &amp; Certs | About | Contact | [Request a Sample — CTA button]</li>
+      <li><strong>Hero:</strong> Strong export-focused headline + subheadline targeting importers/manufacturers + two CTAs (Explore Products, Request Sample)</li>
+      <li><strong>Trust Bar:</strong> ISO 22000 | HACCP | GMP | FSSC | Non-GMO | 24+ Countries — horizontal strip</li>
+      <li><strong>Product Categories:</strong> Vegetable Powders (17 SKUs) | Fruit Powders (10 SKUs) — large clickable cards</li>
+      <li><strong>Featured Products:</strong> 6–8 top sellers with quick specs (color, mesh, moisture)</li>
+      <li><strong>Applications Section:</strong> Food Manufacturing | Beverages | Nutraceuticals | Seasoning | Ready Meals</li>
+      <li><strong>Export Credentials:</strong> Map with markets, processing capacity, sourcing regions</li>
+      <li><strong>Why SRI GREEN:</strong> Farm-to-powder traceability, quality consistency, export compliance</li>
+      <li><strong>Get a Quote:</strong> Simple inline inquiry form with key qualification fields</li>
+      <li><strong>Footer:</strong> Correct company identity, social links, certifications, quick links</li>
+    </ol>
+  </div>
+
+  <h3>Conversion Optimization</h3>
+  <ul class="audit-list">
+    <li data-icon="✗">No WhatsApp button floating on the page — for international B2B, this is essential</li>
+    <li data-icon="✗">The "Get a Custom Quote" section is good but has no qualification fields — just a button</li>
+    <li data-icon="✗">No "Download Product Catalog" CTA anywhere on homepage</li>
+    <li data-icon="✓">"Bulk Inquiry" in navigation is strong</li>
+    <li data-icon="✗">No sticky header with CTA on scroll</li>
+    <li data-icon="✗">No exit-intent or scroll-triggered lead capture</li>
+  </ul>
+</div>
+
+
+<!-- ─────────────────────────────────────────
+     SECTION 4 — SEO AUDIT
+──────────────────────────────────────────── -->
+<div class="section">
+  <div class="section-eyebrow">Module 04</div>
+  <div class="section-title">SEO Audit — Technical, On-Page & Content</div>
+  <p class="section-intro">The SEO situation on this website is the most critical problem outside of branding. Currently, the site is essentially invisible to search engines. Every page has the title "Create Next App" — meaning no page will ever rank for any relevant query.</p>
+
+  <h3>Technical SEO Issues</h3>
+  <div class="alert alert-critical">
+    <div class="alert-icon">🔴</div>
+    <div class="alert-body">
+      <strong>All page titles = "Create Next App"</strong>
+      <p>This is a Next.js default that was never overridden. Every page is effectively unranked for every relevant keyword. This is the single highest-priority SEO fix needed.</p>
+    </div>
+  </div>
+  <div class="alert alert-critical">
+    <div class="alert-icon">🔴</div>
+    <div class="alert-body">
+      <strong>Meta description = "Generated by create next app"</strong>
+      <p>Every page has the same default meta description. Google will either generate its own (often poorly) or ignore the pages. No click-through intent is signaled.</p>
+    </div>
+  </div>
+  <div class="alert alert-critical">
+    <div class="alert-icon">🔴</div>
+    <div class="alert-body">
+      <strong>No structured data (JSON-LD schema)</strong>
+      <p>No Organization schema, no Product schema, no BreadcrumbList. These are essential for a product catalog site to appear properly in search results and Shopping features.</p>
+    </div>
+  </div>
+
+  <ul class="audit-list">
+    <li data-icon="⚠">Image alt texts use generic AI-generated descriptions rather than keyword-rich product descriptions</li>
+    <li data-icon="⚠">No sitemap.xml visible — essential for crawlability</li>
+    <li data-icon="⚠">No robots.txt visible</li>
+    <li data-icon="⚠">Images served from Google's Aida CDN (lh3.googleusercontent.com) — these are AI-generated placeholder images, not real product photos</li>
+    <li data-icon="⚠">No canonical tags</li>
+    <li data-icon="⚠">Domain: agri-expo.vercel.app — a Vercel subdomain has weaker domain authority than a custom domain; migrate to srigreen.com or srigreenexports.com</li>
+    <li data-icon="⚠">No Open Graph or Twitter Card metadata for social sharing</li>
+  </ul>
+
+  <h3>Per-Page SEO Specifications</h3>
+
+  <div class="seo-page">
+    <h4>Homepage</h4>
+    <div class="seo-row"><div class="seo-row-label">Slug</div><div class="seo-row-val"><span class="mono">/</span></div></div>
+    <div class="seo-row"><div class="seo-row-label">Target H1</div><div class="seo-row-val">Bulk Fruit &amp; Vegetable Powder Exporters from India — SRI GREEN Industries</div></div>
+    <div class="seo-row"><div class="seo-row-label">Meta Title</div><div class="seo-row-val">SRI GREEN | Fruit &amp; Vegetable Powder Exporters India | Bulk B2B Supply</div></div>
+    <div class="seo-row"><div class="seo-row-label">Meta Description</div><div class="seo-row-val">SRI GREEN exports premium dehydrated fruit and vegetable powders globally. ISO 22000 certified. Onion, Garlic, Mango, Tomato and 20+ SKUs. Request a bulk quote or sample today.</div></div>
+    <div class="seo-row"><div class="seo-row-label">Primary Keywords</div><div class="seo-row-val">vegetable powder exporter India, fruit powder manufacturer India, dehydrated powder bulk supplier</div></div>
+    <div class="seo-row"><div class="seo-row-label">H2 Targets</div><div class="seo-row-val">Vegetable Powders for Export | Fruit Powders for Food Manufacturing | Export Certifications | Global Supply Capability</div></div>
+  </div>
+
+  <div class="seo-page">
+    <h4>Vegetable Powders Category Page (new page needed)</h4>
+    <div class="seo-row"><div class="seo-row-label">Slug</div><div class="seo-row-val"><span class="mono">/vegetable-powders</span></div></div>
+    <div class="seo-row"><div class="seo-row-label">Meta Title</div><div class="seo-row-val">Dehydrated Vegetable Powders — Bulk Export Supplier | SRI GREEN Industries</div></div>
+    <div class="seo-row"><div class="seo-row-label">Meta Description</div><div class="seo-row-val">Buy bulk dehydrated vegetable powders: onion, garlic, tomato, ginger, beetroot, spinach &amp; more. Export-grade quality, FSSC 22000 certified. Serving 24+ countries.</div></div>
+    <div class="seo-row"><div class="seo-row-label">Primary Keywords</div><div class="seo-row-val">dehydrated vegetable powder exporter, onion powder bulk supplier, garlic powder manufacturer India</div></div>
+  </div>
+
+  <div class="seo-page">
+    <h4>Fruit Powders Category Page (new page needed)</h4>
+    <div class="seo-row"><div class="seo-row-label">Slug</div><div class="seo-row-val"><span class="mono">/fruit-powders</span></div></div>
+    <div class="seo-row"><div class="seo-row-label">Meta Title</div><div class="seo-row-val">Spray-Dried Fruit Powders — Bulk B2B Export | SRI GREEN Industries</div></div>
+    <div class="seo-row"><div class="seo-row-label">Meta Description</div><div class="seo-row-val">Premium spray-dried &amp; freeze-dried fruit powders: mango, pomegranate, banana, lemon, guava &amp; more. Export-certified. Request sample or bulk quote.</div></div>
+    <div class="seo-row"><div class="seo-row-label">Primary Keywords</div><div class="seo-row-val">mango powder exporter India, fruit powder manufacturer, spray dried fruit powder bulk</div></div>
+  </div>
+
+  <div class="seo-page">
+    <h4>Individual Product Example: Onion Powder</h4>
+    <div class="seo-row"><div class="seo-row-label">Slug</div><div class="seo-row-val"><span class="mono">/vegetable-powders/onion-powder</span></div></div>
+    <div class="seo-row"><div class="seo-row-label">Meta Title</div><div class="seo-row-val">Dehydrated Onion Powder — Export Grade Bulk Supplier India | SRI GREEN</div></div>
+    <div class="seo-row"><div class="seo-row-label">Meta Description</div><div class="seo-row-val">SRI GREEN supplies export-grade dehydrated onion powder in bulk. Available in granules, flakes &amp; fine powder. FSSC 22000 certified. Request specs or quote.</div></div>
+    <div class="seo-row"><div class="seo-row-label">Primary Keywords</div><div class="seo-row-val">onion powder exporter India, dehydrated onion powder bulk, onion powder manufacturer</div></div>
+  </div>
+
+  <h3>Keyword Strategy</h3>
+  <div class="kw-grid">
+    <div class="kw-card">
+      <h5>High Intent — Export</h5>
+      <ul>
+        <li>vegetable powder exporter India</li>
+        <li>fruit powder manufacturer India</li>
+        <li>dehydrated powder bulk supplier</li>
+        <li>mango powder wholesale exporter</li>
+        <li>onion powder bulk price</li>
+        <li>agri powder export company</li>
+      </ul>
+    </div>
+    <div class="kw-card">
+      <h5>Product Specific</h5>
+      <ul>
+        <li>spray dried mango powder</li>
+        <li>dehydrated garlic powder india</li>
+        <li>pomegranate powder manufacturer</li>
+        <li>beetroot powder bulk buy</li>
+        <li>freeze dried lemon powder</li>
+        <li>tomato powder food grade</li>
+      </ul>
+    </div>
+    <div class="kw-card">
+      <h5>B2B Industry</h5>
+      <ul>
+        <li>food ingredient supplier india</li>
+        <li>nutraceutical ingredient powder</li>
+        <li>beverage powder ingredient</li>
+        <li>private label powder supplier</li>
+        <li>food processing ingredient india</li>
+        <li>ISO certified powder exporter</li>
+      </ul>
+    </div>
+    <div class="kw-card">
+      <h5>Long-Tail Opportunities</h5>
+      <ul>
+        <li>buy mango powder in bulk from india</li>
+        <li>onion powder supplier for food manufacturers</li>
+        <li>organic vegetable powder export india</li>
+        <li>beetroot powder for supplement brands</li>
+        <li>spinach powder wholesale price india</li>
+      </ul>
+    </div>
+    <div class="kw-card">
+      <h5>Application-Based</h5>
+      <ul>
+        <li>fruit powder for smoothie brands</li>
+        <li>vegetable powder for instant soup</li>
+        <li>ingredient powder for nutraceuticals</li>
+        <li>powder flavoring food manufacturing</li>
+        <li>dehydrated powder for seasoning</li>
+      </ul>
+    </div>
+    <div class="kw-card">
+      <h5>Blog / Content SEO</h5>
+      <ul>
+        <li>benefits of spray dried mango powder</li>
+        <li>onion powder vs garlic powder uses</li>
+        <li>how beetroot powder is made</li>
+        <li>vegetable powder shelf life storage</li>
+        <li>FSSC 22000 food safety certification</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>Content SEO Opportunities (Missing Pages)</h3>
+  <ul class="audit-list">
+    <li data-icon="→">Individual product pages for all 27 SKUs — each is an SEO opportunity worth targeting</li>
+    <li data-icon="→">Applications pages: "Powder Ingredients for Beverage Manufacturing", "Vegetable Powders for Instant Foods"</li>
+    <li data-icon="→">Blog: "Complete Guide to Onion Powder: Applications, Quality Grades and Export Standards"</li>
+    <li data-icon="→">FAQ page: "What is MOQ? How long is lead time? What certifications do you hold?"</li>
+    <li data-icon="→">Certifications page with downloadable certificates</li>
+    <li data-icon="→">Sourcing page: "Where do we source? India's best agri belts for each powder"</li>
+  </ul>
+</div>
+
+
+<!-- ─────────────────────────────────────────
+     SECTION 5 — CONTENT REWRITES
+──────────────────────────────────────────── -->
+<div class="section">
+  <div class="section-eyebrow">Module 05</div>
+  <div class="section-title">Content Rewrite Suggestions</div>
+
+  <h3>Homepage Hero</h3>
+  <div class="rewrite-block">
+    <div class="rewrite-before">
+      <div class="rewrite-label">Current Copy</div>
+      <strong>Premium Agricultural Powders for Global Export.</strong><br>
+      Sourcing the finest raw ingredients to produce export-grade dehydrated powders that preserve natural flavor and nutrients for industrial food production worldwide.
+    </div>
+    <div class="rewrite-after">
+      <div class="rewrite-label">Recommended Rewrite</div>
+      <strong>India's Trusted Source for Bulk Fruit &amp; Vegetable Powders.</strong><br>
+      SRI GREEN Industries supplies ISO 22000-certified dehydrated and spray-dried ingredient powders to food manufacturers, beverage brands, and importers across 24+ countries. 27 SKUs. Export-ready. Sample in 7 days.
+    </div>
+  </div>
+
+  <h3>Footer (Most Urgent Fix)</h3>
+  <div class="rewrite-block">
+    <div class="rewrite-before">
+      <div class="rewrite-label">Current Copy (Catastrophic Error)</div>
+      SRI GREEN — Crafting small-batch delights that bring warmth and wonder to your everyday moments.<br>
+      © 2024 SRI GREEN Artisanal Bakery. Handcrafted with joy.
+    </div>
+    <div class="rewrite-after">
+      <div class="rewrite-label">Recommended Rewrite</div>
+      SRI GREEN Industries — Premium Fruit &amp; Vegetable Powder Exporters<br>
+      Supplying ISO 22000-certified dehydrated ingredient powders to global food manufacturers since [Year].<br>
+      © 2025 SRI GREEN Industries. All rights reserved. | Export Inquiry: info@srigreen.com | +91 7091323777
+    </div>
+  </div>
+
+  <h3>About Page Hero</h3>
+  <div class="rewrite-block">
+    <div class="rewrite-before">
+      <div class="rewrite-label">Current Copy</div>
+      <strong>Bridging the Gap Between Farm and World.</strong><br>
+      SRI GREEN Agri Exports transforms the bounty of artisanal farming into high-quality powders, connecting local heritage with global markets through sustainable excellence.
+    </div>
+    <div class="rewrite-after">
+      <div class="rewrite-label">Recommended Rewrite</div>
+      <strong>Farm-Sourced. Lab-Certified. Export-Ready.</strong><br>
+      SRI GREEN Industries is a dedicated exporter of premium dehydrated and spray-dried fruit and vegetable powders. From sourcing at India's finest agri belts to delivering to food manufacturers across 24+ countries — we are your reliable B2B ingredient supply partner.
+    </div>
+  </div>
+
+  <h3>About Mission Section</h3>
+  <div class="rewrite-block">
+    <div class="rewrite-before">
+      <div class="rewrite-label">Current Copy</div>
+      <strong>Empowering Artisans, Enriching Tables.</strong><br>
+      We strive to uplift rural farming communities by providing them with a global stage, ensuring every product maintains the highest organic integrity and nutritional value.
+    </div>
+    <div class="rewrite-after">
+      <div class="rewrite-label">Recommended Rewrite</div>
+      <strong>Precision Sourcing. Global Supply Standards.</strong><br>
+      We source directly from India's premier agricultural regions, applying stringent quality controls at every processing stage. Our HACCP-controlled, GMP-compliant facilities produce ingredient powders that meet the regulatory requirements of the US, EU, UAE, and Southeast Asian markets.
+    </div>
+  </div>
+
+  <h3>About Final CTA</h3>
+  <div class="rewrite-block">
+    <div class="rewrite-before">
+      <div class="rewrite-label">Current Copy</div>
+      "Whether you're a global distributor or a local baker looking for artisanal ingredients, our doors are open for collaboration."
+    </div>
+    <div class="rewrite-after">
+      <div class="rewrite-label">Recommended Rewrite</div>
+      "Whether you are scaling production as a food manufacturer, building a private label supplement line, or sourcing ingredients for bulk distribution — SRI GREEN Industries is equipped to supply, certify, and ship."
+    </div>
+  </div>
+
+  <h3>Products Page Hero</h3>
+  <div class="rewrite-block">
+    <div class="rewrite-before">
+      <div class="rewrite-label">Current Copy</div>
+      <strong>Premium Powders</strong><br>
+      Global leaders in artisanal agricultural exports. We preserve the nutritional integrity and vibrant flavors of nature's finest harvests through precision dehydration.
+    </div>
+    <div class="rewrite-after">
+      <div class="rewrite-label">Recommended Rewrite</div>
+      <strong>Our Export Product Range</strong><br>
+      27 dehydrated and spray-dried fruit and vegetable powders, export-certified and available for bulk supply. Each product includes full specifications, compliance documentation, and sample availability.
+    </div>
+  </div>
+
+  <h3>Contact Page Subheading</h3>
+  <div class="rewrite-block">
+    <div class="rewrite-before">
+      <div class="rewrite-label">Current Copy</div>
+      "Connect with our export specialists to discuss sustainable supply chains, high-quality powder standards, and bulk logistics."
+    </div>
+    <div class="rewrite-after">
+      <div class="rewrite-label">Recommended Rewrite</div>
+      "Submit your bulk inquiry below. Our export team responds within 24 hours with product specifications, MOQ details, and a custom quote. Samples available on request."
+    </div>
+  </div>
+</div>
+
+
+<!-- ─────────────────────────────────────────
+     SECTION 6 — BRANDING & POSITIONING AUDIT
+──────────────────────────────────────────── -->
+<div class="section">
+  <div class="section-eyebrow">Module 06</div>
+  <div class="section-title">Branding &amp; Positioning Audit</div>
+
+  <h3>Brand Clarity</h3>
+  <p>The brand identity has a significant internal contradiction. On one hand, the company is called "SRI GREEN Industries" and talks about global export. On the other, the footer says "Artisanal Bakery," the copy uses words like "warmth," "wonder," "artisanal," and "handcrafted" — and the visual system uses ingredient close-up photography that looks more at home on a food blog than an export company website.</p>
+  <p>The brand needs to make a clear choice: it is an industrial ingredient exporter, not an artisanal food producer. These are not compatible identities.</p>
+
+  <h3>Value Proposition Assessment</h3>
+  <table class="compare-table">
+    <thead><tr><th>Brand Element</th><th>Current State</th><th>Required State</th></tr></thead>
+    <tbody>
+      <tr><td>Tagline</td><td>"Handcrafted with joy" (bakery template)</td><td>"Export-Grade Ingredient Powders from India's Finest Farms"</td></tr>
+      <tr><td>Tone</td><td>Warm, artisanal, consumer-facing</td><td>Professional, precise, industrial-capable</td></tr>
+      <tr><td>Visual Style</td><td>Warm macro food photography</td><td>Clean product photography + processing facility shots</td></tr>
+      <tr><td>Trust Signals</td><td>Certification icons (unverified)</td><td>Downloadable certificates, actual client logos</td></tr>
+      <tr><td>Positioning</td><td>Artisanal food company</td><td>B2B export ingredient supplier</td></tr>
+      <tr><td>Authority</td><td>None established</td><td>Processing capacity, annual export volume, certifications</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Tagline Options for Repositioning</h3>
+  <div class="two-col">
+    <div class="card">
+      <div class="card-title">Option A — Clarity-First</div>
+      <p style="font-size:15px; font-weight:600;">"India's Export-Ready Ingredient Powder Specialists"</p>
+      <p style="font-size:13px; color:var(--muted);">Straightforward, SEO-friendly, immediately clear to international buyers.</p>
+    </div>
+    <div class="card">
+      <div class="card-title">Option B — Premium Positioning</div>
+      <p style="font-size:15px; font-weight:600;">"Farm-Sourced. Lab-Certified. World-Delivered."</p>
+      <p style="font-size:13px; color:var(--muted);">Three-word cadence, communicates the full value chain compactly.</p>
+    </div>
+    <div class="card">
+      <div class="card-title">Option C — Quality Focus</div>
+      <p style="font-size:15px; font-weight:600;">"Where India's Harvest Meets Global Standards"</p>
+      <p style="font-size:13px; color:var(--muted);">Emphasizes origin (India) and quality standards (global). Memorable.</p>
+    </div>
+    <div class="card">
+      <div class="card-title">Option D — B2B Direct</div>
+      <p style="font-size:15px; font-weight:600;">"Your Reliable Bulk Ingredient Powder Partner"</p>
+      <p style="font-size:13px; color:var(--muted);">Speaks directly to the buyer relationship. "Partner" builds long-term trust.</p>
+    </div>
+  </div>
+</div>
+
+
+<!-- ─────────────────────────────────────────
+     SECTION 7 — MISSING FEATURES & PAGES
+──────────────────────────────────────────── -->
+<div class="section">
+  <div class="section-eyebrow">Module 07</div>
+  <div class="section-title">Missing Features &amp; Missing Pages</div>
+
+  <h3>Critical Missing Pages</h3>
+  <div class="two-col">
+    <div class="card">
+      <div class="card-title">🗂 Individual Product Detail Pages</div>
+      <ul class="audit-list">
+        <li data-icon="→">One page per SKU (27 total to build)</li>
+        <li data-icon="→">Each includes: description, applications, technical specs (mesh, moisture, color), packaging options, MOQ, sample availability CTA</li>
+        <li data-icon="→">URL pattern: /vegetable-powders/onion-powder</li>
+        <li data-icon="→">High SEO value — each page targets one specific product keyword</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-title">📋 Applications Pages</div>
+      <ul class="audit-list">
+        <li data-icon="→">/applications/food-manufacturing</li>
+        <li data-icon="→">/applications/beverage-brands</li>
+        <li data-icon="→">/applications/nutraceuticals</li>
+        <li data-icon="→">/applications/seasoning-and-spice</li>
+        <li data-icon="→">/applications/instant-food</li>
+        <li data-icon="→">Each links to relevant product SKUs</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-title">🏆 Certifications Page</div>
+      <ul class="audit-list">
+        <li data-icon="→">/certifications — full dedicated page</li>
+        <li data-icon="→">Display each cert with: name, issuing body, scope, validity, download button</li>
+        <li data-icon="→">ISO 22000, FSSC 22000, HACCP, GMP, Non-GMO to be shown</li>
+        <li data-icon="→">This is the first page serious buyers check before issuing a PO</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-title">🌾 Sourcing &amp; Manufacturing Page</div>
+      <ul class="audit-list">
+        <li data-icon="→">/our-process — farm to powder journey</li>
+        <li data-icon="→">Sourcing regions, processing technology, QA steps</li>
+        <li data-icon="→">Processing capacity (tonnes/month)</li>
+        <li data-icon="→">Facility photos (real, not AI-generated)</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-title">❓ FAQ Page</div>
+      <ul class="audit-list">
+        <li data-icon="→">What is your minimum order quantity (MOQ)?</li>
+        <li data-icon="→">What are your payment terms?</li>
+        <li data-icon="→">Can I get a free sample before ordering?</li>
+        <li data-icon="→">What certifications do you hold?</li>
+        <li data-icon="→">What countries do you export to?</li>
+        <li data-icon="→">How long is lead time for bulk orders?</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-title">📥 Resources / Downloads</div>
+      <ul class="audit-list">
+        <li data-icon="→">Downloadable product catalog (PDF)</li>
+        <li data-icon="→">Technical data sheets per product</li>
+        <li data-icon="→">Certificate downloads</li>
+        <li data-icon="→">Packaging options guide</li>
+        <li data-icon="→">Export compliance documents</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>Missing Features</h3>
+  <ul class="audit-list">
+    <li data-icon="✗">WhatsApp click-to-chat floating button — essential for international buyers in Middle East, SE Asia</li>
+    <li data-icon="✗">Product inquiry form per product page — not just a global contact form</li>
+    <li data-icon="✗">Sample request workflow — simple form: name, company, country, product, quantity needed</li>
+    <li data-icon="✗">Product filter / search on catalog page — by category, application, certification</li>
+    <li data-icon="✗">Country selector or language toggle — at minimum detect visitor country and show relevant info</li>
+    <li data-icon="✗">Live chat or chatbot for export inquiries</li>
+    <li data-icon="✗">Inquiry tracking / status portal for serious buyers</li>
+    <li data-icon="✗">Newsletter / trade update subscription (email capture for remarket)</li>
+  </ul>
+
+  <h3>Inquiry Form Improvements for Contact Page</h3>
+  <div class="card" style="margin-top:12px;">
+    <p style="font-size:14px; margin-bottom:12px;">The current contact form captures: Full Name, Company Name, Email, Product Interest (4 options), Message. Here is the improved field set for B2B export qualification:</p>
+    <ul class="audit-list">
+      <li data-icon="✓">Full Name</li>
+      <li data-icon="✓">Company Name</li>
+      <li data-icon="✓">Email Address</li>
+      <li data-icon="✓">Phone / WhatsApp Number</li>
+      <li data-icon="✓">Country (dropdown — critical for routing and compliance)</li>
+      <li data-icon="✓">Product(s) of Interest (multi-select, all 27 SKUs)</li>
+      <li data-icon="✓">Estimated Monthly Volume (dropdown: &lt;100kg / 100–500kg / 500kg–2MT / 2MT+)</li>
+      <li data-icon="✓">Inquiry Type (Sample Request / Price Quote / OEM/Private Label / Technical Specs)</li>
+      <li data-icon="✓">Message / Specifications</li>
+    </ul>
+  </div>
+</div>
+
+
+<!-- ─────────────────────────────────────────
+     SECTION 8 — STRATEGIC ROADMAP
+──────────────────────────────────────────── -->
+<div class="section">
+  <div class="section-eyebrow">Module 08</div>
+  <div class="section-title">Final Strategic Recommendations &amp; Priority Roadmap</div>
+
+  <div class="roadmap-phase">
+    <div class="roadmap-header phase-1-header">
+      <strong>🔴 Phase 1 — Critical Fixes (Do This Week)</strong>
+      <span class="badge badge-red">Highest Impact</span>
+    </div>
+    <div class="roadmap-body">
+      <ul>
+        <li class="task">Fix footer — remove "Artisanal Bakery. Handcrafted with joy." across all pages immediately</li>
+        <li class="task">Fix all page titles — replace "Create Next App" with SEO-optimized titles per page</li>
+        <li class="task">Fix all meta descriptions — unique, keyword-rich descriptions per page</li>
+        <li class="task">Fix the dead "View Specs" links on product pages — either link to real pages or remove buttons</li>
+        <li class="task">Fix the factual inconsistency: Contact page claims "strategic proximity to Mumbai Port" but address is New Delhi/Patna</li>
+        <li class="task">Remove "add" (cart) icons from product cards — replace with "Inquire" or "View Specs"</li>
+        <li class="task">Add all 27 product SKUs to the product catalog (even as basic cards)</li>
+        <li class="task">Register a proper domain (e.g. srigreen.com or srigreenexports.com) and migrate from Vercel subdomain</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="roadmap-phase">
+    <div class="roadmap-header phase-2-header">
+      <strong>🟡 Phase 2 — Structural Improvements (Next 30 Days)</strong>
+      <span class="badge badge-amber">High Impact</span>
+    </div>
+    <div class="roadmap-body">
+      <ul>
+        <li class="task">Build individual product detail pages for top 10 SKUs (Onion, Garlic, Mango, Tomato, Ginger, Beetroot, Pomegranate, Banana, Lemon, Capsicum)</li>
+        <li class="task">Rebuild contact form with full B2B qualification fields (country, volume, inquiry type)</li>
+        <li class="task">Add WhatsApp floating button (essential for Middle East / SE Asia buyers)</li>
+        <li class="task">Add JSON-LD Organization and Product schemas to all pages</li>
+        <li class="task">Create sitemap.xml and robots.txt</li>
+        <li class="task">Rename "Portfolio" to "Export Catalog" or "Product Range"</li>
+        <li class="task">Rewrite all hero copy and About page copy per the recommendations in Module 05</li>
+        <li class="task">Add "Applications" section to homepage showing use-cases by industry</li>
+        <li class="task">Create Certifications page with actual certificate documentation</li>
+        <li class="task">Replace AI-generated product images with real product photography</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="roadmap-phase">
+    <div class="roadmap-header phase-3-header">
+      <strong>🟢 Phase 3 — Strategic Expansion (60–90 Days)</strong>
+      <span class="badge badge-green">Long-Term Growth</span>
+    </div>
+    <div class="roadmap-body">
+      <ul>
+        <li class="task">Build all 27 individual product pages with full technical specifications</li>
+        <li class="task">Launch blog/resources section targeting content SEO keywords</li>
+        <li class="task">Build dedicated Applications pages (Food Manufacturing, Beverages, Nutraceuticals, etc.)</li>
+        <li class="task">Create downloadable PDF product catalog for lead capture</li>
+        <li class="task">Build Sourcing &amp; Process page with real facility photography</li>
+        <li class="task">Add FAQ page targeting buyer intent questions</li>
+        <li class="task">Implement Google Analytics + Search Console for data-driven SEO iteration</li>
+        <li class="task">Add live chat or chatbot for real-time export inquiry qualification</li>
+        <li class="task">Explore adding product videos (processing facility, product quality demo)</li>
+        <li class="task">Integrate CRM (HubSpot or similar) to qualify and follow up on bulk inquiries</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>The Single Most Important Answer</h3>
+  <div class="alert alert-info">
+    <div class="alert-icon">💡</div>
+    <div class="alert-body">
+      <strong>What changes are absolutely necessary to align with the original B2B export platform vision?</strong>
+      <p>Five changes alone account for 80% of the alignment gap: <strong>(1)</strong> Remove the Artisanal Bakery footer text from all pages. <strong>(2)</strong> Fix every page title from "Create Next App" to proper SEO-optimized titles. <strong>(3)</strong> Remove the B2C cart/add-to-basket UX pattern from product cards and replace with B2B inquiry flows. <strong>(4)</strong> Expand the product catalog from 8 to all 27 SKUs with real specification data. <strong>(5)</strong> Rewrite the copy throughout to speak to international importers, food manufacturers, and ingredient buyers — not artisan food enthusiasts. Everything else is iterative improvement; these five are structural misalignments that actively repel the target customer.</p>
+    </div>
+  </div>
+</div>
+
+</div><!-- /container -->
+
+<div class="doc-footer">
+  <div><strong>SRI GREEN Website Audit</strong> — Prepared May 2026</div>
+  <div>agri-expo.vercel.app · B2B Export Platform Strategy</div>
+</div>
+
+</body>
+</html>

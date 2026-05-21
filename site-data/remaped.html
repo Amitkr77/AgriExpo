@@ -1,0 +1,2814 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SRI GREEN — Implementation Blueprint</title>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=IBM+Plex+Mono:wght@400;500&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap");
+
+      :root {
+        --forest: #0d1f15;
+        --forest-mid: #152b1e;
+        --forest-light: #1e3d2a;
+        --green: #2e7d50;
+        --green-bright: #3fa86a;
+        --lime: #8ec63f;
+        --amber: #d4a017;
+        --rust: #c0522a;
+        --sky: #2a7fc0;
+        --cream: #f7f3ec;
+        --paper: #fefcf8;
+        --ink: #1a1a18;
+        --muted: #58645a;
+        --border: #ddd8ce;
+        --code-bg: #f0ede6;
+        --tag-green-bg: #e4f2ea;
+        --tag-green-txt: #1a5c32;
+        --tag-amber-bg: #fdf4dc;
+        --tag-amber-txt: #7a4e00;
+        --tag-rust-bg: #fbe9e1;
+        --tag-rust-txt: #7a2a0a;
+        --tag-sky-bg: #e1eff9;
+        --tag-sky-txt: #0a4a7a;
+      }
+
+      *,
+      *::before,
+      *::after {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "DM Sans", sans-serif;
+        background: var(--paper);
+        color: var(--ink);
+        font-size: 14.5px;
+        line-height: 1.7;
+      }
+
+      /* ── NAV ── */
+      .doc-nav {
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        background: var(--forest);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        padding: 0 32px;
+        display: flex;
+        align-items: center;
+        gap: 0;
+        overflow-x: auto;
+        white-space: nowrap;
+      }
+      .doc-nav a {
+        display: inline-block;
+        padding: 14px 16px;
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 11px;
+        letter-spacing: 0.5px;
+        color: rgba(255, 255, 255, 0.5);
+        text-decoration: none;
+        border-bottom: 2px solid transparent;
+        transition: all 0.2s;
+      }
+      .doc-nav a:hover {
+        color: var(--lime);
+        border-bottom-color: var(--lime);
+      }
+      .doc-nav-brand {
+        font-family: "Syne", sans-serif;
+        font-weight: 800;
+        font-size: 13px;
+        color: white;
+        margin-right: 24px;
+        flex-shrink: 0;
+      }
+
+      /* ── COVER ── */
+      .cover {
+        background: var(--forest);
+        padding: 80px 60px 64px;
+        position: relative;
+        overflow: hidden;
+      }
+      .cover::after {
+        content: "";
+        position: absolute;
+        right: -80px;
+        top: -80px;
+        width: 500px;
+        height: 500px;
+        border-radius: 50%;
+        background: radial-gradient(
+          circle,
+          rgba(46, 125, 80, 0.25),
+          transparent 70%
+        );
+        pointer-events: none;
+      }
+      .cover-eyebrow {
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 11px;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        color: var(--lime);
+        margin-bottom: 18px;
+      }
+      .cover h1 {
+        font-family: "Syne", sans-serif;
+        font-size: 46px;
+        font-weight: 800;
+        color: white;
+        line-height: 1.1;
+        max-width: 700px;
+        margin-bottom: 18px;
+      }
+      .cover h1 em {
+        color: var(--lime);
+        font-style: normal;
+      }
+      .cover-sub {
+        font-size: 16px;
+        color: rgba(255, 255, 255, 0.6);
+        max-width: 580px;
+        margin-bottom: 40px;
+        line-height: 1.75;
+      }
+      .cover-pills {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+      .pill {
+        display: inline-block;
+        padding: 5px 14px;
+        border-radius: 20px;
+        font-size: 12px;
+        font-weight: 500;
+        letter-spacing: 0.3px;
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        color: rgba(255, 255, 255, 0.7);
+      }
+
+      /* ── MODULE HEADER ── */
+      .module {
+        border-bottom: 1px solid var(--border);
+        padding: 60px 0 48px;
+      }
+      .module:last-child {
+        border-bottom: none;
+      }
+      .container {
+        max-width: 1020px;
+        margin: 0 auto;
+        padding: 0 48px;
+      }
+
+      .module-num {
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 11px;
+        letter-spacing: 3px;
+        color: var(--green);
+        text-transform: uppercase;
+        margin-bottom: 8px;
+      }
+      .module-title {
+        font-family: "Syne", sans-serif;
+        font-size: 28px;
+        font-weight: 800;
+        line-height: 1.2;
+        margin-bottom: 14px;
+        color: var(--forest);
+      }
+      .module-intro {
+        font-size: 15px;
+        color: var(--muted);
+        max-width: 720px;
+        margin-bottom: 36px;
+        line-height: 1.8;
+      }
+
+      /* ── TAGS ── */
+      .tag {
+        display: inline-block;
+        padding: 2px 10px;
+        border-radius: 12px;
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+        text-transform: uppercase;
+      }
+      .tag-static {
+        background: var(--tag-green-bg);
+        color: var(--tag-green-txt);
+      }
+      .tag-dynamic {
+        background: var(--tag-sky-bg);
+        color: var(--tag-sky-txt);
+      }
+      .tag-new {
+        background: var(--tag-amber-bg);
+        color: var(--tag-amber-txt);
+      }
+      .tag-remove {
+        background: var(--tag-rust-bg);
+        color: var(--tag-rust-txt);
+      }
+      .tag-priority {
+        background: var(--forest);
+        color: var(--lime);
+      }
+
+      /* ── SITEMAP ── */
+      .sitemap {
+        margin: 24px 0;
+      }
+      .sitemap-group {
+        margin-bottom: 10px;
+      }
+      .sitemap-row {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 10px 16px;
+        border-radius: 8px;
+        border: 1px solid var(--border);
+        background: white;
+        margin-bottom: 6px;
+        font-size: 13.5px;
+      }
+      .sitemap-row.child {
+        margin-left: 32px;
+        background: var(--cream);
+      }
+      .sitemap-row.grandchild {
+        margin-left: 64px;
+        font-size: 13px;
+      }
+      .sitemap-route {
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 12px;
+        color: var(--sky);
+        background: var(--tag-sky-bg);
+        padding: 2px 8px;
+        border-radius: 4px;
+        flex-shrink: 0;
+      }
+      .sitemap-name {
+        font-weight: 600;
+        min-width: 200px;
+      }
+      .sitemap-note {
+        color: var(--muted);
+        font-size: 12.5px;
+        flex: 1;
+      }
+
+      /* ── WIREFRAME ── */
+      .wireframe {
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        overflow: hidden;
+        margin: 20px 0 32px;
+        background: white;
+      }
+      .wf-header {
+        background: var(--forest);
+        color: white;
+        padding: 14px 20px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .wf-header h3 {
+        font-family: "Syne", sans-serif;
+        font-size: 15px;
+        font-weight: 700;
+      }
+      .wf-sections {
+        padding: 16px;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+      .wf-section {
+        border-radius: 8px;
+        padding: 14px 16px;
+        border: 1.5px dashed var(--border);
+        position: relative;
+      }
+      .wf-section-label {
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 10px;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+        color: var(--green);
+        font-weight: 500;
+        margin-bottom: 6px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .wf-section-title {
+        font-weight: 600;
+        font-size: 13.5px;
+        margin-bottom: 4px;
+      }
+      .wf-section-desc {
+        font-size: 12.5px;
+        color: var(--muted);
+        line-height: 1.55;
+      }
+      .wf-section.hero {
+        border-color: var(--green);
+        background: rgba(46, 125, 80, 0.04);
+      }
+      .wf-section.cta-block {
+        border-color: var(--amber);
+        background: rgba(212, 160, 23, 0.04);
+      }
+      .wf-section.trust {
+        border-color: var(--sky);
+        background: rgba(42, 127, 192, 0.04);
+      }
+      .wf-section.nav-bar {
+        border-color: var(--forest);
+        background: rgba(13, 31, 21, 0.04);
+      }
+
+      /* ── CODE ── */
+      pre {
+        background: var(--forest);
+        color: #c9d8c5;
+        padding: 20px 24px;
+        border-radius: 10px;
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 12px;
+        line-height: 1.8;
+        overflow-x: auto;
+        margin: 12px 0 20px;
+      }
+      pre .c {
+        color: #5a7a5a;
+      } /* comment */
+      pre .k {
+        color: var(--lime);
+      } /* keyword */
+      pre .s {
+        color: #a8c97a;
+      } /* string */
+      pre .p {
+        color: #8ab4f8;
+      } /* prop */
+      pre .t {
+        color: #d4a017;
+      } /* type */
+      code {
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 12px;
+        background: var(--code-bg);
+        padding: 2px 7px;
+        border-radius: 4px;
+      }
+
+      /* ── SEO BLOCK ── */
+      .seo-card {
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        overflow: hidden;
+        margin: 16px 0;
+      }
+      .seo-card-head {
+        background: var(--forest-mid);
+        color: white;
+        padding: 12px 18px;
+        font-family: "Syne", sans-serif;
+        font-size: 14px;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .seo-card-body {
+        padding: 16px 18px;
+        background: white;
+      }
+      .seo-row {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 10px;
+        align-items: flex-start;
+      }
+      .seo-label {
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 10.5px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        color: var(--green);
+        min-width: 110px;
+        flex-shrink: 0;
+        padding-top: 2px;
+      }
+      .seo-val {
+        font-size: 13.5px;
+        line-height: 1.55;
+      }
+      .kw-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+      }
+      .kw-chip {
+        background: var(--tag-green-bg);
+        color: var(--tag-green-txt);
+        padding: 3px 10px;
+        border-radius: 12px;
+        font-size: 12px;
+      }
+      .kw-chip.secondary {
+        background: var(--cream);
+        color: var(--muted);
+      }
+
+      /* ── GRID ── */
+      .grid-2 {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+        margin: 16px 0;
+      }
+      .grid-3 {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 14px;
+        margin: 16px 0;
+      }
+
+      /* ── CARDS ── */
+      .card {
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        padding: 18px;
+        background: white;
+      }
+      .card-head {
+        font-family: "Syne", sans-serif;
+        font-size: 13.5px;
+        font-weight: 700;
+        margin-bottom: 10px;
+        color: var(--forest);
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      /* ── ALERT ── */
+      .alert {
+        border-radius: 8px;
+        padding: 14px 18px;
+        margin: 12px 0;
+        display: flex;
+        gap: 12px;
+        font-size: 13.5px;
+        line-height: 1.6;
+      }
+      .alert-icon {
+        flex-shrink: 0;
+        font-size: 16px;
+      }
+      .alert-body strong {
+        display: block;
+        margin-bottom: 4px;
+      }
+      .alert-green {
+        background: var(--tag-green-bg);
+        border-left: 3px solid var(--green-bright);
+      }
+      .alert-amber {
+        background: var(--tag-amber-bg);
+        border-left: 3px solid var(--amber);
+      }
+      .alert-rust {
+        background: var(--tag-rust-bg);
+        border-left: 3px solid var(--rust);
+      }
+      .alert-sky {
+        background: var(--tag-sky-bg);
+        border-left: 3px solid var(--sky);
+      }
+
+      /* ── LIST ── */
+      ul.clean {
+        list-style: none;
+        padding: 0;
+      }
+      ul.clean li {
+        padding: 6px 0 6px 22px;
+        position: relative;
+        font-size: 13.5px;
+        border-bottom: 1px solid #f0ece5;
+        line-height: 1.55;
+      }
+      ul.clean li:last-child {
+        border-bottom: none;
+      }
+      ul.clean li::before {
+        position: absolute;
+        left: 0;
+        top: 6px;
+      }
+      ul.clean li.add::before {
+        content: "+";
+        color: var(--green-bright);
+        font-weight: 700;
+      }
+      ul.clean li.remove::before {
+        content: "✕";
+        color: var(--rust);
+        font-weight: 700;
+      }
+      ul.clean li.fix::before {
+        content: "→";
+        color: var(--amber);
+      }
+      ul.clean li.done::before {
+        content: "✓";
+        color: var(--green);
+      }
+      ul.clean li.note::before {
+        content: "·";
+        color: var(--muted);
+      }
+
+      /* ── COMPONENT SPEC ── */
+      .comp-spec {
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        overflow: hidden;
+        margin: 14px 0;
+      }
+      .comp-spec-head {
+        background: var(--code-bg);
+        padding: 10px 16px;
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 12px;
+        color: var(--green);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .comp-spec-body {
+        padding: 14px 16px;
+        background: white;
+        font-size: 13px;
+      }
+
+      /* ── ROADMAP ── */
+      .roadmap-item {
+        display: flex;
+        gap: 16px;
+        margin-bottom: 12px;
+        padding: 14px 16px;
+        border-radius: 8px;
+        border: 1px solid var(--border);
+        background: white;
+      }
+      .roadmap-num {
+        font-family: "Syne", sans-serif;
+        font-weight: 800;
+        font-size: 22px;
+        color: var(--border);
+        min-width: 36px;
+        line-height: 1;
+      }
+      .roadmap-content strong {
+        display: block;
+        font-size: 13.5px;
+        margin-bottom: 4px;
+      }
+      .roadmap-content p {
+        font-size: 12.5px;
+        color: var(--muted);
+        line-height: 1.55;
+      }
+
+      /* ── DIVIDER ── */
+      .divider {
+        height: 1px;
+        background: var(--border);
+        margin: 28px 0;
+      }
+
+      h3 {
+        font-family: "Syne", sans-serif;
+        font-size: 18px;
+        font-weight: 700;
+        /* color: var(--forest); */
+        margin: 24px 0 10px;
+      }
+      h4 {
+        font-family: "Syne", sans-serif;
+        font-size: 14.5px;
+        font-weight: 700;
+        color: var(--forest-mid);
+        margin: 18px 0 8px;
+      }
+      p {
+        margin-bottom: 10px;
+      }
+
+      /* ── FOOTER ── */
+      .doc-footer {
+        background: var(--forest);
+        color: rgba(255, 255, 255, 0.45);
+        padding: 28px 60px;
+        font-size: 12.5px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .doc-footer strong {
+        color: rgba(255, 255, 255, 0.8);
+      }
+
+      @media (max-width: 720px) {
+        .cover {
+          padding: 48px 24px 40px;
+        }
+        .cover h1 {
+          font-size: 30px;
+        }
+        .container {
+          padding: 0 20px;
+        }
+        .grid-2,
+        .grid-3 {
+          grid-template-columns: 1fr;
+        }
+        .doc-nav {
+          padding: 0 16px;
+        }
+        .doc-footer {
+          flex-direction: column;
+          gap: 6px;
+          padding: 24px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- NAV -->
+    <nav class="doc-nav">
+      <span class="doc-nav-brand">SRI GREEN</span>
+      <a href="#s1">Sitemap</a>
+      <a href="#s2">Wireframes</a>
+      <a href="#s3">Page Improvements</a>
+      <a href="#s4">SEO Plan</a>
+      <a href="#s5">Next.js Guide</a>
+      <a href="#s6">Roadmap</a>
+    </nav>
+
+    <!-- COVER -->
+    <div class="cover">
+      <div class="cover-eyebrow">
+        Implementation Blueprint · SRI GREEN Industries
+      </div>
+      <h1>Complete Next.js<br /><em>Rebuild Plan</em></h1>
+      <p class="cover-sub">
+        Architecture, wireframes, page improvements, full SEO strategy, Next.js
+        implementation guidance, and a prioritized execution roadmap —
+        everything needed to build the site from scratch.
+      </p>
+      <div class="cover-pills">
+        <span class="pill">6 Implementation Modules</span>
+        <span class="pill">27 Product SKUs</span>
+        <span class="pill">15+ Pages Planned</span>
+        <span class="pill">Next.js App Router</span>
+        <span class="pill">Full SEO Coverage</span>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════
+     MODULE 1 — SITEMAP & ARCHITECTURE
+════════════════════════════════════════ -->
+    <div class="module" id="s1">
+      <div class="container">
+        <div class="module-num">Module 01</div>
+        <div class="module-title">Sitemap &amp; Site Architecture</div>
+        <p class="module-intro">
+          The complete page hierarchy for the rebuilt SRI GREEN website,
+          structured for maximum SEO impact, clear user journeys, and scalable
+          Next.js routing. Pages marked Static use
+          <code>generateStaticParams</code> or are simple server components.
+          Dynamic pages use route segments with <code>[slug]</code>.
+        </p>
+
+        <h3>Full Page Hierarchy</h3>
+        <div class="sitemap">
+          <div class="sitemap-row">
+            <span class="sitemap-name">🏠 Home</span>
+            <span class="sitemap-route">/</span>
+            <span class="tag tag-static">Static</span>
+            <span class="sitemap-note"
+              >Primary landing page for all international buyers</span
+            >
+          </div>
+
+          <div class="sitemap-row">
+            <span class="sitemap-name">📦 Products Root</span>
+            <span class="sitemap-route">/products</span>
+            <span class="tag tag-static">Static</span>
+            <span class="sitemap-note"
+              >Full product catalog with category filters</span
+            >
+          </div>
+          <div class="sitemap-row child">
+            <span class="sitemap-name">🥦 Vegetable Powders</span>
+            <span class="sitemap-route">/products/vegetable-powders</span>
+            <span class="tag tag-static">Static</span>
+            <span class="sitemap-note"
+              >17 SKU category landing page — high SEO priority</span
+            >
+          </div>
+          <div class="sitemap-row grandchild">
+            <span class="sitemap-name">Individual Product Detail</span>
+            <span class="sitemap-route"
+              >/products/vegetable-powders/[slug]</span
+            >
+            <span class="tag tag-dynamic">Dynamic</span>
+            <span class="sitemap-note"
+              >e.g. /onion-powder, /garlic-powder — 17 pages total</span
+            >
+          </div>
+          <div class="sitemap-row child">
+            <span class="sitemap-name">🍋 Fruit Powders</span>
+            <span class="sitemap-route">/products/fruit-powders</span>
+            <span class="tag tag-static">Static</span>
+            <span class="sitemap-note"
+              >10 SKU category landing page — high SEO priority</span
+            >
+          </div>
+          <div class="sitemap-row grandchild">
+            <span class="sitemap-name">Individual Product Detail</span>
+            <span class="sitemap-route">/products/fruit-powders/[slug]</span>
+            <span class="tag tag-dynamic">Dynamic</span>
+            <span class="sitemap-note"
+              >e.g. /mango-powder, /pomegranate-powder — 10 pages total</span
+            >
+          </div>
+
+          <div class="sitemap-row" style="margin-top: 8px">
+            <span class="sitemap-name">🏭 Applications</span>
+            <span class="sitemap-route">/applications</span>
+            <span class="tag tag-static">Static</span>
+            <span class="sitemap-note"
+              >Overview of all industry use-cases — new page</span
+            >
+          </div>
+          <div class="sitemap-row child">
+            <span class="sitemap-name">Food Manufacturing</span>
+            <span class="sitemap-route">/applications/food-manufacturing</span>
+            <span class="tag tag-new">New</span>
+            <span class="sitemap-note"
+              >Powders for ready meals, sauces, seasoning</span
+            >
+          </div>
+          <div class="sitemap-row child">
+            <span class="sitemap-name">Beverage Brands</span>
+            <span class="sitemap-route">/applications/beverage-brands</span>
+            <span class="tag tag-new">New</span>
+            <span class="sitemap-note"
+              >Smoothie bases, juice powders, drink mixes</span
+            >
+          </div>
+          <div class="sitemap-row child">
+            <span class="sitemap-name">Nutraceuticals &amp; Supplements</span>
+            <span class="sitemap-route">/applications/nutraceuticals</span>
+            <span class="tag tag-new">New</span>
+            <span class="sitemap-note"
+              >Health supplement, capsule, and powder sachet applications</span
+            >
+          </div>
+          <div class="sitemap-row child">
+            <span class="sitemap-name">Private Label</span>
+            <span class="sitemap-route">/applications/private-label</span>
+            <span class="tag tag-new">New</span>
+            <span class="sitemap-note"
+              >Custom formulation, white label packaging</span
+            >
+          </div>
+          <div class="sitemap-row child">
+            <span class="sitemap-name">Instant &amp; Packaged Foods</span>
+            <span class="sitemap-route">/applications/instant-foods</span>
+            <span class="tag tag-new">New</span>
+            <span class="sitemap-note">Soups, noodles, ready-to-eat meals</span>
+          </div>
+
+          <div class="sitemap-row" style="margin-top: 8px">
+            <span class="sitemap-name">🏆 Quality &amp; Certifications</span>
+            <span class="sitemap-route">/quality</span>
+            <span class="tag tag-new">New</span>
+            <span class="sitemap-note"
+              >All certs, compliance docs, testing procedures — critical for
+              buyers</span
+            >
+          </div>
+
+          <div class="sitemap-row">
+            <span class="sitemap-name">🌾 Our Process</span>
+            <span class="sitemap-route">/our-process</span>
+            <span class="tag tag-new">New</span>
+            <span class="sitemap-note"
+              >Farm sourcing → Processing → QA → Export journey</span
+            >
+          </div>
+
+          <div class="sitemap-row">
+            <span class="sitemap-name">🌍 About Us</span>
+            <span class="sitemap-route">/about</span>
+            <span class="tag tag-static">Static</span>
+            <span class="sitemap-note"
+              >Company story, team, export presence — rewrite needed</span
+            >
+          </div>
+
+          <div class="sitemap-row">
+            <span class="sitemap-name">📥 Resources</span>
+            <span class="sitemap-route">/resources</span>
+            <span class="tag tag-new">New</span>
+            <span class="sitemap-note"
+              >Downloads: catalog PDF, TDS sheets, certificates</span
+            >
+          </div>
+
+          <div class="sitemap-row">
+            <span class="sitemap-name">📝 Blog</span>
+            <span class="sitemap-route">/blog</span>
+            <span class="tag tag-new">New</span>
+            <span class="sitemap-note"
+              >Content SEO hub — ingredient guides, export market news</span
+            >
+          </div>
+          <div class="sitemap-row child">
+            <span class="sitemap-name">Blog Post Detail</span>
+            <span class="sitemap-route">/blog/[slug]</span>
+            <span class="tag tag-dynamic">Dynamic</span>
+            <span class="sitemap-note"
+              >Individual article pages — MDX or CMS driven</span
+            >
+          </div>
+
+          <div class="sitemap-row">
+            <span class="sitemap-name">❓ FAQ</span>
+            <span class="sitemap-route">/faq</span>
+            <span class="tag tag-new">New</span>
+            <span class="sitemap-note"
+              >Buyer intent questions — schema markup for rich results</span
+            >
+          </div>
+
+          <div class="sitemap-row">
+            <span class="sitemap-name">📬 Contact / Inquiry</span>
+            <span class="sitemap-route">/contact</span>
+            <span class="tag tag-static">Static</span>
+            <span class="sitemap-note"
+              >Full B2B inquiry form — needs complete rebuild</span
+            >
+          </div>
+
+          <div class="sitemap-row">
+            <span class="sitemap-name">🙏 Thank You</span>
+            <span class="sitemap-route">/thank-you</span>
+            <span class="tag tag-new">New</span>
+            <span class="sitemap-note"
+              >Post-inquiry confirmation + next steps + social proof</span
+            >
+          </div>
+
+          <div class="sitemap-row" style="border-color: var(--rust)">
+            <span class="sitemap-name" style="color: var(--rust)"
+              >❌ Portfolio (Remove)</span
+            >
+            <span class="sitemap-route">/portfolio</span>
+            <span class="tag tag-remove">Remove</span>
+            <span class="sitemap-note"
+              >Content migrated to /products — wrong label for B2B
+              audience</span
+            >
+          </div>
+        </div>
+
+        <h3>Route Summary by Type</h3>
+        <div class="grid-3">
+          <div class="card">
+            <div class="card-head">
+              <span class="tag tag-static">Static</span> Pages
+            </div>
+            <ul class="clean">
+              <li class="note"><code>/</code></li>
+              <li class="note"><code>/products</code></li>
+              <li class="note"><code>/products/vegetable-powders</code></li>
+              <li class="note"><code>/products/fruit-powders</code></li>
+              <li class="note"><code>/applications</code></li>
+              <li class="note"><code>/quality</code></li>
+              <li class="note"><code>/our-process</code></li>
+              <li class="note"><code>/about</code></li>
+              <li class="note"><code>/resources</code></li>
+              <li class="note"><code>/faq</code></li>
+              <li class="note"><code>/contact</code></li>
+              <li class="note"><code>/thank-you</code></li>
+            </ul>
+          </div>
+          <div class="card">
+            <div class="card-head">
+              <span class="tag tag-dynamic">Dynamic</span> Routes
+            </div>
+            <ul class="clean">
+              <li class="note">
+                <code>/products/vegetable-powders/[slug]</code> <br /><span
+                  style="color: var(--muted); font-size: 12px"
+                  >17 static pages generated</span
+                >
+              </li>
+              <li class="note" style="margin-top: 8px">
+                <code>/products/fruit-powders/[slug]</code> <br /><span
+                  style="color: var(--muted); font-size: 12px"
+                  >10 static pages generated</span
+                >
+              </li>
+              <li class="note" style="margin-top: 8px">
+                <code>/applications/[slug]</code> <br /><span
+                  style="color: var(--muted); font-size: 12px"
+                  >5 application pages</span
+                >
+              </li>
+              <li class="note" style="margin-top: 8px">
+                <code>/blog/[slug]</code> <br /><span
+                  style="color: var(--muted); font-size: 12px"
+                  >CMS-driven blog posts</span
+                >
+              </li>
+            </ul>
+          </div>
+          <div class="card">
+            <div class="card-head">📊 Totals</div>
+            <ul class="clean">
+              <li class="note">12 static pages</li>
+              <li class="note">17 vegetable product pages</li>
+              <li class="note">10 fruit product pages</li>
+              <li class="note">5 application pages</li>
+              <li class="note">~20+ blog articles (SEO)</li>
+              <li class="note" style="font-weight: 600; color: var(--forest)">
+                ~64 total pages at launch
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════
+     MODULE 2 — WIREFRAMES
+════════════════════════════════════════ -->
+    <div class="module" id="s2">
+      <div class="container">
+        <div class="module-num">Module 02</div>
+        <div class="module-title">Page Wireframes</div>
+        <p class="module-intro">
+          Section-by-section layout specification for every key page. Each
+          section includes its purpose, content requirements, and UX guidance.
+        </p>
+
+        <!-- HOMEPAGE WIREFRAME -->
+        <div class="wireframe">
+          <div class="wf-header">
+            <h3>Homepage — /</h3>
+            <span class="tag tag-priority">Highest Priority</span>
+          </div>
+          <div class="wf-sections">
+            <div class="wf-section nav-bar">
+              <div class="wf-section-label">Section 1 · Navigation</div>
+              <div class="wf-section-title">Sticky Header</div>
+              <div class="wf-section-desc">
+                <strong>Left:</strong> SRI GREEN logo + tagline (small, below
+                logo) &nbsp;|&nbsp; <strong>Center:</strong> Products ·
+                Applications · Quality · Our Process · About · Blog
+                &nbsp;|&nbsp; <strong>Right:</strong> [Request a Sample]
+                outlined btn + [Bulk Inquiry] filled CTA button<br />
+                <strong>UX:</strong> Becomes smaller/white-bg on scroll. Mobile:
+                hamburger with full-screen drawer. "Bulk Inquiry" always visible
+                even on mobile.
+              </div>
+            </div>
+
+            <div class="wf-section hero">
+              <div class="wf-section-label">Section 2 · Hero</div>
+              <div class="wf-section-title">
+                Export-Focused Hero with Strong B2B Headline
+              </div>
+              <div class="wf-section-desc">
+                <strong>Layout:</strong> 60/40 split — left: text; right: hero
+                product imagery (real product photo, not AI)<br />
+                <strong>Eyebrow:</strong> "ISO 22000 Certified · 24+ Countries ·
+                27 SKUs"<br />
+                <strong>H1:</strong> "India's Trusted Bulk Supplier of Fruit
+                &amp; Vegetable Powders"<br />
+                <strong>Subtext:</strong> Export-grade dehydrated and
+                spray-dried ingredient powders for food manufacturers, beverage
+                brands, and importers worldwide.<br />
+                <strong>CTAs:</strong> [Explore Products →] (primary, green) ·
+                [Request a Sample] (secondary, outlined)<br />
+                <strong>Below CTAs:</strong> "Average response time: &lt;24
+                hours" micro-trust text<br />
+                <strong>UX:</strong> Hero animates in on load. Right image
+                should show actual product (golden mango powder, vibrant onion
+                granules).
+              </div>
+            </div>
+
+            <div class="wf-section trust">
+              <div class="wf-section-label">Section 3 · Trust Bar</div>
+              <div class="wf-section-title">
+                Certification &amp; Credibility Strip
+              </div>
+              <div class="wf-section-desc">
+                Horizontal scrolling strip (or static on desktop): ISO 22000 ·
+                FSSC 22000 · HACCP · GMP Certified · Non-GMO · Lab Tested · 24+
+                Countries Exported<br />
+                <strong>UX:</strong> Auto-scrolling marquee on mobile. Each icon
+                links to /quality page. Dark background to contrast with hero.
+              </div>
+            </div>
+
+            <div class="wf-section">
+              <div class="wf-section-label">Section 4 · Product Categories</div>
+              <div class="wf-section-title">Two Large Category Cards</div>
+              <div class="wf-section-desc">
+                Two large clickable cards side by side:<br />
+                <strong>Card 1:</strong> Vegetable Powders — "17 Export-Ready
+                SKUs" — image of mixed veg powders — [Browse Vegetable Powders
+                →]<br />
+                <strong>Card 2:</strong> Fruit Powders — "10 Export-Ready SKUs"
+                — image of vibrant fruit powders — [Browse Fruit Powders →]<br />
+                <strong>UX:</strong> Cards have hover state with slight zoom on
+                image. Count badge ("17 SKUs") creates specificity and trust.
+              </div>
+            </div>
+
+            <div class="wf-section">
+              <div class="wf-section-label">Section 5 · Featured Products</div>
+              <div class="wf-section-title">6-Product Showcase Grid</div>
+              <div class="wf-section-desc">
+                Section title: "Bestselling Export Products"<br />
+                6 product cards in a 3×2 grid. Each card: product image ·
+                product name · one-line description · key spec badge (e.g. "Mesh
+                80") · [View Specs] button → links to actual product page<br />
+                Products: Onion Powder, Garlic Powder, Mango Powder, Tomato
+                Powder, Beetroot Powder, Pomegranate Powder<br />
+                <strong>UX:</strong> [View All Products →] link below grid.
+                Inquiry button on hover of each card.
+              </div>
+            </div>
+
+            <div class="wf-section">
+              <div class="wf-section-label">Section 6 · Applications</div>
+              <div class="wf-section-title">Industry Use-Case Tiles</div>
+              <div class="wf-section-desc">
+                Section title: "Who Uses Our Powders?"<br />
+                5 icon tiles: Food Manufacturers · Beverage Brands ·
+                Nutraceuticals · Private Label · Instant Foods<br />
+                Each tile: icon + label + one-line description. Clickable →
+                /applications/[type]<br />
+                <strong>UX:</strong> Horizontal scroll on mobile. This section
+                educates the buyer that they are in the right place.
+              </div>
+            </div>
+
+            <div class="wf-section">
+              <div class="wf-section-label">Section 7 · Export Presence</div>
+              <div class="wf-section-title">Global Supply Stats</div>
+              <div class="wf-section-desc">
+                Dark green background. 4 large stat counters: "27 SKUs
+                Available" · "24+ Countries Served" · "&lt;24hr Inquiry
+                Response" · "ISO 22000 Certified Facility"<br />
+                Below stats: Simple world map SVG with highlighted export
+                regions (South Asia, Middle East, Europe, North America, SE
+                Asia)<br />
+                <strong>UX:</strong> Counter animation on scroll-into-view.
+                Confidence-building section.
+              </div>
+            </div>
+
+            <div class="wf-section">
+              <div class="wf-section-label">
+                Section 8 · Why Choose SRI GREEN
+              </div>
+              <div class="wf-section-title">4-Point Value Proposition</div>
+              <div class="wf-section-desc">
+                4 horizontal cards (or 2×2 grid on mobile):<br />
+                1. "Farm-Direct Sourcing" — direct from India's agri belts<br />
+                2. "Strict QA at Every Stage" — HACCP, lab tested, batch
+                traced<br />
+                3. "Flexible Packaging" — 25kg bags to bulk containers<br />
+                4. "Export Compliance Ready" — US, EU, UAE market
+                documentation<br />
+                <strong>UX:</strong> Icon + heading + 2-line description. Clean,
+                professional, confidence-building.
+              </div>
+            </div>
+
+            <div class="wf-section cta-block">
+              <div class="wf-section-label">Section 9 · Inline Inquiry CTA</div>
+              <div class="wf-section-title">Quick Quote Form</div>
+              <div class="wf-section-desc">
+                Section title: "Get a Bulk Quote in 24 Hours"<br />
+                Inline mini-form (4 fields only): Name · Company · Product
+                Interest (dropdown) · Email<br />
+                [Submit Inquiry →] CTA below<br />
+                Right side: reassurance text — "We respond within 24 hours ·
+                Samples available on request · No commitment required"<br />
+                <strong>UX:</strong> Keep form short here. Full qualification
+                form on /contact. This captures the impulse inquiry.
+              </div>
+            </div>
+
+            <div class="wf-section">
+              <div class="wf-section-label">Section 10 · Footer</div>
+              <div class="wf-section-title">Full B2B Footer</div>
+              <div class="wf-section-desc">
+                <strong>Logo + tagline</strong> (correct company tagline, never
+                "Artisanal Bakery")<br />
+                <strong>Column 1:</strong> Products quick links (Vegetable
+                Powders, Fruit Powders, By Application)<br />
+                <strong>Column 2:</strong> Company (About, Our Process, Quality
+                &amp; Certs, Blog, FAQ)<br />
+                <strong>Column 3:</strong> Contact (address, phone, email,
+                WhatsApp link)<br />
+                <strong>Column 4:</strong> Certifications badge strip +
+                "Download Catalog" button<br />
+                <strong>Bottom bar:</strong> © 2025 SRI GREEN Industries. All
+                rights reserved. · Privacy Policy · Terms<br />
+                <strong>UX:</strong> WhatsApp icon prominent. No social icons
+                unless accounts are active and professional.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- PRODUCT CATEGORY WIREFRAME -->
+        <div class="wireframe">
+          <div class="wf-header">
+            <h3>Product Category Page — /products/vegetable-powders</h3>
+            <span class="tag tag-priority">High Priority</span>
+          </div>
+          <div class="wf-sections">
+            <div class="wf-section hero">
+              <div class="wf-section-label">Hero</div>
+              <div class="wf-section-title">Category Hero with Breadcrumb</div>
+              <div class="wf-section-desc">
+                Breadcrumb: Home › Products › Vegetable Powders<br />H1:
+                "Dehydrated Vegetable Powders — Bulk Export Supply"<br />Subtext:
+                2 lines about the category, certifications, export
+                availability<br />CTA: [Request Bulk Quote] · [Download Spec
+                Sheet]
+              </div>
+            </div>
+            <div class="wf-section">
+              <div class="wf-section-label">Filter Bar</div>
+              <div class="wf-section-title">Product Filter / Sort</div>
+              <div class="wf-section-desc">
+                Filter chips: All · Root Vegetables · Aromatics · Leafy ·
+                Alliums · Peppers<br />Sort: Alphabetical / Most Popular /
+                New<br /><strong>UX:</strong> Client-side filtering using React
+                state. No page reload needed.
+              </div>
+            </div>
+            <div class="wf-section">
+              <div class="wf-section-label">Product Grid</div>
+              <div class="wf-section-title">All 17 Product Cards</div>
+              <div class="wf-section-desc">
+                3-column grid (2 on tablet, 1 on mobile). Each card: product
+                photo · name · one-liner · 2–3 spec badges (Mesh, Moisture%) ·
+                [View Full Specs] button (→ /products/vegetable-powders/[slug])
+                · [Inquire] button<br /><strong>UX:</strong> Hover state reveals
+                a mini inquiry CTA. Badge system makes specs instantly
+                scannable.
+              </div>
+            </div>
+            <div class="wf-section trust">
+              <div class="wf-section-label">Trust Strip</div>
+              <div class="wf-section-title">Category-Level Certifications</div>
+              <div class="wf-section-desc">
+                FSSC 22000 · ISO 22000 · HACCP · GMP · Non-GMO · Lab Tested<br />One-line:
+                "All vegetable powders are produced in our GMP-certified
+                facility and tested for pesticide residue, microbial
+                contamination, and heavy metals."
+              </div>
+            </div>
+            <div class="wf-section cta-block">
+              <div class="wf-section-label">Bottom CTA</div>
+              <div class="wf-section-title">Can't find what you need?</div>
+              <div class="wf-section-desc">
+                "Need a custom specification or a product not in our catalog?
+                Our R&amp;D team handles custom orders."<br />[Contact Our
+                Export Team →]
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- PRODUCT DETAIL WIREFRAME -->
+        <div class="wireframe">
+          <div class="wf-header">
+            <h3>
+              Product Detail Page — /products/vegetable-powders/onion-powder
+            </h3>
+            <span class="tag tag-priority">High Priority</span>
+          </div>
+          <div class="wf-sections">
+            <div class="wf-section">
+              <div class="wf-section-label">Top</div>
+              <div class="wf-section-title">Breadcrumb + Product Header</div>
+              <div class="wf-section-desc">
+                Breadcrumb: Home › Products › Vegetable Powders › Onion
+                Powder<br />Left column (60%): H1 · Short description · Spec
+                table · [Request Sample] · [Get Bulk Quote] · WhatsApp quick
+                contact link<br />Right column (40%): Product image (multiple if
+                available) · Cert badges · "In Stock · Export Ready" badge
+              </div>
+            </div>
+            <div class="wf-section">
+              <div class="wf-section-label">Spec Table</div>
+              <div class="wf-section-title">Technical Specifications</div>
+              <div class="wf-section-desc">
+                Tabular data: Color · Aroma · Moisture % (max) · Mesh Size ·
+                Bulk Density · Shelf Life · Packaging Options (25kg bags, 50kg
+                bags, custom) · Country of Origin · HS Code<br /><strong
+                  >UX:</strong
+                >
+                Downloadable TDS (Technical Data Sheet) PDF button below table.
+              </div>
+            </div>
+            <div class="wf-section">
+              <div class="wf-section-label">Applications</div>
+              <div class="wf-section-title">Where Is This Product Used?</div>
+              <div class="wf-section-desc">
+                Icon tiles: Soups &amp; Sauces · Seasoning Blends · Instant
+                Noodles · Marinades · Snack Coatings<br />Short paragraph on
+                common industrial applications of onion powder.
+              </div>
+            </div>
+            <div class="wf-section">
+              <div class="wf-section-label">Related Products</div>
+              <div class="wf-section-title">You May Also Need</div>
+              <div class="wf-section-desc">
+                3 product cards: Garlic Powder · Tomato Powder · Ginger
+                Powder<br /><strong>UX:</strong> Increases product page depth,
+                reduces bounce rate, aids cross-selling.
+              </div>
+            </div>
+            <div class="wf-section cta-block">
+              <div class="wf-section-label">Sticky CTA</div>
+              <div class="wf-section-title">Floating Inquiry Bar (Desktop)</div>
+              <div class="wf-section-desc">
+                Sticks to bottom of viewport on scroll: "Onion Powder — Export
+                Grade · [Request Sample] [Get Quote]"<br /><strong>UX:</strong>
+                Ensures CTA is always accessible without scrolling back to top.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- CONTACT WIREFRAME -->
+        <div class="wireframe">
+          <div class="wf-header">
+            <h3>Contact / Bulk Inquiry — /contact</h3>
+            <span class="tag tag-priority">Conversion Critical</span>
+          </div>
+          <div class="wf-sections">
+            <div class="wf-section hero">
+              <div class="wf-section-label">Hero</div>
+              <div class="wf-section-title">Inquiry Page Header</div>
+              <div class="wf-section-desc">
+                H1: "Start Your Bulk Inquiry"<br />Subtext: "Fill in the form
+                below. Our export team responds within 24 hours with product
+                specifications, pricing, and MOQ details."<br />Reassurance
+                strip: "No spam · Samples available · All inquiries treated
+                confidentially"
+              </div>
+            </div>
+            <div class="wf-section">
+              <div class="wf-section-label">Layout</div>
+              <div class="wf-section-title">
+                Two-Column: Form (Left) + Info (Right)
+              </div>
+              <div class="wf-section-desc">
+                <strong>Form fields (left):</strong><br />
+                Full Name* · Company Name* · Job Title · Email* ·
+                Phone/WhatsApp* · Country* (dropdown) · Product(s) of Interest
+                (multi-select, all SKUs) · Estimated Monthly Volume (dropdown) ·
+                Inquiry Type (Sample / Quote / OEM / Specs) · Additional
+                Message<br /><br />
+                <strong>Right sidebar:</strong><br />
+                Office address (Delhi + Patna warehouse) · Phone · Email ·
+                WhatsApp click link · Map embed · Response time promise · Cert
+                logos
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- QUALITY PAGE WIREFRAME -->
+        <div class="wireframe">
+          <div class="wf-header">
+            <h3>Quality &amp; Certifications — /quality</h3>
+            <span class="tag tag-new">New Page</span>
+          </div>
+          <div class="wf-sections">
+            <div class="wf-section hero">
+              <div class="wf-section-label">Hero</div>
+              <div class="wf-section-title">Quality Standards Header</div>
+              <div class="wf-section-desc">
+                H1: "Export-Grade Quality at Every Stage"<br />Subtext: Our
+                certifications, testing procedures, and quality controls that
+                meet US, EU, UAE and Asian import requirements.
+              </div>
+            </div>
+            <div class="wf-section">
+              <div class="wf-section-label">Certifications Grid</div>
+              <div class="wf-section-title">Each Cert as a Card</div>
+              <div class="wf-section-desc">
+                For each cert: Logo · Certificate Name · Issuing Body · Scope of
+                Certification · Validity Date · [Download Certificate PDF]
+                button<br />Certs: ISO 22000 · FSSC 22000 · HACCP · GMP ·
+                Non-GMO · FSSAI (India)
+              </div>
+            </div>
+            <div class="wf-section trust">
+              <div class="wf-section-label">Testing</div>
+              <div class="wf-section-title">What We Test For</div>
+              <div class="wf-section-desc">
+                Checklist layout: Microbial contamination · Pesticide residue ·
+                Heavy metals · Moisture content · Color consistency · Particle
+                size (mesh) · Shelf-life validation<br /><strong>UX:</strong>
+                Reassures regulatory compliance teams at importing companies.
+              </div>
+            </div>
+            <div class="wf-section">
+              <div class="wf-section-label">Export Markets</div>
+              <div class="wf-section-title">Compliance by Region</div>
+              <div class="wf-section-desc">
+                Table: Market (US / EU / UAE / Australia) · Required Certs · SRI
+                GREEN Status<br />Builds confidence for buyers in specific
+                markets that their regulatory requirements are already met.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════
+     MODULE 3 — PAGE IMPROVEMENTS
+════════════════════════════════════════ -->
+    <div class="module" id="s3">
+      <div class="container">
+        <div class="module-num">Module 03</div>
+        <div class="module-title">Page-by-Page Improvement Specifications</div>
+        <p class="module-intro">
+          Exact changes required per page: what to remove, what to add, what to
+          rewrite, and what UI/UX patterns to change.
+        </p>
+
+        <h3>Homepage</h3>
+        <div class="grid-2">
+          <div class="card">
+            <div class="card-head">❌ Remove Immediately</div>
+            <ul class="clean">
+              <li class="remove">
+                "Artisanal Bakery. Handcrafted with joy." footer text — replace
+                globally in layout.tsx
+              </li>
+              <li class="remove">
+                "add" (cart) icons on product cards — wrong UX pattern for B2B
+              </li>
+              <li class="remove">
+                "100% Pure &amp; Natural" badge (retail phrasing) — replace with
+                spec badges
+              </li>
+              <li class="remove">
+                Duplicate navigation rendering (two navs visible)
+              </li>
+              <li class="remove">
+                AI-generated placeholder images from lh3.googleusercontent.com
+              </li>
+            </ul>
+          </div>
+          <div class="card">
+            <div class="card-head">✅ Add</div>
+            <ul class="clean">
+              <li class="add">
+                WhatsApp floating button (bottom-right, always visible)
+              </li>
+              <li class="add">
+                Applications section (industry use-case tiles)
+              </li>
+              <li class="add">
+                Animated stat counters (27 SKUs, 24+ countries, &lt;24hr
+                response)
+              </li>
+              <li class="add">Mini inline inquiry form section</li>
+              <li class="add">
+                Real product photography (actual powder products)
+              </li>
+              <li class="add">Sticky header with shrink-on-scroll behavior</li>
+            </ul>
+          </div>
+          <div class="card">
+            <div class="card-head">✏️ Rewrite</div>
+            <ul class="clean">
+              <li class="fix">
+                H1 → "India's Trusted Bulk Supplier of Fruit &amp; Vegetable
+                Powders"
+              </li>
+              <li class="fix">
+                Subheadline → speak directly to importers, not general audience
+              </li>
+              <li class="fix">
+                Footer tagline → "Premium Fruit &amp; Vegetable Powder
+                Exporters"
+              </li>
+              <li class="fix">
+                Category card descriptions → add SKU counts and spec language
+              </li>
+              <li class="fix">
+                "Get a Custom Quote" section → add qualification fields
+              </li>
+            </ul>
+          </div>
+          <div class="card">
+            <div class="card-head">🔧 Improve</div>
+            <ul class="clean">
+              <li class="fix">
+                Product cards: "add" icon → "View Specs" + "Inquire" buttons
+              </li>
+              <li class="fix">
+                Trust badges: Add actual cert documentation links
+              </li>
+              <li class="fix">
+                Navigation: Add Applications + Quality menu items
+              </li>
+              <li class="fix">
+                Nav CTA: "Bulk Inquiry" → keep; add "Request Sample" secondary
+              </li>
+              <li class="fix">
+                Hero image: Real product photo, not AI-generated
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="divider"></div>
+        <h3>/products Page</h3>
+        <div class="grid-2">
+          <div class="card">
+            <div class="card-head">❌ Remove</div>
+            <ul class="clean">
+              <li class="remove">
+                "Global leaders in artisanal agricultural exports" — remove
+                "artisanal"
+              </li>
+              <li class="remove">Dead "View Specs" links that go nowhere</li>
+              <li class="remove">
+                Incomplete product list (only 8 products) — replace with all 27
+              </li>
+              <li class="remove">Generic "eco" icon in hero</li>
+            </ul>
+          </div>
+          <div class="card">
+            <div class="card-head">✅ Add</div>
+            <ul class="clean">
+              <li class="add">
+                Filter bar by category (Vegetable / Fruit / By Application)
+              </li>
+              <li class="add">
+                All 27 product cards with working links to detail pages
+              </li>
+              <li class="add">
+                Spec badges on each product card (key metrics at a glance)
+              </li>
+              <li class="add">Per-product inquiry button</li>
+              <li class="add">
+                Category count indicators ("17 Vegetable SKUs")
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="divider"></div>
+        <h3>/about Page</h3>
+        <div class="grid-2">
+          <div class="card">
+            <div class="card-head">❌ Remove / Fix</div>
+            <ul class="clean">
+              <li class="remove">
+                "Empowering Artisans, Enriching Tables" — replace with
+                operational copy
+              </li>
+              <li class="remove">
+                "local baker looking for artisanal ingredients" — completely
+                wrong audience
+              </li>
+              <li class="remove">
+                Vague "500+ Partner Farmers" claim without context
+              </li>
+              <li class="remove">Only USA, UAE, Europe on map — too limited</li>
+            </ul>
+          </div>
+          <div class="card">
+            <div class="card-head">✅ Add</div>
+            <ul class="clean">
+              <li class="add">
+                Year founded, processing capacity (MT/month), team size
+              </li>
+              <li class="add">
+                Asia-Pacific, Southeast Asia, UK on export map
+              </li>
+              <li class="add">Real facility/team photography</li>
+              <li class="add">
+                Sourcing regions section (which Indian agri belts we source
+                from)
+              </li>
+              <li class="add">
+                Functional "Request Sample Kit" and "Download Catalog" buttons
+              </li>
+              <li class="add">Timeline of company milestones</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="divider"></div>
+        <h3>/contact Page</h3>
+        <div class="grid-2">
+          <div class="card">
+            <div class="card-head">❌ Remove / Fix</div>
+            <ul class="clean">
+              <li class="remove">
+                "Strategic proximity to Mumbai Port" — address is Delhi/Patna,
+                not Mumbai
+              </li>
+              <li class="remove">
+                Limited 4-option product dropdown — needs all 27 SKUs
+              </li>
+              <li class="remove">Missing country field</li>
+              <li class="remove">No volume qualification</li>
+            </ul>
+          </div>
+          <div class="card">
+            <div class="card-head">✅ Add to Form</div>
+            <ul class="clean">
+              <li class="add">Country field (dropdown, required)</li>
+              <li class="add">Estimated Monthly Volume (dropdown)</li>
+              <li class="add">
+                Inquiry Type (Sample / Quote / OEM / Technical Specs)
+              </li>
+              <li class="add">WhatsApp number field</li>
+              <li class="add">Multi-select products (all 27 options)</li>
+              <li class="add">Post-submit redirect to /thank-you page</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════
+     MODULE 4 — SEO PLAN
+════════════════════════════════════════ -->
+    <div class="module" id="s4">
+      <div class="container">
+        <div class="module-num">Module 04</div>
+        <div class="module-title">Full SEO Strategy — Page by Page</div>
+        <p class="module-intro">
+          Complete SEO specifications for every major page. Each page has unique
+          targets. Implement using Next.js <code>generateMetadata()</code> for
+          dynamic pages and static <code>metadata</code> exports for static
+          pages.
+        </p>
+
+        <div class="seo-card">
+          <div class="seo-card-head">🏠 Homepage — <code>/</code></div>
+          <div class="seo-card-body">
+            <div class="seo-row">
+              <div class="seo-label">Meta Title</div>
+              <div class="seo-val">
+                SRI GREEN Industries | Fruit &amp; Vegetable Powder Exporters
+                India | Bulk B2B Supply
+              </div>
+            </div>
+            <div class="seo-row">
+              <div class="seo-label">Meta Desc</div>
+              <div class="seo-val">
+                SRI GREEN exports 27 ISO 22000-certified dehydrated fruit and
+                vegetable powders globally. Onion, Garlic, Mango, Tomato powder
+                and more. Request a bulk quote or sample today. Ships to 24+
+                countries.
+              </div>
+            </div>
+            <div class="seo-row">
+              <div class="seo-label">H1</div>
+              <div class="seo-val">
+                India's Trusted Bulk Supplier of Fruit &amp; Vegetable Powders
+              </div>
+            </div>
+            <div class="seo-row">
+              <div class="seo-label">H2s</div>
+              <div class="seo-val">
+                Vegetable Powders for Export | Fruit Powders for Food
+                Manufacturing | Applications by Industry | Why SRI GREEN |
+                Export Markets We Serve
+              </div>
+            </div>
+            <div class="seo-row">
+              <div class="seo-label">Primary KW</div>
+              <div class="seo-val">
+                <span class="kw-chip">vegetable powder exporter India</span>
+                <span class="kw-chip">fruit powder manufacturer India</span>
+              </div>
+            </div>
+            <div class="seo-row">
+              <div class="seo-label">Secondary KWs</div>
+              <div class="seo-val">
+                <span class="kw-chip secondary"
+                  >dehydrated powder bulk supplier</span
+                >
+                <span class="kw-chip secondary"
+                  >B2B food ingredient export</span
+                >
+                <span class="kw-chip secondary">spray dried powder India</span>
+              </div>
+            </div>
+            <div class="seo-row">
+              <div class="seo-label">Schema</div>
+              <div class="seo-val">
+                Organization schema · WebSite schema with SearchAction ·
+                BreadcrumbList
+              </div>
+            </div>
+            <div class="seo-row">
+              <div class="seo-label">Internal Links</div>
+              <div class="seo-val">
+                → /products/vegetable-powders · /products/fruit-powders ·
+                /quality · /contact · /about · /applications
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="seo-card">
+          <div class="seo-card-head">
+            🥦 Vegetable Powders Category —
+            <code>/products/vegetable-powders</code>
+          </div>
+          <div class="seo-card-body">
+            <div class="seo-row">
+              <div class="seo-label">Meta Title</div>
+              <div class="seo-val">
+                Dehydrated Vegetable Powders — Bulk Export Supplier India | SRI
+                GREEN
+              </div>
+            </div>
+            <div class="seo-row">
+              <div class="seo-label">Meta Desc</div>
+              <div class="seo-val">
+                Buy dehydrated vegetable powders in bulk — onion, garlic,
+                tomato, ginger, beetroot, spinach, carrot &amp; 10 more. FSSC
+                22000 certified. Exporting to 24+ countries. Request sample or
+                quote.
+              </div>
+            </div>
+            <div class="seo-row">
+              <div class="seo-label">H1</div>
+              <div class="seo-val">
+                Dehydrated Vegetable Powders — Bulk Export Supply from India
+              </div>
+            </div>
+            <div class="seo-row">
+              <div class="seo-label">H2s</div>
+              <div class="seo-val">
+                Our Vegetable Powder Range | Export Certifications |
+                Applications | Request Bulk Quote
+              </div>
+            </div>
+            <div class="seo-row">
+              <div class="seo-label">Primary KW</div>
+              <div class="seo-val">
+                <span class="kw-chip"
+                  >dehydrated vegetable powder exporter</span
+                >
+                <span class="kw-chip"
+                  >vegetable powder bulk supplier India</span
+                >
+              </div>
+            </div>
+            <div class="seo-row">
+              <div class="seo-label">Secondary KWs</div>
+              <div class="seo-val">
+                <span class="kw-chip secondary">onion powder bulk</span>
+                <span class="kw-chip secondary"
+                  >garlic powder manufacturer</span
+                >
+                <span class="kw-chip secondary">tomato powder food grade</span>
+                <span class="kw-chip secondary">ginger powder export</span>
+              </div>
+            </div>
+            <div class="seo-row">
+              <div class="seo-label">Schema</div>
+              <div class="seo-val">
+                ItemList schema listing all 17 products with name, url, image,
+                description
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="seo-card">
+          <div class="seo-card-head">
+            🧅 Product Detail: Onion Powder —
+            <code>/products/vegetable-powders/onion-powder</code>
+          </div>
+          <div class="seo-card-body">
+            <div class="seo-row">
+              <div class="seo-label">Meta Title</div>
+              <div class="seo-val">
+                Dehydrated Onion Powder Exporter India — Bulk B2B Supply | SRI
+                GREEN
+              </div>
+            </div>
+            <div class="seo-row">
+              <div class="seo-label">Meta Desc</div>
+              <div class="seo-val">
+                Export-grade dehydrated onion powder: available in granules,
+                flakes, and fine powder. FSSC 22000 certified. Mesh 40–100. Bulk
+                25–50kg packaging. Request specs or bulk quote from SRI GREEN.
+              </div>
+            </div>
+            <div class="seo-row">
+              <div class="seo-label">H1</div>
+              <div class="seo-val">
+                Dehydrated Onion Powder — Export Grade Bulk Supplier
+              </div>
+            </div>
+            <div class="seo-row">
+              <div class="seo-label">H2s</div>
+              <div class="seo-val">
+                Product Specifications | Applications | Packaging Options |
+                Certifications | Related Products
+              </div>
+            </div>
+            <div class="seo-row">
+              <div class="seo-label">Primary KW</div>
+              <div class="seo-val">
+                <span class="kw-chip">onion powder exporter India</span>
+                <span class="kw-chip">dehydrated onion powder bulk</span>
+              </div>
+            </div>
+            <div class="seo-row">
+              <div class="seo-label">Secondary KWs</div>
+              <div class="seo-val">
+                <span class="kw-chip secondary">onion powder manufacturer</span>
+                <span class="kw-chip secondary">onion powder food grade</span>
+                <span class="kw-chip secondary"
+                  >buy onion powder wholesale</span
+                >
+              </div>
+            </div>
+            <div class="seo-row">
+              <div class="seo-label">Schema</div>
+              <div class="seo-val">
+                Product schema: name, description, image, brand, offers (contact
+                for pricing), category, countryOfOrigin
+              </div>
+            </div>
+            <div class="seo-row">
+              <div class="seo-label">Internal Links</div>
+              <div class="seo-val">
+                → Garlic Powder · Tomato Powder ·
+                /applications/food-manufacturing · /quality · /contact
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="seo-card">
+          <div class="seo-card-head">
+            🥭 Fruit Powders Category — <code>/products/fruit-powders</code>
+          </div>
+          <div class="seo-card-body">
+            <div class="seo-row">
+              <div class="seo-label">Meta Title</div>
+              <div class="seo-val">
+                Spray-Dried Fruit Powders — Bulk B2B Export India | SRI GREEN
+                Industries
+              </div>
+            </div>
+            <div class="seo-row">
+              <div class="seo-label">Meta Desc</div>
+              <div class="seo-val">
+                Premium spray-dried &amp; freeze-dried fruit powders: Alphonso
+                mango, pomegranate, banana, lemon, guava, tamarind &amp; more.
+                Export certified. Ships globally. Request sample or bulk quote.
+              </div>
+            </div>
+            <div class="seo-row">
+              <div class="seo-label">H1</div>
+              <div class="seo-val">
+                Spray-Dried Fruit Powders — Bulk Export Supply from India
+              </div>
+            </div>
+            <div class="seo-row">
+              <div class="seo-label">Primary KW</div>
+              <div class="seo-val">
+                <span class="kw-chip">mango powder exporter India</span>
+                <span class="kw-chip">fruit powder manufacturer bulk</span>
+              </div>
+            </div>
+            <div class="seo-row">
+              <div class="seo-label">Schema</div>
+              <div class="seo-val">
+                ItemList schema for all 10 fruit products
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="seo-card">
+          <div class="seo-card-head">
+            🏭 Applications — <code>/applications/food-manufacturing</code>
+          </div>
+          <div class="seo-card-body">
+            <div class="seo-row">
+              <div class="seo-label">Meta Title</div>
+              <div class="seo-val">
+                Vegetable &amp; Fruit Powder Ingredients for Food Manufacturers
+                | SRI GREEN
+              </div>
+            </div>
+            <div class="seo-row">
+              <div class="seo-label">Meta Desc</div>
+              <div class="seo-val">
+                SRI GREEN supplies export-grade vegetable and fruit powders for
+                food manufacturers globally — soups, sauces, seasonings, instant
+                meals, ready-to-eat foods. Bulk supply. ISO 22000 certified.
+              </div>
+            </div>
+            <div class="seo-row">
+              <div class="seo-label">H1</div>
+              <div class="seo-val">
+                Ingredient Powders for Food Manufacturers — Bulk Supply
+              </div>
+            </div>
+            <div class="seo-row">
+              <div class="seo-label">Primary KW</div>
+              <div class="seo-val">
+                <span class="kw-chip"
+                  >vegetable powder food manufacturing ingredient</span
+                >
+              </div>
+            </div>
+            <div class="seo-row">
+              <div class="seo-label">Secondary KWs</div>
+              <div class="seo-val">
+                <span class="kw-chip secondary"
+                  >food ingredient supplier India</span
+                >
+                <span class="kw-chip secondary"
+                  >bulk powder seasoning ingredient</span
+                >
+                <span class="kw-chip secondary"
+                  >dehydrated powder for soups</span
+                >
+              </div>
+            </div>
+            <div class="seo-row">
+              <div class="seo-label">Schema</div>
+              <div class="seo-val">
+                FAQPage schema for common food manufacturer questions +
+                BreadcrumbList
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="seo-card">
+          <div class="seo-card-head">🏆 Quality — <code>/quality</code></div>
+          <div class="seo-card-body">
+            <div class="seo-row">
+              <div class="seo-label">Meta Title</div>
+              <div class="seo-val">
+                Quality Certifications &amp; Food Safety Standards | SRI GREEN
+                Industries
+              </div>
+            </div>
+            <div class="seo-row">
+              <div class="seo-label">Meta Desc</div>
+              <div class="seo-val">
+                SRI GREEN holds ISO 22000, FSSC 22000, HACCP, GMP
+                certifications. All products lab tested for microbial, pesticide
+                &amp; heavy metal compliance. View and download our
+                certificates.
+              </div>
+            </div>
+            <div class="seo-row">
+              <div class="seo-label">H1</div>
+              <div class="seo-val">
+                Export-Grade Quality &amp; Certification Standards
+              </div>
+            </div>
+            <div class="seo-row">
+              <div class="seo-label">Primary KW</div>
+              <div class="seo-val">
+                <span class="kw-chip"
+                  >ISO 22000 certified powder exporter India</span
+                >
+              </div>
+            </div>
+            <div class="seo-row">
+              <div class="seo-label">Schema</div>
+              <div class="seo-val">
+                Organization schema with hasCredential property for each
+                certification
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="seo-card">
+          <div class="seo-card-head">❓ FAQ — <code>/faq</code></div>
+          <div class="seo-card-body">
+            <div class="seo-row">
+              <div class="seo-label">Meta Title</div>
+              <div class="seo-val">
+                FAQs — Bulk Powder Export Inquiries | SRI GREEN Industries
+              </div>
+            </div>
+            <div class="seo-row">
+              <div class="seo-label">Key Questions</div>
+              <div class="seo-val">
+                What is your MOQ? · Do you offer samples? · What certifications
+                do you hold? · What countries do you export to? · How long is
+                lead time? · Can you do custom specifications? · What are your
+                payment terms? · Do you offer private label packaging?
+              </div>
+            </div>
+            <div class="seo-row">
+              <div class="seo-label">Schema</div>
+              <div class="seo-val">
+                <strong>FAQPage schema</strong> — enables Google rich result
+                snippets (most valuable schema on this page)
+              </div>
+            </div>
+            <div class="seo-row">
+              <div class="seo-label">Primary KW</div>
+              <div class="seo-val">
+                <span class="kw-chip">vegetable powder exporter FAQ</span>
+                <span class="kw-chip">powder export MOQ India</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="seo-card">
+          <div class="seo-card-head">📬 Contact — <code>/contact</code></div>
+          <div class="seo-card-body">
+            <div class="seo-row">
+              <div class="seo-label">Meta Title</div>
+              <div class="seo-val">
+                Bulk Powder Inquiry — Contact SRI GREEN Export Team
+              </div>
+            </div>
+            <div class="seo-row">
+              <div class="seo-label">Meta Desc</div>
+              <div class="seo-val">
+                Submit your bulk powder inquiry to SRI GREEN Industries. Export
+                team responds within 24 hours with specifications, pricing, and
+                MOQ. Samples available on request.
+              </div>
+            </div>
+            <div class="seo-row">
+              <div class="seo-label">Schema</div>
+              <div class="seo-val">
+                LocalBusiness schema with address, phone, email, geo coordinates
+                · ContactPage type
+              </div>
+            </div>
+            <div class="seo-row">
+              <div class="seo-label">Primary KW</div>
+              <div class="seo-val">
+                <span class="kw-chip"
+                  >contact vegetable powder exporter India</span
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <h3>Blog Content Strategy (Top 10 Priority Articles)</h3>
+        <div class="grid-2">
+          <div class="card">
+            <div class="card-head">📝 High-Traffic Content Topics</div>
+            <ul class="clean">
+              <li class="note">
+                "Complete Guide to Dehydrated Onion Powder: Grades, Applications
+                &amp; Quality Standards"
+              </li>
+              <li class="note">
+                "Spray-Dried vs Freeze-Dried Mango Powder: Which Is Right for
+                Your Product?"
+              </li>
+              <li class="note">
+                "How to Source Vegetable Powders from India: A Buyer's Guide"
+              </li>
+              <li class="note">
+                "What Is FSSC 22000 and Why Does It Matter for Food Ingredient
+                Imports?"
+              </li>
+              <li class="note">
+                "Beetroot Powder Uses in Food Manufacturing: From Natural
+                Colouring to Nutrition"
+              </li>
+            </ul>
+          </div>
+          <div class="card">
+            <div class="card-head">📝 SEO Long-Tail Articles</div>
+            <ul class="clean">
+              <li class="note">
+                "Top 5 Uses of Pomegranate Powder in Nutraceutical Formulations"
+              </li>
+              <li class="note">
+                "India's Agri-Processing Belt: Why Indian Vegetable Powders Lead
+                Global Exports"
+              </li>
+              <li class="note">
+                "Private Label Vegetable Powder: How to Work with an OEM
+                Supplier"
+              </li>
+              <li class="note">
+                "Garlic Powder vs Fresh Garlic in Food Manufacturing: Cost,
+                Shelf Life &amp; Quality"
+              </li>
+              <li class="note">
+                "Tomato Powder for Sauce Manufacturers: Specs, Grades and
+                Sourcing Tips"
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════
+     MODULE 5 — NEXT.JS IMPLEMENTATION
+════════════════════════════════════════ -->
+    <div class="module" id="s5">
+      <div class="container">
+        <div class="module-num">Module 05</div>
+        <div class="module-title">Next.js Implementation Plan</div>
+        <p class="module-intro">
+          Technical architecture using the Next.js App Router (recommended). All
+          guidance targets Next.js 14+ with TypeScript.
+        </p>
+
+        <h3>Folder Structure</h3>
+        <pre>
+<span class="c">// Recommended App Router structure</span>
+sri-green/
+├── app/
+│   ├── layout.tsx                    <span class="c">// Root layout — fix footer here</span>
+│   ├── page.tsx                      <span class="c">// Homepage</span>
+│   ├── globals.css
+│   │
+│   ├── products/
+│   │   ├── page.tsx                  <span class="c">// /products — full catalog</span>
+│   │   ├── vegetable-powders/
+│   │   │   ├── page.tsx              <span class="c">// /products/vegetable-powders</span>
+│   │   │   └── [slug]/
+│   │   │       └── page.tsx          <span class="c">// /products/vegetable-powders/onion-powder</span>
+│   │   └── fruit-powders/
+│   │       ├── page.tsx              <span class="c">// /products/fruit-powders</span>
+│   │       └── [slug]/
+│   │           └── page.tsx          <span class="c">// /products/fruit-powders/mango-powder</span>
+│   │
+│   ├── applications/
+│   │   ├── page.tsx                  <span class="c">// /applications overview</span>
+│   │   └── [slug]/
+│   │       └── page.tsx              <span class="c">// /applications/food-manufacturing</span>
+│   │
+│   ├── quality/
+│   │   └── page.tsx
+│   ├── our-process/
+│   │   └── page.tsx
+│   ├── about/
+│   │   └── page.tsx
+│   ├── resources/
+│   │   └── page.tsx
+│   ├── faq/
+│   │   └── page.tsx
+│   ├── contact/
+│   │   └── page.tsx
+│   ├── thank-you/
+│   │   └── page.tsx
+│   └── blog/
+│       ├── page.tsx
+│       └── [slug]/
+│           └── page.tsx
+│
+├── components/
+│   ├── layout/
+│   │   ├── Header.tsx
+│   │   ├── Footer.tsx
+│   │   └── WhatsAppButton.tsx
+│   ├── ui/
+│   │   ├── Button.tsx
+│   │   ├── Badge.tsx
+│   │   ├── ProductCard.tsx
+│   │   ├── SpecTable.tsx
+│   │   └── StatCounter.tsx
+│   ├── sections/
+│   │   ├── Hero.tsx
+│   │   ├── TrustBar.tsx
+│   │   ├── ProductGrid.tsx
+│   │   ├── ApplicationTiles.tsx
+│   │   ├── ExportStats.tsx
+│   │   ├── InquiryForm.tsx
+│   │   └── RelatedProducts.tsx
+│   └── seo/
+│       ├── JsonLd.tsx
+│       └── BreadcrumbJsonLd.tsx
+│
+├── lib/
+│   ├── products.ts                   <span class="c">// Product data / CMS fetcher</span>
+│   ├── applications.ts
+│   └── seo.ts                        <span class="c">// Shared metadata helpers</span>
+│
+├── data/
+│   ├── vegetable-powders.ts          <span class="c">// All 17 product objects</span>
+│   ├── fruit-powders.ts              <span class="c">// All 10 product objects</span>
+│   └── applications.ts
+│
+└── public/
+    ├── images/products/              <span class="c">// Real product photos</span>
+    ├── certs/                        <span class="c">// Certificate PDFs for download</span>
+    └── catalog.pdf
+</pre>
+
+        <h3>Product Data Schema (TypeScript)</h3>
+        <pre>
+<span class="c">// data/types.ts</span>
+<span class="k">export interface</span> <span class="t">Product</span> {
+  <span class="p">slug</span>: string;
+  <span class="p">name</span>: string;
+  <span class="p">category</span>: <span class="s">'vegetable-powders'</span> | <span class="s">'fruit-powders'</span>;
+  <span class="p">shortDescription</span>: string;
+  <span class="p">longDescription</span>: string;
+  <span class="p">image</span>: string;
+  <span class="p">specs</span>: {
+    <span class="p">color</span>: string;
+    <span class="p">aroma</span>: string;
+    <span class="p">moisture</span>: string;        <span class="c">// e.g. "Max 5%"</span>
+    <span class="p">meshSize</span>: string;        <span class="c">// e.g. "60-80 mesh"</span>
+    <span class="p">bulkDensity</span>: string;     <span class="c">// e.g. "0.5-0.7 g/ml"</span>
+    <span class="p">shelfLife</span>: string;       <span class="c">// e.g. "24 months"</span>
+    <span class="p">packaging</span>: string[];     <span class="c">// e.g. ["25kg bags", "50kg drums"]</span>
+    <span class="p">hsCode</span>: string;
+    <span class="p">countryOfOrigin</span>: string;
+  };
+  <span class="p">applications</span>: string[];      <span class="c">// ["Soups", "Seasonings", ...]</span>
+  <span class="p">certifications</span>: string[];
+  <span class="p">relatedSlugs</span>: string[];
+  <span class="p">seo</span>: {
+    <span class="p">title</span>: string;
+    <span class="p">description</span>: string;
+    <span class="p">keywords</span>: string[];
+  };
+}
+</pre>
+
+        <h3>SEO — Metadata &amp; generateMetadata</h3>
+        <pre>
+<span class="c">// app/products/vegetable-powders/[slug]/page.tsx</span>
+<span class="k">import</span> { Metadata } <span class="k">from</span> <span class="s">'next'</span>;
+<span class="k">import</span> { getProductBySlug, getAllVegSlugs } <span class="k">from</span> <span class="s">'@/lib/products'</span>;
+
+<span class="c">// Generate all static paths at build time</span>
+<span class="k">export async function</span> <span class="t">generateStaticParams</span>() {
+  <span class="k">const</span> slugs = <span class="k">await</span> getAllVegSlugs();
+  <span class="k">return</span> slugs.map(slug => ({ slug }));
+}
+
+<span class="c">// Dynamic metadata per product</span>
+<span class="k">export async function</span> <span class="t">generateMetadata</span>(
+  { params }: { params: { slug: string } }
+): <span class="t">Promise</span>&lt;<span class="t">Metadata</span>&gt; {
+  <span class="k">const</span> product = <span class="k">await</span> getProductBySlug(params.slug, <span class="s">'vegetable'</span>);
+  <span class="k">return</span> {
+    title: product.seo.title,
+    description: product.seo.description,
+    keywords: product.seo.keywords,
+    openGraph: {
+      title: product.seo.title,
+      description: product.seo.description,
+      images: [{ url: product.image, alt: product.name }],
+      type: <span class="s">'website'</span>,
+    },
+    alternates: {
+      canonical: <span class="s">`https://srigreen.com/products/vegetable-powders/${</span>params.slug<span class="s">}`</span>,
+    },
+  };
+}
+</pre>
+
+        <h3>JSON-LD Schema Component</h3>
+        <pre>
+<span class="c">// components/seo/JsonLd.tsx</span>
+<span class="k">export function</span> <span class="t">ProductJsonLd</span>({ product }: { product: Product }) {
+  <span class="k">const</span> schema = {
+    <span class="s">"@context"</span>: <span class="s">"https://schema.org"</span>,
+    <span class="s">"@type"</span>: <span class="s">"Product"</span>,
+    <span class="s">"name"</span>: product.name,
+    <span class="s">"description"</span>: product.shortDescription,
+    <span class="s">"image"</span>: product.image,
+    <span class="s">"brand"</span>: { <span class="s">"@type"</span>: <span class="s">"Brand"</span>, <span class="s">"name"</span>: <span class="s">"SRI GREEN Industries"</span> },
+    <span class="s">"countryOfOrigin"</span>: <span class="s">"IN"</span>,
+    <span class="s">"category"</span>: product.category,
+    <span class="s">"offers"</span>: {
+      <span class="s">"@type"</span>: <span class="s">"Offer"</span>,
+      <span class="s">"availability"</span>: <span class="s">"https://schema.org/InStock"</span>,
+      <span class="s">"url"</span>: <span class="s">`https://srigreen.com/products/${</span>product.category<span class="s">}/${</span>product.slug<span class="s">}`</span>,
+      <span class="s">"seller"</span>: { <span class="s">"@type"</span>: <span class="s">"Organization"</span>, <span class="s">"name"</span>: <span class="s">"SRI GREEN Industries"</span> }
+    }
+  };
+  <span class="k">return</span> (
+    &lt;script
+      type=<span class="s">"application/ld+json"</span>
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+    /&gt;
+  );
+}
+
+<span class="c">// Use in page.tsx:</span>
+<span class="c">// &lt;ProductJsonLd product={product} /&gt;</span>
+</pre>
+
+        <h3>WhatsApp Floating Button</h3>
+        <pre>
+<span class="c">// components/layout/WhatsAppButton.tsx</span>
+<span class="k">export function</span> <span class="t">WhatsAppButton</span>() {
+  <span class="k">const</span> phone = <span class="s">"917091323777"</span>; <span class="c">// +91 prefix, no +</span>
+  <span class="k">const</span> message = encodeURIComponent(
+    <span class="s">"Hi, I'm interested in bulk powder inquiry from SRI GREEN."</span>
+  );
+  <span class="k">return</span> (
+    &lt;a
+      href={<span class="s">`https://wa.me/${</span>phone<span class="s">}?text=${</span>message<span class="s">}`</span>}
+      target=<span class="s">"_blank"</span>
+      rel=<span class="s">"noopener noreferrer"</span>
+      className=<span class="s">"fixed bottom-6 right-6 z-50 bg-[#25D366] text-white
+                 rounded-full p-4 shadow-lg hover:scale-110 transition-transform"</span>
+      aria-label=<span class="s">"Chat on WhatsApp"</span>
+    &gt;
+      <span class="c">{/* WhatsApp SVG icon here */}</span>
+      &lt;WhatsAppIcon className=<span class="s">"w-6 h-6"</span> /&gt;
+    &lt;/a&gt;
+  );
+}
+<span class="c">// Add &lt;WhatsAppButton /&gt; to app/layout.tsx — visible on every page</span>
+</pre>
+
+        <h3>Root Layout Fix (Most Critical)</h3>
+        <pre>
+<span class="c">// app/layout.tsx — fix this file FIRST</span>
+<span class="k">import</span> { Metadata } <span class="k">from</span> <span class="s">'next'</span>;
+
+<span class="k">export const</span> metadata: <span class="t">Metadata</span> = {
+  <span class="c">// Default metadata — overridden per page via generateMetadata()</span>
+  title: {
+    default: <span class="s">'SRI GREEN Industries | Fruit &amp; Vegetable Powder Exporters'</span>,
+    template: <span class="s">'%s | SRI GREEN Industries'</span>,
+  },
+  description: <span class="s">'SRI GREEN exports ISO 22000-certified dehydrated fruit and vegetable
+    powders globally. 27 SKUs. Bulk B2B supply to 24+ countries.'</span>,
+  metadataBase: <span class="k">new</span> URL(<span class="s">'https://srigreen.com'</span>),
+  openGraph: {
+    siteName: <span class="s">'SRI GREEN Industries'</span>,
+    type: <span class="s">'website'</span>,
+    locale: <span class="s">'en_US'</span>,
+  },
+  robots: { index: <span class="k">true</span>, follow: <span class="k">true</span> },
+};
+
+<span class="k">export default function</span> <span class="t">RootLayout</span>({
+  children,
+}: { children: React.ReactNode }) {
+  <span class="k">return</span> (
+    &lt;html lang=<span class="s">"en"</span>&gt;
+      &lt;body&gt;
+        &lt;Header /&gt;
+        &lt;main&gt;{children}&lt;/main&gt;
+        &lt;Footer /&gt;
+        &lt;WhatsAppButton /&gt;
+      &lt;/body&gt;
+    &lt;/html&gt;
+  );
+}
+</pre>
+
+        <h3>Sitemap &amp; Robots</h3>
+        <pre>
+<span class="c">// app/sitemap.ts — auto-generates /sitemap.xml</span>
+<span class="k">import</span> { MetadataRoute } <span class="k">from</span> <span class="s">'next'</span>;
+<span class="k">import</span> { getAllProducts } <span class="k">from</span> <span class="s">'@/lib/products'</span>;
+
+<span class="k">export default async function</span> <span class="t">sitemap</span>(): <span class="t">Promise</span>&lt;<span class="t">MetadataRoute.Sitemap</span>&gt; {
+  <span class="k">const</span> products = <span class="k">await</span> getAllProducts();
+  <span class="k">const</span> productUrls = products.map(p => ({
+    url: <span class="s">`https://srigreen.com/products/${</span>p.category<span class="s">}/${</span>p.slug<span class="s">}`</span>,
+    lastModified: <span class="k">new</span> Date(),
+    changeFrequency: <span class="s">'monthly'</span> <span class="k">as const</span>,
+    priority: 0.8,
+  }));
+
+  <span class="k">return</span> [
+    { url: <span class="s">'https://srigreen.com'</span>, priority: 1.0, changeFrequency: <span class="s">'weekly'</span> },
+    { url: <span class="s">'https://srigreen.com/products'</span>, priority: 0.9 },
+    { url: <span class="s">'https://srigreen.com/products/vegetable-powders'</span>, priority: 0.9 },
+    { url: <span class="s">'https://srigreen.com/products/fruit-powders'</span>, priority: 0.9 },
+    { url: <span class="s">'https://srigreen.com/quality'</span>, priority: 0.8 },
+    { url: <span class="s">'https://srigreen.com/about'</span>, priority: 0.7 },
+    { url: <span class="s">'https://srigreen.com/contact'</span>, priority: 0.9 },
+    { url: <span class="s">'https://srigreen.com/faq'</span>, priority: 0.7 },
+    ...productUrls,
+  ];
+}
+
+<span class="c">// app/robots.ts</span>
+<span class="k">export default function</span> <span class="t">robots</span>(): <span class="t">MetadataRoute.Robots</span> {
+  <span class="k">return</span> {
+    rules: { userAgent: <span class="s">'*'</span>, allow: <span class="s">'/'</span> },
+    sitemap: <span class="s">'https://srigreen.com/sitemap.xml'</span>,
+  };
+}
+</pre>
+
+        <h3>Reusable Components Summary</h3>
+        <div class="grid-3">
+          <div class="comp-spec">
+            <div class="comp-spec-head">
+              <span>ProductCard.tsx</span
+              ><span class="tag tag-priority">Core</span>
+            </div>
+            <div class="comp-spec-body">
+              Props: product, showSpecs?, showInquireBtn?<br />Used on:
+              /products, category pages, homepage featured section, related
+              products
+            </div>
+          </div>
+          <div class="comp-spec">
+            <div class="comp-spec-head">
+              <span>TrustBar.tsx</span
+              ><span class="tag tag-static">Layout</span>
+            </div>
+            <div class="comp-spec-body">
+              Props: certs[], compact?<br />Used on: homepage (full), all
+              product pages (compact strip), quality page
+            </div>
+          </div>
+          <div class="comp-spec">
+            <div class="comp-spec-head">
+              <span>InquiryForm.tsx</span
+              ><span class="tag tag-priority">Conversion</span>
+            </div>
+            <div class="comp-spec-body">
+              Props: variant (mini|full), preselectedProduct?<br />Used on:
+              /contact (full), homepage (mini), product detail pages
+              (pre-filled)
+            </div>
+          </div>
+          <div class="comp-spec">
+            <div class="comp-spec-head">
+              <span>SpecTable.tsx</span
+              ><span class="tag tag-dynamic">Product</span>
+            </div>
+            <div class="comp-spec-body">
+              Props: specs (Product['specs'])<br />Used on:
+              /products/[category]/[slug] — renders spec grid table with
+              download TDS button
+            </div>
+          </div>
+          <div class="comp-spec">
+            <div class="comp-spec-head">
+              <span>StatCounter.tsx</span><span class="tag tag-static">UI</span>
+            </div>
+            <div class="comp-spec-body">
+              Props: value, label, suffix?<br />Animates count on
+              scroll-into-view using Intersection Observer. Used on homepage.
+            </div>
+          </div>
+          <div class="comp-spec">
+            <div class="comp-spec-head">
+              <span>Hero.tsx</span><span class="tag tag-static">Layout</span>
+            </div>
+            <div class="comp-spec-body">
+              Props: eyebrow, h1, subtext, ctas[], image?, dark?<br />Shared
+              across homepage, category pages, and application pages with
+              variant styling
+            </div>
+          </div>
+          <div class="comp-spec">
+            <div class="comp-spec-head">
+              <span>Breadcrumb.tsx</span
+              ><span class="tag tag-static">SEO+UX</span>
+            </div>
+            <div class="comp-spec-body">
+              Props: items (label+href)[]<br />Auto-generates BreadcrumbList
+              JSON-LD. Used on all non-homepage pages.
+            </div>
+          </div>
+          <div class="comp-spec">
+            <div class="comp-spec-head">
+              <span>ApplicationTiles.tsx</span
+              ><span class="tag tag-new">New</span>
+            </div>
+            <div class="comp-spec-body">
+              Props: applications[]<br />Icon + label + description tiles.
+              Horizontal scroll on mobile. Links to /applications/[slug]
+            </div>
+          </div>
+          <div class="comp-spec">
+            <div class="comp-spec-head">
+              <span>RelatedProducts.tsx</span
+              ><span class="tag tag-dynamic">Product</span>
+            </div>
+            <div class="comp-spec-body">
+              Props: slugs[]<br />Renders 3 ProductCard components based on
+              related slug array from product data
+            </div>
+          </div>
+        </div>
+
+        <h3>Performance Optimization</h3>
+        <div class="grid-2">
+          <div class="card">
+            <div class="card-head">⚡ Images</div>
+            <ul class="clean">
+              <li class="done">
+                Use <code>next/image</code> for all product images — auto WebP,
+                lazy loading, blur placeholder
+              </li>
+              <li class="done">
+                Set <code>priority={true}</code> on hero image only
+              </li>
+              <li class="done">
+                Store real photos in <code>/public/images/products/</code> with
+                descriptive filenames: <code>onion-powder-bulk-export.jpg</code>
+              </li>
+              <li class="done">
+                Specify explicit <code>width</code> and <code>height</code> on
+                all Image components to avoid CLS
+              </li>
+            </ul>
+          </div>
+          <div class="card">
+            <div class="card-head">⚡ Data &amp; Fonts</div>
+            <ul class="clean">
+              <li class="done">
+                Use <code>next/font</code> to self-host fonts — eliminates
+                Google Fonts render-blocking
+              </li>
+              <li class="done">
+                Product data: start with static TS files, migrate to
+                Sanity/Contentful when needed
+              </li>
+              <li class="done">
+                All product pages: <code>generateStaticParams</code> → full
+                static generation, CDN-cached
+              </li>
+              <li class="done">
+                Use <code>loading="lazy"</code> and
+                <code>fetchpriority="low"</code> on below-fold images
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════
+     MODULE 6 — PRIORITY ROADMAP
+════════════════════════════════════════ -->
+    <div class="module" id="s6">
+      <div class="container">
+        <div class="module-num">Module 06</div>
+        <div class="module-title">Final Priority Execution Roadmap</div>
+        <p class="module-intro">
+          A sprint-by-sprint execution plan. Each phase is a standalone
+          deliverable that improves the site significantly on its own — you
+          don't need to wait for Phase 3 to get value from Phase 1.
+        </p>
+
+        <h3>🔴 Phase 1 — Critical Fixes (Days 1–3)</h3>
+        <div class="alert alert-rust">
+          <div class="alert-icon">⚡</div>
+          <div class="alert-body">
+            <strong
+              >These 6 tasks stop you losing buyers right now. Do before
+              anything else.</strong
+            >
+          </div>
+        </div>
+        <div class="roadmap-item">
+          <div class="roadmap-num">01</div>
+          <div class="roadmap-content">
+            <strong>Fix app/layout.tsx footer</strong>
+            <p>
+              Replace "Artisanal Bakery. Handcrafted with joy." with correct SRI
+              GREEN Industries footer. Fix company description, copyright year,
+              and footer tagline.
+            </p>
+          </div>
+        </div>
+        <div class="roadmap-item">
+          <div class="roadmap-num">02</div>
+          <div class="roadmap-content">
+            <strong>Fix all page metadata</strong>
+            <p>
+              Add <code>metadata</code> export to every existing page.tsx file.
+              Set correct title, description, and keywords using the SEO specs
+              in Module 04. This alone will begin SEO indexing.
+            </p>
+          </div>
+        </div>
+        <div class="roadmap-item">
+          <div class="roadmap-num">03</div>
+          <div class="roadmap-content">
+            <strong>Remove "add" cart icons from product cards</strong>
+            <p>
+              Replace with "View Specs" → /products/[category]/[slug] and
+              "Inquire" → /contact?product=X. B2B UX, not retail.
+            </p>
+          </div>
+        </div>
+        <div class="roadmap-item">
+          <div class="roadmap-num">04</div>
+          <div class="roadmap-content">
+            <strong>Fix contact page factual error</strong>
+            <p>
+              Remove "Strategic proximity to Mumbai Port" — the address is
+              Delhi/Patna. Correct all location-related copy.
+            </p>
+          </div>
+        </div>
+        <div class="roadmap-item">
+          <div class="roadmap-num">05</div>
+          <div class="roadmap-content">
+            <strong>Create app/sitemap.ts and app/robots.ts</strong>
+            <p>
+              Enables Google to discover and crawl all pages. This takes 30
+              minutes to implement and has lasting SEO impact.
+            </p>
+          </div>
+        </div>
+        <div class="roadmap-item">
+          <div class="roadmap-num">06</div>
+          <div class="roadmap-content">
+            <strong>Add WhatsApp floating button to layout.tsx</strong>
+            <p>
+              Add &lt;WhatsAppButton /&gt; to root layout. One component,
+              visible on every page, enables instant international buyer
+              contact.
+            </p>
+          </div>
+        </div>
+
+        <h3>🟡 Phase 2 — Structure Rebuild (Week 1–2)</h3>
+        <div class="roadmap-item">
+          <div class="roadmap-num">07</div>
+          <div class="roadmap-content">
+            <strong>Create data files for all 27 products</strong>
+            <p>
+              Build <code>data/vegetable-powders.ts</code> and
+              <code>data/fruit-powders.ts</code> with the Product interface from
+              Module 05. Even without real specs, stub data enables all product
+              pages to be built.
+            </p>
+          </div>
+        </div>
+        <div class="roadmap-item">
+          <div class="roadmap-num">08</div>
+          <div class="roadmap-content">
+            <strong>Build dynamic product pages</strong>
+            <p>
+              Create
+              <code>app/products/vegetable-powders/[slug]/page.tsx</code> and
+              <code>app/products/fruit-powders/[slug]/page.tsx</code> with
+              <code>generateStaticParams</code> and
+              <code>generateMetadata</code>. Each product gets its own
+              SEO-optimized page.
+            </p>
+          </div>
+        </div>
+        <div class="roadmap-item">
+          <div class="roadmap-num">09</div>
+          <div class="roadmap-content">
+            <strong>Rebuild /products catalog page</strong>
+            <p>
+              Replace current page with full 27-product grid, filter bar by
+              category, spec badges, and working links to product detail pages.
+            </p>
+          </div>
+        </div>
+        <div class="roadmap-item">
+          <div class="roadmap-num">10</div>
+          <div class="roadmap-content">
+            <strong>Rename /portfolio → /products</strong>
+            <p>
+              Remove portfolio route. Redirect /portfolio → /products using
+              Next.js redirects in next.config.js. Merge best content from
+              portfolio into product pages.
+            </p>
+          </div>
+        </div>
+        <div class="roadmap-item">
+          <div class="roadmap-num">11</div>
+          <div class="roadmap-content">
+            <strong>Rebuild contact form</strong>
+            <p>
+              Add Country, Volume, Inquiry Type, WhatsApp fields per the
+              specification in Module 03. Add form submission handling and
+              redirect to /thank-you.
+            </p>
+          </div>
+        </div>
+        <div class="roadmap-item">
+          <div class="roadmap-num">12</div>
+          <div class="roadmap-content">
+            <strong>Update navigation</strong>
+            <p>
+              Add Applications + Quality to nav. Replace "Portfolio" with
+              "Products". Add "Request Sample" secondary CTA button alongside
+              "Bulk Inquiry".
+            </p>
+          </div>
+        </div>
+        <div class="roadmap-item">
+          <div class="roadmap-num">13</div>
+          <div class="roadmap-content">
+            <strong>Add JSON-LD schema to all key pages</strong>
+            <p>
+              Organization schema on homepage. Product schema on product detail
+              pages. FAQPage schema on /faq. LocalBusiness schema on /contact.
+            </p>
+          </div>
+        </div>
+
+        <h3>🟢 Phase 3 — New Pages (Weeks 3–4)</h3>
+        <div class="roadmap-item">
+          <div class="roadmap-num">14</div>
+          <div class="roadmap-content">
+            <strong>Build /quality page</strong>
+            <p>
+              Certifications grid with download links, testing procedures,
+              export market compliance table. Critical for regulatory buyers.
+            </p>
+          </div>
+        </div>
+        <div class="roadmap-item">
+          <div class="roadmap-num">15</div>
+          <div class="roadmap-content">
+            <strong>Build /applications + sub-pages</strong>
+            <p>
+              5 application pages (Food Manufacturing, Beverages,
+              Nutraceuticals, Private Label, Instant Foods). Each links to
+              relevant product SKUs.
+            </p>
+          </div>
+        </div>
+        <div class="roadmap-item">
+          <div class="roadmap-num">16</div>
+          <div class="roadmap-content">
+            <strong>Build /faq page</strong>
+            <p>
+              10–15 B2B buyer questions with FAQPage JSON-LD schema for Google
+              rich results. High SEO value for long-tail buyer intent queries.
+            </p>
+          </div>
+        </div>
+        <div class="roadmap-item">
+          <div class="roadmap-num">17</div>
+          <div class="roadmap-content">
+            <strong>Build /our-process page</strong>
+            <p>
+              Farm sourcing → Cleaning → Dehydration → QA → Packaging → Export
+              journey with real process photos. Builds sourcing credibility.
+            </p>
+          </div>
+        </div>
+        <div class="roadmap-item">
+          <div class="roadmap-num">18</div>
+          <div class="roadmap-content">
+            <strong>Rewrite /about page</strong>
+            <p>
+              Remove artisanal tone. Add company stats, sourcing regions, team
+              size, processing capacity, correct export market map.
+            </p>
+          </div>
+        </div>
+
+        <h3>🔵 Phase 4 — Growth &amp; SEO Content (Month 2+)</h3>
+        <div class="roadmap-item">
+          <div class="roadmap-num">19</div>
+          <div class="roadmap-content">
+            <strong>Launch /blog with first 5 articles</strong>
+            <p>
+              Start with highest-traffic topics from Module 04. Use MDX for easy
+              content management. Each article internally links to relevant
+              product pages.
+            </p>
+          </div>
+        </div>
+        <div class="roadmap-item">
+          <div class="roadmap-num">20</div>
+          <div class="roadmap-content">
+            <strong>Build /resources downloads page</strong>
+            <p>
+              Product catalog PDF, individual TDS sheets per product,
+              certificate downloads. Catalog PDF = lead magnet with email
+              capture.
+            </p>
+          </div>
+        </div>
+        <div class="roadmap-item">
+          <div class="roadmap-num">21</div>
+          <div class="roadmap-content">
+            <strong
+              >Register custom domain + migrate from Vercel subdomain</strong
+            >
+            <p>
+              srigreen.com or srigreenexports.com. Set up proper domain, Google
+              Search Console, and Analytics. Begin tracking keyword rankings.
+            </p>
+          </div>
+        </div>
+        <div class="roadmap-item">
+          <div class="roadmap-num">22</div>
+          <div class="roadmap-content">
+            <strong>Add real product photography</strong>
+            <p>
+              Replace all AI-generated images with real product photos. Product
+              photos are the single biggest trust signal for international
+              ingredient buyers.
+            </p>
+          </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="alert alert-green">
+          <div class="alert-icon">🎯</div>
+          <div class="alert-body">
+            <strong>Expected Outcome After Phase 1–2 (2 weeks)</strong>
+            <p>
+              The website will be correctly positioned as a B2B export supplier,
+              indexable by Google, with all 27 products visible, working product
+              detail pages, a qualified inquiry form, and a WhatsApp contact
+              channel. From zero to credible in two weeks of focused
+              development.
+            </p>
+          </div>
+        </div>
+        <div class="alert alert-sky">
+          <div class="alert-icon">📈</div>
+          <div class="alert-body">
+            <strong>Expected Outcome After Phase 3–4 (6–8 weeks)</strong>
+            <p>
+              Full SEO foundation in place: 60+ indexed pages, product schema,
+              FAQ rich results, blog content targeting long-tail keywords,
+              applications pages capturing industry-specific traffic, and a
+              downloadable catalog for lead generation. This is a complete,
+              professional B2B export platform.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="doc-footer">
+      <div>
+        <strong>SRI GREEN Industries</strong> — Implementation Blueprint
+      </div>
+      <div>Next.js App Router · 6 Modules · 22-Task Roadmap · May 2026</div>
+    </div>
+  </body>
+</html>
