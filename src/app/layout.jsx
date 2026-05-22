@@ -58,14 +58,13 @@ export default function RootLayout({ children }) {
       </head>
 
       <body className="min-h-full flex flex-col">
-        <ScrollToTop />
         <Header />
 
         <main>{children}</main>
 
         <Footer />
         <WhatsAppButton />
-        
+        <ScrollToTop />
       </body>
     </html>
   );
