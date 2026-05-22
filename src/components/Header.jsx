@@ -10,7 +10,7 @@ import { clsx } from "clsx";
 // ── Configuration ──
 const navLinks = [
   { href: "/products", label: "Our Powders" },
-  // { href: "/applications", label: "Applications" },
+  { href: "/applications", label: "Applications" },
   { href: "/quality", label: "Quality" },
   // { href: "/process", label: "Our Process" },
   { href: "/about", label: "About" },
