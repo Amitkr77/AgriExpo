@@ -113,7 +113,7 @@ export default function ApplicationsPage() {
         />
 
         {/* DARK OVERLAY */}
-        <div className="absolute inset-0 bg-black/50"></div>
+        <div className="absolute inset-0 bg-black/20"></div>
 
         {/* PREMIUM GREEN GRADIENT */}
         <div className="absolute inset-0 bg-gradient-to-r from-[#041b10]/40 via-[#0d3b24]/25 to-[#166534]/10"></div>
@@ -122,7 +122,7 @@ export default function ApplicationsPage() {
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(168, 239, 184, 0.12),transparent_30%)]"></div>
 
         {/* GRID TEXTURE */}
-        <div className="absolute inset-0 opacity-10 bg-[linear-gradient(to_right,rgba(142, 190, 163, 0.08)_1px,transparent_1px),linear-gradient(to_bottom,rgba(129, 196, 117, 0.08)_1px,transparent_1px)] bg-[size:80px_80px]"></div>
+        <div className="absolute inset-0 opacity-10 bg-[linear-gradient(to_right,rgba(207, 216, 211, 0.08)_1px,transparent_1px),linear-gradient(to_bottom,rgba(129, 196, 117, 0.08)_1px,transparent_1px)] bg-[size:80px_80px]"></div>
 
         <div className="relative z-10 mx-auto grid max-w-7xl items-center gap-16 lg:grid-cols-2">
 
