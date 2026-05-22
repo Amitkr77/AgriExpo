@@ -1,9 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
-import { useSearchParams } from "next/navigation";
-
-import { useState } from "react";
+import { useState , useEffect } from "react";
 
 import {
   ShieldCheck,
@@ -169,10 +166,10 @@ const stats = [
 
 
 export default function QualityPage() {
-  const searchParams = useSearchParams();
 
   useEffect(() => {
-    const hash = window.location.hash;
+    const handleHashScroll = () => {
+      const hash = window.location.hash;
 
       if (hash) {
         const element = document.querySelector(hash);
@@ -186,7 +183,17 @@ export default function QualityPage() {
           }, 100);
         }
       }
-    }, [searchParams]);
+    };
+
+    handleHashScroll();
+
+    window.addEventListener("hashchange", handleHashScroll);
+
+    return () => {
+      window.removeEventListener("hashchange", handleHashScroll);
+    };
+  }, []);
+
    const [activeForm, setActiveForm] = useState(null);
 
    const closeForm = () => setActiveForm(null);
@@ -196,6 +203,7 @@ export default function QualityPage() {
       alert("Your request has been submitted!");
       closeForm();
     };
+
   return (
     <main className="bg-[#f7fbf5] text-gray-800 overflow-hidden">
       {/* HERO SECTION */}
