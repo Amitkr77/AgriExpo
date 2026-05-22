@@ -1,5 +1,8 @@
 "use client";
 
+import { useEffect } from "react";
+import { useSearchParams } from "next/navigation";
+
 import { useState } from "react";
 
 import {
@@ -166,15 +169,33 @@ const stats = [
 
 
 export default function QualityPage() {
+  const searchParams = useSearchParams();
+
+  useEffect(() => {
+    const hash = window.location.hash;
+
+      if (hash) {
+        const element = document.querySelector(hash);
+
+        if (element) {
+          setTimeout(() => {
+            element.scrollIntoView({
+              behavior: "smooth",
+              block: "start",
+            });
+          }, 100);
+        }
+      }
+    }, [searchParams]);
    const [activeForm, setActiveForm] = useState(null);
 
-  const closeForm = () => setActiveForm(null);
+   const closeForm = () => setActiveForm(null);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    alert("Your request has been submitted!");
-    closeForm();
-  };
+    const handleSubmit = (e) => {
+      e.preventDefault();
+      alert("Your request has been submitted!");
+      closeForm();
+    };
   return (
     <main className="bg-[#f7fbf5] text-gray-800 overflow-hidden">
       {/* HERO SECTION */}
@@ -200,7 +221,7 @@ export default function QualityPage() {
               Export Certified Manufacturing
             </div>
 
-            <h1 className="text-5xl md:text-6xl xl:text-7xl font-black leading-tight text-white">
+            <h1 className="text-4xl sm:text-5xl md:text-6xl xl:text-7xl font-black leading-tight text-white">
               Export-Grade
               <span className="block text-green-300">Quality at Every Stage</span>
             </h1>
@@ -265,7 +286,7 @@ export default function QualityPage() {
       </section>
 
       {/* CERTIFICATIONS */}
-      <section className="py-28 px-6 lg:px-16">
+      <section id="cert" className="scroll-mt-32 py-28 px-6 lg:px-16">
         <div className="max-w-7xl mx-auto">
           <div className="text-center max-w-3xl mx-auto mb-20">
             <span className="text-green-700 font-semibold uppercase tracking-[0.25em]">

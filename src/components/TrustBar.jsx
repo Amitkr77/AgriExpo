@@ -100,7 +100,10 @@ export default function TrustBar() {
               }}
             >
               <Link
-                href="/quality"
+                href={{
+                  pathname: "/quality",
+                  hash: "cert",
+                }}
                 className={`${item.bg} group flex h-full flex-col items-center justify-center rounded-[2rem] p-4 transition-transform duration-300 hover:-translate-y-1`}
               >
                 {/* ICON */}
