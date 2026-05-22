@@ -1,5 +1,7 @@
 "use client";
 
+import { useState } from "react";
+
 import {
   ShieldCheck,
   BadgeCheck,
@@ -162,7 +164,17 @@ const stats = [
   },
 ];
 
+
 export default function QualityPage() {
+   const [activeForm, setActiveForm] = useState(null);
+
+  const closeForm = () => setActiveForm(null);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    alert("Your request has been submitted!");
+    closeForm();
+  };
   return (
     <main className="bg-[#f7fbf5] text-gray-800 overflow-hidden">
       {/* HERO SECTION */}
@@ -558,16 +570,109 @@ export default function QualityPage() {
           </p>
 
           <div className="mt-12 flex flex-wrap justify-center gap-5">
-            <button className="px-8 py-4 rounded-2xl bg-green-700 text-white font-semibold hover:bg-green-800 transition shadow-xl">
+            <button
+              onClick={() => setActiveForm("certification")}
+              className="px-8 py-4 rounded-2xl bg-green-700 text-white font-semibold hover:bg-green-800 transition shadow-xl"
+            >
               Request Certifications
             </button>
 
-            <button className="px-8 py-4 rounded-2xl border border-green-700 text-green-700 font-semibold hover:bg-green-50 transition">
+            <button
+              onClick={() => setActiveForm("export")}
+              className="px-8 py-4 rounded-2xl border border-green-700 text-green-700 font-semibold hover:bg-green-50 transition"
+            >
               Contact Export Team
             </button>
           </div>
         </div>
       </section>
+      {activeForm && (
+  <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-4">
+    <div className="relative w-full max-w-xl rounded-3xl bg-white p-6 shadow-2xl">
+      <button
+        onClick={closeForm}
+        className="absolute right-5 top-4 text-3xl text-gray-500 hover:text-black"
+      >
+        ×
+      </button>
+
+      <h2 className="text-2xl font-black text-green-900 mb-2">
+        {activeForm === "certification"
+          ? "Request Certifications"
+          : "Contact Export Team"}
+      </h2>
+
+      <p className="text-gray-600 mb-6">
+        {activeForm === "certification"
+          ? "Fill this form to request certification documents."
+          : "Fill this form and our export team will contact you."}
+      </p>
+
+      <form onSubmit={handleSubmit} className="space-y-4">
+        <input
+          type="text"
+          placeholder="Full Name"
+          required
+          className="w-full rounded-xl border px-4 py-3 outline-none focus:ring-2 focus:ring-green-600"
+        />
+
+        <input
+          type="email"
+          placeholder="Email Address"
+          required
+          className="w-full rounded-xl border px-4 py-3 outline-none focus:ring-2 focus:ring-green-600"
+        />
+
+        <input
+          type="tel"
+          placeholder="Phone Number"
+          required
+          className="w-full rounded-xl border px-4 py-3 outline-none focus:ring-2 focus:ring-green-600"
+        />
+
+        {activeForm === "certification" ? (
+          <select
+            required
+            className="w-full rounded-xl border px-4 py-3 outline-none focus:ring-2 focus:ring-green-600"
+          >
+            <option value="">Select Certification</option>
+            <option>ISO 22000</option>
+            <option>FSSC 22000</option>
+            <option>HACCP</option>
+            <option>GMP</option>
+            <option>Non-GMO</option>
+            <option>FSSAI</option>
+          </select>
+        ) : (
+          <input
+            type="text"
+            placeholder="Export Country / Market"
+            required
+            className="w-full rounded-xl border px-4 py-3 outline-none focus:ring-2 focus:ring-green-600"
+          />
+        )}
+
+        <textarea
+          placeholder={
+            activeForm === "certification"
+              ? "Which documents do you need?"
+              : "Tell us your export requirement"
+          }
+          rows="4"
+          required
+          className="w-full rounded-xl border px-4 py-3 outline-none focus:ring-2 focus:ring-green-600"
+        />
+
+        <button
+          type="submit"
+          className="w-full rounded-xl bg-green-700 py-3 text-white font-semibold hover:bg-green-800 transition"
+        >
+          Submit
+        </button>
+      </form>
+    </div>
+  </div>
+)}
     </main>
   );
 }
