@@ -183,12 +183,12 @@ export default function QualityPage() {
 
         <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-16 items-center relative z-10">
           <div>
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 border border-white/20 text-green-100 mb-26 backdrop-blur-md">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 border border-white/20 text-green-100 mb-10 backdrop-blur-md">
               <ShieldCheck className="w-5 h-5" />
               Export Certified Manufacturing
             </div>
 
-            <h1 className="text-4xl md:text-5xl xl:text-6xl font-black leading-tight text-white">
+            <h1 className="text-5xl md:text-6xl xl:text-7xl font-black leading-tight text-white">
               Export-Grade
               <span className="block text-green-300">Quality at Every Stage</span>
             </h1>
@@ -277,9 +277,6 @@ export default function QualityPage() {
                 key={index}
                 className="group bg-white rounded-[32px] overflow-hidden shadow-xl border border-gray-100 hover:-translate-y-2 transition duration-500"
               >
-                <div
-                  className={`h-3 bg-gradient-to-r ${cert.color}`}
-                ></div>
 
                 <div className="p-8">
                   <div className="w-16 h-16 rounded-2xl bg-green-100 flex items-center justify-center mb-6">
@@ -303,10 +300,10 @@ export default function QualityPage() {
                       {cert.validity}
                     </span>
 
-                    <button className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-green-700 text-white hover:bg-green-800 transition">
+                    {/* <button className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-green-700 text-white hover:bg-green-800 transition">
                       <Download className="w-4 h-4" />
                       PDF
-                    </button>
+                    </button> */}
                   </div>
                 </div>
               </div>
@@ -318,80 +315,130 @@ export default function QualityPage() {
       {/* QUALITY PROCESS */}
       <section className="py-28 bg-[#edf7ec] px-6 lg:px-16">
         <div className="max-w-7xl mx-auto">
-          <div className="grid lg:grid-cols-2 gap-20 items-center">
-            <div>
-              <span className="text-green-700 font-semibold uppercase tracking-[0.25em]">
+
+            {/* CENTER HEADING */}
+            <div className="text-center max-w-4xl mx-auto mb-20">
+            <span className="text-green-700 font-semibold uppercase tracking-[0.25em]">
                 Quality Workflow
-              </span>
+            </span>
 
-              <h2 className="mt-6 text-4xl md:text-5xl font-black text-[#143523] leading-tight">
+            <h2 className="mt-6 text-4xl md:text-5xl font-black text-[#143523] leading-tight">
                 Multi-Level Quality Control From Farm to Export
-              </h2>
+            </h2>
 
-              <p className="mt-6 text-lg text-gray-600 leading-relaxed">
+            <p className="mt-6 text-lg text-gray-600 leading-relaxed">
                 We maintain strict inspection systems at every stage of the
                 supply chain to guarantee food safety, consistency and export
                 readiness.
-              </p>
+            </p>
+            </div>
 
-              <div className="mt-12 space-y-8">
+            {/* TWO GRIDS */}
+            <div className="grid lg:grid-cols-2 gap-10 items-start">
+
+            {/* LEFT GRID */}
+            <div className="space-y-8">
                 {qualitySteps.map((step, index) => {
-                  const Icon = step.icon;
+                const Icon = step.icon;
 
-                  return (
+                return (
                     <div
-                      key={index}
-                      className="flex gap-5 bg-white p-6 rounded-3xl shadow-lg"
+                    key={index}
+                    className="group flex gap-5 bg-white p-8 rounded-[32px] shadow-xl border border-green-100 hover:-translate-y-2 hover:shadow-2xl transition duration-500"
                     >
-                      <div className="w-16 h-16 rounded-2xl bg-green-100 flex items-center justify-center shrink-0">
-                        <Icon className="w-8 h-8 text-green-700" />
-                      </div>
+                    <div className="w-16 h-16 rounded-2xl bg-green-100 flex items-center justify-center shrink-0 group-hover:bg-green-700 transition">
+                        <Icon className="w-8 h-8 text-green-700 group-hover:text-white transition" />
+                    </div>
 
-                      <div>
-                        <h3 className="text-xl font-bold text-[#163825]">
-                          {step.title}
+                    <div>
+                        <h3 className="text-2xl font-bold text-[#163825]">
+                        {step.title}
                         </h3>
 
-                        <p className="mt-2 text-gray-600 leading-relaxed">
-                          {step.desc}
+                        <p className="mt-3 text-gray-600 leading-relaxed">
+                        {step.desc}
                         </p>
-                      </div>
                     </div>
-                  );
+                    </div>
+                );
                 })}
-              </div>
             </div>
 
-            <div className="relative">
-              <div className="absolute -top-10 -left-10 w-40 h-40 bg-green-300/20 rounded-full blur-3xl"></div>
+            {/* RIGHT GRID */}
+            <div className="relative h-full">
+                
+                {/* GLOW */}
+                <div className="absolute -top-10 -left-10 w-40 h-40 bg-green-300/20 rounded-full blur-3xl"></div>
 
-              <div className="relative bg-white rounded-[40px] shadow-2xl p-10 border border-green-100">
-                <div className="flex items-center gap-3 mb-8">
-                  <ShieldCheck className="w-10 h-10 text-green-700" />
-                  <div>
-                    <h3 className="text-2xl font-bold text-[#163825]">
-                      Product Integrity Assurance
-                    </h3>
-                    <p className="text-gray-500">
-                      Every shipment verified before dispatch.
-                    </p>
-                  </div>
-                </div>
+                <div className="relative bg-white rounded-[40px] shadow-2xl p-10 border border-green-100 h-full">
 
-                <div className="space-y-5">
-                  {testingItems.slice(0, 8).map((item, index) => (
-                    <div
-                      key={index}
-                      className="flex items-start gap-3 border-b border-gray-100 pb-4"
-                    >
-                      <CheckCircle2 className="w-5 h-5 text-green-700 mt-1" />
-                      <span className="text-gray-700">{item}</span>
+                {/* HEADER */}
+                <div className="flex items-center gap-4 mb-10">
+                    <div className="w-16 h-16 rounded-2xl bg-green-100 flex items-center justify-center">
+                    <ShieldCheck className="w-8 h-8 text-green-700" />
                     </div>
-                  ))}
+
+                    <div>
+                    <h3 className="text-3xl font-black text-[#163825]">
+                        Product Integrity Assurance
+                    </h3>
+
+                    <p className="text-gray-500 mt-1">
+                        Every shipment verified before dispatch.
+                    </p>
+                    </div>
                 </div>
-              </div>
+
+                {/* TEST ITEMS */}
+                <div className="grid sm:grid-cols-2 gap-5">
+                    {testingItems.slice(0, 8).map((item, index) => (
+                    <div
+                        key={index}
+                        className="flex items-start gap-3 bg-[#f7fbf5] border border-green-100 rounded-2xl p-5 hover:shadow-lg transition"
+                    >
+                        <CheckCircle2 className="w-5 h-5 text-green-700 mt-1 shrink-0" />
+
+                        <span className="text-gray-700 font-medium">
+                        {item}
+                        </span>
+                    </div>
+                    ))}
+                </div>
+
+                {/* BOTTOM STATS */}
+                <div className="mt-10 grid grid-cols-3 gap-4">
+                    <div className="bg-green-50 rounded-2xl p-5 text-center">
+                    <h4 className="text-2xl font-black text-green-700">
+                        100%
+                    </h4>
+                    <p className="text-sm text-gray-600 mt-1">
+                        Batch Tested
+                    </p>
+                    </div>
+
+                    <div className="bg-green-50 rounded-2xl p-5 text-center">
+                    <h4 className="text-2xl font-black text-green-700">
+                        35+
+                    </h4>
+                    <p className="text-sm text-gray-600 mt-1">
+                        Countries
+                    </p>
+                    </div>
+
+                    <div className="bg-green-50 rounded-2xl p-5 text-center">
+                    <h4 className="text-2xl font-black text-green-700">
+                        24/7
+                    </h4>
+                    <p className="text-sm text-gray-600 mt-1">
+                        Monitoring
+                    </p>
+                    </div>
+                </div>
+
+                </div>
             </div>
-          </div>
+
+            </div>
         </div>
       </section>
 
