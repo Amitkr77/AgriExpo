@@ -2,7 +2,9 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
-import appimg from "@/assets/application-hero.png";
+// import appimg from "@/assets/application-hero.png";
+import apphero1 from "@/assets/apphero1.png";
+import apphero2 from "@/assets/apphero2.png";
 
 import {
   Factory,
@@ -102,95 +104,146 @@ export default function ApplicationsPage() {
     <main className="overflow-hidden bg-[#f7fbf5] text-gray-800">
 
       {/* HERO */}
-      <section className="relative min-h-screen overflow-hidden bg-[#0d2d1f] px-6 py-24 lg:px-16">
+      <section className="relative overflow-hidden bg-[#ece9dd] px-6 py-20 lg:px-16">
 
-        {/* BACKGROUND IMAGE */}
-        <div
-            className="absolute inset-0 bg-cover bg-center bg-no-repeat scale-105"
-            style={{
-            backgroundImage: `url(${appimg.src})`,
-            }}
-        />
+        {/* BACKGROUND DECOR */}
+        <div className="absolute inset-0 opacity-[0.03] bg-[linear-gradient(to_right,#000_1px,transparent_1px),linear-gradient(to_bottom,#000_1px,transparent_1px)] bg-[size:80px_80px]"></div>
 
-        {/* DARK OVERLAY */}
-        <div className="absolute inset-0 bg-black/20"></div>
+        <div className="mx-auto grid max-w-7xl gap-8 lg:grid-cols-[1.7fr_0.8fr]">
 
-        {/* PREMIUM GREEN GRADIENT */}
-        <div className="absolute inset-0 bg-gradient-to-r from-[#041b10]/40 via-[#0d3b24]/25 to-[#166534]/10"></div>
-
-        {/* SOFT GLOW */}
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(168, 239, 184, 0.12),transparent_30%)]"></div>
-
-        {/* GRID TEXTURE */}
-        <div className="absolute inset-0 opacity-10 bg-[linear-gradient(to_right,rgba(207, 216, 211, 0.08)_1px,transparent_1px),linear-gradient(to_bottom,rgba(129, 196, 117, 0.08)_1px,transparent_1px)] bg-[size:80px_80px]"></div>
-
-        <div className="relative z-10 mx-auto grid max-w-7xl items-center gap-16 lg:grid-cols-2">
-
-          {/* LEFT */}
+          {/* LEFT MAIN CARD */}
           <motion.div
-            initial="hidden"
-            animate="visible"
-            variants={fadeUp}
-            transition={{ duration: 0.8 }}
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7 }}
+            className="relative overflow-hidden rounded-4xl bg-[#0d5b2a] p-10 md:p-16"
           >
-            <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/10 px-5 py-2 backdrop-blur-md">
-              <Sparkles className="h-4 w-4 text-green-300" />
 
-              <span className="text-sm font-semibold tracking-[0.15em] text-green-100 uppercase">
-                Export-Grade Ingredient Solutions
-              </span>
-            </div>
+            {/* BG IMAGE */}
+            <div
+              className="absolute inset-0 bg-cover bg-center opacity-100"
+              style={{
+                backgroundImage: `url(${apphero1.src})`,
+              }}
+            />
 
-            <h1 className="text-4xl font-black leading-[1.05] text-white md:text-6xl">
-              Bulk Fruit &
-              <span className="block text-[#f5c66d]">
-                Vegetable Powders
-              </span>
-              for Global Food Industries
-            </h1>
+            {/* OVERLAY */}
+            <div className="absolute inset-0 bg-gradient-to-br from-[#0b4d23]/35 via-[#0d5b2a]/32 to-[#06351a]/35"></div>
 
-            <p className="mt-8 max-w-2xl text-lg leading-relaxed text-green-50 md:text-xl">
-              SRI GREEN supplies dehydrated and spray-dried fruit and vegetable powders for food manufacturers, beverage brands, nutraceutical companies, private label businesses and instant food producers worldwide.
-            </p>
+            {/* GLOW */}
+            <div className="absolute -right-20 top-0 h-72 w-72 rounded-full bg-[#f5c66d]/20 blur-3xl"></div>
 
-            <div className="mt-12 flex flex-wrap gap-5">
-              <Link
-                href="/products"
-                className="group inline-flex items-center gap-3 rounded-2xl bg-white px-8 py-4 font-bold text-[#123524] transition duration-300 hover:scale-105"
-              >
-                Explore Product Catalog
+            {/* CONTENT */}
+            <div className="relative z-10">
 
-                <ArrowRight className="h-5 w-5 transition group-hover:translate-x-1" />
-              </Link>
+              {/* BADGE */}
+              <div className="mb-8 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/10 px-5 py-2 backdrop-blur-md">
+                <Sparkles className="h-4 w-4 text-[#f5c66d]" />
 
-              <button className="rounded-2xl border border-white/20 bg-white/10 px-8 py-4 font-semibold text-white backdrop-blur-md transition hover:bg-white/20">
-                Request Bulk Samples
-              </button>
-            </div>
-          </motion.div>
-
-          {/* RIGHT */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8 }}
-            className="grid grid-cols-2 gap-6"
-          >
-            {industries.map((item, index) => (
-              <div
-                key={index}
-                className="rounded-[2rem] border border-white/10 bg-white/10 p-8 backdrop-blur-xl"
-              >
-                <h3 className="text-5xl font-black text-white">
-                  {item.value}
-                </h3>
-
-                <p className="mt-3 text-green-100">
-                  {item.title}
-                </p>
+                <span className="text-xs font-bold uppercase tracking-[0.18em] text-green-100">
+                  Export-Grade Ingredient Solutions
+                </span>
               </div>
-            ))}
+
+              {/* TITLE */}
+              <h1 className="max-w-4xl text-5xl font-black leading-[0.95] tracking-[-0.04em] text-white md:text-6xl">
+                Bulk Fruit &
+                <span className="block text-[#f5c66d]">
+                  Vegetable Powders
+                </span>
+                for Global Food Industries
+              </h1>
+
+              {/* DESCRIPTION */}
+              <p className="mt-10 max-w-2xl text-lg leading-relaxed text-green-50 md:text-xl">
+                SRI GREEN supplies dehydrated and spray-dried fruit and vegetable powders for food manufacturers, beverage brands, nutraceutical companies, private label businesses and instant food producers worldwide.
+              </p>
+
+              {/* BUTTONS */}
+              <div className="mt-12 flex flex-wrap gap-5">
+
+                <Link
+                  href="/products"
+                  className="group inline-flex items-center gap-3 rounded-2xl bg-white px-8 py-4 font-bold text-[#123524] transition duration-300 hover:scale-105"
+                >
+                  Explore Product Catalog
+
+                  <ArrowRight className="h-5 w-5 transition group-hover:translate-x-1" />
+                </Link>
+
+                <button className="rounded-2xl border border-white/20 bg-white/10 px-8 py-4 font-semibold text-white backdrop-blur-md transition hover:bg-white/20">
+                  Request Bulk Samples
+                </button>
+
+              </div>
+            </div>
           </motion.div>
+
+          {/* RIGHT IMAGE CARD */}
+          <motion.div
+            initial={{ opacity: 0, x: 40 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8 }}
+            className="relative overflow-hidden rounded-4xl min-h-[620px]"
+          >
+
+            {/* IMAGE */}
+            <div
+              className="absolute inset-0 bg-cover bg-center"
+              style={{
+                backgroundImage: `url(${apphero2.src})`,
+              }}
+            />
+
+            {/* DARK OVERLAY */}
+            <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-black/20 to-black/55"></div>
+
+            {/* CONTENT */}
+            {/* STATS GRID */}
+            <div className="absolute inset-0 flex items-center justify-center p-6">
+
+              <div className="grid w-full grid-cols-2 gap-6">
+
+                {industries.map((item, index) => (
+                  <motion.div
+                    key={index}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{
+                      duration: 0.5,
+                      delay: index * 0.08,
+                    }}
+                    whileHover={{
+                      y: -4,
+                      scale: 1.02,
+                    }}
+                    className="
+                      rounded-[2rem]
+                      border border-white/10
+                      bg-white/10
+                      p-8
+                      backdrop-blur-2xl
+                      shadow-[0_10px_40px_rgba(0,0,0,0.15)]
+                    "
+                  >
+
+                    {/* NUMBER */}
+                    <h3 className="text-5xl font-black tracking-[-0.04em] text-white md:text-6xl">
+                      {item.value}
+                    </h3>
+
+                    {/* LABEL */}
+                    <p className="mt-5 text-lg font-medium text-white/90">
+                      {item.title}
+                    </p>
+
+                  </motion.div>
+                ))}
+
+              </div>
+            </div>
+          </motion.div>
+
         </div>
       </section>
 

@@ -116,7 +116,7 @@ export default function Page() {
                 <img
                   src={fruitimage.src}
                   alt="Fruit Powders"
-                  className="h-[450px] w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  className="h-[450px] w-full object-top transition-transform duration-700 group-hover:scale-105"
                 />
               </div>
             </Link>
