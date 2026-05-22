@@ -192,7 +192,7 @@ export default function Hero() {
         {/* LEFT CONTENT */}
         <motion.div
           variants={fadeUp}
-          className="relative md:col-span-7 overflow-hidden rounded-[48px] bg-[#2d5a43] p-8 md:p-10 min-h-[520px] flex flex-col justify-center"
+          className="relative md:col-span-6 overflow-hidden rounded-[48px] bg-[#2d5a43] p-8 md:p-10 min-h-[520px] flex flex-col justify-center"
         >
           {/* Glow */}
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(255,255,255,0.12),transparent_30%)]" />
@@ -367,7 +367,7 @@ export default function Hero() {
                   perspective: 1200,
                 }
           }
-          className="relative md:col-span-5 overflow-hidden rounded-[48px]  min-h-[420px] will-change-transform"
+          className="relative md:col-span-6 overflow-hidden rounded-[48px]  min-h-[420px] will-change-transform"
         >
           {/* Floating Image */}
           <motion.img
