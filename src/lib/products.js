@@ -25,8 +25,8 @@ import tamarindimg from "@/assets/tamarind.png";
 import guavaimg from "@/assets/guava.png";
 import jamunimg from "@/assets/jamun.png";
 import coconutimg from "@/assets/coconut.png";
-import strawberryimg from "@/assets/onionimg.jpg";
-import blueberryimg from "@/assets/onionimg.jpg";
+import strawberryimg from "@/assets/strawberryimg.png";
+import blueberryimg from "@/assets/blueberryimg.png";
 export const VEGETABLE_POWDERS = [
   {
     id: 1,
@@ -707,5 +707,55 @@ export const FRUIT_POWDERS = [
     desc: "Traditional Jamun (Indian blackberry) powder for wellness and diabetic-support supplement formulations.",
     benefit: "Traditional glycemic management and antioxidant properties.",
     description: "Dehydrated Jamun powder for nutraceutical, Ayurvedic, and diabetic wellness product manufacturing.",
+  },
+  {
+    id: 11,
+    name: "Strawberry Powder",
+    slug: "strawberry-powder",
+    type: "fruit",
+    category: "berry",
+    taste: "sweet tangy",
+    aroma: "fresh strawberry",
+    color: "pink red",
+    meshSize: "80–100 mesh",
+    moistureContent: "≤ 5%",
+    packaging: ["25kg bags", "50kg bags", "custom bulk"],
+    form: "spray-dried powder",
+    processingMethod: "spray drying",
+    origin: "India",
+    use: ["smoothies", "desserts", "beverages", "bakery", "ice cream"],
+    cert: ["natural", "organic"],
+    shelfLife: "18 months",
+    storage: "cool dry place",
+    badge: "Berry Flavor",
+    image: strawberryimg.src,
+    desc: "Sweet tangy strawberry powder for beverages, desserts, bakery, and ice cream applications.",
+    benefit: "Rich berry flavor with natural color and antioxidant properties.",
+    description: "Spray-dried strawberry powder for food manufacturing, dessert mixes, and beverage formulations.",
+  },
+  {
+    id: 12,
+    name: "Blueberry Powder",
+    slug: "blueberry-powder",
+    type: "fruit",
+    category: "berry",
+    taste: "sweet tart",
+    aroma: "fresh blueberry",
+    color: "purple blue",
+    meshSize: "80–100 mesh",
+    moistureContent: "≤ 5%",
+    packaging: ["25kg bags", "50kg bags", "custom bulk"],
+    form: "spray-dried powder",
+    processingMethod: "spray drying",
+    origin: "India",
+    use: ["smoothies", "health drinks", "desserts", "nutraceuticals", "bakery"],
+    cert: ["natural", "organic"],
+    shelfLife: "18 months",
+    storage: "cool dry place",
+    badge: "Antioxidant Rich",
+    image: blueberryimg.src,
+    desc: "Antioxidant-rich blueberry powder for smoothies, health drinks, desserts, and bakery applications.",
+    benefit: "High antioxidant content with natural berry flavor.",
+    description: "Premium blueberry powder for nutraceutical, beverage, bakery, and dessert product manufacturing.",
   },
 ];
