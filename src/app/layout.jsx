@@ -3,6 +3,7 @@ import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
+import ScrollToTop from "@/components/scrolltotop";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -57,12 +58,14 @@ export default function RootLayout({ children }) {
       </head>
 
       <body className="min-h-full flex flex-col">
+        <ScrollToTop />
         <Header />
 
         <main>{children}</main>
 
         <Footer />
         <WhatsAppButton />
+        
       </body>
     </html>
   );
