@@ -35,11 +35,11 @@ const stats = [
 const regions = ["South Asia", "Middle East", "Europe", "North America", "SE Asia"];
 
 const mapPoints = [
-  { name: "India", region: "South Asia", left: "67%", top: "48%" },
-  { name: "Middle East", region: "Middle East", left: "59%", top: "43%" },
-  { name: "Europe", region: "Europe", left: "50%", top: "33%" },
-  { name: "North America", region: "North America", left: "22%", top: "38%" },
-  { name: "SE Asia", region: "SE Asia", left: "72%", top: "55%" },
+  { name: "India", region: "South Asia", left: "70%", top: "45%" },
+  { name: "Middle East", region: "Middle East", left: "60%", top: "43%" },
+  { name: "Europe", region: "Europe", left: "50%", top: "30%" },
+  { name: "North America", region: "North America", left: "22%", top: "36%" },
+  { name: "SE Asia", region: "SE Asia", left: "80%", top: "55%" },
 ];
 
 const mapUrl =
