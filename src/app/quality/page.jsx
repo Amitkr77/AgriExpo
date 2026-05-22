@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 
 import {
   ShieldCheck,
@@ -149,7 +149,8 @@ const stats = [
 ];
 
 /* ════════════════════════════════════════
-   HELPER — Intersection Observer Hook
+   HOOK — Repeatable InView (both directions)
+   ✅ FIX: unobserve NAHI karta — har baar toggle hota hai
 ════════════════════════════════════════ */
 function useInView(threshold = 0.15) {
   const ref = useRef(null);
@@ -160,10 +161,8 @@ function useInView(threshold = 0.15) {
     if (!el) return;
     const obs = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) {
-          setVisible(true);
-          obs.unobserve(el);
-        }
+        // ✅ true jab enter kare, false jab leave kare
+        setVisible(entry.isIntersecting);
       },
       { threshold }
     );
@@ -175,14 +174,23 @@ function useInView(threshold = 0.15) {
 }
 
 /* ════════════════════════════════════════
-   HELPER — Animated Number Counter
+   Animated Number Counter (repeatable)
 ════════════════════════════════════════ */
 function AnimatedCounter({ target, duration = 1800 }) {
   const [display, setDisplay] = useState("0");
   const [ref, visible] = useInView(0.5);
+  const animatedRef = useRef(false);
 
   useEffect(() => {
-    if (!visible) return;
+    if (!visible) {
+      // ✅ Reset when out of view
+      setDisplay("0");
+      animatedRef.current = false;
+      return;
+    }
+    if (animatedRef.current) return;
+    animatedRef.current = true;
+
     const numeric = parseFloat(target.replace(/[^0-9.]/g, ""));
     const suffix = target.replace(/[0-9.]/g, "");
     const isDecimal = target.includes(".");
@@ -210,15 +218,13 @@ function AnimatedCounter({ target, duration = 1800 }) {
 }
 
 /* ════════════════════════════════════════
-   HELPER — Floating Particles
-   ✅ FIX: Client-only render karo to avoid hydration mismatch
+   Floating Particles (client-only, no hydration mismatch)
 ════════════════════════════════════════ */
 function FloatingParticles({ count = 16 }) {
   const [mounted, setMounted] = useState(false);
   const particles = useRef([]);
 
   useEffect(() => {
-    // Particles sirf client par generate karo
     particles.current = Array.from({ length: count }, () => ({
       w: Math.random() * 5 + 2,
       left: Math.random() * 100,
@@ -229,9 +235,10 @@ function FloatingParticles({ count = 16 }) {
     setMounted(true);
   }, [count]);
 
-  // Server par kuch render mat karo — sirf empty container
   if (!mounted) {
-    return <div className="absolute inset-0 pointer-events-none overflow-hidden" />;
+    return (
+      <div className="absolute inset-0 pointer-events-none overflow-hidden" />
+    );
   }
 
   return (
@@ -258,7 +265,7 @@ function FloatingParticles({ count = 16 }) {
    MAIN COMPONENT
 ════════════════════════════════════════ */
 export default function QualityPage() {
-  /* ── hash scroll ── */
+  /* hash scroll */
   useEffect(() => {
     const handleHashScroll = () => {
       const hash = window.location.hash;
@@ -276,14 +283,14 @@ export default function QualityPage() {
     return () => window.removeEventListener("hashchange", handleHashScroll);
   }, []);
 
-  /* ── hero mount state ── */
+  /* hero mount */
   const [heroReady, setHeroReady] = useState(false);
   useEffect(() => {
     const t = setTimeout(() => setHeroReady(true), 80);
     return () => clearTimeout(t);
   }, []);
 
-  /* ── modal ── */
+  /* modal */
   const [activeForm, setActiveForm] = useState(null);
   const closeForm = () => setActiveForm(null);
   const handleSubmit = (e) => {
@@ -292,7 +299,7 @@ export default function QualityPage() {
     closeForm();
   };
 
-  /* ── section refs ── */
+  /* ✅ section refs — ab dono directions me kaam karenge */
   const [trustRef, trustVisible] = useInView(0.1);
   const [certRef, certVisible] = useInView(0.08);
   const [processRef, processVisible] = useInView(0.08);
@@ -302,7 +309,6 @@ export default function QualityPage() {
 
   return (
     <main className="bg-[#f7fbf5] text-gray-800 overflow-hidden">
-
       {/* ════ GLOBAL KEYFRAMES ════ */}
       <style>{`
         @keyframes qpFloat {
@@ -348,12 +354,8 @@ export default function QualityPage() {
         .qp-modal-box  { animation:qpScaleIn .4s ease-out both; }
       `}</style>
 
-      {/* ════════════════════════════════════════
-          HERO
-      ════════════════════════════════════════ */}
+      {/* ════════════════════ HERO ════════════════════ */}
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-[#0d3b24] via-[#14532d] to-[#1f7a3e] px-6 lg:px-16 py-24">
-
-        {/* bg image slow zoom */}
         <div
           className="absolute inset-0 bg-cover bg-center transition-transform duration-[2200ms] ease-out"
           style={{
@@ -366,8 +368,6 @@ export default function QualityPage() {
         <FloatingParticles count={16} />
 
         <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-16 items-center relative z-10">
-
-          {/* LEFT */}
           <div>
             <div
               className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 border border-white/20 text-green-100 mb-10 backdrop-blur-md transition-all duration-700 ease-out"
@@ -390,7 +390,9 @@ export default function QualityPage() {
               }}
             >
               Export-Grade
-              <span className="block text-green-300">Quality at Every Stage</span>
+              <span className="block text-green-300">
+                Quality at Every Stage
+              </span>
             </h1>
 
             <p
@@ -401,9 +403,10 @@ export default function QualityPage() {
                 transitionDelay: "560ms",
               }}
             >
-              AgriExpo follows internationally recognized food safety and quality
-              systems to ensure every product meets the strict import requirements
-              of buyers across the US, EU, UAE, Australia and Asian markets.
+              AgriExpo follows internationally recognized food safety and
+              quality systems to ensure every product meets the strict import
+              requirements of buyers across the US, EU, UAE, Australia and Asian
+              markets.
             </p>
 
             <div
@@ -426,7 +429,6 @@ export default function QualityPage() {
             </div>
           </div>
 
-          {/* RIGHT — stat cards */}
           <div className="grid grid-cols-2 gap-6">
             {stats.map((item, i) => (
               <div
@@ -454,10 +456,11 @@ export default function QualityPage() {
         </div>
       </section>
 
-      {/* ════════════════════════════════════════
-          TRUST BAR
-      ════════════════════════════════════════ */}
-      <section ref={trustRef} className="bg-white py-10 border-b border-gray-200">
+      {/* ════════════════════ TRUST BAR ════════════════════ */}
+      <section
+        ref={trustRef}
+        className="bg-white py-10 border-b border-gray-200"
+      >
         <div className="max-w-7xl mx-auto px-6 lg:px-16 grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
           {[
             { Icon: Award, label: "Global Certifications" },
@@ -483,12 +486,9 @@ export default function QualityPage() {
         </div>
       </section>
 
-      {/* ════════════════════════════════════════
-          CERTIFICATIONS
-      ════════════════════════════════════════ */}
+      {/* ════════════════════ CERTIFICATIONS ════════════════════ */}
       <section id="cert" className="scroll-mt-32 py-28 px-6 lg:px-16">
         <div ref={certRef} className="max-w-7xl mx-auto">
-
           <div
             className="text-center max-w-3xl mx-auto mb-20 transition-all duration-700 ease-out"
             style={{
@@ -547,12 +547,9 @@ export default function QualityPage() {
         </div>
       </section>
 
-      {/* ════════════════════════════════════════
-          QUALITY PROCESS
-      ════════════════════════════════════════ */}
+      {/* ════════════════════ QUALITY PROCESS ════════════════════ */}
       <section ref={processRef} className="py-28 bg-[#edf7ec] px-6 lg:px-16">
         <div className="max-w-7xl mx-auto">
-
           <div
             className="text-center max-w-4xl mx-auto mb-20 transition-all duration-700 ease-out"
             style={{
@@ -573,8 +570,7 @@ export default function QualityPage() {
           </div>
 
           <div className="grid lg:grid-cols-2 gap-10 items-start">
-
-            {/* LEFT — steps */}
+            {/* LEFT */}
             <div className="space-y-8">
               {qualitySteps.map((step, i) => {
                 const Icon = step.icon;
@@ -608,7 +604,7 @@ export default function QualityPage() {
               })}
             </div>
 
-            {/* RIGHT — integrity card */}
+            {/* RIGHT */}
             <div
               className="relative h-full transition-all duration-1000 ease-out"
               style={{
@@ -622,7 +618,6 @@ export default function QualityPage() {
               <div className="absolute -top-10 -left-10 w-40 h-40 bg-green-300/20 rounded-full blur-3xl animate-pulse" />
 
               <div className="relative bg-white rounded-[40px] shadow-2xl p-10 border border-green-100 h-full qp-glow">
-
                 <div className="flex items-center gap-4 mb-10">
                   <div className="w-16 h-16 rounded-2xl bg-green-100 flex items-center justify-center">
                     <ShieldCheck className="w-8 h-8 text-green-700" />
@@ -690,12 +685,9 @@ export default function QualityPage() {
         </div>
       </section>
 
-      {/* ════════════════════════════════════════
-          TESTING
-      ════════════════════════════════════════ */}
+      {/* ════════════════════ TESTING ════════════════════ */}
       <section ref={testRef} className="py-28 px-6 lg:px-16 bg-white">
         <div className="max-w-7xl mx-auto">
-
           <div
             className="text-center max-w-3xl mx-auto mb-20 transition-all duration-700 ease-out"
             style={{
@@ -751,9 +743,7 @@ export default function QualityPage() {
         </div>
       </section>
 
-      {/* ════════════════════════════════════════
-          EXPORT TABLE
-      ════════════════════════════════════════ */}
+      {/* ════════════════════ EXPORT TABLE ════════════════════ */}
       <section
         ref={exportRef}
         className="py-28 bg-[#0f2f1d] px-6 lg:px-16 text-white overflow-hidden relative"
@@ -761,7 +751,6 @@ export default function QualityPage() {
         <FloatingParticles count={12} />
 
         <div className="max-w-7xl mx-auto relative z-10">
-
           <div
             className="max-w-3xl transition-all duration-700 ease-out"
             style={{
@@ -828,9 +817,7 @@ export default function QualityPage() {
         </div>
       </section>
 
-      {/* ════════════════════════════════════════
-          CTA
-      ════════════════════════════════════════ */}
+      {/* ════════════════════ CTA ════════════════════ */}
       <section
         ref={ctaRef}
         className="py-32 px-6 lg:px-16 bg-gradient-to-br from-[#e9f6e7] to-[#f7fbf5] relative overflow-hidden"
@@ -842,7 +829,6 @@ export default function QualityPage() {
         />
 
         <div className="max-w-5xl mx-auto text-center relative z-10">
-
           <div
             className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-green-100 text-green-700 mb-8 transition-all duration-700 ease-out"
             style={{
@@ -904,9 +890,7 @@ export default function QualityPage() {
         </div>
       </section>
 
-      {/* ════════════════════════════════════════
-          MODAL
-      ════════════════════════════════════════ */}
+      {/* ════════════════════ MODAL ════════════════════ */}
       <>
         {activeForm && (
           <div
