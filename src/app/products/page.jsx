@@ -81,7 +81,7 @@ export default function page() {
       badge: "Antioxidant",
       image: pomeimg.src,
       href: "/products/fruit-powders/pomegranate-powder",
-      color: "bg-[#fec567]",
+      color: "bg-[#eae9da]",
     },
     {
       name: "Lemon Powder",
@@ -89,7 +89,7 @@ export default function page() {
       badge: "Natural Citrus",
       image: lemonimg.src,
       href: "/products/fruit-powders/lemon-powder",
-      color: "bg-[#e4e3d4]",
+      color: "bg-[#f5f4e5]",
     },
   ];
   return (
