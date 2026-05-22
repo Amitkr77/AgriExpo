@@ -18,7 +18,7 @@ import {
   useTransform,
   useReducedMotion,
 } from "framer-motion";
-import heroimg from "@/assets/heroimg.png";
+import heroimg from "@/assets/hero1.png";
 
 export default function Hero() {
   const reduceMotion = useReducedMotion();
