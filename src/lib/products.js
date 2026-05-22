@@ -23,7 +23,7 @@ import mintimg from "@/assets/mint.png";
 import ashwagandhaimg from "@/assets/ashwagandha.png";
 import tamarindimg from "@/assets/tamarind.png";
 import guavaimg from "@/assets/guava.png";
-import jamunimg from "@/assets/jwamun.png";
+import jamunimg from "@/assets/jamun.png";
 import coconutimg from "@/assets/coconut.png";
 import strawberryimg from "@/assets/onionimg.jpg";
 import blueberryimg from "@/assets/onionimg.jpg";
