@@ -7,6 +7,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, Send, FileText, Sprout } from "lucide-react";
 import { clsx } from "clsx";
 
+
 // ── Configuration ──
 const navLinks = [
   { href: "/products", label: "Our Powders" },
@@ -15,7 +16,7 @@ const navLinks = [
   // { href: "/process", label: "Our Process" },
   { href: "/about", label: "About" },
   { href: "/contact", label: "Contact" },
-  // { href: "/blog", label: "Blog" },
+  { href: "/blog", label: "Blog" },
 ];
 
 // ── Internal Sub-Components ──
