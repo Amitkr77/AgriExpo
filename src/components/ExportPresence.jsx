@@ -267,7 +267,7 @@ export default function ExportPresence() {
                     aria-label={`Zoom to ${point.name}`}
                   >
                     <span
-                      className={`absolute -left-2 -top-2 h-5 w-5 rounded-full bg-[#fec567] opacity-60 ${
+                      className={`absolute -left-1 -top-1 h-5 w-5 rounded-full bg-[#fec567] opacity-60 ${
                         isActive ? "animate-ping" : "animate-pulse"
                       }`}
                     />
