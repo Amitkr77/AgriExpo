@@ -1,7 +1,11 @@
 "use client";
 
+<<<<<<< HEAD
 import { useEffect, useState, useRef } from "react";
 import { useSearchParams } from "next/navigation";
+=======
+import { useState , useEffect } from "react";
+>>>>>>> 1461809c1d90b5112fff09dcd64dfb67d2cc64b9
 
 import {
   ShieldCheck,
@@ -237,9 +241,9 @@ function FloatingParticles() {
 }
 
 export default function QualityPage() {
-  const searchParams = useSearchParams();
 
   useEffect(() => {
+<<<<<<< HEAD
     const hash = window.location.hash;
     if (hash) {
       const element = document.querySelector(hash);
@@ -250,6 +254,35 @@ export default function QualityPage() {
       }
     }
   }, [searchParams]);
+=======
+    const handleHashScroll = () => {
+      const hash = window.location.hash;
+
+      if (hash) {
+        const element = document.querySelector(hash);
+
+        if (element) {
+          setTimeout(() => {
+            element.scrollIntoView({
+              behavior: "smooth",
+              block: "start",
+            });
+          }, 100);
+        }
+      }
+    };
+
+    handleHashScroll();
+
+    window.addEventListener("hashchange", handleHashScroll);
+
+    return () => {
+      window.removeEventListener("hashchange", handleHashScroll);
+    };
+  }, []);
+
+   const [activeForm, setActiveForm] = useState(null);
+>>>>>>> 1461809c1d90b5112fff09dcd64dfb67d2cc64b9
 
   const [activeForm, setActiveForm] = useState(null);
   const [heroLoaded, setHeroLoaded] = useState(false);
@@ -275,6 +308,15 @@ export default function QualityPage() {
     closeForm();
   };
 
+<<<<<<< HEAD
+=======
+    const handleSubmit = (e) => {
+      e.preventDefault();
+      alert("Your request has been submitted!");
+      closeForm();
+    };
+
+>>>>>>> 1461809c1d90b5112fff09dcd64dfb67d2cc64b9
   return (
     <main className="bg-[#f7fbf5] text-gray-800 overflow-hidden">
 
