@@ -35,7 +35,7 @@ const Logo = () => (
       <span className="text-xl sm:text-2xl font-extrabold tracking-tight text-[#14422d] leading-none group-hover:text-[#1a5c3d] transition-colors duration-300">
         SRI GREEN
       </span>
-      <span className="text-[9px] sm:text-[10px] tracking-[0.15em] font-medium text-[#414943]/70 uppercase mt-1">
+      <span className="text-[9px] sm:text-[10px] tracking-widest font-medium text-[#414943]/70 uppercase mt-1">
         Premium Fruit & Vegetable Powders
       </span>
     </div>
@@ -144,14 +144,14 @@ const MobileNav = ({ isOpen, onClose, pathname }) => {
               <Link
                 href="/contact"
                 onClick={onClose}
-                className="flex items-center justify-center gap-2 w-full border-2 border-[#14422d] text-[#14422d] px-6 py-3 rounded-full text-xs font-bold uppercase tracking-[0.1em] transition-all hover:bg-[#14422d]/5 active:scale-95"
+                className="flex items-center justify-center gap-2 w-full border-2 border-[#14422d] text-[#14422d] px-6 py-3 rounded-full text-xs font-bold uppercase tracking-widest transition-all hover:bg-[#14422d]/5 active:scale-95"
               >
                 <FileText className="w-4 h-4" /> Request Sample
               </Link>
               <Link
                 href="/contact"
                 onClick={onClose}
-                className="flex items-center justify-center gap-2 w-full bg-[#14422d] hover:bg-[#0f3122] text-white px-6 py-3 rounded-full text-xs font-bold uppercase tracking-[0.1em] transition-all hover:shadow-[0_4px_20px_rgba(20,66,45,0.25)] active:scale-95"
+                className="flex items-center justify-center gap-2 w-full bg-[#14422d] hover:bg-[#0f3122] text-white px-6 py-3 rounded-full text-xs font-bold uppercase tracking-widest transition-all hover:shadow-[0_4px_20px_rgba(20,66,45,0.25)] active:scale-95"
               >
                 <Send />
                 Bulk Inquiry
@@ -202,13 +202,13 @@ export default function Header() {
       {/* Desktop Header */}
       <header
         className={clsx(
-          "fixed top-0 left-0 w-full z-40 transition-all duration-500 ease-[cubic-bezier(0.4,0,0.2,1)]",
+          "fixed top-0 left-0 w-full z-40 transition-all duration-500 ease-in-out",
           scrolled
-            ? "bg-white/80 backdrop-blur-md border-b border-gray-100/50 shadow-sm py-3"
+            ? "bg-white/80 backdrop-blur-md shadow-sm py-3"
             : "bg-transparent py-5",
         )}
       >
-        <div className="max-w-[1440px] mx-auto px-6 sm:px-10 flex items-center justify-between">
+        <div className="max-w-360 mx-auto px-6 sm:px-10 flex items-center justify-between">
           {/* Logo */}
           <div
             className={clsx(
@@ -250,13 +250,13 @@ export default function Header() {
             <div className="hidden lg:flex items-center gap-3">
               <Link
                 href="/contact"
-                className="flex items-center gap-2 border-2 border-[#14422d] hover:bg-[#14422d]/5 text-[#14422d] px-6 py-2.5 rounded-full text-xs font-bold uppercase tracking-[0.1em] transition-all duration-300 active:scale-95"
+                className="flex items-center gap-2 border-2 border-[#14422d] hover:bg-[#14422d]/5 text-[#14422d] px-6 py-2.5 rounded-full text-xs font-bold uppercase tracking-widest transition-all duration-300 active:scale-95"
               >
                 <FileText className="w-3.5 h-3.5" /> Request Sample
               </Link>
               <Link
                 href="/contact"
-                className="flex items-center gap-2 bg-[#14422d] hover:bg-[#0f3122] text-white px-6 py-2.5 rounded-full text-xs font-bold uppercase tracking-[0.1em] transition-all duration-300 hover:shadow-[0_4px_20px_rgba(20,66,45,0.25)] active:scale-95"
+                className="flex items-center gap-2 bg-[#14422d] hover:bg-[#0f3122] text-white px-6 py-2.5 rounded-full text-xs font-bold uppercase tracking-widest transition-all duration-300 hover:shadow-[0_4px_20px_rgba(20,66,45,0.25)] active:scale-95"
               >
                 <Send className="w-3.5 h-3.5" /> Bulk Inquiry
               </Link>

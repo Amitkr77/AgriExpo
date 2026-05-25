@@ -1,7 +1,7 @@
 "use client";
 
-import { useState, useEffect, useRef, useCallback } from "react";
-
+import { useState, useEffect, useRef } from "react";
+import { motion, useInView, AnimatePresence } from "framer-motion";
 import {
   ShieldCheck,
   BadgeCheck,
@@ -10,7 +10,6 @@ import {
   FlaskConical,
   Leaf,
   CheckCircle2,
-  Download,
   Factory,
   PackageCheck,
   Microscope,
@@ -19,6 +18,76 @@ import {
 } from "lucide-react";
 import qualityHero from "@/assets/quality-hero.png";
 
+/* ─────────────────────────────────────────
+   DESIGN SYSTEM TOKENS  (design.md)
+───────────────────────────────────────── */
+/* Colors pulled from design.md palette */
+const DS = {
+  surface: "#fbfaeb",
+  surfaceDim: "#dbdbcc",
+  surfaceContainer: "#f0efe0",
+  surfaceContHigh: "#eae9da",
+  surfaceContHighest: "#e4e3d4",
+  onSurface: "#1b1c13",
+  onSurfaceVariant: "#414943",
+  outlineVariant: "#c0c9c1",
+  primary: "#14422d",
+  onPrimary: "#ffffff",
+  primaryContainer: "#2d5a43",
+  onPrimaryContainer: "#9fcfb2",
+  secondary: "#7e5700",
+  onSecondary: "#ffffff",
+  secondaryContainer: "#fec567",
+  onSecondaryContainer: "#765100",
+  tertiaryContainer: "#7f410b",
+  onTertiaryContainer: "#ffb482",
+  primaryFixed: "#bceecf",
+  onPrimaryFixedVar: "#224f39",
+  secondaryFixed: "#ffdead",
+  onSecondaryFixed: "#604100",
+  tertiaryFixed: "#ffdcc6",
+};
+
+/* ── animation helpers ── */
+const fadeUp = {
+  hidden: { opacity: 0, y: 36 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.65, ease: [0.22, 1, 0.36, 1] },
+  },
+};
+const scaleIn = {
+  hidden: { opacity: 0, scale: 0.88 },
+  show: {
+    opacity: 1,
+    scale: 1,
+    transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] },
+  },
+};
+const slideLeft = {
+  hidden: { opacity: 0, x: -40 },
+  show: {
+    opacity: 1,
+    x: 0,
+    transition: { duration: 0.65, ease: [0.22, 1, 0.36, 1] },
+  },
+};
+const slideRight = {
+  hidden: { opacity: 0, x: 40 },
+  show: {
+    opacity: 1,
+    x: 0,
+    transition: { duration: 0.65, ease: [0.22, 1, 0.36, 1] },
+  },
+};
+
+const stagger = (d = 0.1, delay = 0) => ({
+  hidden: {},
+  show: { transition: { staggerChildren: d, delayChildren: delay } },
+});
+
+/* ── data ── */
 const certifications = [
   {
     title: "ISO 22000",
@@ -26,7 +95,9 @@ const certifications = [
     scope:
       "Food safety management system covering sourcing, processing, packaging and exports.",
     validity: "Valid till Dec 2027",
-    color: "from-emerald-500 to-green-700",
+    bg: DS.primaryFixed,
+    titleColor: DS.primary,
+    bodyColor: DS.onPrimaryFixedVar,
   },
   {
     title: "FSSC 22000",
@@ -34,7 +105,9 @@ const certifications = [
     scope:
       "Comprehensive food safety certification aligned with global retail and export standards.",
     validity: "Valid till Sept 2027",
-    color: "from-lime-500 to-emerald-700",
+    bg: DS.secondaryFixed,
+    titleColor: DS.secondary,
+    bodyColor: DS.onSecondaryFixed,
   },
   {
     title: "HACCP",
@@ -42,7 +115,9 @@ const certifications = [
     scope:
       "Preventive food safety approach ensuring contamination-free processing.",
     validity: "Valid till Aug 2026",
-    color: "from-green-500 to-emerald-800",
+    bg: DS.tertiaryFixed,
+    titleColor: DS.tertiaryContainer,
+    bodyColor: "#5f2d00",
   },
   {
     title: "GMP",
@@ -50,7 +125,9 @@ const certifications = [
     scope:
       "Controlled hygienic manufacturing environment and operational consistency.",
     validity: "Valid till Jan 2028",
-    color: "from-teal-500 to-emerald-700",
+    bg: DS.surfaceContHigh,
+    titleColor: DS.primary,
+    bodyColor: DS.onSurfaceVariant,
   },
   {
     title: "Non-GMO",
@@ -58,7 +135,9 @@ const certifications = [
     scope:
       "Ensures products are sourced and processed without genetically modified ingredients.",
     validity: "Valid till Nov 2026",
-    color: "from-green-600 to-lime-700",
+    bg: DS.primaryFixed,
+    titleColor: DS.primary,
+    bodyColor: DS.onPrimaryFixedVar,
   },
   {
     title: "FSSAI",
@@ -66,7 +145,9 @@ const certifications = [
     scope:
       "Licensed and compliant food manufacturing and export operations in India.",
     validity: "Active License",
-    color: "from-emerald-600 to-teal-800",
+    bg: DS.secondaryFixed,
+    titleColor: DS.secondary,
+    bodyColor: DS.onSecondaryFixed,
   },
 ];
 
@@ -96,26 +177,10 @@ const regions = [
     certs: "ISO 22000, HACCP, Non-GMO",
     status: "Compliant",
   },
-  {
-    market: "UAE & Gulf",
-    certs: "FSSC 22000, GMP, FSSAI",
-    status: "Approved",
-  },
-  {
-    market: "Australia",
-    certs: "ISO 22000, HACCP",
-    status: "Ready",
-  },
-  {
-    market: "Singapore",
-    certs: "FSSC 22000, GMP",
-    status: "Compliant",
-  },
-  {
-    market: "Japan",
-    certs: "ISO 22000, Non-GMO",
-    status: "Verified",
-  },
+  { market: "UAE & Gulf", certs: "FSSC 22000, GMP, FSSAI", status: "Approved" },
+  { market: "Australia", certs: "ISO 22000, HACCP", status: "Ready" },
+  { market: "Singapore", certs: "FSSC 22000, GMP", status: "Compliant" },
+  { market: "Japan", certs: "ISO 22000, Non-GMO", status: "Verified" },
 ];
 
 const qualitySteps = [
@@ -123,21 +188,33 @@ const qualitySteps = [
     icon: Leaf,
     title: "Raw Material Sourcing",
     desc: "We source premium-grade fruits, vegetables, spices and herbs directly from trusted farms and verified agricultural partners.",
+    bg: DS.primaryFixed,
+    iconBg: DS.primary,
+    iconColor: DS.onPrimary,
   },
   {
     icon: Microscope,
     title: "Lab Testing",
     desc: "Every production batch undergoes microbial and chemical testing before entering the processing cycle.",
+    bg: DS.secondaryFixed,
+    iconBg: DS.secondary,
+    iconColor: DS.onSecondary,
   },
   {
     icon: Factory,
     title: "Controlled Manufacturing",
     desc: "Products are manufactured in hygienic facilities with strict SOPs and monitored processing environments.",
+    bg: DS.tertiaryFixed,
+    iconBg: DS.tertiaryContainer,
+    iconColor: DS.onTertiaryContainer,
   },
   {
     icon: PackageCheck,
     title: "Secure Packaging",
     desc: "Multi-layer export-grade packaging preserves freshness, shelf-life and product integrity during transit.",
+    bg: DS.surfaceContHigh,
+    iconBg: DS.primary,
+    iconColor: DS.onPrimary,
   },
 ];
 
@@ -148,82 +225,67 @@ const stats = [
   { number: "99.8%", label: "Shipment Approval Rate" },
 ];
 
-/* ════════════════════════════════════════
-   HOOK — Repeatable InView (both directions)
-   ✅ FIX: unobserve NAHI karta — har baar toggle hota hai
-════════════════════════════════════════ */
-function useInView(threshold = 0.15) {
-  const ref = useRef(null);
-  const [visible, setVisible] = useState(false);
+/* ── AnimatedCounter ── */
 
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const obs = new IntersectionObserver(
-      ([entry]) => {
-        // ✅ true jab enter kare, false jab leave kare
-        setVisible(entry.isIntersecting);
-      },
-      { threshold }
-    );
-    obs.observe(el);
-    return () => obs.disconnect();
-  }, [threshold]);
-
-  return [ref, visible];
-}
-
-/* ════════════════════════════════════════
-   Animated Number Counter (repeatable)
-════════════════════════════════════════ */
 function AnimatedCounter({ target, duration = 1800 }) {
-  const [display, setDisplay] = useState("0");
-  const [ref, visible] = useInView(0.5);
-  const animatedRef = useRef(false);
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: false, margin: "-60px" });
+
+  const [display, setDisplay] = useState(target);
+  const running = useRef(false);
 
   useEffect(() => {
-    if (!visible) {
-      // ✅ Reset when out of view
-      setDisplay("0");
-      animatedRef.current = false;
+    if (!inView) {
+      setDisplay(target);
+      running.current = false;
       return;
     }
-    if (animatedRef.current) return;
-    animatedRef.current = true;
 
-    const numeric = parseFloat(target.replace(/[^0-9.]/g, ""));
-    const suffix = target.replace(/[0-9.]/g, "");
-    const isDecimal = target.includes(".");
-    let start = 0;
+    if (running.current) return;
+    running.current = true;
+
+    // ✅ Extract first number only
+    const match = target.match(/-?\d+(\.\d+)?/);
+    if (!match) {
+      setDisplay(target);
+      return;
+    }
+
+    const numeric = parseFloat(match[0]);
+
+    // ✅ preserve EVERYTHING after the number (IMPORTANT FIX)
+    const suffix = target.slice(match.index + match[0].length);
+
+    const isDecimal = match[0].includes(".");
+
+    let current = 0;
     const step = numeric / (duration / 16);
-    const timer = setInterval(() => {
-      start += step;
-      if (start >= numeric) {
+
+    const interval = setInterval(() => {
+      current += step;
+
+      if (current >= numeric) {
         setDisplay(
-          isDecimal
-            ? numeric.toFixed(1) + suffix
-            : Math.floor(numeric) + suffix
+          (isDecimal ? numeric.toFixed(1) : Math.floor(numeric)) + suffix,
         );
-        clearInterval(timer);
+        clearInterval(interval);
       } else {
         setDisplay(
-          isDecimal ? start.toFixed(1) + suffix : Math.floor(start) + suffix
+          (isDecimal ? current.toFixed(1) : Math.floor(current)) + suffix,
         );
       }
     }, 16);
-    return () => clearInterval(timer);
-  }, [visible, target, duration]);
+
+    return () => clearInterval(interval);
+  }, [inView, target, duration]);
 
   return <span ref={ref}>{display}</span>;
 }
 
-/* ════════════════════════════════════════
-   Floating Particles (client-only, no hydration mismatch)
-════════════════════════════════════════ */
+/* ── FloatingParticles ── */
 function FloatingParticles({ count = 16 }) {
   const [mounted, setMounted] = useState(false);
   const particles = useRef([]);
-
   useEffect(() => {
     particles.current = Array.from({ length: count }, () => ({
       w: Math.random() * 5 + 2,
@@ -234,13 +296,10 @@ function FloatingParticles({ count = 16 }) {
     }));
     setMounted(true);
   }, [count]);
-
-  if (!mounted) {
+  if (!mounted)
     return (
       <div className="absolute inset-0 pointer-events-none overflow-hidden" />
     );
-  }
-
   return (
     <div className="absolute inset-0 pointer-events-none overflow-hidden">
       {particles.current.map((p, i) => (
@@ -261,36 +320,28 @@ function FloatingParticles({ count = 16 }) {
   );
 }
 
-/* ════════════════════════════════════════
-   MAIN COMPONENT
-════════════════════════════════════════ */
+/* ════ MAIN ════ */
 export default function QualityPage() {
-  /* hash scroll */
-  useEffect(() => {
-    const handleHashScroll = () => {
-      const hash = window.location.hash;
-      if (hash) {
-        const el = document.querySelector(hash);
-        if (el)
-          setTimeout(
-            () => el.scrollIntoView({ behavior: "smooth", block: "start" }),
-            100
-          );
-      }
-    };
-    handleHashScroll();
-    window.addEventListener("hashchange", handleHashScroll);
-    return () => window.removeEventListener("hashchange", handleHashScroll);
-  }, []);
+  // useEffect(() => {
+  //   const go = () => {
+  //     const el = document.querySelector(window.location.hash);
+  //     if (el)
+  //       setTimeout(
+  //         () => el.scrollIntoView({ behavior: "smooth", block: "start" }),
+  //         100,
+  //       );
+  //   };
+  //   go();
+  //   window.addEventListener("hashchange", go);
+  //   return () => window.removeEventListener("hashchange", go);
+  // }, []);
 
-  /* hero mount */
   const [heroReady, setHeroReady] = useState(false);
   useEffect(() => {
     const t = setTimeout(() => setHeroReady(true), 80);
     return () => clearTimeout(t);
   }, []);
 
-  /* modal */
   const [activeForm, setActiveForm] = useState(null);
   const closeForm = () => setActiveForm(null);
   const handleSubmit = (e) => {
@@ -299,666 +350,1284 @@ export default function QualityPage() {
     closeForm();
   };
 
-  /* ✅ section refs — ab dono directions me kaam karenge */
-  const [trustRef, trustVisible] = useInView(0.1);
-  const [certRef, certVisible] = useInView(0.08);
-  const [processRef, processVisible] = useInView(0.08);
-  const [testRef, testVisible] = useInView(0.08);
-  const [exportRef, exportVisible] = useInView(0.08);
-  const [ctaRef, ctaVisible] = useInView(0.1);
-
   return (
-    <main className="bg-[#f7fbf5] text-gray-800 overflow-hidden">
-      {/* ════ GLOBAL KEYFRAMES ════ */}
+    <main
+      style={{
+        background: DS.surface,
+        color: DS.onSurface,
+        fontFamily: "'Plus Jakarta Sans', sans-serif",
+      }}
+      className="overflow-hidden"
+    >
       <style>{`
-        @keyframes qpFloat {
-          0%,100% { transform:translateY(0) translateX(0); opacity:0; }
-          10%      { opacity:.8; }
-          90%      { opacity:.8; }
-          50%      { transform:translateY(-55px) translateX(15px); }
-        }
-        .qp-particle { animation: qpFloat 9s ease-in-out infinite; }
-
-        @keyframes qpShimmer {
-          0%   { background-position:-200% 0; }
-          100% { background-position: 200% 0; }
-        }
-        .qp-shimmer {
-          background:linear-gradient(90deg,transparent 0%,rgba(255,255,255,.09) 50%,transparent 100%);
-          background-size:200% 100%;
-          animation:qpShimmer 3s ease-in-out infinite;
-        }
-
-        @keyframes qpGradient {
-          0%   { background-position:0%   50%; }
-          50%  { background-position:100% 50%; }
-          100% { background-position:0%   50%; }
-        }
-        .qp-gradient { background-size:200% 200%; animation:qpGradient 7s ease infinite; }
-
-        @keyframes qpBounce {
-          0%,100% { transform:translateY(0); }
-          50%     { transform:translateY(-5px); }
-        }
-        .qp-bounce { animation:qpBounce 2.2s ease-in-out infinite; }
-
-        @keyframes qpPulseGlow {
-          0%,100% { box-shadow:0 0 20px rgba(34,197,94,.15); }
-          50%     { box-shadow:0 0 45px rgba(34,197,94,.35); }
-        }
-        .qp-glow { animation:qpPulseGlow 3s ease-in-out infinite; }
-
-        @keyframes qpFadeIn  { from{opacity:0;}          to{opacity:1;}         }
-        @keyframes qpScaleIn { from{opacity:0;transform:scale(.88);} to{opacity:1;transform:scale(1);} }
-        .qp-modal-bg   { animation:qpFadeIn  .3s ease-out both; }
-        .qp-modal-box  { animation:qpScaleIn .4s ease-out both; }
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700;800&display=swap');
+        @keyframes qpFloat{0%,100%{transform:translateY(0) translateX(0);opacity:0}10%{opacity:.7}90%{opacity:.7}50%{transform:translateY(-50px) translateX(12px)}}
+        .qp-particle{animation:qpFloat 9s ease-in-out infinite;}
+        @keyframes qpBounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+        .qp-bounce{animation:qpBounce 2.2s ease-in-out infinite;}
+        @keyframes qpShimmer{0%{background-position:-200% 0}100%{background-position:200% 0}}
+        .qp-shimmer{background:linear-gradient(90deg,transparent,rgba(255,255,255,.12),transparent);background-size:200% 100%;animation:qpShimmer 3s ease-in-out infinite;}
+        @keyframes qpGlow{0%,100%{box-shadow:0 0 20px rgba(20,66,45,.12)}50%{box-shadow:0 0 48px rgba(20,66,45,.28)}}
+        .qp-glow{animation:qpGlow 3s ease-in-out infinite;}
       `}</style>
 
-      {/* ════════════════════ HERO ════════════════════ */}
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-[#0d3b24] via-[#14532d] to-[#1f7a3e] px-6 lg:px-16 py-24">
+      {/* ════ HERO ════
+          Dark forest green hero — primary-container is the darkest brand green,
+          headline in surface (cream), body in on-primary-container (sage)         */}
+      <section
+        className="relative min-h-screen flex items-center justify-center overflow-hidden px-6 lg:px-16 py-24"
+        style={{
+          background: `linear-gradient(135deg, ${DS.primary} 0%, ${DS.primaryContainer} 60%, #1f6644 100%)`,
+        }}
+      >
         <div
           className="absolute inset-0 bg-cover bg-center transition-transform duration-[2200ms] ease-out"
           style={{
             backgroundImage: `url(${qualityHero.src})`,
             transform: heroReady ? "scale(1)" : "scale(1.08)",
+            opacity: 0.18,
           }}
         />
-        <div className="absolute inset-0 bg-black/25" />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#052e16]/40 via-[#14532d]/30 to-[#166534]/10 qp-gradient" />
         <FloatingParticles count={16} />
 
         <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-16 items-center relative z-10">
-          <div>
-            <div
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 border border-white/20 text-green-100 mb-10 backdrop-blur-md transition-all duration-700 ease-out"
+          {/* text */}
+          <motion.div
+            variants={stagger(0.15, 0.2)}
+            initial="hidden"
+            animate={heroReady ? "show" : "hidden"}
+          >
+            {/* label-caps badge */}
+            <motion.div
+              variants={fadeUp}
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-full mb-10"
               style={{
-                opacity: heroReady ? 1 : 0,
-                transform: heroReady ? "translateY(0)" : "translateY(20px)",
-                transitionDelay: "200ms",
+                background: "rgba(255,255,255,.12)",
+                border: "1px solid rgba(255,255,255,.2)",
+                color: DS.onPrimaryContainer,
+                backdropFilter: "blur(12px)",
+                fontFamily: "'Plus Jakarta Sans',sans-serif",
+                fontSize: 12,
+                fontWeight: 700,
+                letterSpacing: "0.1em",
+                textTransform: "uppercase",
               }}
             >
-              <ShieldCheck className="w-5 h-5 qp-bounce" />
+              <ShieldCheck size={18} className="qp-bounce" />
               Export Certified Manufacturing
-            </div>
+            </motion.div>
 
-            <h1
-              className="text-4xl sm:text-5xl md:text-6xl xl:text-7xl font-black leading-tight text-white transition-all duration-1000 ease-out"
+            {/* display-xl headline */}
+            <motion.h1
+              variants={fadeUp}
               style={{
-                opacity: heroReady ? 1 : 0,
-                transform: heroReady ? "translateY(0)" : "translateY(30px)",
-                transitionDelay: "380ms",
+                fontFamily: "'Plus Jakarta Sans',sans-serif",
+                fontSize: "clamp(40px,7vw,80px)",
+                fontWeight: 800,
+                lineHeight: 1.1,
+                letterSpacing: "-0.04em",
+                color: DS.surface,
               }}
             >
               Export-Grade
-              <span className="block text-green-300">
+              <span style={{ display: "block", color: DS.secondaryContainer }}>
                 Quality at Every Stage
               </span>
-            </h1>
+            </motion.h1>
 
-            <p
-              className="mt-8 text-lg md:text-xl text-green-50 leading-relaxed max-w-2xl transition-all duration-1000 ease-out"
+            <motion.p
+              variants={fadeUp}
               style={{
-                opacity: heroReady ? 1 : 0,
-                transform: heroReady ? "translateY(0)" : "translateY(30px)",
-                transitionDelay: "560ms",
+                fontFamily: "'Plus Jakarta Sans',sans-serif",
+                fontSize: 18,
+                fontWeight: 500,
+                lineHeight: "28px",
+                color: DS.onPrimaryContainer,
+                maxWidth: 520,
+                marginTop: 24,
+                marginBottom: 40,
               }}
             >
               AgriExpo follows internationally recognized food safety and
-              quality systems to ensure every product meets the strict import
+              quality systems to ensure every product meets strict import
               requirements of buyers across the US, EU, UAE, Australia and Asian
               markets.
-            </p>
+            </motion.p>
 
-            <div
-              className="mt-10 flex flex-wrap gap-4 transition-all duration-1000 ease-out"
-              style={{
-                opacity: heroReady ? 1 : 0,
-                transform: heroReady ? "translateY(0)" : "translateY(30px)",
-                transitionDelay: "740ms",
-              }}
-            >
-              <button className="group relative px-8 py-4 rounded-2xl bg-white text-green-900 font-semibold hover:scale-105 hover:shadow-[0_0_35px_rgba(255,255,255,.3)] transition-all duration-500 shadow-2xl overflow-hidden">
-                <span className="relative z-10">View Certifications</span>
-                <div className="absolute inset-0 bg-gradient-to-r from-green-50 to-emerald-50 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-              </button>
-
-              <button className="relative px-8 py-4 rounded-2xl border border-white/30 text-white hover:bg-white/10 hover:border-white/60 transition-all duration-500 overflow-hidden">
-                <span className="relative z-10">Download Quality Profile</span>
-                <div className="absolute inset-0 qp-shimmer" />
-              </button>
-            </div>
-          </div>
-
-          <div className="grid grid-cols-2 gap-6">
-            {stats.map((item, i) => (
-              <div
-                key={i}
-                className="group bg-white/10 border border-white/10 backdrop-blur-xl rounded-3xl p-8 text-center shadow-2xl hover:bg-white/20 hover:scale-105 hover:shadow-[0_0_50px_rgba(34,197,94,.15)] transition-all duration-700 ease-out cursor-default"
+            <motion.div variants={fadeUp} className="flex flex-wrap gap-4">
+              {/* primary pill button */}
+              <motion.button
+                whileHover={{ scale: 1.05, backgroundColor: "#f5b84a" }}
+                whileTap={{ scale: 0.97 }}
+                transition={{ type: "spring", stiffness: 300, damping: 20 }}
                 style={{
-                  opacity: heroReady ? 1 : 0,
-                  transform: heroReady
-                    ? "translateY(0) scale(1)"
-                    : "translateY(30px) scale(.92)",
-                  transition:
-                    "opacity .8s ease-out, transform .8s ease-out, box-shadow .5s, background-color .5s",
-                  transitionDelay: `${920 + i * 140}ms`,
+                  background: DS.secondaryContainer,
+                  color: DS.onSecondaryContainer,
+                  padding: "16px 32px",
+                  borderRadius: 9999,
+                  fontFamily: "'Plus Jakarta Sans',sans-serif",
+                  fontWeight: 700,
+                  fontSize: 16,
+                  border: "none",
+                  cursor: "pointer",
                 }}
               >
-                <h3 className="text-5xl font-black text-white group-hover:text-green-200 transition-colors duration-500">
-                  <AnimatedCounter target={item.number} />
+                View Certifications
+              </motion.button>
+              {/* outline pill */}
+              <motion.button
+                whileHover={{
+                  scale: 1.04,
+                  backgroundColor: "rgba(255,255,255,.1)",
+                }}
+                whileTap={{ scale: 0.97 }}
+                transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                className="relative overflow-hidden"
+                style={{
+                  background: "transparent",
+                  color: DS.surface,
+                  border: `2px solid rgba(255,255,255,.35)`,
+                  padding: "16px 32px",
+                  borderRadius: 9999,
+                  fontFamily: "'Plus Jakarta Sans',sans-serif",
+                  fontWeight: 700,
+                  fontSize: 16,
+                  cursor: "pointer",
+                }}
+              >
+                <span className="relative z-10">Download Quality Profile</span>
+                <div className="absolute inset-0 qp-shimmer" />
+              </motion.button>
+            </motion.div>
+          </motion.div>
+
+          {/* stat bento cards */}
+          <motion.div
+            className="grid grid-cols-2 gap-5"
+            variants={stagger(0.13, 0.55)}
+            initial="hidden"
+            animate={heroReady ? "show" : "hidden"}
+          >
+            {stats.map((s, i) => (
+              <motion.div
+                key={i}
+                variants={scaleIn}
+                whileHover={{ scale: 1.04, y: -4 }}
+                transition={{ type: "spring", stiffness: 260, damping: 18 }}
+                className="cursor-default"
+                style={{
+                  background: "rgba(255,255,255,.1)",
+                  border: "1px solid rgba(255,255,255,.15)",
+                  backdropFilter: "blur(16px)",
+                  borderRadius: "3rem",
+                  padding: "32px",
+                  textAlign: "center",
+                }}
+              >
+                <h3
+                  style={{
+                    fontFamily: "'Plus Jakarta Sans',sans-serif",
+                    fontSize: 48,
+                    fontWeight: 800,
+                    color: DS.surface,
+                    letterSpacing: "-0.04em",
+                  }}
+                >
+                  <AnimatedCounter target={s.number} />
                 </h3>
-                <p className="mt-3 text-green-100 group-hover:text-white transition-colors duration-500">
-                  {item.label}
+                <p
+                  style={{
+                    fontFamily: "'Plus Jakarta Sans',sans-serif",
+                    fontSize: 14,
+                    fontWeight: 500,
+                    color: DS.onPrimaryContainer,
+                    marginTop: 8,
+                  }}
+                >
+                  {s.label}
                 </p>
-              </div>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
         </div>
       </section>
 
-      {/* ════════════════════ TRUST BAR ════════════════════ */}
+      {/* ════ TRUST BAR — surface-container bg, label-caps icons ════ */}
       <section
-        ref={trustRef}
-        className="bg-white py-10 border-b border-gray-200"
+        style={{
+          background: DS.surfaceContainer,
+          borderBottom: `1px solid ${DS.outlineVariant}`,
+        }}
+        className="py-10"
       >
-        <div className="max-w-7xl mx-auto px-6 lg:px-16 grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+        <motion.div
+          className="max-w-7xl mx-auto px-6 lg:px-16 grid grid-cols-2 md:grid-cols-4 gap-8 text-center"
+          variants={stagger(0.12)}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: false, margin: "-60px" }}
+        >
           {[
             { Icon: Award, label: "Global Certifications" },
             { Icon: ClipboardCheck, label: "Strict QC Procedures" },
             { Icon: Globe2, label: "Worldwide Export Standards" },
             { Icon: FlaskConical, label: "Lab-Tested Products" },
           ].map(({ Icon, label }, i) => (
-            <div
+            <motion.div
               key={i}
-              className="group cursor-default transition-all duration-700 ease-out"
-              style={{
-                opacity: trustVisible ? 1 : 0,
-                transform: trustVisible ? "translateY(0)" : "translateY(24px)",
-                transitionDelay: `${i * 130}ms`,
-              }}
+              variants={fadeUp}
+              whileHover={{ scale: 1.06 }}
+              transition={{ type: "spring", stiffness: 280, damping: 18 }}
+              className="cursor-default group"
             >
-              <Icon className="w-10 h-10 mx-auto text-green-700 group-hover:scale-125 group-hover:rotate-6 transition-all duration-500" />
-              <p className="mt-3 font-semibold group-hover:text-green-700 transition-colors duration-300">
+              {/* icon in circle — design.md icon pattern */}
+              <div
+                className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-3 transition-all duration-300 group-hover:scale-110 group-hover:rotate-6"
+                style={{ background: DS.primaryFixed }}
+              >
+                <Icon size={28} style={{ color: DS.primary }} />
+              </div>
+              <p
+                style={{
+                  fontFamily: "'Plus Jakarta Sans',sans-serif",
+                  fontSize: 12,
+                  fontWeight: 700,
+                  letterSpacing: "0.1em",
+                  textTransform: "uppercase",
+                  color: DS.onSurfaceVariant,
+                }}
+                className="group-hover:text-[#14422d] transition-colors duration-300"
+              >
                 {label}
               </p>
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       </section>
 
-      {/* ════════════════════ CERTIFICATIONS ════════════════════ */}
-      <section id="cert" className="scroll-mt-32 py-28 px-6 lg:px-16">
-        <div ref={certRef} className="max-w-7xl mx-auto">
-          <div
-            className="text-center max-w-3xl mx-auto mb-20 transition-all duration-700 ease-out"
-            style={{
-              opacity: certVisible ? 1 : 0,
-              transform: certVisible ? "translateY(0)" : "translateY(30px)",
-            }}
+      {/* ════ CERTIFICATIONS — bento grid ════ */}
+      <section
+        id="cert"
+        className="scroll-mt-32 py-28 px-6 lg:px-16"
+        style={{ background: DS.surface }}
+      >
+        <div className="max-w-7xl mx-auto">
+          <motion.div
+            className="text-center max-w-3xl mx-auto mb-20"
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: false, margin: "-60px" }}
           >
-            <span className="text-green-700 font-semibold uppercase tracking-[0.25em]">
+            <span
+              style={{
+                fontFamily: "'Plus Jakarta Sans',sans-serif",
+                fontSize: 12,
+                fontWeight: 700,
+                letterSpacing: "0.1em",
+                textTransform: "uppercase",
+                color: DS.primary,
+              }}
+            >
               Certifications
             </span>
-            <h2 className="mt-5 text-4xl md:text-5xl font-black text-[#113322] leading-tight">
+            <h2
+              style={{
+                fontFamily: "'Plus Jakarta Sans',sans-serif",
+                fontSize: "clamp(32px,5vw,48px)",
+                fontWeight: 800,
+                lineHeight: 1.1,
+                letterSpacing: "-0.02em",
+                color: DS.primary,
+                marginTop: 16,
+              }}
+            >
               International Standards You Can Trust
             </h2>
-            <p className="mt-6 text-lg text-gray-600 leading-relaxed">
+            <p
+              style={{
+                fontFamily: "'Plus Jakarta Sans',sans-serif",
+                fontSize: 16,
+                fontWeight: 500,
+                lineHeight: "24px",
+                color: DS.onSurfaceVariant,
+                marginTop: 16,
+              }}
+            >
               Our manufacturing, testing and packaging systems are built around
-              internationally recognized food safety standards to ensure
-              consistency, compliance and confidence for global buyers.
+              internationally recognized food safety standards.
             </p>
-          </div>
+          </motion.div>
 
-          <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-8">
+          {/* bento grid — 12 col, cards alternate palette */}
+          <motion.div
+            className="grid md:grid-cols-2 xl:grid-cols-3 gap-5"
+            variants={stagger(0.1, 0.2)}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: false, margin: "-60px" }}
+          >
             {certifications.map((cert, i) => (
-              <div
+              <motion.div
                 key={i}
-                className="group bg-white rounded-[32px] overflow-hidden shadow-xl border border-gray-100 hover:-translate-y-3 hover:shadow-[0_25px_60px_rgba(0,0,0,0.12)] transition-all duration-700 ease-out"
+                variants={fadeUp}
+                whileHover={{ y: -10, scale: 1.02 }}
+                transition={{ type: "spring", stiffness: 260, damping: 18 }}
+                className="group cursor-default"
                 style={{
-                  opacity: certVisible ? 1 : 0,
-                  transform: certVisible
-                    ? "translateY(0) scale(1)"
-                    : "translateY(40px) scale(.96)",
-                  transition:
-                    "opacity .7s ease-out, transform .7s ease-out, box-shadow .5s",
-                  transitionDelay: `${280 + i * 110}ms`,
+                  background: cert.bg,
+                  borderRadius: "3rem",
+                  padding: 32,
+                  overflow: "hidden",
+                  position: "relative",
                 }}
               >
-                <div className="p-8">
-                  <div className="w-16 h-16 rounded-2xl bg-green-100 flex items-center justify-center mb-6 group-hover:bg-green-700 group-hover:scale-110 group-hover:rotate-6 transition-all duration-500">
-                    <BadgeCheck className="w-8 h-8 text-green-700 group-hover:text-white transition-colors duration-500" />
-                  </div>
-                  <h3 className="text-2xl font-bold text-[#123524] group-hover:text-green-700 transition-colors duration-300">
-                    {cert.title}
-                  </h3>
-                  <p className="mt-3 text-green-700 font-medium">{cert.body}</p>
-                  <p className="mt-6 text-gray-600 leading-relaxed">
-                    {cert.scope}
-                  </p>
-                  <div className="mt-6 flex items-center justify-between border-t pt-5">
-                    <span className="text-sm font-semibold text-gray-500 group-hover:text-green-600 transition-colors duration-300">
-                      {cert.validity}
-                    </span>
-                  </div>
+                {/* icon circle — design.md icon pattern */}
+                <motion.div
+                  whileHover={{ rotate: 10, scale: 1.1 }}
+                  transition={{ type: "spring", stiffness: 300, damping: 18 }}
+                  className="w-16 h-16 rounded-full flex items-center justify-center mb-6"
+                  style={{ background: DS.primary }}
+                >
+                  <BadgeCheck size={28} style={{ color: DS.onPrimary }} />
+                </motion.div>
+
+                <h3
+                  style={{
+                    fontFamily: "'Plus Jakarta Sans',sans-serif",
+                    fontSize: 24,
+                    fontWeight: 700,
+                    lineHeight: "28px",
+                    color: cert.titleColor,
+                  }}
+                >
+                  {cert.title}
+                </h3>
+                <p
+                  style={{
+                    fontFamily: "'Plus Jakarta Sans',sans-serif",
+                    fontSize: 13,
+                    fontWeight: 700,
+                    letterSpacing: "0.05em",
+                    textTransform: "uppercase",
+                    color: cert.bodyColor,
+                    marginTop: 8,
+                  }}
+                >
+                  {cert.body}
+                </p>
+                <p
+                  style={{
+                    fontFamily: "'Plus Jakarta Sans',sans-serif",
+                    fontSize: 15,
+                    fontWeight: 500,
+                    lineHeight: "22px",
+                    color: DS.onSurfaceVariant,
+                    marginTop: 16,
+                  }}
+                >
+                  {cert.scope}
+                </p>
+
+                <div
+                  style={{
+                    borderTop: `1px solid rgba(0,0,0,.08)`,
+                    marginTop: 24,
+                    paddingTop: 16,
+                  }}
+                >
+                  <span
+                    style={{
+                      fontFamily: "'Plus Jakarta Sans',sans-serif",
+                      fontSize: 12,
+                      fontWeight: 700,
+                      letterSpacing: "0.1em",
+                      textTransform: "uppercase",
+                      color: cert.titleColor,
+                    }}
+                  >
+                    {cert.validity}
+                  </span>
                 </div>
-              </div>
+
+                {/* deco circle — design.md decorative accent */}
+                <div
+                  className="absolute -right-8 -bottom-8 w-24 h-24 rounded-full pointer-events-none opacity-20 group-hover:opacity-30 transition-opacity duration-500"
+                  style={{ background: cert.titleColor }}
+                />
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
         </div>
       </section>
 
-      {/* ════════════════════ QUALITY PROCESS ════════════════════ */}
-      <section ref={processRef} className="py-28 bg-[#edf7ec] px-6 lg:px-16">
+      {/* ════ QUALITY PROCESS — surface-container-high bg ════ */}
+      <section
+        className="py-28 px-6 lg:px-16"
+        style={{ background: DS.surfaceContHigh }}
+      >
         <div className="max-w-7xl mx-auto">
-          <div
-            className="text-center max-w-4xl mx-auto mb-20 transition-all duration-700 ease-out"
-            style={{
-              opacity: processVisible ? 1 : 0,
-              transform: processVisible ? "translateY(0)" : "translateY(30px)",
-            }}
+          <motion.div
+            className="text-center max-w-4xl mx-auto mb-20"
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: false, margin: "-60px" }}
           >
-            <span className="text-green-700 font-semibold uppercase tracking-[0.25em]">
+            <span
+              style={{
+                fontFamily: "'Plus Jakarta Sans',sans-serif",
+                fontSize: 12,
+                fontWeight: 700,
+                letterSpacing: "0.1em",
+                textTransform: "uppercase",
+                color: DS.primary,
+              }}
+            >
               Quality Workflow
             </span>
-            <h2 className="mt-6 text-4xl md:text-5xl font-black text-[#143523] leading-tight">
+            <h2
+              style={{
+                fontFamily: "'Plus Jakarta Sans',sans-serif",
+                fontSize: "clamp(32px,5vw,48px)",
+                fontWeight: 800,
+                lineHeight: 1.1,
+                letterSpacing: "-0.02em",
+                color: DS.primary,
+                marginTop: 16,
+              }}
+            >
               Multi-Level Quality Control From Farm to Export
             </h2>
-            <p className="mt-6 text-lg text-gray-600 leading-relaxed">
+            <p
+              style={{
+                fontFamily: "'Plus Jakarta Sans',sans-serif",
+                fontSize: 16,
+                fontWeight: 500,
+                lineHeight: "24px",
+                color: DS.onSurfaceVariant,
+                marginTop: 16,
+              }}
+            >
               We maintain strict inspection systems at every stage of the supply
-              chain to guarantee food safety, consistency and export readiness.
+              chain.
             </p>
-          </div>
+          </motion.div>
 
-          <div className="grid lg:grid-cols-2 gap-10 items-start">
-            {/* LEFT */}
-            <div className="space-y-8">
+          <div className="grid lg:grid-cols-2 gap-5 items-start">
+            {/* step cards — each a bento card with palette colour */}
+            <motion.div
+              className="space-y-5"
+              variants={stagger(0.13, 0.2)}
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: false, margin: "-60px" }}
+            >
               {qualitySteps.map((step, i) => {
                 const Icon = step.icon;
                 return (
-                  <div
+                  <motion.div
                     key={i}
-                    className="group flex gap-5 bg-white p-8 rounded-[32px] shadow-xl border border-green-100 hover:-translate-y-2 hover:shadow-2xl transition-all duration-700 ease-out"
+                    variants={slideLeft}
+                    whileHover={{ y: -6, scale: 1.01 }}
+                    transition={{ type: "spring", stiffness: 260, damping: 18 }}
+                    className="flex gap-5 cursor-default"
                     style={{
-                      opacity: processVisible ? 1 : 0,
-                      transform: processVisible
-                        ? "translateX(0)"
-                        : "translateX(-40px)",
-                      transition:
-                        "opacity .7s ease-out, transform .7s ease-out, box-shadow .5s",
-                      transitionDelay: `${360 + i * 160}ms`,
+                      background: step.bg,
+                      borderRadius: "3rem",
+                      padding: 32,
                     }}
                   >
-                    <div className="w-16 h-16 rounded-2xl bg-green-100 flex items-center justify-center shrink-0 group-hover:bg-green-700 group-hover:scale-110 group-hover:rotate-6 transition-all duration-500">
-                      <Icon className="w-8 h-8 text-green-700 group-hover:text-white transition-all duration-500" />
-                    </div>
+                    <motion.div
+                      whileHover={{ rotate: 10, scale: 1.1 }}
+                      transition={{
+                        type: "spring",
+                        stiffness: 300,
+                        damping: 18,
+                      }}
+                      className="w-16 h-16 rounded-full flex items-center justify-center shrink-0"
+                      style={{ background: step.iconBg }}
+                    >
+                      <Icon size={28} style={{ color: step.iconColor }} />
+                    </motion.div>
                     <div>
-                      <h3 className="text-2xl font-bold text-[#163825] group-hover:text-green-700 transition-colors duration-300">
+                      <h3
+                        style={{
+                          fontFamily: "'Plus Jakarta Sans',sans-serif",
+                          fontSize: 24,
+                          fontWeight: 700,
+                          lineHeight: "28px",
+                          color: DS.primary,
+                        }}
+                      >
                         {step.title}
                       </h3>
-                      <p className="mt-3 text-gray-600 leading-relaxed">
+                      <p
+                        style={{
+                          fontFamily: "'Plus Jakarta Sans',sans-serif",
+                          fontSize: 15,
+                          fontWeight: 500,
+                          lineHeight: "22px",
+                          color: DS.onSurfaceVariant,
+                          marginTop: 8,
+                        }}
+                      >
                         {step.desc}
                       </p>
                     </div>
-                  </div>
+                  </motion.div>
                 );
               })}
-            </div>
+            </motion.div>
 
-            {/* RIGHT */}
-            <div
-              className="relative h-full transition-all duration-1000 ease-out"
-              style={{
-                opacity: processVisible ? 1 : 0,
-                transform: processVisible
-                  ? "translateX(0)"
-                  : "translateX(40px)",
-                transitionDelay: "560ms",
-              }}
+            {/* integrity card — surface bg, primary border (sticker effect) */}
+            <motion.div
+              variants={slideRight}
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: false, margin: "-60px" }}
+              className="relative"
             >
-              <div className="absolute -top-10 -left-10 w-40 h-40 bg-green-300/20 rounded-full blur-3xl animate-pulse" />
-
-              <div className="relative bg-white rounded-[40px] shadow-2xl p-10 border border-green-100 h-full qp-glow">
-                <div className="flex items-center gap-4 mb-10">
-                  <div className="w-16 h-16 rounded-2xl bg-green-100 flex items-center justify-center">
-                    <ShieldCheck className="w-8 h-8 text-green-700" />
+              <div
+                className="absolute -top-8 -left-8 w-36 h-36 rounded-full blur-3xl animate-pulse pointer-events-none"
+                style={{ background: DS.primaryFixed, opacity: 0.4 }}
+              />
+              <div
+                className="relative qp-glow"
+                style={{
+                  background: DS.surface,
+                  borderRadius: "3rem",
+                  padding: 40,
+                  border: `2px solid ${DS.primaryContainer}`,
+                }}
+              >
+                {/* sticker header */}
+                <div className="flex items-center gap-4 mb-8">
+                  <div
+                    className="w-16 h-16 rounded-full flex items-center justify-center"
+                    style={{ background: DS.primaryFixed }}
+                  >
+                    <ShieldCheck size={28} style={{ color: DS.primary }} />
                   </div>
                   <div>
-                    <h3 className="text-3xl font-black text-[#163825]">
+                    <h3
+                      style={{
+                        fontFamily: "'Plus Jakarta Sans',sans-serif",
+                        fontSize: 24,
+                        fontWeight: 800,
+                        lineHeight: "28px",
+                        color: DS.primary,
+                      }}
+                    >
                       Product Integrity Assurance
                     </h3>
-                    <p className="text-gray-500 mt-1">
+                    <p
+                      style={{
+                        fontFamily: "'Plus Jakarta Sans',sans-serif",
+                        fontSize: 14,
+                        fontWeight: 500,
+                        color: DS.onSurfaceVariant,
+                        marginTop: 4,
+                      }}
+                    >
                       Every shipment verified before dispatch.
                     </p>
                   </div>
                 </div>
 
-                <div className="grid sm:grid-cols-2 gap-5">
+                <motion.div
+                  className="grid sm:grid-cols-2 gap-4"
+                  variants={stagger(0.07, 0.35)}
+                  initial="hidden"
+                  whileInView="show"
+                  viewport={{ once: false, margin: "-40px" }}
+                >
                   {testingItems.slice(0, 8).map((item, i) => (
-                    <div
+                    <motion.div
                       key={i}
-                      className="group/item flex items-start gap-3 bg-[#f7fbf5] border border-green-100 rounded-2xl p-5 hover:shadow-lg hover:border-green-300 hover:bg-green-50 transition-all duration-500"
+                      variants={fadeUp}
+                      whileHover={{
+                        scale: 1.03,
+                        borderColor: DS.primaryContainer,
+                        backgroundColor: DS.primaryFixed,
+                      }}
+                      transition={{
+                        type: "spring",
+                        stiffness: 280,
+                        damping: 18,
+                      }}
+                      className="flex items-start gap-3 cursor-default"
                       style={{
-                        opacity: processVisible ? 1 : 0,
-                        transform: processVisible
-                          ? "translateY(0)"
-                          : "translateY(20px)",
-                        transition:
-                          "opacity .6s ease-out, transform .6s ease-out, box-shadow .4s, background-color .4s, border-color .4s",
-                        transitionDelay: `${800 + i * 80}ms`,
+                        background: DS.surfaceContainer,
+                        border: `1px solid ${DS.outlineVariant}`,
+                        borderRadius: "1.5rem",
+                        padding: 16,
                       }}
                     >
-                      <CheckCircle2 className="w-5 h-5 text-green-700 mt-1 shrink-0 group-hover/item:scale-125 transition-all duration-300" />
-                      <span className="text-gray-700 font-medium group-hover/item:text-green-800 transition-colors duration-300">
+                      <CheckCircle2
+                        size={18}
+                        style={{
+                          color: DS.primary,
+                          marginTop: 2,
+                          flexShrink: 0,
+                        }}
+                        className="group-hover:scale-125 transition-transform duration-300"
+                      />
+                      <span
+                        style={{
+                          fontFamily: "'Plus Jakarta Sans',sans-serif",
+                          fontSize: 14,
+                          fontWeight: 500,
+                          color: DS.onSurface,
+                        }}
+                      >
                         {item}
                       </span>
-                    </div>
+                    </motion.div>
                   ))}
-                </div>
+                </motion.div>
 
-                <div className="mt-10 grid grid-cols-3 gap-4">
+                {/* mini stat pills */}
+                <motion.div
+                  className="mt-8 grid grid-cols-3 gap-4"
+                  variants={stagger(0.1, 0.7)}
+                  initial="hidden"
+                  whileInView="show"
+                  viewport={{ once: false, margin: "-40px" }}
+                >
                   {[
                     { val: "100%", label: "Batch Tested" },
                     { val: "35+", label: "Countries" },
                     { val: "24/7", label: "Monitoring" },
                   ].map((s, i) => (
-                    <div
+                    <motion.div
                       key={i}
-                      className="group/stat bg-green-50 rounded-2xl p-5 text-center hover:bg-green-100 hover:scale-105 transition-all duration-500 cursor-default"
+                      variants={scaleIn}
+                      whileHover={{
+                        scale: 1.07,
+                        backgroundColor: DS.primaryFixed,
+                      }}
+                      transition={{
+                        type: "spring",
+                        stiffness: 280,
+                        damping: 18,
+                      }}
+                      className="text-center cursor-default"
                       style={{
-                        opacity: processVisible ? 1 : 0,
-                        transform: processVisible ? "scale(1)" : "scale(.8)",
-                        transition:
-                          "opacity .6s ease-out, transform .6s ease-out, background-color .4s",
-                        transitionDelay: `${1520 + i * 130}ms`,
+                        background: DS.surfaceContHigh,
+                        borderRadius: "9999px",
+                        padding: "16px 8px",
                       }}
                     >
-                      <h4 className="text-2xl font-black text-green-700 group-hover/stat:text-green-800 transition-colors duration-300">
+                      <h4
+                        style={{
+                          fontFamily: "'Plus Jakarta Sans',sans-serif",
+                          fontSize: 22,
+                          fontWeight: 800,
+                          color: DS.primary,
+                        }}
+                      >
                         {s.val}
                       </h4>
-                      <p className="text-sm text-gray-600 mt-1">{s.label}</p>
-                    </div>
+                      <p
+                        style={{
+                          fontFamily: "'Plus Jakarta Sans',sans-serif",
+                          fontSize: 12,
+                          fontWeight: 700,
+                          letterSpacing: "0.08em",
+                          textTransform: "uppercase",
+                          color: DS.onSurfaceVariant,
+                          marginTop: 4,
+                        }}
+                      >
+                        {s.label}
+                      </p>
+                    </motion.div>
                   ))}
-                </div>
+                </motion.div>
               </div>
-            </div>
+            </motion.div>
           </div>
         </div>
       </section>
 
-      {/* ════════════════════ TESTING ════════════════════ */}
-      <section ref={testRef} className="py-28 px-6 lg:px-16 bg-white">
+      {/* ════ TESTING — surface bg, bento cards ════ */}
+      <section
+        className="py-28 px-6 lg:px-16"
+        style={{ background: DS.surface }}
+      >
         <div className="max-w-7xl mx-auto">
-          <div
-            className="text-center max-w-3xl mx-auto mb-20 transition-all duration-700 ease-out"
-            style={{
-              opacity: testVisible ? 1 : 0,
-              transform: testVisible ? "translateY(0)" : "translateY(30px)",
-            }}
+          <motion.div
+            className="text-center max-w-3xl mx-auto mb-20"
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: false, margin: "-60px" }}
           >
-            <span className="text-green-700 font-semibold uppercase tracking-[0.25em]">
+            <span
+              style={{
+                fontFamily: "'Plus Jakarta Sans',sans-serif",
+                fontSize: 12,
+                fontWeight: 700,
+                letterSpacing: "0.1em",
+                textTransform: "uppercase",
+                color: DS.secondary,
+              }}
+            >
               Laboratory Testing
             </span>
-            <h2 className="mt-5 text-4xl md:text-5xl font-black text-[#113322]">
+            <h2
+              style={{
+                fontFamily: "'Plus Jakarta Sans',sans-serif",
+                fontSize: "clamp(32px,5vw,48px)",
+                fontWeight: 800,
+                lineHeight: 1.1,
+                letterSpacing: "-0.02em",
+                color: DS.primary,
+                marginTop: 16,
+              }}
+            >
               What We Test For
             </h2>
-            <p className="mt-6 text-lg text-gray-600 leading-relaxed">
-              Our quality assurance team performs detailed laboratory analysis to
-              maintain product purity, consistency and compliance with
-              international food regulations.
+            <p
+              style={{
+                fontFamily: "'Plus Jakarta Sans',sans-serif",
+                fontSize: 16,
+                fontWeight: 500,
+                lineHeight: "24px",
+                color: DS.onSurfaceVariant,
+                marginTop: 16,
+              }}
+            >
+              Our quality assurance team performs detailed laboratory analysis
+              to maintain product purity, consistency and compliance.
             </p>
-          </div>
+          </motion.div>
 
-          <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-6">
-            {testingItems.map((item, i) => (
-              <div
-                key={i}
-                className="group bg-[#f7fbf5] border border-green-100 rounded-3xl p-6 hover:shadow-xl hover:-translate-y-2 hover:border-green-300 hover:bg-green-50/80 transition-all duration-500"
-                style={{
-                  opacity: testVisible ? 1 : 0,
-                  transform: testVisible
-                    ? "translateY(0) scale(1)"
-                    : "translateY(30px) scale(.96)",
-                  transition:
-                    "opacity .6s ease-out, transform .6s ease-out, box-shadow .4s, border-color .4s, background-color .4s",
-                  transitionDelay: `${160 + i * 70}ms`,
-                }}
-              >
-                <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 rounded-2xl bg-green-100 flex items-center justify-center shrink-0 group-hover:bg-green-700 group-hover:scale-110 group-hover:rotate-6 transition-all duration-500">
-                    <FileCheck2 className="w-6 h-6 text-green-700 group-hover:text-white transition-colors duration-500" />
+          <motion.div
+            className="grid md:grid-cols-2 xl:grid-cols-3 gap-5"
+            variants={stagger(0.06, 0.12)}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: false, margin: "-60px" }}
+          >
+            {testingItems.map((item, i) => {
+              /* alternate palette: primary-fixed, secondary-fixed, tertiary-fixed */
+              const palettes = [
+                {
+                  bg: DS.primaryFixed,
+                  iconBg: DS.primary,
+                  iconColor: DS.onPrimary,
+                  titleColor: DS.primary,
+                },
+                {
+                  bg: DS.secondaryFixed,
+                  iconBg: DS.secondary,
+                  iconColor: DS.onSecondary,
+                  titleColor: DS.secondary,
+                },
+                {
+                  bg: DS.tertiaryFixed,
+                  iconBg: DS.tertiaryContainer,
+                  iconColor: DS.onTertiaryContainer,
+                  titleColor: "#5f2d00",
+                },
+              ];
+              const p = palettes[i % 3];
+              return (
+                <motion.div
+                  key={i}
+                  variants={fadeUp}
+                  whileHover={{ y: -8, scale: 1.02 }}
+                  transition={{ type: "spring", stiffness: 260, damping: 18 }}
+                  className="group cursor-default"
+                  style={{
+                    background: p.bg,
+                    borderRadius: "3rem",
+                    padding: 28,
+                    position: "relative",
+                    overflow: "hidden",
+                  }}
+                >
+                  <div className="flex items-start gap-4">
+                    <motion.div
+                      whileHover={{ rotate: 10, scale: 1.1 }}
+                      transition={{
+                        type: "spring",
+                        stiffness: 300,
+                        damping: 18,
+                      }}
+                      className="w-12 h-12 rounded-full flex items-center justify-center shrink-0"
+                      style={{ background: p.iconBg }}
+                    >
+                      <FileCheck2 size={20} style={{ color: p.iconColor }} />
+                    </motion.div>
+                    <div>
+                      <h3
+                        style={{
+                          fontFamily: "'Plus Jakarta Sans',sans-serif",
+                          fontSize: 16,
+                          fontWeight: 700,
+                          color: p.titleColor,
+                        }}
+                      >
+                        {item}
+                      </h3>
+                      <p
+                        style={{
+                          fontFamily: "'Plus Jakarta Sans',sans-serif",
+                          fontSize: 13,
+                          fontWeight: 500,
+                          lineHeight: "20px",
+                          color: DS.onSurfaceVariant,
+                          marginTop: 6,
+                        }}
+                      >
+                        Conducted using controlled testing methods and
+                        documented batch validation procedures.
+                      </p>
+                    </div>
                   </div>
-                  <div>
-                    <h3 className="text-lg font-bold text-[#143523] group-hover:text-green-700 transition-colors duration-300">
-                      {item}
-                    </h3>
-                    <p className="mt-2 text-gray-600 text-sm leading-relaxed">
-                      Conducted using controlled testing methods and documented
-                      batch validation procedures.
-                    </p>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
+                </motion.div>
+              );
+            })}
+          </motion.div>
         </div>
       </section>
 
-      {/* ════════════════════ EXPORT TABLE ════════════════════ */}
+      {/* ════ EXPORT TABLE — primary-container dark bg ════ */}
       <section
-        ref={exportRef}
-        className="py-28 bg-[#0f2f1d] px-6 lg:px-16 text-white overflow-hidden relative"
+        className="py-28 px-6 lg:px-16 relative overflow-hidden"
+        style={{ background: DS.primaryContainer }}
       >
         <FloatingParticles count={12} />
-
         <div className="max-w-7xl mx-auto relative z-10">
-          <div
-            className="max-w-3xl transition-all duration-700 ease-out"
-            style={{
-              opacity: exportVisible ? 1 : 0,
-              transform: exportVisible ? "translateY(0)" : "translateY(30px)",
-            }}
+          <motion.div
+            className="max-w-3xl"
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: false, margin: "-60px" }}
           >
-            <span className="text-green-300 font-semibold uppercase tracking-[0.25em]">
+            <span
+              style={{
+                fontFamily: "'Plus Jakarta Sans',sans-serif",
+                fontSize: 12,
+                fontWeight: 700,
+                letterSpacing: "0.1em",
+                textTransform: "uppercase",
+                color: DS.secondaryContainer,
+              }}
+            >
               Global Export Compliance
             </span>
-            <h2 className="mt-5 text-4xl md:text-5xl font-black leading-tight">
+            <h2
+              style={{
+                fontFamily: "'Plus Jakarta Sans',sans-serif",
+                fontSize: "clamp(32px,5vw,48px)",
+                fontWeight: 800,
+                lineHeight: 1.1,
+                letterSpacing: "-0.02em",
+                color: DS.surface,
+                marginTop: 16,
+              }}
+            >
               Compliance by International Market
             </h2>
-            <p className="mt-6 text-lg text-green-50 leading-relaxed">
-              AgriExpo products are prepared according to the documentation,
-              testing and regulatory requirements expected by international
-              importers and distributors.
+            <p
+              style={{
+                fontFamily: "'Plus Jakarta Sans',sans-serif",
+                fontSize: 16,
+                fontWeight: 500,
+                lineHeight: "24px",
+                color: DS.onPrimaryContainer,
+                marginTop: 16,
+              }}
+            >
+              AgriExpo products are prepared according to documentation, testing
+              and regulatory requirements expected by international importers.
             </p>
-          </div>
+          </motion.div>
 
-          <div
-            className="mt-16 overflow-x-auto rounded-[32px] border border-white/10 bg-white/5 backdrop-blur-xl transition-all duration-700 ease-out"
+          <motion.div
+            className="mt-16 overflow-x-auto"
             style={{
-              opacity: exportVisible ? 1 : 0,
-              transform: exportVisible ? "translateY(0)" : "translateY(40px)",
-              transitionDelay: "300ms",
+              background: "rgba(255,255,255,.07)",
+              border: `1px solid rgba(255,255,255,.12)`,
+              borderRadius: "3rem",
+              backdropFilter: "blur(16px)",
             }}
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: false, margin: "-60px" }}
+            transition={{ delay: 0.25 }}
           >
-            <table className="w-full min-w-[800px]">
+            <table className="w-full min-w-[700px]">
               <thead>
-                <tr className="border-b border-white/10 text-left">
-                  <th className="p-6 text-lg">Market</th>
-                  <th className="p-6 text-lg">Required Certifications</th>
-                  <th className="p-6 text-lg">AgriExpo Status</th>
+                <tr style={{ borderBottom: "1px solid rgba(255,255,255,.12)" }}>
+                  {["Market", "Required Certifications", "AgriExpo Status"].map(
+                    (h) => (
+                      <th
+                        key={h}
+                        className="p-6 text-left"
+                        style={{
+                          fontFamily: "'Plus Jakarta Sans',sans-serif",
+                          fontSize: 12,
+                          fontWeight: 700,
+                          letterSpacing: "0.1em",
+                          textTransform: "uppercase",
+                          color: DS.onPrimaryContainer,
+                        }}
+                      >
+                        {h}
+                      </th>
+                    ),
+                  )}
                 </tr>
               </thead>
-              <tbody>
-                {regions.map((region, i) => (
-                  <tr
+              <motion.tbody
+                variants={stagger(0.09, 0.35)}
+                initial="hidden"
+                whileInView="show"
+                viewport={{ once: false, margin: "-60px" }}
+              >
+                {regions.map((r, i) => (
+                  <motion.tr
                     key={i}
-                    className="border-b border-white/5 hover:bg-white/10 transition-all duration-300"
-                    style={{
-                      opacity: exportVisible ? 1 : 0,
-                      transform: exportVisible
-                        ? "translateX(0)"
-                        : "translateX(30px)",
-                      transition:
-                        "opacity .6s ease-out, transform .6s ease-out, background-color .3s",
-                      transitionDelay: `${500 + i * 100}ms`,
-                    }}
+                    variants={fadeUp}
+                    whileHover={{ backgroundColor: "rgba(255,255,255,.07)" }}
+                    className="transition-colors duration-300"
+                    style={{ borderBottom: "1px solid rgba(255,255,255,.06)" }}
                   >
-                    <td className="p-6 font-semibold">{region.market}</td>
-                    <td className="p-6 text-green-100">{region.certs}</td>
-                    <td className="p-6">
-                      <span className="px-4 py-2 rounded-full bg-green-500/20 text-green-300 border border-green-400/20 hover:bg-green-500/30 hover:scale-105 transition-all duration-300 inline-block">
-                        {region.status}
-                      </span>
+                    <td
+                      className="p-6"
+                      style={{
+                        fontFamily: "'Plus Jakarta Sans',sans-serif",
+                        fontWeight: 700,
+                        color: DS.surface,
+                      }}
+                    >
+                      {r.market}
                     </td>
-                  </tr>
+                    <td
+                      className="p-6"
+                      style={{
+                        fontFamily: "'Plus Jakarta Sans',sans-serif",
+                        fontWeight: 500,
+                        color: DS.onPrimaryContainer,
+                      }}
+                    >
+                      {r.certs}
+                    </td>
+                    <td className="p-6">
+                      {/* pill status badge — design.md pill chip */}
+                      <motion.span
+                        whileHover={{ scale: 1.08 }}
+                        transition={{
+                          type: "spring",
+                          stiffness: 300,
+                          damping: 18,
+                        }}
+                        className="inline-block cursor-default"
+                        style={{
+                          background: DS.secondaryContainer,
+                          color: DS.onSecondaryContainer,
+                          padding: "6px 18px",
+                          borderRadius: 9999,
+                          fontFamily: "'Plus Jakarta Sans',sans-serif",
+                          fontSize: 12,
+                          fontWeight: 700,
+                          letterSpacing: "0.08em",
+                        }}
+                      >
+                        {r.status}
+                      </motion.span>
+                    </td>
+                  </motion.tr>
                 ))}
-              </tbody>
+              </motion.tbody>
             </table>
-          </div>
+          </motion.div>
         </div>
       </section>
 
-      {/* ════════════════════ CTA ════════════════════ */}
+      {/* ════ CTA — secondary (warm brown) bg ════ */}
       <section
-        ref={ctaRef}
-        className="py-32 px-6 lg:px-16 bg-gradient-to-br from-[#e9f6e7] to-[#f7fbf5] relative overflow-hidden"
+        className="py-32 px-6 lg:px-16 relative overflow-hidden"
+        style={{ background: DS.secondary }}
       >
-        <div className="absolute top-16 left-8 w-72 h-72 bg-green-200/30 rounded-full blur-3xl animate-pulse pointer-events-none" />
+        {/* deco circles — design.md decorative tonal overlay */}
         <div
-          className="absolute bottom-16 right-8 w-96 h-96 bg-emerald-200/20 rounded-full blur-3xl animate-pulse pointer-events-none"
-          style={{ animationDelay: "1.5s" }}
+          className="absolute w-80 h-80 rounded-full pointer-events-none -left-24 -top-24 opacity-10"
+          style={{ background: DS.secondaryContainer }}
+        />
+        <div
+          className="absolute w-64 h-64 rounded-full pointer-events-none -right-16 -bottom-20 opacity-[.08]"
+          style={{ background: DS.tertiaryFixed }}
         />
 
-        <div className="max-w-5xl mx-auto text-center relative z-10">
-          <div
-            className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-green-100 text-green-700 mb-8 transition-all duration-700 ease-out"
+        <motion.div
+          className="max-w-5xl mx-auto text-center relative z-10"
+          variants={stagger(0.14, 0.1)}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: false, margin: "-80px" }}
+        >
+          {/* label-caps badge */}
+          <motion.div
+            variants={scaleIn}
+            className="inline-flex items-center gap-2 px-5 py-2 rounded-full mb-8"
             style={{
-              opacity: ctaVisible ? 1 : 0,
-              transform: ctaVisible ? "scale(1)" : "scale(.8)",
+              background: "rgba(255,255,255,.12)",
+              color: DS.secondaryContainer,
+              fontFamily: "'Plus Jakarta Sans',sans-serif",
+              fontSize: 12,
+              fontWeight: 700,
+              letterSpacing: "0.1em",
+              textTransform: "uppercase",
             }}
           >
-            <ShieldCheck className="w-5 h-5 qp-bounce" />
+            <ShieldCheck size={16} className="qp-bounce" />
             Trusted by International Buyers
-          </div>
+          </motion.div>
 
-          <h2
-            className="text-4xl md:text-6xl font-black text-[#123524] leading-tight transition-all duration-700 ease-out"
+          <motion.h2
+            variants={fadeUp}
             style={{
-              opacity: ctaVisible ? 1 : 0,
-              transform: ctaVisible ? "translateY(0)" : "translateY(30px)",
-              transitionDelay: "160ms",
+              fontFamily: "'Plus Jakarta Sans',sans-serif",
+              fontSize: "clamp(32px,5vw,48px)",
+              fontWeight: 800,
+              lineHeight: 1.1,
+              letterSpacing: "-0.02em",
+              color: DS.surface,
             }}
           >
             Built for Reliable Global Food Exports
-          </h2>
+          </motion.h2>
 
-          <p
-            className="mt-8 text-lg md:text-xl text-gray-600 leading-relaxed max-w-3xl mx-auto transition-all duration-700 ease-out"
+          <motion.p
+            variants={fadeUp}
             style={{
-              opacity: ctaVisible ? 1 : 0,
-              transform: ctaVisible ? "translateY(0)" : "translateY(30px)",
-              transitionDelay: "300ms",
+              fontFamily: "'Plus Jakarta Sans',sans-serif",
+              fontSize: 18,
+              fontWeight: 500,
+              lineHeight: "28px",
+              color: "rgba(251,250,235,.8)",
+              maxWidth: 640,
+              margin: "24px auto 0",
             }}
           >
             From sourcing and manufacturing to testing and documentation,
             AgriExpo follows premium quality systems that help importers,
             wholesalers and distributors buy with confidence.
-          </p>
+          </motion.p>
 
-          <div
-            className="mt-12 flex flex-wrap justify-center gap-5 transition-all duration-700 ease-out"
-            style={{
-              opacity: ctaVisible ? 1 : 0,
-              transform: ctaVisible ? "translateY(0)" : "translateY(30px)",
-              transitionDelay: "440ms",
-            }}
+          <motion.div
+            variants={fadeUp}
+            className="mt-12 flex flex-wrap justify-center gap-5"
           >
-            <button
+            {/* primary pill */}
+            <motion.button
+              whileHover={{ scale: 1.06, backgroundColor: "#f5b84a" }}
+              whileTap={{ scale: 0.97 }}
+              transition={{ type: "spring", stiffness: 300, damping: 20 }}
               onClick={() => setActiveForm("certification")}
-              className="group relative px-8 py-4 rounded-2xl bg-green-700 text-white font-semibold hover:bg-green-800 hover:scale-105 hover:shadow-[0_10px_40px_rgba(21,128,61,.4)] transition-all duration-500 shadow-xl overflow-hidden"
+              style={{
+                background: DS.secondaryContainer,
+                color: DS.onSecondaryContainer,
+                padding: "16px 40px",
+                borderRadius: 9999,
+                fontFamily: "'Plus Jakarta Sans',sans-serif",
+                fontWeight: 700,
+                fontSize: 16,
+                border: "none",
+                cursor: "pointer",
+              }}
             >
-              <span className="relative z-10">Request Certifications</span>
-              <div className="absolute inset-0 bg-gradient-to-r from-green-600 to-emerald-600 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-            </button>
-
-            <button
+              Request Certifications
+            </motion.button>
+            {/* outline pill */}
+            <motion.button
+              whileHover={{
+                scale: 1.06,
+                backgroundColor: "rgba(255,255,255,.1)",
+              }}
+              whileTap={{ scale: 0.97 }}
+              transition={{ type: "spring", stiffness: 300, damping: 20 }}
               onClick={() => setActiveForm("export")}
-              className="px-8 py-4 rounded-2xl border border-green-700 text-green-700 font-semibold hover:bg-green-50 hover:scale-105 hover:shadow-lg transition-all duration-500"
+              style={{
+                background: "transparent",
+                color: DS.surface,
+                border: `2px solid rgba(255,255,255,.4)`,
+                padding: "16px 40px",
+                borderRadius: 9999,
+                fontFamily: "'Plus Jakarta Sans',sans-serif",
+                fontWeight: 700,
+                fontSize: 16,
+                cursor: "pointer",
+              }}
             >
               Contact Export Team
-            </button>
-          </div>
-        </div>
+            </motion.button>
+          </motion.div>
+        </motion.div>
       </section>
 
-      {/* ════════════════════ MODAL ════════════════════ */}
-      <>
+      {/* ════ MODAL ════ */}
+      <AnimatePresence>
         {activeForm && (
-          <div
-            className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm px-4 qp-modal-bg"
+          <motion.div
+            key="bg"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            className="fixed inset-0 z-50 flex items-center justify-center px-4"
+            style={{
+              background: "rgba(20,66,45,.55)",
+              backdropFilter: "blur(8px)",
+            }}
             onClick={closeForm}
           >
-            <div
-              className="relative w-full max-w-xl rounded-3xl bg-white p-6 shadow-2xl qp-modal-box"
+            <motion.div
+              key="box"
+              initial={{ opacity: 0, scale: 0.88 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.9 }}
+              transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+              className="relative w-full max-w-xl shadow-2xl"
+              style={{
+                background: DS.surface,
+                borderRadius: "3rem",
+                padding: 40,
+              }}
               onClick={(e) => e.stopPropagation()}
             >
-              <button
+              {/* close × */}
+              <motion.button
+                whileHover={{ rotate: 90, scale: 1.1 }}
+                transition={{ type: "spring", stiffness: 300, damping: 18 }}
                 onClick={closeForm}
-                className="absolute right-5 top-4 text-3xl text-gray-500 hover:text-black hover:rotate-90 transition-all duration-300"
+                className="absolute right-6 top-5 text-3xl leading-none cursor-pointer"
+                style={{
+                  background: "none",
+                  border: "none",
+                  color: DS.onSurfaceVariant,
+                }}
               >
                 ×
-              </button>
+              </motion.button>
 
-              <h2 className="text-2xl font-black text-green-900 mb-2">
+              <h2
+                style={{
+                  fontFamily: "'Plus Jakarta Sans',sans-serif",
+                  fontSize: 28,
+                  fontWeight: 800,
+                  letterSpacing: "-0.02em",
+                  color: DS.primary,
+                  marginBottom: 8,
+                }}
+              >
                 {activeForm === "certification"
                   ? "Request Certifications"
                   : "Contact Export Team"}
               </h2>
-
-              <p className="text-gray-600 mb-6">
+              <p
+                style={{
+                  fontFamily: "'Plus Jakarta Sans',sans-serif",
+                  fontSize: 15,
+                  fontWeight: 500,
+                  color: DS.onSurfaceVariant,
+                  marginBottom: 24,
+                }}
+              >
                 {activeForm === "certification"
                   ? "Fill this form to request certification documents."
                   : "Fill this form and our export team will contact you."}
               </p>
 
-              <form onSubmit={handleSubmit} className="space-y-4">
-                <input
-                  type="text"
-                  placeholder="Full Name"
-                  required
-                  className="w-full rounded-xl border px-4 py-3 outline-none focus:ring-2 focus:ring-green-600 hover:border-green-400 transition-all duration-300"
-                />
-                <input
-                  type="email"
-                  placeholder="Email Address"
-                  required
-                  className="w-full rounded-xl border px-4 py-3 outline-none focus:ring-2 focus:ring-green-600 hover:border-green-400 transition-all duration-300"
-                />
-                <input
-                  type="tel"
-                  placeholder="Phone Number"
-                  required
-                  className="w-full rounded-xl border px-4 py-3 outline-none focus:ring-2 focus:ring-green-600 hover:border-green-400 transition-all duration-300"
-                />
+              <form
+                onSubmit={handleSubmit}
+                style={{ display: "flex", flexDirection: "column", gap: 12 }}
+              >
+                {[
+                  ["text", "Full Name"],
+                  ["email", "Email Address"],
+                  ["tel", "Phone Number"],
+                ].map(([type, ph]) => (
+                  <input
+                    key={ph}
+                    type={type}
+                    placeholder={ph}
+                    required
+                    style={{
+                      borderRadius: "1.5rem",
+                      border: `1.5px solid ${DS.outlineVariant}`,
+                      padding: "14px 20px",
+                      fontFamily: "'Plus Jakarta Sans',sans-serif",
+                      fontSize: 15,
+                      fontWeight: 500,
+                      outline: "none",
+                      background: DS.surfaceContainer,
+                      color: DS.onSurface,
+                      width: "100%",
+                      boxSizing: "border-box",
+                    }}
+                    onFocus={(e) => (e.target.style.borderColor = DS.primary)}
+                    onBlur={(e) =>
+                      (e.target.style.borderColor = DS.outlineVariant)
+                    }
+                  />
+                ))}
 
                 {activeForm === "certification" ? (
                   <select
                     required
-                    className="w-full rounded-xl border px-4 py-3 outline-none focus:ring-2 focus:ring-green-600 hover:border-green-400 transition-all duration-300"
+                    style={{
+                      borderRadius: "1.5rem",
+                      border: `1.5px solid ${DS.outlineVariant}`,
+                      padding: "14px 20px",
+                      fontFamily: "'Plus Jakarta Sans',sans-serif",
+                      fontSize: 15,
+                      fontWeight: 500,
+                      outline: "none",
+                      background: DS.surfaceContainer,
+                      color: DS.onSurface,
+                      width: "100%",
+                      boxSizing: "border-box",
+                    }}
                   >
                     <option value="">Select Certification</option>
-                    <option>ISO 22000</option>
-                    <option>FSSC 22000</option>
-                    <option>HACCP</option>
-                    <option>GMP</option>
-                    <option>Non-GMO</option>
-                    <option>FSSAI</option>
+                    {[
+                      "ISO 22000",
+                      "FSSC 22000",
+                      "HACCP",
+                      "GMP",
+                      "Non-GMO",
+                      "FSSAI",
+                    ].map((c) => (
+                      <option key={c}>{c}</option>
+                    ))}
                   </select>
                 ) : (
                   <input
                     type="text"
                     placeholder="Export Country / Market"
                     required
-                    className="w-full rounded-xl border px-4 py-3 outline-none focus:ring-2 focus:ring-green-600 hover:border-green-400 transition-all duration-300"
+                    style={{
+                      borderRadius: "1.5rem",
+                      border: `1.5px solid ${DS.outlineVariant}`,
+                      padding: "14px 20px",
+                      fontFamily: "'Plus Jakarta Sans',sans-serif",
+                      fontSize: 15,
+                      fontWeight: 500,
+                      outline: "none",
+                      background: DS.surfaceContainer,
+                      color: DS.onSurface,
+                      width: "100%",
+                      boxSizing: "border-box",
+                    }}
                   />
                 )}
 
@@ -970,21 +1639,50 @@ export default function QualityPage() {
                   }
                   rows="4"
                   required
-                  className="w-full rounded-xl border px-4 py-3 outline-none focus:ring-2 focus:ring-green-600 hover:border-green-400 transition-all duration-300"
+                  style={{
+                    borderRadius: "1.5rem",
+                    border: `1.5px solid ${DS.outlineVariant}`,
+                    padding: "14px 20px",
+                    fontFamily: "'Plus Jakarta Sans',sans-serif",
+                    fontSize: 15,
+                    fontWeight: 500,
+                    outline: "none",
+                    background: DS.surfaceContainer,
+                    color: DS.onSurface,
+                    width: "100%",
+                    boxSizing: "border-box",
+                    resize: "vertical",
+                  }}
                 />
 
-                <button
+                <motion.button
                   type="submit"
-                  className="group relative w-full rounded-xl bg-green-700 py-3 text-white font-semibold hover:bg-green-800 hover:shadow-lg hover:shadow-green-700/30 transition-all duration-500 overflow-hidden"
+                  whileHover={{
+                    scale: 1.03,
+                    backgroundColor: DS.primaryContainer,
+                  }}
+                  whileTap={{ scale: 0.97 }}
+                  transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                  style={{
+                    background: DS.primary,
+                    color: DS.onPrimary,
+                    padding: "16px",
+                    borderRadius: 9999,
+                    fontFamily: "'Plus Jakarta Sans',sans-serif",
+                    fontWeight: 700,
+                    fontSize: 16,
+                    border: "none",
+                    cursor: "pointer",
+                    marginTop: 4,
+                  }}
                 >
-                  <span className="relative z-10">Submit</span>
-                  <div className="absolute inset-0 bg-gradient-to-r from-green-600 to-emerald-600 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                </button>
+                  Submit
+                </motion.button>
               </form>
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
         )}
-      </>
+      </AnimatePresence>
     </main>
   );
 }
