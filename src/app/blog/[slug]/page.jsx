@@ -84,7 +84,7 @@ export default async function BlogPostPage({ params }) {
         )}
 
         {/* Hero Content */}
-        <div className="relative z-10 mx-auto max-w-5xl px-4 sm:px-6 md:px-8 pt-28 sm:pt-32 md:pt-36 pb-12 sm:pb-16 md:pb-20">
+        <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 md:px-8 pt-28 sm:pt-32 md:pt-36 pb-12 sm:pb-16 md:pb-20">
 
           {/* Breadcrumb */}
           <nav className="mb-6 sm:mb-8 flex items-center gap-2 flex-wrap">

@@ -2,12 +2,9 @@
 import { useEffect, useState, useMemo, useCallback, memo } from "react";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
-import { BLOG_DATA } from "@/app/data/blogData";
-// ─── Blog Data (from your 10 posts) ─────────────────────────────────────────
+import blogData from "@/app/data/blogData.json"; // ✅ Fixed import
 
-
-
-// ── Animation Variants ──────────────────────────────────
+// ─── Animation Variants ─────────────────────────────────────────────────────
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
   show: { opacity: 1, y: 0, transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] } }
@@ -22,6 +19,7 @@ const scaleIn = {
   show: { opacity: 1, scale: 1, transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] } }
 };
 
+// ─── Helper Functions ────────────────────────────────────────────────────────
 const getReadTime = (wordCount) => `${Math.ceil((wordCount || 0) / 200)} min read`;
 
 const formatDate = (dateStr, options) =>
@@ -31,7 +29,6 @@ const getInitials = (name) =>
   name.split(" ").map(w => w[0] || "").join("").slice(0, 2).toUpperCase();
 
 // ─── Sub Components ─────────────────────────────────────────────────────────
-
 const Skeleton = memo(({ className }) => (
   <div className={`rounded-2xl animate-pulse bg-[#e4e3d4] ${className || ""}`} />
 ));
@@ -104,7 +101,6 @@ const FeaturedCard = memo(({ blog, onClick }) => (
 ));
 
 // ─── Skeleton Blocks ────────────────────────────────────────────────────────
-
 const FeedSkeleton = () => (
   <div className="w-full lg:w-[380px] xl:w-[420px] 2xl:w-[480px] bg-[#f5f4e5] border-t lg:border-t-0 border-[#e4e3d4] flex flex-col justify-end mt-8 lg:mt-0">
     <div className="px-6 md:px-8 py-4 md:py-5 border-b border-[#e4e3d4]"><Skeleton className="h-3 w-24" /></div>
@@ -154,7 +150,6 @@ const GridSkeleton = () => (
 const CARDS_PER_PAGE = 6;
 
 // ─── Main Component ─────────────────────────────────────────────────────────
-
 export default function Blog() {
   const router = useRouter();
   const [loading, setLoading] = useState(true);
@@ -165,7 +160,39 @@ export default function Blog() {
     return () => clearTimeout(timer);
   }, []);
 
-  const blogs = BLOG_DATA;
+  // ✅ FIXED: Transform your JSON format to component format
+  const blogs = useMemo(() => {
+    // Check if data exists and has blogPosts array
+    if (!blogData || !blogData.blogPosts || !Array.isArray(blogData.blogPosts)) {
+      console.error("Invalid blog data structure:", blogData);
+      return [];
+    }
+
+    // Transform each blogPost to the format your component expects
+    return blogData.blogPosts.map((item) => {
+      const bp = item.blogPost;
+      return {
+        id: bp.id,
+        slug: bp.slug,
+        title: bp.title,
+        excerpt: bp.excerpt,
+        image: bp.coverImage?.url || "/BlogImg/default.jpg",
+        author: {
+          name: bp.author?.name || "Unknown Author"
+        },
+        publishedAt: bp.publishing?.publishedAt || new Date().toISOString(),
+        wordCount: bp.reading?.wordCount || 0,
+        featured: bp.featured || false,
+        tags: bp.tags || [],
+        // Additional fields that might be useful
+        subtitle: bp.subtitle,
+        category: bp.category,
+        coverImage: bp.coverImage,
+        readingTime: bp.reading?.readingTimeMinutes || 0
+      };
+    });
+  }, []);
+
   const featuredBlogs = useMemo(() => blogs.filter(b => b.featured), [blogs]);
   const nonFeaturedBlogs = useMemo(() => blogs.filter(b => !b.featured), [blogs]);
 
