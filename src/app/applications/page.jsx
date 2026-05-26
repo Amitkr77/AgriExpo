@@ -366,10 +366,10 @@ export default function ApplicationsPage() {
             />
 
             {/* GRADIENT OVERLAY */}
-            <div className="absolute inset-0 bg-[linear-gradient(145deg,rgba(20,66,45,0.97)_0%,rgba(45,90,67,0.92)_50%,rgba(127,65,11,0.35)_100%)]" />
+            <div className="absolute inset-0 bg-[linear-gradient(145deg,rgba(46, 105, 78, 0.97)_0%,rgba(99, 142, 119, 0.92)_50%,rgba(127,65,11,0.35)_100%)]" />
 
             {/* CONTENT */}
-            <div className="relative z-10 flex h-full flex-col justify-between p-8 md:p-12 lg:p-[32px]">
+            <div className="relative z-10 flex h-full flex-col justify-center p-8 md:p-12 lg:p-[32px]">
               <div>
                 {/* BADGE — pill-shaped */}
                 <div className="inline-flex items-center gap-3 rounded-full bg-white/10 px-5 py-2.5 backdrop-blur-sm">
@@ -412,7 +412,7 @@ export default function ApplicationsPage() {
                   <ArrowRight className="h-4 w-4" />
                 </Link>
 
-                <button className="rounded-full border border-[#9fcfb2]/30 bg-[#9fcfb2]/10 px-7 py-3.5 text-[14px] font-bold text-[#9fcfb2] backdrop-blur-sm transition-all duration-300 hover:bg-[#9fcfb2]/20">
+                <button className="rounded-full border border-[#9fcfb2]/60 bg-[#9fcfb2]/10 px-7 py-3.5 text-[14px] font-bold text-[#9fcfb2] backdrop-blur-sm transition-all duration-300 hover:bg-[#9fcfb2]/20">
                   Request Samples
                 </button>
               </div>

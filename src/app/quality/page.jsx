@@ -373,185 +373,283 @@ export default function QualityPage() {
 
       {/* ════ HERO ════
           Dark forest green hero — primary-container is the darkest brand green,
-          headline in surface (cream), body in on-primary-container (sage)         */}
-      <section
-        className="relative min-h-screen flex items-center justify-center overflow-hidden px-6 lg:px-16 py-24"
-        style={{
-          background: `linear-gradient(135deg, ${DS.primary} 0%, ${DS.primaryContainer} 60%, #1f6644 100%)`,
-        }}
-      >
-        <div
-          className="absolute inset-0 bg-cover bg-center transition-transform duration-[2200ms] ease-out"
+          headline in surface (cream), body in on-primary-container (sage)         */}     
+        <section
+          className="relative overflow-hidden px-6 lg:px-16 py-10 lg:py-16"
           style={{
-            backgroundImage: `url(${qualityHero.src})`,
-            transform: heroReady ? "scale(1)" : "scale(1.08)",
-            opacity: 0.18,
+            background:
+              "linear-gradient(135deg, #d3e5dd 0%, #c7ddd3 50%, #b9d2c6 100%)",
           }}
-        />
-        <FloatingParticles count={16} />
+        >
+          {/* BACKGROUND IMAGE */}
+          <div
+            className="absolute inset-0 bg-cover bg-center opacity-10"
+            // style={{
+            //   backgroundImage: `url(${qualityHero.src})`,
+            // }}
+          />
 
-        <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-16 items-center relative z-10">
-          {/* text */}
-          <motion.div
-            variants={stagger(0.15, 0.2)}
-            initial="hidden"
-            animate={heroReady ? "show" : "hidden"}
-          >
-            {/* label-caps badge */}
+          <FloatingParticles count={16} />
+
+          <div className="relative z-10 mx-auto grid max-w-7xl gap-5 lg:grid-cols-[1.5fr_0.8fr]">
+            
+            {/* ═════════ LEFT CONTENT CARD ═════════ */}
             <motion.div
-              variants={fadeUp}
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-full mb-10"
-              style={{
-                background: "rgba(255,255,255,.12)",
-                border: "1px solid rgba(255,255,255,.2)",
-                color: DS.onPrimaryContainer,
-                backdropFilter: "blur(12px)",
-                fontFamily: "'Plus Jakarta Sans',sans-serif",
-                fontSize: 12,
-                fontWeight: 700,
-                letterSpacing: "0.1em",
-                textTransform: "uppercase",
-              }}
-            >
-              <ShieldCheck size={18} className="qp-bounce" />
-              Export Certified Manufacturing
+                variants={stagger(0.15, 0.2)}
+                initial="hidden"
+                animate={heroReady ? "show" : "hidden"}
+                className="relative overflow-hidden rounded-[3rem]"
+              >
+                {/* BACKGROUND IMAGE */}
+                <div
+                  className="absolute inset-0 bg-cover bg-center"
+                  style={{
+                    backgroundImage: `url(${qualityHero.src})`,
+                  }}
+                />
+
+                {/* OVERLAY */}
+                <div
+                  className="absolute inset-0"
+                  style={{
+                    background:
+                      "linear-gradient(135deg, rgba(17,52,35,0.88) 0%, rgba(28,77,52,0.78) 55%, rgba(211,229,221,0.35) 100%)",
+                  }}
+                />
+
+                {/* CONTENT */}
+                <div className="relative z-10 p-8 md:p-12 lg:p-14 flex flex-col justify-between h-full">
+                                           
+                <div>
+                  {/* BADGE */}
+                  <motion.div
+                    variants={fadeUp}
+                    className="inline-flex items-center gap-2 px-5 py-2 rounded-full mb-10"
+                    style={{
+                      background: "rgba(255,255,255,.12)",
+                      border: "1px solid rgba(255,255,255,.2)",
+                      color: DS.onPrimaryContainer,
+                      backdropFilter: "blur(12px)",
+                      fontFamily: "'Plus Jakarta Sans',sans-serif",
+                      fontSize: 12,
+                      fontWeight: 700,
+                      letterSpacing: "0.1em",
+                      textTransform: "uppercase",
+                    }}
+                    // style={{
+                    //    backgroundImage: `url(${qualityHero.src})`,
+                    //    backgroundSize: "cover",}}
+                  >
+                    <ShieldCheck size={18} className="qp-bounce" />
+                    Export Certified Manufacturing
+                  </motion.div>
+
+                  {/* HEADING */}
+                  <motion.h1
+                    variants={fadeUp}
+                    style={{
+                      fontFamily: "'Plus Jakarta Sans',sans-serif",
+                      fontSize: "clamp(42px,7vw,82px)",
+                      fontWeight: 800,
+                      lineHeight: 1,
+                      letterSpacing: "-0.05em",
+                      color: DS.surface,
+                    }}
+                  >
+                    Export-Grade
+                    <span
+                      style={{
+                        display: "block",
+                        color: DS.secondaryContainer,
+                      }}
+                    >
+                      Quality at Every Stage
+                    </span>
+                  </motion.h1>
+
+                  {/* DESCRIPTION */}
+                  <motion.p
+                    variants={fadeUp}
+                    style={{
+                      fontFamily: "'Plus Jakarta Sans',sans-serif",
+                      fontSize: 18,
+                      fontWeight: 500,
+                      lineHeight: "30px",
+                      color: DS.onPrimaryContainer,
+                      maxWidth: 620,
+                      marginTop: 28,
+                    }}
+                  >
+                    AgriExpo follows internationally recognized food safety and
+                    quality systems to ensure every product meets strict import
+                    requirements of buyers across the US, EU, UAE, Australia and
+                    Asian markets.
+                  </motion.p>
+                </div>
+
+                {/* BUTTONS */}
+                <motion.div
+                  variants={fadeUp}
+                  className="flex flex-col sm:flex-row gap-4 mt-10"
+                >
+                  {/* PRIMARY BUTTON */}
+                  <motion.button
+                    whileHover={{ scale: 1.05, backgroundColor: "#f5b84a" }}
+                    whileTap={{ scale: 0.97 }}
+                    transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                    style={{
+                      background: DS.secondaryContainer,
+                      color: DS.onSecondaryContainer,
+                      padding: "16px 32px",
+                      borderRadius: 9999,
+                      fontFamily: "'Plus Jakarta Sans',sans-serif",
+                      fontWeight: 700,
+                      fontSize: 16,
+                      border: "none",
+                      cursor: "pointer",
+                    }}
+                  >
+                    View Certifications
+                  </motion.button>
+
+                  {/* OUTLINE BUTTON */}
+                  <motion.button
+                    whileHover={{
+                      scale: 1.04,
+                      backgroundColor: "rgba(255,255,255,.08)",
+                    }}
+                    whileTap={{ scale: 0.97 }}
+                    transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                    className="relative overflow-hidden"
+                    style={{
+                      background: "transparent",
+                      color: DS.surface,
+                      border: `2px solid rgba(255,255,255,.35)`,
+                      padding: "16px 32px",
+                      borderRadius: 9999,
+                      fontFamily: "'Plus Jakarta Sans',sans-serif",
+                      fontWeight: 700,
+                      fontSize: 16,
+                      cursor: "pointer",
+                    }}
+                  >
+                    <span className="relative z-10">
+                      Download Quality Profile
+                    </span>
+                    <div className="absolute inset-0 qp-shimmer" />
+                  </motion.button>
+                </motion.div>
+              </div>
             </motion.div>
 
-            {/* display-xl headline */}
-            <motion.h1
-              variants={fadeUp}
-              style={{
-                fontFamily: "'Plus Jakarta Sans',sans-serif",
-                fontSize: "clamp(40px,7vw,80px)",
-                fontWeight: 800,
-                lineHeight: 1.1,
-                letterSpacing: "-0.04em",
-                color: DS.surface,
-              }}
-            >
-              Export-Grade
-              <span style={{ display: "block", color: DS.secondaryContainer }}>
-                Quality at Every Stage
-              </span>
-            </motion.h1>
-
-            <motion.p
-              variants={fadeUp}
-              style={{
-                fontFamily: "'Plus Jakarta Sans',sans-serif",
-                fontSize: 18,
-                fontWeight: 500,
-                lineHeight: "28px",
-                color: DS.onPrimaryContainer,
-                maxWidth: 520,
-                marginTop: 24,
-                marginBottom: 40,
-              }}
-            >
-              AgriExpo follows internationally recognized food safety and
-              quality systems to ensure every product meets strict import
-              requirements of buyers across the US, EU, UAE, Australia and Asian
-              markets.
-            </motion.p>
-
-            <motion.div variants={fadeUp} className="flex flex-wrap gap-4">
-              {/* primary pill button */}
-              <motion.button
-                whileHover={{ scale: 1.05, backgroundColor: "#f5b84a" }}
-                whileTap={{ scale: 0.97 }}
-                transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                style={{
-                  background: DS.secondaryContainer,
-                  color: DS.onSecondaryContainer,
-                  padding: "16px 32px",
-                  borderRadius: 9999,
-                  fontFamily: "'Plus Jakarta Sans',sans-serif",
-                  fontWeight: 700,
-                  fontSize: 16,
-                  border: "none",
-                  cursor: "pointer",
-                }}
-              >
-                View Certifications
-              </motion.button>
-              {/* outline pill */}
-              <motion.button
-                whileHover={{
-                  scale: 1.04,
-                  backgroundColor: "rgba(255,255,255,.1)",
-                }}
-                whileTap={{ scale: 0.97 }}
-                transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                className="relative overflow-hidden"
-                style={{
-                  background: "transparent",
-                  color: DS.surface,
-                  border: `2px solid rgba(255,255,255,.35)`,
-                  padding: "16px 32px",
-                  borderRadius: 9999,
-                  fontFamily: "'Plus Jakarta Sans',sans-serif",
-                  fontWeight: 700,
-                  fontSize: 16,
-                  cursor: "pointer",
-                }}
-              >
-                <span className="relative z-10">Download Quality Profile</span>
-                <div className="absolute inset-0 qp-shimmer" />
-              </motion.button>
-            </motion.div>
-          </motion.div>
-
-          {/* stat bento cards */}
-          <motion.div
-            className="grid grid-cols-2 gap-5"
-            variants={stagger(0.13, 0.55)}
-            initial="hidden"
-            animate={heroReady ? "show" : "hidden"}
-          >
-            {stats.map((s, i) => (
+            {/* ═════════ RIGHT COLUMN ═════════ */}
+            <div className="grid gap-5">
+              
+              {/* IMAGE CARD */}
               <motion.div
-                key={i}
-                variants={scaleIn}
-                whileHover={{ scale: 1.04, y: -4 }}
-                transition={{ type: "spring", stiffness: 260, damping: 18 }}
-                className="cursor-default"
-                style={{
-                  background: "rgba(255,255,255,.1)",
-                  border: "1px solid rgba(255,255,255,.15)",
-                  backdropFilter: "blur(16px)",
-                  borderRadius: "3rem",
-                  padding: "32px",
-                  textAlign: "center",
-                }}
+                initial={{ opacity: 0, x: 24 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.7 }}
+                className="relative overflow-hidden rounded-[3rem] min-h-[280px]"
               >
-                <h3
+                <motion.div
+                  className="absolute inset-0 bg-cover bg-center"
                   style={{
-                    fontFamily: "'Plus Jakarta Sans',sans-serif",
-                    fontSize: 48,
-                    fontWeight: 800,
-                    color: DS.surface,
-                    letterSpacing: "-0.04em",
+                    backgroundImage: `url(${qualityHero.src})`,
+                    scale: 1.08,
                   }}
-                >
-                  <AnimatedCounter target={s.number} />
-                </h3>
-                <p
-                  style={{
-                    fontFamily: "'Plus Jakarta Sans',sans-serif",
-                    fontSize: 14,
-                    fontWeight: 500,
-                    color: DS.onPrimaryContainer,
-                    marginTop: 8,
+                  animate={{ scale: [1.08, 1.12, 1.08] }}
+                  transition={{
+                    duration: 8,
+                    repeat: Infinity,
+                    ease: "easeInOut",
                   }}
-                >
-                  {s.label}
-                </p>
-              </motion.div>
-            ))}
-          </motion.div>
-        </div>
-      </section>
+                />
 
+                <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-transparent to-black/40" />
+
+                <div className="absolute bottom-5 left-5">
+                  <div
+                    className="rounded-full px-4 py-2"
+                    style={{
+                      background: DS.secondaryContainer,
+                      color: DS.onSecondaryContainer,
+                      fontSize: 11,
+                      fontWeight: 700,
+                      letterSpacing: "0.1em",
+                      textTransform: "uppercase",
+                    }}
+                  >
+                    Export Ready • Global Standards
+                  </div>
+                </div>
+              </motion.div>
+
+              {/* STATS GRID */}
+              <motion.div
+                className="grid grid-cols-2 gap-4"
+                variants={stagger(0.13, 0.55)}
+                initial="hidden"
+                animate={heroReady ? "show" : "hidden"}
+              >
+                {stats.map((s, i) => (
+                  <motion.div
+                    key={i}
+                    variants={scaleIn}
+                    whileHover={{ scale: 1.04, y: -4 }}
+                    transition={{
+                      type: "spring",
+                      stiffness: 260,
+                      damping: 18,
+                    }}
+                    style={{
+                      background:
+                        i === 0
+                          ? "#fec567"
+                          : i === 1
+                          ? "#e9965b"
+                          : i === 2
+                          ? "#89c2e8"
+                          : "#9fcfb2",
+
+                      border: "1px solid rgba(255,255,255,.12)",
+                      backdropFilter: "blur(14px)",
+                      borderRadius: "2rem",
+                      padding: "28px",
+                      textAlign: "center",
+                    }}
+                  >
+                    <h3
+                      style={{
+                        fontFamily: "'Plus Jakarta Sans',sans-serif",
+                        fontSize: 42,
+                        fontWeight: 800,
+                        color: "#fffefe",
+                        letterSpacing: "-0.04em",
+                      }}
+                    >
+                      <AnimatedCounter target={s.number} />
+                    </h3>
+
+                    <p
+                      style={{
+                        fontFamily: "'Plus Jakarta Sans',sans-serif",
+                        fontSize: 12,
+                        fontWeight: 700,
+                        textTransform: "uppercase",
+                        letterSpacing: "0.08em",
+                        marginTop: 6,
+                        color: "#e8e8e8",
+                      }}
+                    >
+                      {s.label}
+                    </p>
+                  </motion.div>
+                ))}
+              </motion.div>
+            </div>
+          </div>
+        </section>
       {/* ════ TRUST BAR — surface-container bg, label-caps icons ════ */}
       <section
         style={{
@@ -889,7 +987,7 @@ export default function QualityPage() {
               className="relative"
             >
               <div
-                className="absolute -top-8 -left-8 w-36 h-36 rounded-full blur-3xl animate-pulse pointer-events-none"
+                className="absolute -top-8 -left-8 w-36 h-36 rounded-4xl blur-3xl animate-pulse pointer-events-none"
                 style={{ background: DS.primaryFixed, opacity: 0.4 }}
               />
               <div
@@ -898,7 +996,7 @@ export default function QualityPage() {
                   background: DS.surface,
                   borderRadius: "3rem",
                   padding: 40,
-                  border: `2px solid ${DS.primaryContainer}`,
+                  border: "1px solid rgba(255,255,255,0.08)",
                 }}
               >
                 {/* sticker header */}
@@ -1250,7 +1348,7 @@ export default function QualityPage() {
           </motion.div>
 
           <motion.div
-            className="mt-16 overflow-x-auto"
+            className="mt-16"
             style={{
               background: "rgba(255,255,255,.07)",
               border: `1px solid rgba(255,255,255,.12)`,
@@ -1263,7 +1361,7 @@ export default function QualityPage() {
             viewport={{ once: false, margin: "-60px" }}
             transition={{ delay: 0.25 }}
           >
-            <table className="w-full min-w-[700px]">
+            <table className="w-full">
               <thead>
                 <tr style={{ borderBottom: "1px solid rgba(255,255,255,.12)" }}>
                   {["Market", "Required Certifications", "AgriExpo Status"].map(
@@ -1329,16 +1427,20 @@ export default function QualityPage() {
                           stiffness: 300,
                           damping: 18,
                         }}
-                        className="inline-block cursor-default"
+                        className="inline-flex items-center justify-center cursor-default"
                         style={{
                           background: DS.secondaryContainer,
                           color: DS.onSecondaryContainer,
-                          padding: "6px 18px",
                           borderRadius: 9999,
                           fontFamily: "'Plus Jakarta Sans',sans-serif",
                           fontSize: 12,
                           fontWeight: 700,
                           letterSpacing: "0.08em",
+
+                          width: 140,
+                          height: 34,
+
+                          textAlign: "center",
                         }}
                       >
                         {r.status}
