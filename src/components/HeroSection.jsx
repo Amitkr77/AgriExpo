@@ -169,14 +169,14 @@ export default function Hero() {
         }}
       />
 
+
       {/* Grain Overlay */}
       {!reduceMotion && (
         <div
           aria-hidden
           className="pointer-events-none absolute inset-0 opacity-[0.035] mix-blend-multiply"
           style={{
-            backgroundImage:
-              "url('https://grainy-gradients.vercel.app/noise.svg')",
+            backgroundImage: "url('/noise.svg')",
             animation: "grain 8s steps(10) infinite",
           }}
         />
