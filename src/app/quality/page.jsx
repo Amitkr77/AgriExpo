@@ -756,386 +756,386 @@ export default function QualityPage() {
         </section>*/}
 
         <section
-        className="relative overflow-hidden px-6 lg:px-16 py-6 lg:py-10"
-        style={{
-          background:
-  "linear-gradient(135deg,#f7faf8 0%,#e8f1ec 30%,#d5e3db 65%,#c2d2ca 100%)",
-        }}
-      >
-
-        {/* BACKGROUND IMAGE */}
-        <div
-          className="absolute inset-0 bg-cover bg-center opacity-[0.08]"
+          className="relative overflow-hidden px-6 lg:px-16 py-6 lg:py-10"
           style={{
-            backgroundImage: `url(${qualityHero.src})`,
+            background:
+                "linear-gradient(135deg,#f7faf8 0%,#e8f1ec 30%,#d5e3db 65%,#c2d2ca 100%)",
           }}
-        />
+        >
 
-        {/* FLOATING PARTICLES */}
-        <FloatingParticles count={16} />
+          {/* BACKGROUND IMAGE */}
+          <div
+            className="absolute inset-0 bg-cover bg-center opacity-[0.08]"
+            style={{
+              backgroundImage: `url(${qualityHero.src})`,
+            }}
+          />
 
-        {/* PREMIUM FLOATING BUBBLES */}
-        <div className="absolute inset-0 overflow-hidden pointer-events-none z-[1]">
+          {/* FLOATING PARTICLES */}
+          <FloatingParticles count={16} />
 
-          {BUBBLES.map((b, i) => (
-            <Bubble key={i} {...b} />
-          ))}
+          {/* PREMIUM FLOATING BUBBLES */}
+          <div className="absolute inset-0 overflow-hidden pointer-events-none z-[1]">
 
-        </div>
+            {BUBBLES.map((b, i) => (
+              <Bubble key={i} {...b} />
+            ))}
 
-        {/* MAIN WRAPPER */}
-        <div className="mt-8 relative z-10 mx-auto max-w-7xl flex flex-col gap-3">
+          </div>
 
-          {/* ═══════════════ TOP HERO CARD ═══════════════ */}
-          <motion.div
-            variants={stagger(0.15, 0.2)}
-            initial="hidden"
-            animate={heroReady ? "show" : "hidden"}
-            className="relative overflow-hidden rounded-[2.5rem] min-h-[520px]"
-          >
+          {/* MAIN WRAPPER */}
+          <div className="mt-8 relative z-10 mx-auto max-w-7xl flex flex-col gap-3">
 
-            {/* BG IMAGE */}
-            <div
-              className="absolute inset-0 bg-cover bg-center"
-              style={{
-                backgroundImage: `url(${qualityHero.src})`,
-              }}
-            />
+            {/* ═══════════════ TOP HERO CARD ═══════════════ */}
+            <motion.div
+              variants={stagger(0.15, 0.2)}
+              initial="hidden"
+              animate={heroReady ? "show" : "hidden"}
+              className="relative overflow-hidden rounded-[2.5rem] min-h-[520px]"
+            >
 
-            {/* OVERLAY */}
-            <div
-              className="absolute inset-0"
-              style={{
-                background:
-                  "linear-gradient(135deg, rgba(25,35,31,0.92) 0%, rgba(51,71,63,0.82) 45%, rgba(120,120,120,0.18) 100%)",
-              }}
-            />
+              {/* BG IMAGE */}
+              <div
+                className="absolute inset-0 bg-cover bg-center"
+                style={{
+                  backgroundImage: `url(${qualityHero.src})`,
+                }}
+              />
 
-            {/* GLASS SHINE */}
-            <div
-              className="absolute inset-0"
-              style={{
-                background:
-                  "linear-gradient(135deg,rgba(255,255,255,.12) 0%,rgba(255,255,255,0) 60%)",
-              }}
-            />
+              {/* OVERLAY */}
+              <div
+                className="absolute inset-0"
+                style={{
+                  background:
+                    "linear-gradient(135deg, rgba(25,35,31,0.92) 0%, rgba(51,71,63,0.82) 45%, rgba(120,120,120,0.18) 100%)",
+                }}
+              />
 
-            {/* CONTENT */}
-            <div className="relative z-10 h-full flex flex-col justify-between p-6 md:p-8 lg:p-10">
+              {/* GLASS SHINE */}
+              <div
+                className="absolute inset-0"
+                style={{
+                  background:
+                    "linear-gradient(135deg,rgba(255,255,255,.12) 0%,rgba(255,255,255,0) 60%)",
+                }}
+              />
 
-              {/* TOP CONTENT */}
-              <div>
+              {/* CONTENT */}
+              <div className="relative z-10 h-full flex flex-col justify-between p-6 md:p-8 lg:p-10">
 
-                {/* TOP ROW */}
-                <div className="flex flex-wrap items-center justify-between gap-4">
+                {/* TOP CONTENT */}
+                <div>
 
-                  {/* BADGE */}
-                  <motion.div
-                    variants={fadeUp}
-                    className="inline-flex items-center gap-2 px-4 py-2 rounded-full"
-                    style={{
-                      background: "rgba(255,255,255,.12)",
-                      border: "1px solid rgba(255,255,255,.2)",
-                      backdropFilter: "blur(12px)",
-                      color: DS.onPrimaryContainer,
-                    }}
-                  >
-                    <ShieldCheck size={16} className="qp-bounce" />
+                  {/* TOP ROW */}
+                  <div className="flex flex-wrap items-center justify-between gap-4">
 
-                    <span
+                    {/* BADGE */}
+                    <motion.div
+                      variants={fadeUp}
+                      className="inline-flex items-center gap-2 px-4 py-2 rounded-full"
                       style={{
-                        fontSize: 10,
-                        fontWeight: 700,
-                        letterSpacing: ".1em",
-                        textTransform: "uppercase",
+                        background: "rgba(255,255,255,.12)",
+                        border: "1px solid rgba(255,255,255,.2)",
+                        backdropFilter: "blur(12px)",
+                        color: DS.onPrimaryContainer,
                       }}
                     >
-                      Export Certified Manufacturing
+                      <ShieldCheck size={16} className="qp-bounce" />
+
+                      <span
+                        style={{
+                          fontSize: 10,
+                          fontWeight: 700,
+                          letterSpacing: ".1em",
+                          textTransform: "uppercase",
+                        }}
+                      >
+                        Export Certified Manufacturing
+                      </span>
+
+                    </motion.div>
+
+                    {/* FLOATING GLASS CARD */}
+                    <motion.div
+                      initial={{ opacity: 0, y: -20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.4 }}
+                      className="rounded-[1.5rem] px-5 py-3 text-center"
+                      style={{
+                        background: "rgba(255,255,255,.08)",
+                        border: "1px solid rgba(255,255,255,.14)",
+                        backdropFilter: "blur(18px)",
+                      }}
+                    >
+
+                      <p
+                        style={{
+                          fontSize: 10,
+                          textTransform: "uppercase",
+                          letterSpacing: ".12em",
+                          color: "rgba(255,255,255,.7)",
+                          fontWeight: 700,
+                        }}
+                      >
+                        Global Approval Rate
+                      </p>
+
+                      <h3
+                        style={{
+                          fontSize: 24,
+                          fontWeight: 800,
+                          color: "#fff",
+                          marginTop: 4,
+                        }}
+                      >
+                        99.8%
+                      </h3>
+
+                    </motion.div>
+
+                  </div>
+
+                  {/* HEADING */}
+                  <motion.h1
+                    variants={fadeUp}
+                    className="mt-8 max-w-4xl"
+                    style={{
+                      fontFamily: "'Plus Jakarta Sans',sans-serif",
+                      fontSize: "clamp(40px,6vw,74px)",
+                      lineHeight: 0.92,
+                      fontWeight: 800,
+                      letterSpacing: "-0.06em",
+                      color: "#fff",
+                    }}
+                  >
+
+                    Export-Grade
+
+                    <span
+                      className="block"
+                      style={{
+                        color: DS.secondaryContainer,
+                      }}
+                    >
+                      Quality at Every Stage
                     </span>
+
+                  </motion.h1>
+
+                  {/* DESCRIPTION */}
+                  <motion.p
+                    variants={fadeUp}
+                    className="mt-8 max-w-2xl"
+                    style={{
+                      fontFamily: "'Plus Jakarta Sans',sans-serif",
+                      fontSize: 15,
+                      lineHeight: "26px",
+                      color: "rgba(255,255,255,.78)",
+                      fontWeight: 500,
+                    }}
+                  >
+                    AgriExpo follows internationally recognized food safety and
+                    quality systems to ensure every product meets strict import
+                    requirements of buyers across the US, EU, UAE, Australia and
+                    Asian markets.
+                  </motion.p>
+
+                </div>
+
+                {/* BOTTOM CONTENT */}
+                <div className="grid lg:grid-cols-[1fr_340px] gap-4 items-end -mt-26">
+
+                  {/* BUTTONS */}
+                  <motion.div
+                    variants={fadeUp}
+                    className="flex flex-wrap gap-3"
+                  >
+
+                    {/* PRIMARY BUTTON */}
+                    <motion.button
+                      whileHover={{
+                        scale: 1.05,
+                        backgroundColor: "#f5b84a",
+                      }}
+                      whileTap={{ scale: 0.97 }}
+                      transition={{
+                        type: "spring",
+                        stiffness: 300,
+                        damping: 20,
+                      }}
+                      style={{
+                        background: DS.secondaryContainer,
+                        color: DS.onSecondaryContainer,
+                        padding: "14px 28px",
+                        borderRadius: 9999,
+                        fontFamily: "'Plus Jakarta Sans',sans-serif",
+                        fontWeight: 700,
+                        fontSize: 14,
+                        border: "none",
+                        cursor: "pointer",
+                      }}
+                    >
+                      View Certifications
+                    </motion.button>
+
+                    {/* SECONDARY BUTTON */}
+                    <motion.button
+                      whileHover={{
+                        scale: 1.04,
+                        backgroundColor: "rgba(255,255,255,.08)",
+                      }}
+                      whileTap={{ scale: 0.97 }}
+                      style={{
+                        background: "rgba(255,255,255,.04)",
+                        color: "#fff",
+                        border: "1px solid rgba(255,255,255,.2)",
+                        padding: "14px 28px",
+                        borderRadius: 9999,
+                        fontFamily: "'Plus Jakarta Sans',sans-serif",
+                        fontWeight: 700,
+                        fontSize: 14,
+                        backdropFilter: "blur(12px)",
+                      }}
+                    >
+                      Download Quality Profile
+                    </motion.button>
 
                   </motion.div>
 
-                  {/* FLOATING GLASS CARD */}
+                  {/* SIDE IMAGE GLASS CARD */}
                   <motion.div
-                    initial={{ opacity: 0, y: -20 }}
+                    initial={{ opacity: 0, y: 30 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.4 }}
-                    className="rounded-[1.5rem] px-5 py-3 text-center"
+                    transition={{ delay: 0.5 }}
+                    className="relative overflow-hidden rounded-[2rem] min-h-[190px]"
                     style={{
                       background: "rgba(255,255,255,.08)",
-                      border: "1px solid rgba(255,255,255,.14)",
-                      backdropFilter: "blur(18px)",
+                      border: "1px solid rgba(255,255,255,.12)",
+                      backdropFilter: "blur(24px)",
                     }}
                   >
 
-                    <p
+                    {/* IMAGE */}
+                    <motion.div
+                      className="absolute inset-0 bg-cover bg-center"
                       style={{
-                        fontSize: 10,
-                        textTransform: "uppercase",
-                        letterSpacing: ".12em",
-                        color: "rgba(255,255,255,.7)",
-                        fontWeight: 700,
+                        backgroundImage: `url(${cardimg.src})`,
+                        backgroundPosition: "center top",
                       }}
-                    >
-                      Global Approval Rate
-                    </p>
+                      animate={{
+                        scale: [1.05, 1.12, 1.05],
+                      }}
+                      transition={{
+                        duration: 10,
+                        repeat: Infinity,
+                        ease: "easeInOut",
+                      }}
+                    />
 
-                    <h3
-                      style={{
-                        fontSize: 24,
-                        fontWeight: 800,
-                        color: "#fff",
-                        marginTop: 4,
-                      }}
-                    >
-                      99.8%
-                    </h3>
+                    {/* OVERLAY */}
+                    <div className="absolute inset-0 bg-gradient-to-b from-black/10 to-black/50" />
+
+                    {/* BADGE */}
+                    <div className="absolute bottom-4 left-4">
+
+                      <div
+                        className="rounded-full px-3 py-2"
+                        style={{
+                          background: DS.secondaryContainer,
+                          color: DS.onSecondaryContainer,
+                          fontSize: 10,
+                          fontWeight: 700,
+                          letterSpacing: ".1em",
+                          textTransform: "uppercase",
+                        }}
+                      >
+                        Export Ready
+                      </div>
+
+                    </div>
 
                   </motion.div>
 
                 </div>
 
-                {/* HEADING */}
-                <motion.h1
-                  variants={fadeUp}
-                  className="mt-8 max-w-4xl"
-                  style={{
-                    fontFamily: "'Plus Jakarta Sans',sans-serif",
-                    fontSize: "clamp(40px,6vw,74px)",
-                    lineHeight: 0.92,
-                    fontWeight: 800,
-                    letterSpacing: "-0.06em",
-                    color: "#fff",
-                  }}
-                >
-
-                  Export-Grade
-
-                  <span
-                    className="block"
-                    style={{
-                      color: DS.secondaryContainer,
-                    }}
-                  >
-                    Quality at Every Stage
-                  </span>
-
-                </motion.h1>
-
-                {/* DESCRIPTION */}
-                <motion.p
-                  variants={fadeUp}
-                  className="mt-8 max-w-2xl"
-                  style={{
-                    fontFamily: "'Plus Jakarta Sans',sans-serif",
-                    fontSize: 15,
-                    lineHeight: "26px",
-                    color: "rgba(255,255,255,.78)",
-                    fontWeight: 500,
-                  }}
-                >
-                  AgriExpo follows internationally recognized food safety and
-                  quality systems to ensure every product meets strict import
-                  requirements of buyers across the US, EU, UAE, Australia and
-                  Asian markets.
-                </motion.p>
-
               </div>
+            </motion.div>
 
-              {/* BOTTOM CONTENT */}
-              <div className="grid lg:grid-cols-[1fr_340px] gap-4 items-end -mt-26">
+            {/* ═══════════════ BOTTOM STATS ROW ═══════════════ */}
+            <motion.div
+              className="grid grid-cols-2 lg:grid-cols-4 gap-3"
+              variants={stagger(0.13, 0.55)}
+              initial="hidden"
+              animate={heroReady ? "show" : "hidden"}
+            >
 
-                {/* BUTTONS */}
+              {stats.map((s, i) => (
+
                 <motion.div
-                  variants={fadeUp}
-                  className="flex flex-wrap gap-3"
-                >
-
-                  {/* PRIMARY BUTTON */}
-                  <motion.button
-                    whileHover={{
-                      scale: 1.05,
-                      backgroundColor: "#f5b84a",
-                    }}
-                    whileTap={{ scale: 0.97 }}
-                    transition={{
-                      type: "spring",
-                      stiffness: 300,
-                      damping: 20,
-                    }}
-                    style={{
-                      background: DS.secondaryContainer,
-                      color: DS.onSecondaryContainer,
-                      padding: "14px 28px",
-                      borderRadius: 9999,
-                      fontFamily: "'Plus Jakarta Sans',sans-serif",
-                      fontWeight: 700,
-                      fontSize: 14,
-                      border: "none",
-                      cursor: "pointer",
-                    }}
-                  >
-                    View Certifications
-                  </motion.button>
-
-                  {/* SECONDARY BUTTON */}
-                  <motion.button
-                    whileHover={{
-                      scale: 1.04,
-                      backgroundColor: "rgba(255,255,255,.08)",
-                    }}
-                    whileTap={{ scale: 0.97 }}
-                    style={{
-                      background: "rgba(255,255,255,.04)",
-                      color: "#fff",
-                      border: "1px solid rgba(255,255,255,.2)",
-                      padding: "14px 28px",
-                      borderRadius: 9999,
-                      fontFamily: "'Plus Jakarta Sans',sans-serif",
-                      fontWeight: 700,
-                      fontSize: 14,
-                      backdropFilter: "blur(12px)",
-                    }}
-                  >
-                    Download Quality Profile
-                  </motion.button>
-
-                </motion.div>
-
-                {/* SIDE IMAGE GLASS CARD */}
-                <motion.div
-                  initial={{ opacity: 0, y: 30 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.5 }}
-                  className="relative overflow-hidden rounded-[2rem] min-h-[190px]"
+                  key={i}
+                  variants={scaleIn}
+                  whileHover={{
+                    y: -4,
+                    scale: 1.03,
+                  }}
+                  className="relative overflow-hidden rounded-[2rem] p-5 flex flex-col items-center justify-center text-center"
                   style={{
                     background: "rgba(255,255,255,.08)",
-                    border: "1px solid rgba(255,255,255,.12)",
-                    backdropFilter: "blur(24px)",
+                    border: "1px solid rgba(255,255,255,.14)",
+                    backdropFilter: "blur(20px)",
                   }}
                 >
 
-                  {/* IMAGE */}
-                  <motion.div
-                    className="absolute inset-0 bg-cover bg-center"
+                  {/* INNER GLOW */}
+                  <div
+                    className="absolute inset-0"
                     style={{
-                      backgroundImage: `url(${cardimg.src})`,
-                      backgroundPosition: "center top",
-                    }}
-                    animate={{
-                      scale: [1.05, 1.12, 1.05],
-                    }}
-                    transition={{
-                      duration: 10,
-                      repeat: Infinity,
-                      ease: "easeInOut",
+                      background:
+                        i === 0
+                          ? "rgba(220, 222, 55, 0.84)"
+                          : i === 1
+                          ? "rgba(248, 148, 77, 0.91)"
+                          : i === 2
+                          ? "rgba(117, 184, 228, 0.87)"
+                          : "rgba(106, 203, 145, 0.75)",
                     }}
                   />
 
-                  {/* OVERLAY */}
-                  <div className="absolute inset-0 bg-gradient-to-b from-black/10 to-black/50" />
+                  <h3
+                    className="relative z-10"
+                    style={{
+                      fontFamily: "'Plus Jakarta Sans',sans-serif",
+                      fontSize: 34,
+                      fontWeight: 800,
+                      color: "#fff",
+                      letterSpacing: "-0.05em",
+                    }}
+                  >
+                    <AnimatedCounter target={s.number} />
+                  </h3>
 
-                  {/* BADGE */}
-                  <div className="absolute bottom-4 left-4">
-
-                    <div
-                      className="rounded-full px-3 py-2"
-                      style={{
-                        background: DS.secondaryContainer,
-                        color: DS.onSecondaryContainer,
-                        fontSize: 10,
-                        fontWeight: 700,
-                        letterSpacing: ".1em",
-                        textTransform: "uppercase",
-                      }}
-                    >
-                      Export Ready
-                    </div>
-
-                  </div>
+                  <p
+                    className="relative z-10 mt-2 text-center"
+                    style={{
+                      fontFamily: "'Plus Jakarta Sans',sans-serif",
+                      fontSize: 10,
+                      fontWeight: 700,
+                      letterSpacing: ".12em",
+                      textTransform: "uppercase",
+                      color: "rgba(255,255,255,.72)",
+                    }}
+                  >
+                    {s.label}
+                  </p>
 
                 </motion.div>
 
-              </div>
+              ))}
 
-            </div>
-          </motion.div>
+            </motion.div>
 
-          {/* ═══════════════ BOTTOM STATS ROW ═══════════════ */}
-          <motion.div
-            className="grid grid-cols-2 lg:grid-cols-4 gap-3"
-            variants={stagger(0.13, 0.55)}
-            initial="hidden"
-            animate={heroReady ? "show" : "hidden"}
-          >
-
-            {stats.map((s, i) => (
-
-              <motion.div
-                key={i}
-                variants={scaleIn}
-                whileHover={{
-                  y: -4,
-                  scale: 1.03,
-                }}
-                className="relative overflow-hidden rounded-[2rem] p-5 flex flex-col items-center justify-center text-center"
-                style={{
-                  background: "rgba(255,255,255,.08)",
-                  border: "1px solid rgba(255,255,255,.14)",
-                  backdropFilter: "blur(20px)",
-                }}
-              >
-
-                {/* INNER GLOW */}
-                <div
-                  className="absolute inset-0"
-                  style={{
-                    background:
-                      i === 0
-                        ? "rgba(220, 222, 55, 0.84)"
-                        : i === 1
-                        ? "rgba(248, 148, 77, 0.91)"
-                        : i === 2
-                        ? "rgba(117, 184, 228, 0.87)"
-                        : "rgba(106, 203, 145, 0.75)",
-                  }}
-                />
-
-                <h3
-                  className="relative z-10"
-                  style={{
-                    fontFamily: "'Plus Jakarta Sans',sans-serif",
-                    fontSize: 34,
-                    fontWeight: 800,
-                    color: "#fff",
-                    letterSpacing: "-0.05em",
-                  }}
-                >
-                  <AnimatedCounter target={s.number} />
-                </h3>
-
-                <p
-                  className="relative z-10 mt-2 text-center"
-                  style={{
-                    fontFamily: "'Plus Jakarta Sans',sans-serif",
-                    fontSize: 10,
-                    fontWeight: 700,
-                    letterSpacing: ".12em",
-                    textTransform: "uppercase",
-                    color: "rgba(255,255,255,.72)",
-                  }}
-                >
-                  {s.label}
-                </p>
-
-              </motion.div>
-
-            ))}
-
-          </motion.div>
-
-        </div>
-      </section>
+          </div>
+        </section>
         
       {/* ════ TRUST BAR — surface-container bg, label-caps icons ════ */}
       <section
