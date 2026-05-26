@@ -15,8 +15,7 @@ export default function InlineInquiryCTA() {
       <div
         className="absolute inset-0 opacity-[0.04]"
         style={{
-          backgroundImage:
-            "url('https://grainy-gradients.vercel.app/noise.svg')",
+          backgroundImage: "url('/noise.svg')",
         }}
       />
 
