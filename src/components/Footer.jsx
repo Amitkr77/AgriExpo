@@ -14,12 +14,12 @@ import {
 
 export default function MegaFooter() {
   const products = ["Vegetable Powders", "Fruit Powders", "By Application"];
-  const company = ["About", "Our Process", "Quality & Certs", "Blog", "FAQ"];
+  const company = ["About", "Our Process", "Quality & Certs", "Blog"];
   const certs = ["ISO 22000", "HACCP", "FSSC 22000", "GMP", "Lab Tested"];
 
   return (
     <footer className="relative overflow-hidden bg-[#fbfaeb] text-[#1b1c13]">
-      <div className="mx-auto max-w-[1440px] px-4 py-10 sm:px-6 lg:px-10 lg:py-14">
+      <div className="mx-auto max-w-[1440px] px-4 py-8 sm:px-6 lg:px-10 lg:py-8">
         
         {/* TOP BRAND LINE */}
         <div className="mb-10 flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
@@ -68,7 +68,7 @@ export default function MegaFooter() {
                 <Link
                   key={item}
                   href="#"
-                  className="group flex items-center justify-between py-2 text-sm font-semibold text-[#414943] transition hover:text-[#14422d]"
+                  className="group flex items-center justify-between py-4 text-sm font-semibold text-[#414943] transition hover:text-[#14422d]"
                 >
                   <span className="flex items-center gap-3">
                     <span className="text-xs text-[#7e5700]/70">
@@ -159,7 +159,7 @@ export default function MegaFooter() {
           </div>
         </div>
         {/* BOTTOM */}
-        <div className="flex flex-col items-center justify-between gap-4 text-center text-xs font-medium text-[#414943] md:flex-row">
+        <div className="mt-6 flex flex-col items-center justify-between gap-4 text-center text-xs font-medium text-[#414943] md:flex-row">
           <p>© 2025 SRI GREEN Industries. Export-grade ingredient supplier.</p>
 
           <div className="flex gap-6">

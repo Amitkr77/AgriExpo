@@ -145,8 +145,16 @@ export default function FeaturedProduct() {
 
                 {/* Inquiry Button */}
                 <div className="absolute bottom-5 left-40 z-20 -translate-x-1/2 translate-y-6 opacity-0 transition-all duration-500 group-hover:translate-y-0 group-hover:opacity-100">
-                  <button className="inline-flex items-center gap-2 rounded-full bg-white px-5 py-3 text-sm font-bold text-[#1b1c13] shadow-lg">
+                  <button
+                    onClick={(e) => {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      window.location.href = "/contact";
+                    }}
+                    className="inline-flex items-center gap-2 rounded-full bg-white px-5 py-3 text-sm font-bold text-[#1b1c13] shadow-lg"
+                  >
                     Send Inquiry
+
                     <ArrowUpRight className="h-4 w-4" />
                   </button>
                 </div>

@@ -22,20 +22,30 @@ const navLinks = [
 // ── Internal Sub-Components ──
 
 // 1. Logo Component
-const Logo = () => (
+const Logo = ({ textBlack = false }) => (
   <Link
     href="/"
     className="flex items-center gap-3 group"
     aria-label="SRI GREEN – Home"
   >
     <span className="relative flex items-center justify-center w-10 h-10 rounded-full bg-[#14422d]/10 group-hover:bg-[#14422d]/20 transition-colors duration-500">
-      <Sprout className="w-5 h-5 text-[#14422d]" />
+      <Sprout className={clsx("w-5 h-5", textBlack ? "text-green" : "text-[#14422d]")} />
     </span>
     <div className="flex flex-col">
-      <span className="text-xl sm:text-2xl font-extrabold tracking-tight text-[#14422d] leading-none group-hover:text-[#1a5c3d] transition-colors duration-300">
+      <span
+        className={clsx(
+          "text-xl sm:text-2xl font-extrabold tracking-tight leading-none transition-colors duration-300",
+          textBlack ? "text-green" : "text-[#14422d] group-hover:text-[#1a5c3d]"
+        )}
+      >
         SRI GREEN
       </span>
-      <span className="text-[9px] sm:text-[10px] tracking-widest font-medium text-[#414943]/70 uppercase mt-1">
+      <span
+        className={clsx(
+          "text-[9px] sm:text-[10px] tracking-widest font-medium uppercase mt-1",
+          textBlack ? "text-green/70" : "text-[#414943]/70"
+        )}
+      >
         Premium Fruit & Vegetable Powders
       </span>
     </div>
@@ -173,6 +183,9 @@ export default function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const pathname = usePathname();
 
+  const isBlogSlugPage = pathname?.startsWith("/blog/") && pathname !== "/blog";
+  const textBlack = isBlogSlugPage && !scrolled;
+
   // Scroll Effect
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
@@ -200,14 +213,16 @@ export default function Header() {
   return (
     <>
       {/* Desktop Header */}
-      <header
-        className={clsx(
-          "fixed top-0 left-0 w-full z-40 transition-all duration-500 ease-in-out",
-          scrolled
-            ? "bg-white/80 backdrop-blur-md shadow-sm py-3"
-            : "bg-transparent py-5",
-        )}
-      >
+          <header
+            className={clsx(
+              "fixed top-0 left-0 w-full z-40 transition-all duration-500 ease-in-out",
+              scrolled
+                ? "bg-white/80 backdrop-blur-md shadow-sm py-3"
+                : isBlogSlugPage
+                  ? "bg-white/20 shadow-sm py-5"
+                  : "bg-transparent py-5",
+            )}
+          >
         <div className="max-w-360 mx-auto px-6 sm:px-10 flex items-center justify-between">
           {/* Logo */}
           <div
@@ -216,7 +231,7 @@ export default function Header() {
               scrolled ? "scale-95" : "scale-100",
             )}
           >
-            <Logo />
+            <Logo textBlack={textBlack} />
           </div>
 
           {/* Desktop Navigation */}
@@ -230,8 +245,12 @@ export default function Header() {
                   className={clsx(
                     "relative px-4 py-2 text-sm font-medium tracking-wide transition-colors duration-300 rounded-lg hover:bg-gray-50",
                     isActive
-                      ? "text-[#14422d] font-bold"
-                      : "text-gray-600 hover:text-[#14422d]",
+                      ? textBlack
+                        ? "text-green font-bold"
+                        : "text-[#14422d] font-bold"
+                      : textBlack
+                        ? "text-green hover:text-green/80"
+                        : "text-gray-600 hover:text-[#14422d]",
                   )}
                 >
                   {label}
@@ -250,7 +269,12 @@ export default function Header() {
             <div className="hidden lg:flex items-center gap-3">
               <Link
                 href="/contact"
-                className="flex items-center gap-2 border-2 border-[#14422d] hover:bg-[#14422d]/5 text-[#14422d] px-6 py-2.5 rounded-full text-xs font-bold uppercase tracking-widest transition-all duration-300 active:scale-95"
+                className={clsx(
+                  "flex items-center gap-2 border-2 px-6 py-2.5 rounded-full text-xs font-bold uppercase tracking-widest transition-all duration-300 active:scale-95",
+                  textBlack
+                    ? "border-black hover:bg-black/5 text-green"
+                    : "border-[#14422d] hover:bg-[#14422d]/5 text-[#14422d]"
+                )}
               >
                 <FileText className="w-3.5 h-3.5" /> Request Sample
               </Link>
@@ -265,7 +289,12 @@ export default function Header() {
             {/* Mobile Toggle Button */}
             <button
               onClick={() => setMobileOpen(true)}
-              className="lg:hidden p-2 -mr-2 rounded-full text-[#14422d] hover:bg-[#14422d]/5 transition-colors"
+              className={clsx(
+                "lg:hidden p-2 -mr-2 rounded-full transition-colors",
+                textBlack
+                  ? "text-green hover:bg-green/5"
+                  : "text-[#14422d] hover:bg-[#14422d]/5"
+              )}
               aria-label="Open Menu"
             >
               <Menu className="w-6 h-6" />
