@@ -1784,7 +1784,7 @@ export default function QualityPage() {
 
       {/* ════ EXPORT TABLE — primary-container dark bg ════ */}
       <section
-        id="export-section"
+        id="compliance"
         className="py-28 px-6 lg:px-16 relative overflow-hidden"
         style={{ background: DS.primaryContainer }}
       >
