@@ -9,7 +9,7 @@ import WhyChooseSriGreen from "@/components/WhyChoose";
 import InlineInquiryCTA from "@/components/InlineInquiryCTA";
 import vegimage from "@/assets/vegimage.webp";
 // import Header from "@/components/Header";
-import fruitimage from "@/assets/fruitimage.png";
+import fruitimage from "@/assets/fruitimg1.png";
 // import { FRUIT_POWDERS } from "@/lib/products";
 
 export default function Page() {
