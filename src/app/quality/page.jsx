@@ -1033,7 +1033,7 @@ export default function QualityPage() {
                     />
 
                     {/* OVERLAY */}
-                    <div className="absolute inset-0 bg-gradient-to-b from-black/10 to-black/50" />
+                    <div className="absolute inset-0 bg-gradient-to-b from-black/10 to-black/20" />
 
                     {/* BADGE */}
                     <div className="absolute bottom-4 left-4">
