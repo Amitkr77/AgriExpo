@@ -144,12 +144,14 @@ export default function FeaturedProduct() {
                 <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
 
                 {/* Inquiry Button */}
+                <Link href="/contact">
                 <div className="absolute bottom-5 left-40 z-20 -translate-x-1/2 translate-y-6 opacity-0 transition-all duration-500 group-hover:translate-y-0 group-hover:opacity-100">
                   <button className="inline-flex items-center gap-2 rounded-full bg-white px-5 py-3 text-sm font-bold text-[#1b1c13] shadow-lg">
                     Send Inquiry
                     <ArrowUpRight className="h-4 w-4" />
                   </button>
                 </div>
+                </Link>
 
                 {/* Badge */}
                 <div className="absolute left-4 top-4 inline-flex items-center gap-2 rounded-full bg-[#2d5a43] px-3 py-2">
