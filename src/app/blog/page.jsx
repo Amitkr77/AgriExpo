@@ -313,7 +313,7 @@ export default function Blog() {
           initial="hidden"
           whileInView="show"
           viewport={{ once: true }}
-          className="grid grid-cols-1 sm:grid-cols-2 border-b border-[#e4e3d4]"
+          className="grid grid-cols-1 m-2 sm:grid-cols-2 gap-3 border-b border-[#e4e3d4]"
         >
           {featuredBlogs.slice(0, 2).map(blog => (
             <FeaturedCard key={blog.id} blog={blog} onClick={navigateToBlog} />
@@ -330,7 +330,7 @@ export default function Blog() {
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
           onClick={() => navigateToBlog(item.slug)}
-          className="group relative h-60 sm:h-64 md:h-72 lg:h-80 cursor-pointer overflow-hidden border-b border-[#e4e3d4]"
+          className="group relative rounded-4xl m-2 h-60 sm:h-64 md:h-72 lg:h-80 cursor-pointer overflow-hidden border-b border-[#e4e3d4]"
         >
           <img src={item.image} alt={item.title} loading="lazy" className="absolute inset-0 h-full w-full object-cover transition-all duration-700 ease-out group-hover:scale-[1.03]" />
           <div className="absolute inset-0 bg-gradient-to-r from-[#0B2818]/80 to-transparent" />
@@ -360,10 +360,10 @@ export default function Blog() {
         <div className="flex items-center justify-between border-b border-[#e4e3d4] px-4 sm:px-6 md:px-8 lg:px-11 py-6 sm:py-7 md:py-8">
           <span className="text-[10px] md:text-[11px] font-bold uppercase tracking-[0.3em] md:tracking-[0.35em] text-[#414943]">Recent articles</span>
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2">
+        <div className="grid grid-cols-1 rounded-4xl sm:grid-cols-2">
           {loading ? (
             Array.from({ length: 6 }).map((_, i) => (
-              <div key={i} className="flex items-start gap-4 md:gap-5 px-6 md:px-11 py-5 md:py-7 border-b border-[#e4e3d4] sm:border-r border-[#e4e3d4]">
+              <div key={i} className="flex  rounded-4xl items-start gap-4 md:gap-5 px-6 md:px-11 py-5 md:py-7 border-b border-[#e4e3d4] sm:border-r border-[#e4e3d4]">
                 <Skeleton className="h-16 w-16 shrink-0 rounded-2xl" />
                 <div className="flex-1 flex flex-col gap-2 mt-1">
                   <Skeleton className="h-3 w-14" />
@@ -378,7 +378,7 @@ export default function Blog() {
                 key={item.slug}
                 variants={fadeUp}
                 onClick={() => navigateToBlog(item.slug)}
-                className="group flex cursor-pointer items-start gap-4 md:gap-5 px-4 sm:px-6 md:px-8 lg:px-11 py-5 md:py-7 transition-colors duration-200 hover:bg-[#f5f4e5] border-b border-[#e4e3d4] sm:border-r border-[#e4e3d4] last:border-r-0"
+                className="group flex cursor-pointer items-start gap-4 md:gap-5 px-4 m-2 sm:px-6 md:px-8 lg:px-11 py-5 md:py-7 transition-colors duration-200 hover:bg-[#f5f4e5] border border-[#e4e3d4] rounded-4xl overflow-hidden"
               >
                 <img src={item.image} alt={item.title} loading="lazy" className="h-16 w-16 shrink-0 rounded-2xl object-cover transition-opacity duration-300" />
                 <div className="flex-1">
@@ -402,7 +402,7 @@ export default function Blog() {
         whileInView={{ opacity: 1 }}
         viewport={{ once: true }}
         transition={{ duration: 1 }}
-        className="flex flex-col md:flex-row items-start md:items-center gap-6 md:gap-10 lg:gap-12 border-y border-[#e4e3d4] bg-[#14422d] px-4 sm:px-6 md:px-8 lg:px-11 py-8 sm:py-10 md:py-12 lg:py-14"
+        className="flex flex-col md:flex-row items-start md:items-center rounded-4xl gap-6 md:gap-10 lg:gap-12 border-y border-[#e4e3d4] bg-[#14422d] px-4 sm:px-6 md:px-8 lg:px-11 py-8 sm:py-10 md:py-12 lg:py-14"
       >
         <div className="shrink-0 text-[60px] sm:text-[70px] md:text-[80px] font-black leading-[0.7] text-[#fec567]/10 -mt-2 font-serif">&ldquo;</div>
         <p className="flex-1 font-serif text-[17px] sm:text-[20px] md:text-[23px] lg:text-[26px] italic leading-normal text-white/60">
@@ -421,7 +421,7 @@ export default function Blog() {
           variants={stagger}
           initial="hidden"
           animate="show"
-          className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3"
+          className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 "
         >
           {loading ? (
             <GridSkeleton />
@@ -435,7 +435,7 @@ export default function Blog() {
                 whileHover={{ y: -4 }}
                 transition={{ type: "spring", stiffness: 300, damping: 20 }}
                 onClick={() => navigateToBlog(card.slug)}
-                className="group cursor-pointer border-t-2 border-transparent bg-[#f5f4e5] p-6 sm:p-7 md:p-8 transition-all duration-300 hover:border-t-[#14422d] hover:bg-white hover:shadow-lg hover:shadow-[#14422d]/[0.06] border-r border-[#e4e3d4] last:border-r-0"
+                className="group cursor-pointer border-t-2 border-transparent rounded-4xl m-4 bg-[#f5f4e5] p-6 sm:p-7 md:p-8 transition-all duration-300 hover: hover:bg-white hover:shadow-lg hover:shadow-[#14422d]/[0.06] border-r border-[#e4e3d4] last:border-r-0"
               >
                 <img src={card.image} alt={card.title} loading="lazy" className="mb-4 sm:mb-5 h-32 md:h-36 w-full rounded-[1.5rem] object-cover opacity-70 transition-opacity duration-300 group-hover:opacity-90" />
                 <p className="mb-2 text-[9px] sm:text-[10px] font-bold uppercase tracking-[0.22em] sm:tracking-[0.28em] text-[#7e5700]">{card.tag}</p>
@@ -510,13 +510,13 @@ export default function Blog() {
           <div className="flex flex-col xs:flex-row gap-2 xs:gap-0">
             <input
               type="email"
-              className="flex-1 border border-[#c0c9c1] bg-[#f5f4e5] px-4 py-3 sm:py-3.5 text-[13px] sm:text-[14px] text-[#1b1c13] outline-none font-sans placeholder:text-[#c0c9c1] focus:border-[#14422d] focus:ring-1 focus:ring-[#14422d]/10 transition-all rounded-l-full rounded-r-none"
+              className="flex-1 border border-[#c0c9c1] bg-[#f5f4e5] px-4 py-3 sm:py-3.5 text-[13px] sm:text-[14px] text-[#1b1c13] outline-none font-sans placeholder:text-[#c0c9c1] focus:border-[#14422d] focus:ring-1 focus:ring-[#14422d]/10 transition-all rounded-4xl"
               placeholder="your@email.com"
             />
             <motion.button
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
-              className="shrink-0 bg-[#14422d] px-5 sm:px-6 py-3 sm:py-3.5 text-[10px] sm:text-[11px] font-bold uppercase tracking-[0.18em] sm:tracking-[0.22em] text-white hover:bg-[#0f3122] transition-colors rounded-r-full rounded-l-none"
+              className="shrink-0 bg-[#14422d] px-5 sm:px-6 py-3 sm:py-3.5 text-[10px] sm:text-[11px] font-bold uppercase tracking-[0.18em] sm:tracking-[0.22em] text-white hover:bg-[#0f3122] transition-colors rounded-4xl"
             >
               Subscribe
             </motion.button>
