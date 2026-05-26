@@ -393,18 +393,27 @@ function FloatingParticles({ count = 16 }) {
 
 /* ════ MAIN ════ */
 export default function QualityPage() {
+
   useEffect(() => {
     const go = () => {
-      const el = document.querySelector(window.location.hash);
-      if (el)
-        setTimeout(
-          () => el.scrollIntoView({ behavior: "smooth", block: "start" }),
-          100,
-        );
+      const hash = window.location.hash;
+      // Prevent empty selector error
+      if (!hash) return;
+      const el = document.querySelector(hash);
+      if (el) {
+        setTimeout(() => {
+          el.scrollIntoView({
+            behavior: "smooth",
+            block: "start",
+          });
+        }, 100);
+      }
     };
     go();
     window.addEventListener("hashchange", go);
-    return () => window.removeEventListener("hashchange", go);
+    return () => {
+      window.removeEventListener("hashchange", go);
+    };
   }, []);
 
   const [heroReady, setHeroReady] = useState(false);
@@ -414,7 +423,9 @@ export default function QualityPage() {
   }, []);
 
   const [activeForm, setActiveForm] = useState(null);
+
   const closeForm = () => setActiveForm(null);
+  
   const handleSubmit = (e) => {
     e.preventDefault();
     alert("Your request has been submitted!");
@@ -1784,7 +1795,7 @@ export default function QualityPage() {
 
       {/* ════ EXPORT TABLE — primary-container dark bg ════ */}
       <section
-        id="compliance"
+        id="export-section"
         className="py-28 px-6 lg:px-16 relative overflow-hidden"
         style={{ background: DS.primaryContainer }}
       >
