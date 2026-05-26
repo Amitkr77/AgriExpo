@@ -17,6 +17,7 @@ import {
   Award,
 } from "lucide-react";
 import qualityHero from "@/assets/quality-hero.png";
+import cardimg from "@/assets/qualitycardimg.png";
 
 /* ─────────────────────────────────────────
    DESIGN SYSTEM TOKENS  (design.md)
@@ -282,6 +283,76 @@ function AnimatedCounter({ target, duration = 1800 }) {
   return <span ref={ref}>{display}</span>;
 }
 
+const BUBBLES = [
+  { sz: 90,  l: "5%",  t: "10%", dur: 22, dl: 0 },
+  { sz: 55,  l: "80%", t: "8%",  dur: 18, dl: 2 },
+  { sz: 40,  l: "60%", t: "70%", dur: 16, dl: 1 },
+  { sz: 70,  l: "15%", t: "60%", dur: 24, dl: 3 },
+  { sz: 28,  l: "90%", t: "45%", dur: 14, dl: 2 },
+  { sz: 48,  l: "45%", t: "18%", dur: 20, dl: 4 },
+  { sz: 80,  l: "35%", t: "78%", dur: 26, dl: 0.5 },
+  { sz: 24,  l: "92%", t: "75%", dur: 12, dl: 3 },
+  { sz: 44,  l: "8%",  t: "40%", dur: 18, dl: 1.5 },
+  { sz: 60,  l: "68%", t: "82%", dur: 22, dl: 0.8 },
+
+  { sz: 36,  l: "25%", t: "12%", dur: 15, dl: 2.2 },
+  { sz: 72,  l: "55%", t: "28%", dur: 27, dl: 1.1 },
+  { sz: 26,  l: "74%", t: "58%", dur: 13, dl: 0.3 },
+  { sz: 52,  l: "12%", t: "82%", dur: 21, dl: 2.7 },
+  { sz: 34,  l: "42%", t: "52%", dur: 17, dl: 1.6 },
+  { sz: 96,  l: "85%", t: "20%", dur: 30, dl: 0.4 },
+  { sz: 22,  l: "3%",  t: "72%", dur: 11, dl: 3.2 },
+  { sz: 58,  l: "63%", t: "6%",  dur: 25, dl: 2.4 },
+  { sz: 30,  l: "48%", t: "88%", dur: 14, dl: 1.8 },
+  { sz: 76,  l: "28%", t: "34%", dur: 28, dl: 0.7 },
+
+  { sz: 42,  l: "95%", t: "65%", dur: 19, dl: 1.4 },
+  { sz: 66,  l: "18%", t: "22%", dur: 23, dl: 2.9 },
+  { sz: 20,  l: "52%", t: "38%", dur: 10, dl: 0.6 },
+  { sz: 88,  l: "72%", t: "88%", dur: 32, dl: 1.9 },
+  { sz: 38,  l: "10%", t: "50%", dur: 16, dl: 2.1 },
+];
+
+function Bubble({ sz, l, t, dur, dl }) {
+  return (
+    <motion.div
+      style={{
+        position: "absolute",
+        width: sz,
+        height: sz,
+        left: l,
+        top: t,
+        borderRadius: "50%",
+
+        background:
+          "radial-gradient(circle at 30% 30%, rgba(255,255,255,.55), rgba(255,255,255,.08))",
+
+        border: "1px solid rgba(255,255,255,.28)",
+
+        boxShadow:
+          "0 0 30px rgba(255,255,255,.10)",
+
+        backdropFilter: "blur(12px)",
+
+        opacity: 0.7,
+      }}
+
+      animate={{
+        x: [0, 40, -30, 20, 0],
+        y: [0, -50, 30, -20, 0],
+        scale: [1, 1.15, 0.95, 1.08, 1],
+      }}
+
+      transition={{
+        duration: dur,
+        repeat: Infinity,
+        delay: dl,
+        ease: "easeInOut",
+      }}
+    />
+  );
+}
+
 /* ── FloatingParticles ── */
 function FloatingParticles({ count = 16 }) {
   const [mounted, setMounted] = useState(false);
@@ -373,7 +444,8 @@ export default function QualityPage() {
 
       {/* ════ HERO ════
           Dark forest green hero — primary-container is the darkest brand green,
-          headline in surface (cream), body in on-primary-container (sage)         */}     
+          headline in surface (cream), body in on-primary-container (sage)             
+        
         <section
           className="relative overflow-hidden px-6 lg:px-16 py-10 lg:py-16"
           style={{
@@ -381,7 +453,7 @@ export default function QualityPage() {
               "linear-gradient(135deg, #d3e5dd 0%, #c7ddd3 50%, #b9d2c6 100%)",
           }}
         >
-          {/* BACKGROUND IMAGE */}
+          {/* BACKGROUND IMAGE 
           <div
             className="absolute inset-0 bg-cover bg-center opacity-10"
             // style={{
@@ -391,16 +463,25 @@ export default function QualityPage() {
 
           <FloatingParticles count={16} />
 
-          <div className="relative z-10 mx-auto grid max-w-7xl gap-5 lg:grid-cols-[1.5fr_0.8fr]">
+          {/* PREMIUM FLOATING BUBBLES 
+          <div className="absolute inset-0 overflow-hidden pointer-events-none z-[1]">
+
+            {BUBBLES.map((b, i) => (
+              <Bubble key={i} {...b} />
+            ))}
+
+          </div>
+
+          <div className="relative z-[2] mx-auto grid max-w-7xl gap-5 lg:grid-cols-[1.5fr_0.8fr]">
             
-            {/* ═════════ LEFT CONTENT CARD ═════════ */}
+            {/* ═════════ LEFT CONTENT CARD ═════════ 
             <motion.div
                 variants={stagger(0.15, 0.2)}
                 initial="hidden"
                 animate={heroReady ? "show" : "hidden"}
                 className="relative overflow-hidden rounded-[3rem]"
               >
-                {/* BACKGROUND IMAGE */}
+                {/* BACKGROUND IMAGE 
                 <div
                   className="absolute inset-0 bg-cover bg-center"
                   style={{
@@ -408,20 +489,20 @@ export default function QualityPage() {
                   }}
                 />
 
-                {/* OVERLAY */}
+                {/* OVERLAY 
                 <div
                   className="absolute inset-0"
                   style={{
                     background:
-                      "linear-gradient(135deg, rgba(17,52,35,0.88) 0%, rgba(28,77,52,0.78) 55%, rgba(211,229,221,0.35) 100%)",
+                      "linear-gradient(135deg, rgba(56, 78, 68, 0.88) 0%, rgba(87, 112, 99, 0.78) 55%, rgba(177, 177, 177, 0.35) 100%)",
                   }}
                 />
 
-                {/* CONTENT */}
+                {/* CONTENT 
                 <div className="relative z-10 p-8 md:p-12 lg:p-14 flex flex-col justify-between h-full">
                                            
                 <div>
-                  {/* BADGE */}
+                  {/* BADGE 
                   <motion.div
                     variants={fadeUp}
                     className="inline-flex items-center gap-2 px-5 py-2 rounded-full mb-10"
@@ -444,7 +525,7 @@ export default function QualityPage() {
                     Export Certified Manufacturing
                   </motion.div>
 
-                  {/* HEADING */}
+                  {/* HEADING 
                   <motion.h1
                     variants={fadeUp}
                     style={{
@@ -467,7 +548,7 @@ export default function QualityPage() {
                     </span>
                   </motion.h1>
 
-                  {/* DESCRIPTION */}
+                  {/* DESCRIPTION 
                   <motion.p
                     variants={fadeUp}
                     style={{
@@ -487,12 +568,12 @@ export default function QualityPage() {
                   </motion.p>
                 </div>
 
-                {/* BUTTONS */}
+                {/* BUTTONS 
                 <motion.div
                   variants={fadeUp}
                   className="flex flex-col sm:flex-row gap-4 mt-10"
                 >
-                  {/* PRIMARY BUTTON */}
+                  {/* PRIMARY BUTTON 
                   <motion.button
                     whileHover={{ scale: 1.05, backgroundColor: "#f5b84a" }}
                     whileTap={{ scale: 0.97 }}
@@ -512,7 +593,7 @@ export default function QualityPage() {
                     View Certifications
                   </motion.button>
 
-                  {/* OUTLINE BUTTON */}
+                  {/* OUTLINE BUTTON 
                   <motion.button
                     whileHover={{
                       scale: 1.04,
@@ -542,10 +623,32 @@ export default function QualityPage() {
               </div>
             </motion.div>
 
-            {/* ═════════ RIGHT COLUMN ═════════ */}
-            <div className="grid gap-5">
+            {/* ═════════ RIGHT COLUMN ═════════ 
+            <motion.div
+              initial={{ opacity: 0, x: 30 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8 }}
+              className="relative overflow-hidden rounded-[3rem] p-5"
+              style={{
+                background: "rgba(97, 85, 85, 0.08)",
+                border: "1px solid rgba(255,255,255,.14)",
+                backdropFilter: "blur(24px)",
+                WebkitBackdropFilter: "blur(24px)",
+              }}
+            >
+
+              {/* GLASS SHINE 
+              <div
+                className="absolute inset-0"
+                style={{
+                  background:
+                    "linear-gradient(135deg,rgba(255,255,255,.12) 0%,rgba(255,255,255,0) 60%)",
+                }}
+              />
+
+              <div className="relative z-10 grid gap-5">
               
-              {/* IMAGE CARD */}
+              {/* IMAGE CARD 
               <motion.div
                 initial={{ opacity: 0, x: 24 }}
                 animate={{ opacity: 1, x: 0 }}
@@ -585,7 +688,7 @@ export default function QualityPage() {
                 </div>
               </motion.div>
 
-              {/* STATS GRID */}
+              {/* STATS GRID 
               <motion.div
                 className="grid grid-cols-2 gap-4"
                 variants={stagger(0.13, 0.55)}
@@ -647,9 +750,393 @@ export default function QualityPage() {
                   </motion.div>
                 ))}
               </motion.div>
-            </div>
+              </div>
+            </motion.div>
           </div>
-        </section>
+        </section>*/}
+
+        <section
+        className="relative overflow-hidden px-6 lg:px-16 py-6 lg:py-10"
+        style={{
+          background:
+  "linear-gradient(135deg,#f7faf8 0%,#e8f1ec 30%,#d5e3db 65%,#c2d2ca 100%)",
+        }}
+      >
+
+        {/* BACKGROUND IMAGE */}
+        <div
+          className="absolute inset-0 bg-cover bg-center opacity-[0.08]"
+          style={{
+            backgroundImage: `url(${qualityHero.src})`,
+          }}
+        />
+
+        {/* FLOATING PARTICLES */}
+        <FloatingParticles count={16} />
+
+        {/* PREMIUM FLOATING BUBBLES */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none z-[1]">
+
+          {BUBBLES.map((b, i) => (
+            <Bubble key={i} {...b} />
+          ))}
+
+        </div>
+
+        {/* MAIN WRAPPER */}
+        <div className="mt-8 relative z-10 mx-auto max-w-7xl flex flex-col gap-3">
+
+          {/* ═══════════════ TOP HERO CARD ═══════════════ */}
+          <motion.div
+            variants={stagger(0.15, 0.2)}
+            initial="hidden"
+            animate={heroReady ? "show" : "hidden"}
+            className="relative overflow-hidden rounded-[2.5rem] min-h-[520px]"
+          >
+
+            {/* BG IMAGE */}
+            <div
+              className="absolute inset-0 bg-cover bg-center"
+              style={{
+                backgroundImage: `url(${qualityHero.src})`,
+              }}
+            />
+
+            {/* OVERLAY */}
+            <div
+              className="absolute inset-0"
+              style={{
+                background:
+                  "linear-gradient(135deg, rgba(25,35,31,0.92) 0%, rgba(51,71,63,0.82) 45%, rgba(120,120,120,0.18) 100%)",
+              }}
+            />
+
+            {/* GLASS SHINE */}
+            <div
+              className="absolute inset-0"
+              style={{
+                background:
+                  "linear-gradient(135deg,rgba(255,255,255,.12) 0%,rgba(255,255,255,0) 60%)",
+              }}
+            />
+
+            {/* CONTENT */}
+            <div className="relative z-10 h-full flex flex-col justify-between p-6 md:p-8 lg:p-10">
+
+              {/* TOP CONTENT */}
+              <div>
+
+                {/* TOP ROW */}
+                <div className="flex flex-wrap items-center justify-between gap-4">
+
+                  {/* BADGE */}
+                  <motion.div
+                    variants={fadeUp}
+                    className="inline-flex items-center gap-2 px-4 py-2 rounded-full"
+                    style={{
+                      background: "rgba(255,255,255,.12)",
+                      border: "1px solid rgba(255,255,255,.2)",
+                      backdropFilter: "blur(12px)",
+                      color: DS.onPrimaryContainer,
+                    }}
+                  >
+                    <ShieldCheck size={16} className="qp-bounce" />
+
+                    <span
+                      style={{
+                        fontSize: 10,
+                        fontWeight: 700,
+                        letterSpacing: ".1em",
+                        textTransform: "uppercase",
+                      }}
+                    >
+                      Export Certified Manufacturing
+                    </span>
+
+                  </motion.div>
+
+                  {/* FLOATING GLASS CARD */}
+                  <motion.div
+                    initial={{ opacity: 0, y: -20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.4 }}
+                    className="rounded-[1.5rem] px-5 py-3 text-center"
+                    style={{
+                      background: "rgba(255,255,255,.08)",
+                      border: "1px solid rgba(255,255,255,.14)",
+                      backdropFilter: "blur(18px)",
+                    }}
+                  >
+
+                    <p
+                      style={{
+                        fontSize: 10,
+                        textTransform: "uppercase",
+                        letterSpacing: ".12em",
+                        color: "rgba(255,255,255,.7)",
+                        fontWeight: 700,
+                      }}
+                    >
+                      Global Approval Rate
+                    </p>
+
+                    <h3
+                      style={{
+                        fontSize: 24,
+                        fontWeight: 800,
+                        color: "#fff",
+                        marginTop: 4,
+                      }}
+                    >
+                      99.8%
+                    </h3>
+
+                  </motion.div>
+
+                </div>
+
+                {/* HEADING */}
+                <motion.h1
+                  variants={fadeUp}
+                  className="mt-8 max-w-4xl"
+                  style={{
+                    fontFamily: "'Plus Jakarta Sans',sans-serif",
+                    fontSize: "clamp(40px,6vw,74px)",
+                    lineHeight: 0.92,
+                    fontWeight: 800,
+                    letterSpacing: "-0.06em",
+                    color: "#fff",
+                  }}
+                >
+
+                  Export-Grade
+
+                  <span
+                    className="block"
+                    style={{
+                      color: DS.secondaryContainer,
+                    }}
+                  >
+                    Quality at Every Stage
+                  </span>
+
+                </motion.h1>
+
+                {/* DESCRIPTION */}
+                <motion.p
+                  variants={fadeUp}
+                  className="mt-8 max-w-2xl"
+                  style={{
+                    fontFamily: "'Plus Jakarta Sans',sans-serif",
+                    fontSize: 15,
+                    lineHeight: "26px",
+                    color: "rgba(255,255,255,.78)",
+                    fontWeight: 500,
+                  }}
+                >
+                  AgriExpo follows internationally recognized food safety and
+                  quality systems to ensure every product meets strict import
+                  requirements of buyers across the US, EU, UAE, Australia and
+                  Asian markets.
+                </motion.p>
+
+              </div>
+
+              {/* BOTTOM CONTENT */}
+              <div className="grid lg:grid-cols-[1fr_340px] gap-4 items-end -mt-26">
+
+                {/* BUTTONS */}
+                <motion.div
+                  variants={fadeUp}
+                  className="flex flex-wrap gap-3"
+                >
+
+                  {/* PRIMARY BUTTON */}
+                  <motion.button
+                    whileHover={{
+                      scale: 1.05,
+                      backgroundColor: "#f5b84a",
+                    }}
+                    whileTap={{ scale: 0.97 }}
+                    transition={{
+                      type: "spring",
+                      stiffness: 300,
+                      damping: 20,
+                    }}
+                    style={{
+                      background: DS.secondaryContainer,
+                      color: DS.onSecondaryContainer,
+                      padding: "14px 28px",
+                      borderRadius: 9999,
+                      fontFamily: "'Plus Jakarta Sans',sans-serif",
+                      fontWeight: 700,
+                      fontSize: 14,
+                      border: "none",
+                      cursor: "pointer",
+                    }}
+                  >
+                    View Certifications
+                  </motion.button>
+
+                  {/* SECONDARY BUTTON */}
+                  <motion.button
+                    whileHover={{
+                      scale: 1.04,
+                      backgroundColor: "rgba(255,255,255,.08)",
+                    }}
+                    whileTap={{ scale: 0.97 }}
+                    style={{
+                      background: "rgba(255,255,255,.04)",
+                      color: "#fff",
+                      border: "1px solid rgba(255,255,255,.2)",
+                      padding: "14px 28px",
+                      borderRadius: 9999,
+                      fontFamily: "'Plus Jakarta Sans',sans-serif",
+                      fontWeight: 700,
+                      fontSize: 14,
+                      backdropFilter: "blur(12px)",
+                    }}
+                  >
+                    Download Quality Profile
+                  </motion.button>
+
+                </motion.div>
+
+                {/* SIDE IMAGE GLASS CARD */}
+                <motion.div
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.5 }}
+                  className="relative overflow-hidden rounded-[2rem] min-h-[190px]"
+                  style={{
+                    background: "rgba(255,255,255,.08)",
+                    border: "1px solid rgba(255,255,255,.12)",
+                    backdropFilter: "blur(24px)",
+                  }}
+                >
+
+                  {/* IMAGE */}
+                  <motion.div
+                    className="absolute inset-0 bg-cover bg-center"
+                    style={{
+                      backgroundImage: `url(${cardimg.src})`,
+                      backgroundPosition: "center top",
+                    }}
+                    animate={{
+                      scale: [1.05, 1.12, 1.05],
+                    }}
+                    transition={{
+                      duration: 10,
+                      repeat: Infinity,
+                      ease: "easeInOut",
+                    }}
+                  />
+
+                  {/* OVERLAY */}
+                  <div className="absolute inset-0 bg-gradient-to-b from-black/10 to-black/50" />
+
+                  {/* BADGE */}
+                  <div className="absolute bottom-4 left-4">
+
+                    <div
+                      className="rounded-full px-3 py-2"
+                      style={{
+                        background: DS.secondaryContainer,
+                        color: DS.onSecondaryContainer,
+                        fontSize: 10,
+                        fontWeight: 700,
+                        letterSpacing: ".1em",
+                        textTransform: "uppercase",
+                      }}
+                    >
+                      Export Ready
+                    </div>
+
+                  </div>
+
+                </motion.div>
+
+              </div>
+
+            </div>
+          </motion.div>
+
+          {/* ═══════════════ BOTTOM STATS ROW ═══════════════ */}
+          <motion.div
+            className="grid grid-cols-2 lg:grid-cols-4 gap-3"
+            variants={stagger(0.13, 0.55)}
+            initial="hidden"
+            animate={heroReady ? "show" : "hidden"}
+          >
+
+            {stats.map((s, i) => (
+
+              <motion.div
+                key={i}
+                variants={scaleIn}
+                whileHover={{
+                  y: -4,
+                  scale: 1.03,
+                }}
+                className="relative overflow-hidden rounded-[2rem] p-5 flex flex-col items-center justify-center text-center"
+                style={{
+                  background: "rgba(255,255,255,.08)",
+                  border: "1px solid rgba(255,255,255,.14)",
+                  backdropFilter: "blur(20px)",
+                }}
+              >
+
+                {/* INNER GLOW */}
+                <div
+                  className="absolute inset-0"
+                  style={{
+                    background:
+                      i === 0
+                        ? "rgba(220, 222, 55, 0.84)"
+                        : i === 1
+                        ? "rgba(248, 148, 77, 0.91)"
+                        : i === 2
+                        ? "rgba(117, 184, 228, 0.87)"
+                        : "rgba(106, 203, 145, 0.75)",
+                  }}
+                />
+
+                <h3
+                  className="relative z-10"
+                  style={{
+                    fontFamily: "'Plus Jakarta Sans',sans-serif",
+                    fontSize: 34,
+                    fontWeight: 800,
+                    color: "#fff",
+                    letterSpacing: "-0.05em",
+                  }}
+                >
+                  <AnimatedCounter target={s.number} />
+                </h3>
+
+                <p
+                  className="relative z-10 mt-2 text-center"
+                  style={{
+                    fontFamily: "'Plus Jakarta Sans',sans-serif",
+                    fontSize: 10,
+                    fontWeight: 700,
+                    letterSpacing: ".12em",
+                    textTransform: "uppercase",
+                    color: "rgba(255,255,255,.72)",
+                  }}
+                >
+                  {s.label}
+                </p>
+
+              </motion.div>
+
+            ))}
+
+          </motion.div>
+
+        </div>
+      </section>
+        
       {/* ════ TRUST BAR — surface-container bg, label-caps icons ════ */}
       <section
         style={{
