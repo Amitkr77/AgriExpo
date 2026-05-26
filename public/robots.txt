@@ -1,0 +1,14 @@
+# *
+User-agent: *
+Allow: /
+
+# *
+User-agent: *
+Disallow: /admin
+Disallow: /dashboard/private
+
+# Host
+Host: https://srigreen.com
+
+# Sitemaps
+Sitemap: https://srigreen.com/sitemap.xml
