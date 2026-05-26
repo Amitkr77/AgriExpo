@@ -393,19 +393,19 @@ function FloatingParticles({ count = 16 }) {
 
 /* ════ MAIN ════ */
 export default function QualityPage() {
-  // useEffect(() => {
-  //   const go = () => {
-  //     const el = document.querySelector(window.location.hash);
-  //     if (el)
-  //       setTimeout(
-  //         () => el.scrollIntoView({ behavior: "smooth", block: "start" }),
-  //         100,
-  //       );
-  //   };
-  //   go();
-  //   window.addEventListener("hashchange", go);
-  //   return () => window.removeEventListener("hashchange", go);
-  // }, []);
+  useEffect(() => {
+    const go = () => {
+      const el = document.querySelector(window.location.hash);
+      if (el)
+        setTimeout(
+          () => el.scrollIntoView({ behavior: "smooth", block: "start" }),
+          100,
+        );
+    };
+    go();
+    window.addEventListener("hashchange", go);
+    return () => window.removeEventListener("hashchange", go);
+  }, []);
 
   const [heroReady, setHeroReady] = useState(false);
   useEffect(() => {
@@ -427,6 +427,7 @@ export default function QualityPage() {
         background: DS.surface,
         color: DS.onSurface,
         fontFamily: "'Plus Jakarta Sans', sans-serif",
+        scrollBehavior: "smooth",
       }}
       className="overflow-hidden"
     >
@@ -1192,7 +1193,7 @@ export default function QualityPage() {
 
       {/* ════ CERTIFICATIONS — bento grid ════ */}
       <section
-        id="cert"
+        id="certifications"
         className="scroll-mt-32 py-28 px-6 lg:px-16"
         style={{ background: DS.surface }}
       >
@@ -1254,6 +1255,7 @@ export default function QualityPage() {
           >
             {certifications.map((cert, i) => (
               <motion.div
+                id={cert.title.toLowerCase().replace(/\s+/g, "-")}
                 key={i}
                 variants={fadeUp}
                 whileHover={{ y: -10, scale: 1.02 }}
@@ -1782,6 +1784,7 @@ export default function QualityPage() {
 
       {/* ════ EXPORT TABLE — primary-container dark bg ════ */}
       <section
+        id="export-section"
         className="py-28 px-6 lg:px-16 relative overflow-hidden"
         style={{ background: DS.primaryContainer }}
       >

@@ -15,6 +15,7 @@ import { motion } from "framer-motion";
 const trustItems = [
   {
     label: "ISO 22000",
+    hash: "iso-22000",
     icon: ShieldCheck,
     bg: "bg-[#fec567]",
     iconBg: "bg-[#fff4dc]",
@@ -22,6 +23,7 @@ const trustItems = [
   },
   {
     label: "FSSC 22000",
+    hash: "fssc-22000",
     icon: BadgeCheck,
     bg: "bg-[#2d5a43]",
     iconBg: "bg-[#3d7157]",
@@ -29,6 +31,7 @@ const trustItems = [
   },
   {
     label: "HACCP",
+    hash: "haccp",
     icon: FlaskConical,
     bg: "bg-[#e9965b]",
     iconBg: "bg-[#f4b184]",
@@ -36,6 +39,7 @@ const trustItems = [
   },
   {
     label: "GMP",
+    hash: "gmp",
     icon: Factory,
     bg: "bg-[#2d5a43]",
     iconBg: "bg-[#3d7157]",
@@ -43,6 +47,7 @@ const trustItems = [
   },
   {
     label: "Non-GMO",
+    hash: "non-gmo",
     icon: Leaf,
     bg: "bg-[#fec567]",
     iconBg: "bg-[#fff4dc]",
@@ -50,6 +55,7 @@ const trustItems = [
   },
   {
     label: "24+ Countries",
+    hash: "export-section",
     icon: Globe2,
     bg: "bg-[#e4e3d4]",
     iconBg: "bg-white",
@@ -58,6 +64,7 @@ const trustItems = [
 ];
 
 export default function TrustBar() {
+  
   return (
     <section className="relative ">
       {/* TOP LABEL */}
@@ -102,7 +109,7 @@ export default function TrustBar() {
               <Link
                 href={{
                   pathname: "/quality",
-                  hash: "cert",
+                  hash: item.hash,
                 }}
                 className={`${item.bg} group flex h-full flex-col items-center justify-center rounded-[2rem] p-4 transition-transform duration-300 hover:-translate-y-1`}
               >
