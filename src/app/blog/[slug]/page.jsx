@@ -60,7 +60,7 @@ export default async function BlogPostPage({ params }) {
     : [];
 
   return (
-    <div className="min-h-screen bg-[#fbfaeb] font-sans text-[#1b1c13]">
+    <div className="min-h-screen bg-[#fbfaeb] font-sans text-[#1b1c13] pt-20 sm:pt-10 md:pt-15 lg:pt-20">
 
       {/* ══════════════════════════════════════════════════════════════
           HERO SECTION

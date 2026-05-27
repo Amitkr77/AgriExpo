@@ -216,11 +216,11 @@ export default function Header() {
           <header
             className={clsx(
               "fixed top-0 left-0 w-full z-40 transition-all duration-500 ease-in-out",
-              scrolled
-                ? "bg-white/80 backdrop-blur-md shadow-sm py-3"
-                : isBlogSlugPage
-                  ? "bg-white/20 shadow-sm py-5"
-                  : "bg-transparent py-5",
+             scrolled
+              ? "bg-[#F6F1D8]/90 backdrop-blur-md shadow-sm py-3"
+              : isBlogSlugPage
+                ? "bg-[#F6F1D8]/80 backdrop-blur-sm shadow-sm py-5"
+                : "bg-[#F6F1D8]/85 backdrop-blur-sm py-5"
             )}
           >
         <div className="max-w-360 mx-auto px-6 sm:px-10 flex items-center justify-between">
@@ -249,8 +249,8 @@ export default function Header() {
                         ? "text-green font-bold"
                         : "text-[#14422d] font-bold"
                       : textBlack
-                        ? "text-green hover:text-green/80"
-                        : "text-gray-600 hover:text-[#14422d]",
+                        ? "text-[#1F2A1F] hover:text-[#6B8E23]"
+                        : "text-[#1F2A1F] hover:text-[#6B8E23]",
                   )}
                 >
                   {label}

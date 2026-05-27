@@ -139,7 +139,7 @@
           {"id": "future-of-tomato-powder-in-food-manufacturing", "title": "The Future of Tomato Powder in Food Manufacturing", "level": 2},
           {"id": "conclusion", "title": "Conclusion", "level": 2}
         ],
-        "coverImage": {"url": "", "alt": "Tomato powder used in ready-to-eat food manufacturing", "caption": "Tomato powder plays a major role in modern convenience food production", "width": 1200, "height": 630},
+        "coverImage": {"url": "/BlogImg/tomatoP.png", "alt": "Tomato powder used in ready-to-eat food manufacturing", "caption": "Tomato powder plays a major role in modern convenience food production", "width": 1200, "height": 630},
         "galleryImages": [
           {"url": "https://images.unsplash.com/photo-1515003197210-e0cd71810b5f", "alt": "Fresh tomatoes prepared for dehydration and powder production", "caption": "Fresh tomatoes used for industrial tomato powder manufacturing"},
           {"url": "https://images.unsplash.com/photo-1504674900247-0877df9cc836", "alt": "Instant noodles and ready-to-eat meals using tomato seasoning", "caption": "Tomato powder is widely used in instant foods and meal kits"},
@@ -312,11 +312,11 @@
           {"id": "future-of-garlic-powder-manufacturing", "title": "Future of Garlic Powder Manufacturing", "level": 2},
           {"id": "conclusion", "title": "Conclusion", "level": 2}
         ],
-        "coverImage": {"url": "/BlogImg/GarlicP.png", "alt": "Industrial garlic powder manufacturing and dehydration process", "caption": "Modern garlic powder production involves dehydration, grinding, and quality control systems", "width": 1200, "height": 630},
+        "coverImage": {"url": "/BlogImg/g.png", "alt": "Industrial garlic powder manufacturing and dehydration process", "caption": "Modern garlic powder production involves dehydration, grinding, and quality control systems", "width": 1200, "height": 630},
         "galleryImages": [
-          {"url": "/BlogImg/GarlicP.png", "alt": "Fresh garlic cloves prepared for dehydration", "caption": "Fresh garlic selection is critical for high-quality garlic powder production"},
-          {"url": "/BlogImg/GarlicP.png", "alt": "Industrial dehydration process for garlic slices", "caption": "Controlled dehydration preserves garlic flavor and shelf stability"},
-          {"url": "/BlogImg/GarlicP.png", "alt": "Garlic powder used in seasoning blends and food manufacturing", "caption": "Garlic powder is widely used across the global food industry"}
+          {"url": "/BlogImg/g.png", "alt": "Fresh garlic cloves prepared for dehydration", "caption": "Fresh garlic selection is critical for high-quality garlic powder production"},
+          {"url": "/BlogImg/g.png", "alt": "Industrial dehydration process for garlic slices", "caption": "Controlled dehydration preserves garlic flavor and shelf stability"},
+          {"url": "/BlogImg/g.png", "alt": "Garlic powder used in seasoning blends and food manufacturing", "caption": "Garlic powder is widely used across the global food industry"}
         ],
         "video": {"url": "https://youtube.com/watch?v=3mX7dYkL5qA", "thumbnail": "https://images.unsplash.com/photo-1615485290382-441e4d049cb5", "duration": 780},
         "author": {"id": "author-raghav-sharma", "name": "Raghav Sharma", "username": "raghavfoodprocessing", "bio": "Food processing consultant and dehydrated ingredient specialist with expertise in spice processing, industrial dehydration technologies, and food manufacturing systems.", "avatar": "https://randomuser.me/api/portraits/men/51.jpg", "email": "raghav@foodprocessinginsights.com", "website": "https://foodprocessinginsights.com", "socials": {"twitter": "https://twitter.com/raghavprocessing", "linkedin": "https://linkedin.com/in/raghavsharmafoodprocessing", "github": "https://github.com/raghavfoodprocessing"}},
