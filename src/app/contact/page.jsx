@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { VEGETABLE_POWDERS, FRUIT_POWDERS } from "@/lib/products";
 
@@ -25,6 +25,7 @@ export default function ContactPage() {
     fullName: "", company: "", email: "", phone: "",
     country: "", product: "", volume: "", inquiryType: "", message: "",
   });
+  
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -34,6 +35,25 @@ export default function ContactPage() {
   const inputCls = "w-full bg-[#fbfaeb] border border-[#c0c9c1] rounded-full px-6 py-4 focus:ring-2 focus:ring-[#14422d] focus:border-[#14422d] transition-all placeholder:text-[#717973]/50 outline-none text-sm";
   const labelCls = "ml-4 text-[11px] leading-4 tracking-[0.12em] font-bold text-[#414943] uppercase block mb-2";
   const selectCls = "w-full bg-[#fbfaeb] border border-[#c0c9c1] rounded-full px-6 py-4 focus:ring-2 focus:ring-[#14422d] outline-none text-sm appearance-none";
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    const timer = setTimeout(() => {
+      const params = new URLSearchParams(window.location.search);
+
+      const productName = params.get("product");
+
+      if (productName) {
+        setForm((prev) => ({
+          ...prev,
+          product: productName,
+        }));
+      }
+    }, 100);
+
+    return () => clearTimeout(timer);
+  }, []);
 
   if (submitted) {
     return (

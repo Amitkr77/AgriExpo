@@ -778,9 +778,9 @@ export default function QualityPage() {
           {/* BACKGROUND IMAGE */}
           <div
             className="absolute inset-0 bg-cover bg-center opacity-[0.08]"
-            style={{
-              backgroundImage: `url(${qualityHero.src})`,
-            }}
+            // style={{
+            //   backgroundImage: `url(${qualityHero.src})`,
+            // }}
           />
 
           {/* FLOATING PARTICLES */}
