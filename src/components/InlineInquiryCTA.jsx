@@ -49,17 +49,20 @@ export default function InlineInquiryCTA() {
               <input
                 type="text"
                 placeholder="Company Name"
-                className="w-full rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white placeholder:text-white/50 outline-none backdrop-blur-md"
+                className="w-full rounded-2xl border border-white bg-white/5 px-4 py-3 text-sm text-white placeholder:text-white/50 outline-none backdrop-blur-md"
               />
 
-              <select className="w-full rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white/70 outline-none backdrop-blur-md sm:col-span-2">
-                <option>Product Interest</option>
-                <option>Onion Powder</option>
-                <option>Garlic Powder</option>
-                <option>Mango Powder</option>
-                <option>Tomato Powder</option>
-                <option>Beetroot Powder</option>
-                <option>Pomegranate Powder</option>
+              <select className="w-full rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white/100 outline-none backdrop-blur-md sm:col-span-2">
+               
+              <option value="" disabled className=" text-gray-400">
+                Product Interest
+              </option>
+              <option className="text-black">Onion Powder</option>
+              <option className="text-black">Garlic Powder</option>
+              <option className="text-black">Mango Powder</option>
+              <option className="text-black">Tomato Powder</option>
+              <option className="text-black">Beetroot Powder</option>
+              <option className="text-black">Pomegranate Powder</option>
               </select>
 
               <input

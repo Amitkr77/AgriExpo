@@ -2,7 +2,7 @@
 import { useEffect, useState, useMemo, useCallback, memo } from "react";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
-import blogData from "@/app/data/blogData.json"; // ✅ Fixed import
+import blogData from "@/app/data/blogData.json"; 
 
 // ─── Animation Variants ─────────────────────────────────────────────────────
 const fadeUp = {
