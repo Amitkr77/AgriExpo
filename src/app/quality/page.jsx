@@ -47,6 +47,7 @@ const DS = {
   secondaryFixed: "#ffdead",
   onSecondaryFixed: "#604100",
   tertiaryFixed: "#ffdcc6",
+  tert1:"rgba(156, 202, 233, 0.87)",
 };
 
 /* ── animation helpers ── */
@@ -213,7 +214,7 @@ const qualitySteps = [
     icon: PackageCheck,
     title: "Secure Packaging",
     desc: "Multi-layer export-grade packaging preserves freshness, shelf-life and product integrity during transit.",
-    bg: DS.surfaceContHigh,
+    bg: DS.tert1,
     iconBg: DS.primary,
     iconColor: DS.onPrimary,
   },
