@@ -15,7 +15,7 @@ const applications = [
   {
     title: "Food Manufacturers",
     desc: "Bulk ingredients for sauces, seasonings, and processed foods.",
-    href: "/applications/food-manufacturers",
+    href: "/applications?section=food-manufacturers",
     icon: Factory,
     bg: "bg-[#eae9da]",
     iconBg: "bg-[#d8d7c8]",
@@ -23,7 +23,7 @@ const applications = [
   {
     title: "Beverage Brands",
     desc: "Natural fruit powders for smoothies, drinks, and mixes.",
-    href: "/applications/beverage-brands",
+    href: "/applications?section=beverage-brands",
     icon: CupSoda,
     bg: "bg-[#fec567]",
     iconBg: "bg-[#ffd98f]",
@@ -31,7 +31,7 @@ const applications = [
   {
     title: "Nutraceuticals",
     desc: "Functional powders for wellness and supplement products.",
-    href: "/applications/nutraceuticals",
+    href: "/applications?section=nutraceuticals",
     icon: Pill,
     bg: "bg-[#e9965b]",
     iconBg: "bg-[#f4b184]",
@@ -39,7 +39,7 @@ const applications = [
   {
     title: "Private Label",
     desc: "Custom manufacturing and export-ready private labeling.",
-    href: "/applications/private-label",
+    href: "/applications?section=private-label",
     icon: PackageCheck,
     bg: "bg-[#e4e3d4]",
     iconBg: "bg-[#d3d2c4]",
@@ -47,7 +47,7 @@ const applications = [
   {
     title: "Instant Foods",
     desc: "Ready-to-mix ingredients for instant food applications.",
-    href: "/applications/instant-foods",
+    href: "/applications?section=instant-foods",
     icon: Soup,
     bg: "bg-[#f5f4e5]",
     iconBg: "bg-[#ebe9d9]",

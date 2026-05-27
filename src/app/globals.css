@@ -13,6 +13,9 @@ body {
   color: #1b1c13;
 }
 
+html {
+  scroll-behavior: smooth;
+}
 
 /* globals.css
 

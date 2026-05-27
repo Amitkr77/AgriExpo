@@ -404,7 +404,7 @@ export default function QualityPage() {
         setTimeout(() => {
           el.scrollIntoView({
             behavior: "smooth",
-            block: "start",
+            block: "center",
           });
         }, 100);
       }
