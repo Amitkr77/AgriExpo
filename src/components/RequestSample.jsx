@@ -121,11 +121,11 @@ export default function RequestSample({ open, setOpen }) {
 
   const inputClass = (field) => {
     if (errors[field]) {
-      return "border-red-500 ring-4 ring-red-500/10";
+      return "border-red-500 ";
     }
 
     if (activeField === field) {
-      return "border-[#14422d] ring-4 ring-[#14422d]/10";
+      return "border-green-500 bg-[#edf7f0]";
     }
 
     return "border-[#d7d2c3]";
@@ -158,7 +158,7 @@ export default function RequestSample({ open, setOpen }) {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.92, y: 20 }}
               transition={{ duration: 0.3 }}
-              className="relative w-full max-w-[560px] rounded-[2.2rem] bg-[#f5f2e8] p-6 shadow-[0_20px_80px_rgba(0,0,0,0.25)] md:p-8"
+              className="relative w-full max-w-[470px] rounded-[1.8rem] bg-[#f5f2e8] p-6 shadow-[0_20px_80px_rgba(0,0,0,0.25)] md:p-8"
             >
               {/* CLOSE */}
               <button
@@ -181,7 +181,7 @@ export default function RequestSample({ open, setOpen }) {
                       <CheckCircle2 className="h-12 w-12" />
                     </div>
 
-                    <h2 className="mt-8 text-4xl font-extrabold text-white">
+                    <h2 className="mt-6 text-4xl font-extrabold text-white">
                       Request Submitted
                     </h2>
 
@@ -198,13 +198,13 @@ export default function RequestSample({ open, setOpen }) {
                   Request Samples
                 </h2>
 
-                <p className="mt-4 text-[15px] leading-relaxed text-[#414943]/80">
+                <p className="mt-2 text-[15px] leading-relaxed text-[#414943]/80">
                   Fill this form to request product samples.
                 </p>
               </div>
 
               {/* FORM */}
-              <form onSubmit={handleSubmit} className="mt-6 space-y-3">
+              <form onSubmit={handleSubmit} className="mt-5 space-y-2">
                 {/* NAME */}
                 <Field
                   icon={User}
@@ -214,9 +214,16 @@ export default function RequestSample({ open, setOpen }) {
                   className={inputClass("fullName")}
                   onFocus={() => setActiveField("fullName")}
                   onBlur={() => setActiveField("")}
-                  onChange={(e) =>
-                    setForm({ ...form, fullName: e.target.value })
-                  }
+                  onChange={(e) => {
+                    setForm({ ...form, fullName: e.target.value });
+
+                    if (errors.fullName) {
+                        setErrors((prev) => ({
+                        ...prev,
+                        fullName: "",
+                        }));
+                    }
+                    }}
                 />
 
                 {/* EMAIL */}
@@ -229,9 +236,16 @@ export default function RequestSample({ open, setOpen }) {
                   className={inputClass("email")}
                   onFocus={() => setActiveField("email")}
                   onBlur={() => setActiveField("")}
-                  onChange={(e) =>
-                    setForm({ ...form, email: e.target.value })
-                  }
+                  onChange={(e) => {
+                    setForm({ ...form, email: e.target.value });
+
+                    if (errors.email) {
+                        setErrors((prev) => ({
+                        ...prev,
+                        email: "",
+                        }));
+                    }
+                    }}
                 />
 
                 {/* PHONE */}
@@ -243,9 +257,16 @@ export default function RequestSample({ open, setOpen }) {
                   className={inputClass("phone")}
                   onFocus={() => setActiveField("phone")}
                   onBlur={() => setActiveField("")}
-                  onChange={(e) =>
-                    setForm({ ...form, phone: e.target.value })
-                  }
+                  onChange={(e) => {
+                    setForm({ ...form, phone: e.target.value });
+
+                    if (errors.phone) {
+                        setErrors((prev) => ({
+                        ...prev,
+                        phone: "",
+                        }));
+                    }
+                    }}
                 />
 
                 {/* COUNTRY */}
@@ -256,9 +277,16 @@ export default function RequestSample({ open, setOpen }) {
                   className={inputClass("country")}
                   onFocus={() => setActiveField("country")}
                   onBlur={() => setActiveField("")}
-                  onChange={(e) =>
-                    setForm({ ...form, country: e.target.value })
-                  }
+                  onChange={(e) => {
+                    setForm({ ...form, country: e.target.value });
+
+                    if (errors.country) {
+                        setErrors((prev) => ({
+                        ...prev,
+                        country: "",
+                        }));
+                    }
+                    }}
                   options={countries}
                   placeholder="Select Country"
                 />
@@ -271,9 +299,16 @@ export default function RequestSample({ open, setOpen }) {
                     className={inputClass("product")}
                     onFocus={() => setActiveField("product")}
                     onBlur={() => setActiveField("")}
-                    onChange={(e) =>
-                        setForm({ ...form, product: e.target.value })
+                    onChange={(e) => {
+                    setForm({ ...form, product: e.target.value });
+
+                    if (errors.product) {
+                        setErrors((prev) => ({
+                        ...prev,
+                        product: "",
+                        }));
                     }
+                    }}
                     options={allProducts}
                     placeholder="Select Product"
                 />
@@ -287,15 +322,22 @@ export default function RequestSample({ open, setOpen }) {
                   className={inputClass("quantity")}
                   onFocus={() => setActiveField("quantity")}
                   onBlur={() => setActiveField("")}
-                  onChange={(e) =>
-                    setForm({ ...form, quantity: e.target.value })
-                  }
+                  onChange={(e) => {
+                  setForm({ ...form, quantity: e.target.value });
+
+                    if (errors.quantity) {
+                        setErrors((prev) => ({
+                        ...prev,
+                        quantity: "",
+                        }));
+                    }
+                  }}
                 />
 
                 {/* MESSAGE */}
                 <div>
                   <div
-                    className={`flex overflow-hidden rounded-[2rem] border bg-[#f0ede2] transition-all duration-300 ${inputClass(
+                    className={`flex overflow-hidden rounded-[2rem] border bg-[#f0ede2] transition-all duration-300 focus-within:border-[#14422d] ${inputClass(
                       "message"
                     )}`}
                   >
@@ -309,15 +351,22 @@ export default function RequestSample({ open, setOpen }) {
                       value={form.message}
                       onFocus={() => setActiveField("message")}
                       onBlur={() => setActiveField("")}
-                      onChange={(e) =>
-                        setForm({ ...form, message: e.target.value })
-                      }
+                      onChange={(e) => {
+                      setForm({ ...form, message: e.target.value });
+
+                        if (errors.message) {
+                            setErrors((prev) => ({
+                            ...prev,
+                            message: "",
+                            }));
+                        }
+                      }}
                       className="w-full resize-none bg-transparent px-3 py-2.5 text-sm outline-none placeholder:text-[#717973]/60"
                     />
                   </div>
 
                   {errors.message && (
-                    <p className="mt-2 ml-3 text-xs font-medium text-red-500">
+                    <p className="mt-1 ml-3 text-xs font-small text-red-500">
                       {errors.message}
                     </p>
                   )}
@@ -346,7 +395,7 @@ function Field({ icon: Icon, error, className, ...props }) {
   return (
     <div>
       <div
-        className={`flex items-center overflow-hidden rounded-full border bg-[#f0ede2] transition-all duration-300 ${className}`}
+        className={`flex items-center overflow-hidden rounded-full border bg-[#f0ede2] transition-all duration-300 focus-within:border-[#14422d] ${className}`}
       >
         <div className="flex items-center px-5 text-[#14422d]">
           <Icon className="h-5 w-5" />
@@ -359,7 +408,7 @@ function Field({ icon: Icon, error, className, ...props }) {
       </div>
 
       {error && (
-        <p className="mt-2 ml-3 text-xs font-medium text-red-500">
+        <p className="mt-1 ml-3 text-xs font-small text-red-500">
           {error}
         </p>
       )}
@@ -379,7 +428,7 @@ function SelectField({
   return (
     <div>
       <div
-        className={`flex items-center overflow-hidden rounded-full border bg-[#f0ede2] transition-all duration-300 ${className}`}
+       className={`flex items-center overflow-hidden rounded-full border bg-[#f0ede2] transition-all duration-300 focus-within:border-[#14422d] ${className}`}
       >
         <div className="flex items-center px-5 text-[#14422d]">
           <Icon className="h-5 w-5" />
@@ -400,7 +449,7 @@ function SelectField({
       </div>
 
       {error && (
-        <p className="mt-2 ml-3 text-xs font-medium text-red-500">
+        <p className="mt-1 ml-3 text-xs font-small text-red-500">
           {error}
         </p>
       )}
