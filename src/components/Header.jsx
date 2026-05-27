@@ -104,7 +104,13 @@ const MobileNav = ({ isOpen, onClose, pathname, setOpen }) => {
             <div className="flex items-center justify-between px-6 h-20 border-b border-gray-100">
               <div className="scale-90 origin-left">
                 {/* <Logo /> */}
-              <img src="/new_logo.png" alt="SRI GREEN Logo" className="h-20" />
+                <Link href="/">
+                  <img
+                    src="/new_logo.png"
+                    alt="SRI GREEN Logo"
+                    className="h-20 cursor-pointer"
+                  />
+                </Link>
               </div>
               <button
                 onClick={onClose}
@@ -164,7 +170,7 @@ const MobileNav = ({ isOpen, onClose, pathname, setOpen }) => {
                 Request Sample
               </div>
               <Link
-                href="/contact"
+                href="/inquiry"
                 onClick={onClose}
                 className="flex items-center justify-center gap-2 w-full bg-[#14422d] hover:bg-[#0f3122] text-white px-6 py-3 rounded-full text-xs font-bold uppercase tracking-widest transition-all hover:shadow-[0_4px_20px_rgba(20,66,45,0.25)] active:scale-95"
               >
@@ -231,17 +237,19 @@ export default function Header() {
           >
         <div className="max-w-360 mx-auto px-6 sm:px-10 flex items-center justify-between">
           {/* Logo */}
-          <div
+          <Link
+            href="/"
             className={clsx(
-              "transition-all duration-500",
+              "transition-all duration-500 cursor-pointer",
               scrolled ? "scale-95" : "scale-100",
             )}
           >
-            {/* <Logo textBlack={textBlack} /> */}
             <img
               src="/new_logo.png"
-              alt="SRI GREEN Logo" className="h-20 "/>
-          </div>
+              alt="SRI GREEN Logo"
+              className="h-20 cursor-pointer"
+            />
+          </Link>
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center gap-1">
@@ -289,7 +297,7 @@ export default function Header() {
                 Request Sample
               </div>
               <Link
-                href="/contact"
+                href="/inquiry"
                 className="flex items-center gap-2 bg-[#14422d] hover:bg-[#0f3122] text-white px-6 py-2.5 rounded-full text-xs font-bold uppercase tracking-widest transition-all duration-300 hover:shadow-[0_4px_20px_rgba(20,66,45,0.25)] active:scale-95"
               >
                 <Send className="w-3.5 h-3.5" /> Bulk Inquiry
