@@ -1,5 +1,6 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import { Suspense } from "react";
 
 import GoogleAnalytics from "./components/google-analytics";
 import GAPageTracker from "./components/ga-page-tracker";
@@ -70,7 +71,9 @@ export default function RootLayout({ children }) {
       <body className="min-h-full flex flex-col">
         {/* Google Analytics */}
         <GoogleAnalytics />
-        <GAPageTracker />
+        <Suspense fallback={null}>
+          <GAPageTracker />
+        </Suspense>
 
         <Header />
 
