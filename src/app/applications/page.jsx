@@ -26,7 +26,6 @@ import {
 } from "lucide-react";
 import { useMotionValue, useSpring } from "framer-motion";
 import { useRef, useEffect } from "react";
-import { useSearchParams } from "next/navigation";
 
 /* ══════════════════════════════════════════════════
    DESIGN TOKENS — Artisanal Confectionary System
@@ -347,24 +346,29 @@ const fadeUp = {
 
 export default function ApplicationsPage() {
 
-const searchParams = useSearchParams();
-
 useEffect(() => {
-  const section = searchParams.get("section");
+  const params = new URLSearchParams(window.location.search);
+
+  const section = params.get("section");
 
   if (section) {
     setTimeout(() => {
       const element = document.getElementById(section);
 
       if (element) {
-        element.scrollIntoView({
+        const y =
+          element.getBoundingClientRect().top +
+          window.pageYOffset -
+          window.innerHeight / 4;
+
+        window.scrollTo({
+          top: y,
           behavior: "smooth",
-          block: "center",
         });
       }
     }, 300);
   }
-}, [searchParams]);
+}, []);
 
   return (
     <main
