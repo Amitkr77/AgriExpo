@@ -196,7 +196,10 @@ export default function Header() {
   const pathname = usePathname();
 
   const isBlogSlugPage = pathname?.startsWith("/blog/") && pathname !== "/blog";
-  const textBlack = isBlogSlugPage && !scrolled;
+  const textBlack =
+  typeof window !== "undefined"
+    ? isBlogSlugPage && !scrolled
+    : false;
 
   // Scroll Effect
   useEffect(() => {

@@ -13,9 +13,61 @@ import {
 } from "lucide-react";
 
 export default function MegaFooter() {
-  const products = ["Vegetable Powders", "Fruit Powders", "By Application"];
-  const company = ["About", "Our Process", "Quality & Certs", "Blog"];
-  const certs = ["ISO 22000", "HACCP", "FSSC 22000", "GMP", "Lab Tested"];
+  const products = [
+    {
+      name: "Vegetable Powders",
+      link: "/products/vegetable-powders",
+    },
+    {
+      name: "Fruit Powders",
+      link: "/products/fruit-powders",
+    },
+    {
+      name: "By Application",
+      link: "/applications",
+    },
+  ];
+
+  const company = [
+    {
+      name: "About",
+      link: "/about",
+    },
+    {
+      name: "Our Process",
+      link: "/process",
+    },
+    {
+      name: "Quality & Certs",
+      link: "/quality",
+    },
+    {
+      name: "Blog",
+      link: "/blog",
+    },
+  ];
+  const certs = [
+    {
+      name: "ISO 22000",
+      link: "/quality#iso-22000",
+    },
+    {
+      name: "HACCP",
+      link: "/quality#haccp",
+    },
+    {
+      name: "FSSC 22000",
+      link: "/quality#fssc-22000",
+    },
+    {
+      name: "GMP",
+      link: "/quality#gmp",
+    },
+    {
+      name: "Lab Tested",
+      link: "/quality#laboratory-testing",
+    },
+  ]; 
 
   return (
     <footer className="relative overflow-hidden bg-[#fbfaeb] text-[#1b1c13]">
@@ -66,15 +118,15 @@ export default function MegaFooter() {
             <div className="space-y-1">
               {products.map((item, index) => (
                 <Link
-                  key={item}
-                  href="#"
+                  key={item.name}
+                  href={item.link}
                   className="group flex items-center justify-between py-4 text-sm font-semibold text-[#414943] transition hover:text-[#14422d]"
                 >
                   <span className="flex items-center gap-3">
                     <span className="text-xs text-[#7e5700]/70">
                       0{index + 1}
                     </span>
-                    {item}
+                    {item.name}
                   </span>
                   <ArrowUpRight className="h-4 w-4 opacity-0 transition group-hover:opacity-100" />
                 </Link>
@@ -91,15 +143,15 @@ export default function MegaFooter() {
             <div className="space-y-1">
               {company.map((item, index) => (
                 <Link
-                  key={item}
-                  href="#"
+                  key={item.name}
+                  href={item.link}
                   className="group flex items-center justify-between py-2 text-sm font-semibold text-[#414943] transition hover:text-[#14422d]"
                 >
                   <span className="flex items-center gap-3">
                     <span className="text-xs text-[#7e5700]/70">
                       0{index + 1}
                     </span>
-                    {item}
+                    {item.name}
                   </span>
                   <ArrowUpRight className="h-4 w-4 opacity-0 transition group-hover:opacity-100" />
                 </Link>
@@ -147,13 +199,17 @@ export default function MegaFooter() {
 
             <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-1">
               {certs.map((c) => (
-                <div
-                  key={c}
-                  className="flex items-center gap-3 text-sm font-semibold text-[#414943]"
+                <Link
+                  key={c.name}
+                  href={c.link}
+                  className="group flex items-center gap-3 text-sm font-semibold text-[#414943] transition hover:text-[#14422d]"
                 >
                   <BadgeCheck className="h-4 w-4 shrink-0 text-[#2d5a43]" />
-                  {c}
-                </div>
+
+                  <span>{c.name}</span>
+
+                  <ArrowUpRight className="h-4 w-4 opacity-0 transition group-hover:opacity-100" />
+                </Link>
               ))}
             </div>
           </div>
