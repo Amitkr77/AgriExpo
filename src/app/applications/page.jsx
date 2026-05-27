@@ -25,7 +25,8 @@ import {
   Store,
 } from "lucide-react";
 import { useMotionValue, useSpring } from "framer-motion";
-import { useRef } from "react";
+import { useRef, useEffect } from "react";
+import { useSearchParams } from "next/navigation";
 
 /* ══════════════════════════════════════════════════
    DESIGN TOKENS — Artisanal Confectionary System
@@ -105,6 +106,7 @@ function useMagnet() {
 const applications = [
   {
     title: "Food Manufacturing",
+    id:"food-manufacturers",
     icon: Factory,
     desc: "Dehydrated and spray-dried ingredient powders for sauces, seasoning blends, snack coatings, frozen food formulations, bakery fillings and ready-to-eat meal production. Optimized for industrial mixing, batching and automated processing lines.",
     large: true,
@@ -119,6 +121,7 @@ const applications = [
   },
   {
     title: "Beverage Brands",
+    id:"beverage-brands",
     icon: GlassWater,
     desc: "Fruit and vegetable powders for smoothies, instant drink mixes, functional beverages, energy drinks, juice concentrates and wellness shots. Engineered for rapid solubility and consistent flavor delivery across production batches.",
     bg: "bg-[#fec567]",
@@ -132,6 +135,7 @@ const applications = [
   },
   {
     title: "Nutraceuticals & Supplements",
+    id:"nutraceuticals",
     icon: Pill,
     desc: "Functional powders for protein blends, encapsulated supplements, sachets, superfood mixes, herbal formulations and clinical nutrition products. Available in controlled particle sizes for precise dosing and tablet compression.",
     bg: "bg-[#e9965b]",
@@ -145,6 +149,7 @@ const applications = [
   },
   {
     title: "Private Label Manufacturing",
+    id:"private-label", 
     icon: Package,
     desc: "End-to-end custom formulation services including white-label ingredient sourcing, bespoke blend development, retail-ready packaging and regulatory documentation for brands entering new markets.",
     large: true,
@@ -159,6 +164,7 @@ const applications = [
   },
   {
     title: "Instant & Packaged Foods",
+    id:"instant-foods",
     icon: Soup,
     desc: "Specialized ingredients for instant soups, noodle seasonings, premix bases, dehydrated meal kits and convenience food lines. Designed for long shelf stability and rapid reconstitution in consumer applications.",
     bg: "bg-[#89c2e8]",
@@ -172,6 +178,7 @@ const applications = [
   },
   {
     title: "Hotel & Food Service",
+    id:"hotel-food-service",
     icon: Globe2,
     desc: "Bulk ingredient solutions for hotel kitchens, restaurant chains, catering operations and institutional food service. Consistent quality at volume with simplified procurement and logistics support.",
     bg: "bg-[#f0efe0]",
@@ -339,6 +346,26 @@ const fadeUp = {
    ────────────────────────────────────────────── */
 
 export default function ApplicationsPage() {
+
+const searchParams = useSearchParams();
+
+useEffect(() => {
+  const section = searchParams.get("section");
+
+  if (section) {
+    setTimeout(() => {
+      const element = document.getElementById(section);
+
+      if (element) {
+        element.scrollIntoView({
+          behavior: "smooth",
+          block: "center",
+        });
+      }
+    }, 300);
+  }
+}, [searchParams]);
+
   return (
     <main
       className="overflow-hidden bg-[#fbfaeb] text-[#1b1c13]"
@@ -590,6 +617,7 @@ export default function ApplicationsPage() {
                   className={item.large ? "md:col-span-2" : ""}
                 >
                   <motion.div
+                    id={item.id}
                     whileHover={{ y: -5, scale: 1.005 }}
                     transition={{ duration: 0.3 }}
                     className={`
@@ -789,15 +817,12 @@ export default function ApplicationsPage() {
               operation needs from a single ingredient partner.
             </p>
           </div>
-
           {/* DIVIDER */}
           <div className="my-12 h-[1px] w-full bg-[#c0c9c1]" />
-
           {/* GRID */}
           <div className="grid gap-5 md:grid-cols-3">
             {supportCards.map((item, index) => {
               const Icon = item.icon;
-
               return (
                 <motion.div
                   key={index}
@@ -842,7 +867,6 @@ export default function ApplicationsPage() {
                   <p className="relative z-10 mt-4 pl-16 text-[14px] font-medium leading-[1.7] opacity-75">
                     {item.desc}
                   </p>
-
                   {/* MICRO TAG */}
                   <div className="relative z-10 ml-16 mt-5 flex items-center gap-3">
                     <div
@@ -862,7 +886,6 @@ export default function ApplicationsPage() {
           </div>
         </div>
       </section>
-
       {/* ═══════════════════════════════════════════
           INDUSTRIES — Four colorful bento cards
           ═══════════════════════════════════════════ */}
@@ -876,7 +899,6 @@ export default function ApplicationsPage() {
             >
               Industries We Serve
             </span>
-
             <h2
               className="mt-5 text-[32px] font-extrabold leading-[0.92] tracking-[-0.02em] text-[#1b1c13] md:text-[48px]"
               style={{ letterSpacing: "-0.02em" }}
@@ -892,7 +914,6 @@ export default function ApplicationsPage() {
           <div className="mt-12 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
             {industrySegments.map((item, index) => {
               const Icon = item.icon;
-
               return (
                 <motion.div
                   key={index}
@@ -925,7 +946,6 @@ export default function ApplicationsPage() {
                   >
                     <Icon className="h-5 w-5" />
                   </div>
-
                   {/* TITLE */}
                   <h3
                     className="relative z-10 mt-5 text-[20px] font-bold tracking-[-0.02em]"
@@ -933,12 +953,10 @@ export default function ApplicationsPage() {
                   >
                     {item.title}
                   </h3>
-
                   {/* DESCRIPTION */}
                   <p className="relative z-10 mt-3 text-[13px] font-medium leading-[1.7] opacity-70">
                     {item.desc}
                   </p>
-
                   {/* MICRO TAG */}
                   <div className="relative z-10 mt-5 flex items-center gap-3">
                     <div className="h-[1px] w-8 bg-current/15 transition-all duration-300 group-hover:w-14 group-hover:bg-current/30" />
