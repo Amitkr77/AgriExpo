@@ -37,7 +37,7 @@
     "**/*.mts",
     "**/*.ts",
     "**/*.tsx"
-  ],
+, "src/components/google-analytics.jsx", "src/app/components/ga-page-tracker.jsx"  ],
   "exclude": [
     "node_modules"
   ]
