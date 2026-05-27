@@ -133,15 +133,6 @@ export default function RequestSample({ open, setOpen }) {
 
   return (
     <>
-      {/* BUTTON */}
-      <button
-        onClick={() => setOpen(true)}
-        className="flex items-center justify-center gap-2 w-full border-2 border-[#14422d] text-[#14422d] px-6 py-3 rounded-full text-xs font-bold uppercase tracking-widest transition-all hover:bg-[#14422d]/5 active:scale-95"
-      >
-        Request Sample
-
-        <Send className="h-4 w-4" />
-      </button>
 
       {/* POPUP */}
       <AnimatePresence>
