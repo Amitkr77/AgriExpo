@@ -2,7 +2,6 @@
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 
-/* ── animation helpers ── */
 const fadeUp = {
   hidden: { opacity: 0, y: 40 },
   show: {
@@ -72,6 +71,7 @@ export default function Page() {
     <div className="bg-[#fbfaeb] text-[#1b1c13] font-[Plus_Jakarta_Sans] mt-20">
       <main className="max-w-[1440px] mx-auto px-10 py-10 flex flex-col gap-5">
         {/* ================= HERO ================= */}
+
           <motion.section
             variants={stagger}
             initial="hidden"
@@ -81,7 +81,7 @@ export default function Page() {
             <motion.div
               variants={fadeUp}
               {...cardHover}
-              className="md:col-span-12 rounded-[28px] sm:rounded-[36px] lg:rounded-[48px] bg-[#2d5a43] min-h-[620px] sm:min-h-[680px] lg:min-h-[680px] relative overflow-hidden flex flex-col lg:flex-row items-start lg:items-center p-5 sm:p-8 md:p-12 lg:p-16"
+              className="md:col-span-12 rounded-[28px] sm:rounded-[36px] lg:rounded-[48px] bg-[#2d5a43] min-h-[620px] sm:min-h-[680px] lg:min-h-[680px] relative overflow-hidden flex flex-col justify-between lg:justify-center lg:flex-row items-start lg:items-center p-5 sm:p-8 md:p-12 lg:p-16"
             >
               {/* floating blobs */}
               <motion.div
@@ -111,31 +111,34 @@ export default function Page() {
                 <div className="absolute inset-0 bg-gradient-to-b lg:bg-gradient-to-r from-[#2d5a43] via-[#2d5a43]/70 lg:via-transparent to-[#2d5a43]/40 lg:to-transparent" />
               </motion.div>
 
-              {/* TEXT */}
-              <div className="relative z-10 max-w-3xl pt-10 sm:pt-14 lg:pt-0">
-                <motion.h1
-                  variants={fadeUp}
-                  className="text-[38px] sm:text-[54px] md:text-[72px] lg:text-[90px] leading-[0.98] sm:leading-[0.95] tracking-[-0.04em] sm:tracking-[-0.05em] font-extrabold text-[#fbfaeb]"
-                >
-                  Farm-Sourced.
-                  <br />
-                  Lab-Certified.
-                  <br />
-                  Export-Ready.
-                </motion.h1>
+              {/* CONTENT WRAPPER */}
+              <div className="relative z-10 w-full flex flex-col justify-between min-h-[560px] sm:min-h-[600px] lg:min-h-0">
+                {/* TEXT */}
+                <div className="max-w-3xl pt-10 sm:pt-14 lg:pt-0">
+                  <motion.h1
+                    variants={fadeUp}
+                    className="text-[38px] sm:text-[54px] md:text-[72px] lg:text-[90px] leading-[0.98] sm:leading-[0.95] tracking-[-0.04em] sm:tracking-[-0.05em] font-extrabold text-[#fbfaeb]"
+                  >
+                    Farm-Sourced.
+                    <br />
+                    Lab-Certified.
+                    <br />
+                    Export-Ready.
+                  </motion.h1>
 
-                <motion.p
-                  variants={fadeUp}
-                  className="text-[#d7f0e0] text-sm sm:text-base lg:text-lg mt-6 sm:mt-8 max-w-2xl leading-6 sm:leading-7 lg:leading-8"
-                >
-                  SRI GREEN Industries is a premium exporter of dehydrated and spray-dried
-                  fruit & vegetable powders trusted across 24+ countries.
-                </motion.p>
+                  <motion.p
+                    variants={fadeUp}
+                    className="text-[#d7f0e0] text-sm sm:text-base lg:text-lg mt-6 sm:mt-8 max-w-2xl leading-6 sm:leading-7 lg:leading-8"
+                  >
+                    SRI GREEN Industries is a premium exporter of dehydrated and
+                    spray-dried fruit & vegetable powders trusted across 24+ countries.
+                  </motion.p>
+                </div>
 
                 {/* CTA */}
                 <motion.div
                   variants={fadeUp}
-                  className="flex flex-col sm:flex-row gap-3 sm:gap-4 mt-8 sm:mt-10"
+                  className="w-full flex flex-col sm:flex-row gap-3 sm:gap-4 mt-10 lg:mt-10"
                 >
                   <motion.button
                     whileHover={{ scale: 1.05 }}
