@@ -214,6 +214,23 @@ export default function Blog() {
     router.push(`/blog/${slug}`);
   }, [router]);
 
+      const blogGradients = [
+        "from-[#fff1c9] via-[#e8bd62] to-[#b87518]",
+        "from-[#dff3e5] via-[#8fc99f] to-[#3f8f5a]",
+        "from-[#dce9f7] via-[#8fb7df] to-[#3f72a8]",
+        "from-[#efe1f6] via-[#b891d0] to-[#7a4fa0]",
+        "from-[#f6dfe3] via-[#d88a96] to-[#a83f52]",
+        "from-[#d9f1ee] via-[#7fc8bd] to-[#3c8a80]",
+      ];
+      const gridGradients = [
+        "from-[#fff1c9] via-[#e8bd62] to-[#b87518]",
+        "from-[#dff3e5] via-[#8fc99f] to-[#3f8f5a]",
+        "from-[#dce9f7] via-[#8fb7df] to-[#3f72a8]",
+        "from-[#efe1f6] via-[#b891d0] to-[#7a4fa0]",
+        "from-[#f6dfe3] via-[#d88a96] to-[#a83f52]",
+        "from-[#d9f1ee] via-[#7fc8bd] to-[#3c8a80]",
+      ];
+
   return (
     <div className="mx-auto max-w-7xl overflow-hidden bg-[#fbfaeb] font-sans text-[#1b1c13] pt-20 sm:pt-28 md:pt-32">
 
@@ -400,12 +417,20 @@ export default function Blog() {
               </div>
             ))
           ) : (
-            blogs.slice(0, 6).map(item => (
+            blogs.slice(0, 6).map((item, index) => (
               <motion.div
                 key={item.slug}
                 variants={fadeUp}
                 onClick={() => navigateToBlog(item.slug)}
-                className="group flex cursor-pointer items-start gap-4 md:gap-5 px-4 m-2 sm:px-6 md:px-8 lg:px-11 py-5 md:py-7 transition-colors duration-200 hover:bg-[#f5f4e5] border border-[#e4e3d4] rounded-4xl overflow-hidden"
+className={`
+  group relative flex cursor-pointer items-start gap-4 md:gap-5
+  px-4 m-2 sm:px-6 md:px-8 lg:px-11 py-5 md:py-7
+  border border-[#e4e3d4] rounded-4xl overflow-hidden
+  transition-all duration-500
+ hover:bg-gradient-to-br ${blogGradients[index % blogGradients.length]}/10
+  hover:scale-[1.015] hover:shadow-[0_18px_45px_rgba(65,73,67,0.16)]
+`}
+
               >
                 <img src={item.image} alt={item.title} loading="lazy" className="h-16 w-16 shrink-0 rounded-2xl object-cover transition-opacity duration-300" />
                 <div className="flex-1">
@@ -413,9 +438,9 @@ export default function Blog() {
                   <p className="mb-1.5 text-[13px] sm:text-[14px] md:text-[15px] font-extrabold leading-[1.28] sm:leading-[1.3] tracking-[-0.01em] text-[#414943] transition-colors duration-200 group-hover:text-[#1b1c13]">
                     {item.title}
                   </p>
-                  <p className="text-[9px] sm:text-[10px] font-bold uppercase tracking-[0.12em] text-[#c0c9c1]">
-                    {item.author.name} · {getReadTime(item.wordCount)}
-                  </p>
+                  <p className="text-[9px] sm:text-[10px] font-bold uppercase tracking-[0.12em] text-[#c0c9c1] transition-colors duration-300 group-hover:text-white">
+  {item.author.name} · {getReadTime(item.wordCount)}
+</p>
                 </div>
               </motion.div>
             ))
@@ -455,21 +480,27 @@ export default function Blog() {
           ) : gridCards.length === 0 ? (
             <div className="col-span-3 py-20 text-center text-[13px] text-[#414943]">No articles found.</div>
           ) : (
-            gridCards.map(card => (
+            gridCards.map((card, index) => (
               <motion.div
                 key={card.id}
                 variants={fadeUp}
                 whileHover={{ y: -4 }}
                 transition={{ type: "spring", stiffness: 300, damping: 20 }}
                 onClick={() => navigateToBlog(card.slug)}
-                className="group cursor-pointer border-t-2 border-transparent rounded-4xl m-4 bg-[#f5f4e5] p-6 sm:p-7 md:p-8 transition-all duration-300 hover: hover:bg-white hover:shadow-lg hover:shadow-[#14422d]/[0.06] border-r border-[#e4e3d4] last:border-r-0"
-              >
+className={`
+  group cursor-pointer border-transparent rounded-4xl m-4
+  p-6 sm:p-7 md:p-8 transition-all duration-500
+  bg-[#f5f4e5] hover:bg-gradient-to-br ${gridGradients[index % gridGradients.length]}
+  hover:shadow-lg hover:shadow-[#14422d]/[0.08]
+  border-r border-[#e4e3d4] last:border-r-0
+`}              >
                 <img src={card.image} alt={card.title} loading="lazy" className="mb-4 sm:mb-5 h-32 md:h-36 w-full rounded-[1.5rem] object-cover opacity-70 transition-opacity duration-300 group-hover:opacity-90" />
                 <p className="mb-2 text-[9px] sm:text-[10px] font-bold uppercase tracking-[0.22em] sm:tracking-[0.28em] text-[#7e5700]">{card.tag}</p>
                 <p className="mb-2.5 text-[14px] sm:text-[15px] md:text-base font-extrabold tracking-[-0.015em] leading-[1.28] sm:leading-[1.3] text-[#414943] group-hover:text-[#14422d] transition-colors duration-300">{card.title}</p>
                 <p className="mb-4 text-[12px] sm:text-[13px] md:text-[14px] leading-[1.68] sm:leading-[1.7] text-[#414943] line-clamp-3">{card.excerpt}</p>
-                <p className="text-[9px] sm:text-[10px] font-bold uppercase tracking-[0.12em] text-[#c0c9c1]">{getReadTime(card.wordCount)}</p>
-              </motion.div>
+<p className="text-[9px] sm:text-[10px] font-bold uppercase tracking-[0.12em] text-[#c0c9c1] transition-colors duration-300 group-hover:text-white/85">
+  {getReadTime(card.wordCount)}
+</p>              </motion.div>
             ))
           )}
         </motion.div>
