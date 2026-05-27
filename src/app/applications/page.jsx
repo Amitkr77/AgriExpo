@@ -351,24 +351,24 @@ useEffect(() => {
 
   const section = params.get("section");
 
-  if (section) {
-    setTimeout(() => {
-      const element = document.getElementById(section);
+    if (section) {
+      setTimeout(() => {
+        const element = document.getElementById(section);
 
-      if (element) {
-        const y =
-          element.getBoundingClientRect().top +
-          window.pageYOffset -
-          window.innerHeight / 4;
+        if (element) {
+          const y =
+            element.getBoundingClientRect().top +
+            window.pageYOffset -
+            window.innerHeight / 4;
 
-        window.scrollTo({
-          top: y,
-          behavior: "smooth",
-        });
-      }
-    }, 300);
-  }
-}, []);
+          window.scrollTo({
+            top: y,
+            behavior: "smooth",
+          });
+        }
+      }, 300);
+    }
+  }, []);
 
   return (
     <main

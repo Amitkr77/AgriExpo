@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, Send, FileText, Sprout } from "lucide-react";
 import { clsx } from "clsx";
+import Request from "@/components/RequestSample";
 
 
 // ── Configuration ──
@@ -53,7 +54,7 @@ const Logo = ({ textBlack = false }) => (
 );
 
 // 2. Mobile Navigation Component
-const MobileNav = ({ isOpen, onClose, pathname }) => {
+const MobileNav = ({ isOpen, onClose, pathname, setOpen }) => {
   // Animation Variants
   const menuVariants = {
     hidden: { x: "100%", opacity: 0 },
@@ -103,7 +104,13 @@ const MobileNav = ({ isOpen, onClose, pathname }) => {
             <div className="flex items-center justify-between px-6 h-20 border-b border-gray-100">
               <div className="scale-90 origin-left">
                 {/* <Logo /> */}
-              <img src="/new_logo.png" alt="SRI GREEN Logo" className="h-20" />
+                <Link href="/">
+                  <img
+                    src="/new_logo.png"
+                    alt="SRI GREEN Logo"
+                    className="h-20 cursor-pointer"
+                  />
+                </Link>
               </div>
               <button
                 onClick={onClose}
@@ -152,15 +159,18 @@ const MobileNav = ({ isOpen, onClose, pathname }) => {
 
             {/* Footer Actions */}
             <div className="p-6 bg-gray-50 border-t border-gray-100 space-y-4">
-              <Link
-                href="/contact"
-                onClick={onClose}
-                className="flex items-center justify-center gap-2 w-full border-2 border-[#14422d] text-[#14422d] px-6 py-3 rounded-full text-xs font-bold uppercase tracking-widest transition-all hover:bg-[#14422d]/5 active:scale-95"
+              <div
+                onClick={() => {
+                  onClose();
+                  setOpen(true);
+                }}
+                className="flex items-center justify-center gap-2 w-full border-2 border-[#14422d] text-[#14422d] px-6 py-3 rounded-full text-xs font-bold uppercase tracking-widest transition-all hover:bg-[#14422d]/5 active:scale-95 cursor-pointer"
               >
-                <FileText className="w-4 h-4" /> Request Sample
-              </Link>
+                <FileText className="w-4 h-4" />
+                Request Sample
+              </div>
               <Link
-                href="/contact"
+                href="/inquiry"
                 onClick={onClose}
                 className="flex items-center justify-center gap-2 w-full bg-[#14422d] hover:bg-[#0f3122] text-white px-6 py-3 rounded-full text-xs font-bold uppercase tracking-widest transition-all hover:shadow-[0_4px_20px_rgba(20,66,45,0.25)] active:scale-95"
               >
@@ -182,6 +192,7 @@ const MobileNav = ({ isOpen, onClose, pathname }) => {
 export default function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [open, setOpen] = useState(false);
   const pathname = usePathname();
 
   const isBlogSlugPage = pathname?.startsWith("/blog/") && pathname !== "/blog";
@@ -226,17 +237,19 @@ export default function Header() {
           >
         <div className="max-w-360 mx-auto px-6 sm:px-10 flex items-center justify-between">
           {/* Logo */}
-          <div
+          <Link
+            href="/"
             className={clsx(
-              "transition-all duration-500",
+              "transition-all duration-500 cursor-pointer",
               scrolled ? "scale-95" : "scale-100",
             )}
           >
-            {/* <Logo textBlack={textBlack} /> */}
             <img
               src="/new_logo.png"
-              alt="SRI GREEN Logo" className="h-20 "/>
-          </div>
+              alt="SRI GREEN Logo"
+              className="h-20 cursor-pointer"
+            />
+          </Link>
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center gap-1">
@@ -271,19 +284,20 @@ export default function Header() {
           <div className="flex items-center gap-3">
             {/* Desktop CTAs */}
             <div className="hidden lg:flex items-center gap-3">
-              <Link
-                href="/contact"
+              <div
+                onClick={() => setOpen(true)}
                 className={clsx(
-                  "flex items-center gap-2 border-2 px-6 py-2.5 rounded-full text-xs font-bold uppercase tracking-widest transition-all duration-300 active:scale-95",
+                  "flex items-center gap-2 border-2 px-6 py-2.5 rounded-full text-xs font-bold uppercase tracking-widest transition-all duration-300 active:scale-95 cursor-pointer",
                   textBlack
                     ? "border-black hover:bg-black/5 text-green"
                     : "border-[#14422d] hover:bg-[#14422d]/5 text-[#14422d]"
                 )}
               >
-                <FileText className="w-3.5 h-3.5" /> Request Sample
-              </Link>
+                <FileText className="w-3.5 h-3.5" />
+                Request Sample
+              </div>
               <Link
-                href="/contact"
+                href="/inquiry"
                 className="flex items-center gap-2 bg-[#14422d] hover:bg-[#0f3122] text-white px-6 py-2.5 rounded-full text-xs font-bold uppercase tracking-widest transition-all duration-300 hover:shadow-[0_4px_20px_rgba(20,66,45,0.25)] active:scale-95"
               >
                 <Send className="w-3.5 h-3.5" /> Bulk Inquiry
@@ -312,7 +326,9 @@ export default function Header() {
         isOpen={mobileOpen}
         onClose={() => setMobileOpen(false)}
         pathname={pathname}
+        setOpen={setOpen}
       />
+      <Request open={open} setOpen={setOpen} />
     </>
   );
 }

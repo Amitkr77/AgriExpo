@@ -149,7 +149,7 @@ export default function FeaturedProduct() {
                     onClick={(e) => {
                       e.preventDefault();
                       e.stopPropagation();
-                      window.location.href = "/contact";
+                      window.location.href = `/contact?product=${encodeURIComponent(product.name)}`;
                     }}
                     className="inline-flex items-center gap-2 rounded-full bg-white px-5 py-3 text-sm font-bold text-[#1b1c13] shadow-lg"
                   >

@@ -2,7 +2,6 @@
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 
-/* ── animation helpers ── */
 const fadeUp = {
   hidden: { opacity: 0, y: 40 },
   show: {
@@ -72,92 +71,100 @@ export default function Page() {
     <div className="bg-[#fbfaeb] text-[#1b1c13] font-[Plus_Jakarta_Sans] mt-20">
       <main className="max-w-[1440px] mx-auto px-10 py-10 flex flex-col gap-5">
         {/* ================= HERO ================= */}
-        <motion.section
-          variants={stagger}
-          initial="hidden"
-          animate="show"
-          className="grid grid-cols-1 md:grid-cols-12 gap-5"
-        >
-          <motion.div
-            variants={fadeUp}
-            {...cardHover}
-            className="md:col-span-12 rounded-[48px] bg-[#2d5a43] min-h-[680px] relative overflow-hidden flex items-center p-10 md:p-16"
+
+          <motion.section
+            variants={stagger}
+            initial="hidden"
+            animate="show"
+            className="grid grid-cols-1 md:grid-cols-12 gap-5"
           >
-            {/* floating blobs */}
             <motion.div
-              animate={{ y: [0, -20, 0] }}
-              transition={{ duration: 8, repeat: Infinity }}
-              className="absolute top-[-80px] right-[-60px] w-[280px] h-[280px] bg-[#fec567]/20 blur-3xl rounded-full"
-            />
-
-            <motion.div
-              animate={{ y: [0, 15, 0] }}
-              transition={{ duration: 7, repeat: Infinity }}
-              className="absolute bottom-[-120px] left-[20%] w-[320px] h-[320px] bg-[#bceecf]/10 blur-3xl rounded-full"
-            />
-
-            {/* TEXT */}
-            <div className="relative z-10 max-w-3xl">
-              <motion.h1
-                variants={fadeUp}
-                className="text-[54px] md:text-[90px] leading-[0.95] tracking-[-0.05em] font-extrabold text-[#fbfaeb]"
-              >
-                Farm-Sourced.
-                <br />
-                Lab-Certified.
-                <br />
-                Export-Ready.
-              </motion.h1>
-
-              <motion.p
-                variants={fadeUp}
-                className="text-[#d7f0e0] text-lg mt-8 max-w-2xl leading-8"
-              >
-                SRI GREEN Industries is a premium exporter of dehydrated and
-                spray-dried fruit & vegetable powders trusted across 24+
-                countries.
-              </motion.p>
-
-              {/* CTA */}
-              <motion.div variants={fadeUp} className="flex gap-4 mt-10">
-                <motion.button
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.97 }}
-                  className="bg-[#fec567] text-[#765100] px-8 py-4 rounded-full font-bold flex items-center gap-3"
-                >
-                  Explore Quality
-                  <motion.span
-                    whileHover={{ x: 5 }}
-                    className="material-symbols-outlined"
-                  >
-                    arrow_forward
-                  </motion.span>
-                </motion.button>
-
-                <motion.button
-                  whileHover={{ scale: 1.04 }}
-                  whileTap={{ scale: 0.97 }}
-                  className="border border-white/20 text-white px-8 py-4 rounded-full font-bold"
-                >
-                  Download Catalog
-                </motion.button>
-              </motion.div>
-            </div>
-
-            {/* IMAGE */}
-            <motion.div
-              animate={{ y: [0, -10, 0] }}
-              transition={{ duration: 7, repeat: Infinity }}
-              className="absolute right-0 top-0 w-full md:w-1/2 h-full"
+              variants={fadeUp}
+              {...cardHover}
+              className="md:col-span-12 rounded-[28px] sm:rounded-[36px] lg:rounded-[48px] bg-[#2d5a43] min-h-[620px] sm:min-h-[680px] lg:min-h-[680px] relative overflow-hidden flex flex-col justify-between lg:justify-center lg:flex-row items-start lg:items-center p-5 sm:p-8 md:p-12 lg:p-16"
             >
-              <img
-                src="https://lh3.googleusercontent.com/aida-public/AB6AXuCpwoWbt2MCrdEVuZkjVUVBY-TOrsROrqVyaK48ZyIW9B1c5uGLuj7WzZRBq-9w4xwHTSn5dhzqhUlTzqZl3amULNhnG7iDglQn2o3U_b4xZM16xzghlwtNunNYY-RAoaj5TnXbNKKMNaZnk_DtilarQ3rJpcxocuDLoup47pnW2HiEr1Vo5vgj1kCLk12f9qvReI7m_bHTiLZ5t_OV90ZvOByI2SYJoGDNjzY2WNVzM6c0xY1Xoh3DsiQo0IvhnUHp8dHvmMxst2w"
-                className="w-full h-full object-cover rounded-[48px]"
+              {/* floating blobs */}
+              <motion.div
+                animate={{ y: [0, -20, 0] }}
+                transition={{ duration: 8, repeat: Infinity }}
+                className="absolute top-[-70px] right-[-80px] w-[180px] h-[180px] sm:w-[240px] sm:h-[240px] lg:w-[280px] lg:h-[280px] bg-[#fec567]/20 blur-3xl rounded-full"
               />
-              <div className="absolute inset-0 bg-gradient-to-r from-[#2d5a43] via-transparent to-transparent" />
+
+              <motion.div
+                animate={{ y: [0, 15, 0] }}
+                transition={{ duration: 7, repeat: Infinity }}
+                className="absolute bottom-[-100px] left-[10%] sm:left-[20%] w-[220px] h-[220px] sm:w-[280px] sm:h-[280px] lg:w-[320px] lg:h-[320px] bg-[#bceecf]/10 blur-3xl rounded-full"
+              />
+
+              {/* IMAGE */}
+              <motion.div
+                animate={{ y: [0, -10, 0] }}
+                transition={{ duration: 7, repeat: Infinity }}
+                className="absolute inset-0 lg:right-0 lg:left-auto lg:top-0 w-full lg:w-1/2 h-full opacity-35 sm:opacity-45 lg:opacity-100"
+              >
+                <img
+                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuCpwoWbt2MCrdEVuZkjVUVBY-TOrsROrqVyaK48ZyIW9B1c5uGLuj7WzZRBq-9w4xwHTSn5dhzqhUlTzqZl3amULNhnG7iDglQn2o3U_b4xZM16xzghlwtNunNYY-RAoaj5TnXbNKKMNaZnk_DtilarQ3rJpcxocuDLoup47pnW2HiEr1Vo5vgj1kCLk12f9qvReI7m_bHTiLZ5t_OV90ZvOByI2SYJoGDNjzY2WNVzM6c0xY1Xoh3DsiQo0IvhnUHp8dHvmMxst2w"
+                  className="w-full h-full object-cover rounded-[28px] sm:rounded-[36px] lg:rounded-[48px]"
+                  alt="Export ready food powder products"
+                />
+
+                <div className="absolute inset-0 bg-gradient-to-b lg:bg-gradient-to-r from-[#2d5a43] via-[#2d5a43]/70 lg:via-transparent to-[#2d5a43]/40 lg:to-transparent" />
+              </motion.div>
+
+              {/* CONTENT WRAPPER */}
+              <div className="relative z-10 w-full flex flex-col justify-between min-h-[560px] sm:min-h-[600px] lg:min-h-0">
+                {/* TEXT */}
+                <div className="max-w-3xl pt-10 sm:pt-14 lg:pt-0">
+                  <motion.h1
+                    variants={fadeUp}
+                    className="text-[38px] sm:text-[54px] md:text-[72px] lg:text-[90px] leading-[0.98] sm:leading-[0.95] tracking-[-0.04em] sm:tracking-[-0.05em] font-extrabold text-[#fbfaeb]"
+                  >
+                    Farm-Sourced.
+                    <br />
+                    Lab-Certified.
+                    <br />
+                    Export-Ready.
+                  </motion.h1>
+
+                  <motion.p
+                    variants={fadeUp}
+                    className="text-[#d7f0e0] text-sm sm:text-base lg:text-lg mt-6 sm:mt-8 max-w-2xl leading-6 sm:leading-7 lg:leading-8"
+                  >
+                    SRI GREEN Industries is a premium exporter of dehydrated and
+                    spray-dried fruit & vegetable powders trusted across 24+ countries.
+                  </motion.p>
+                </div>
+
+                {/* CTA */}
+                <motion.div
+                  variants={fadeUp}
+                  className="w-full flex flex-col sm:flex-row gap-3 sm:gap-4 mt-10 lg:mt-10"
+                >
+                  <motion.button
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.97 }}
+                    className="w-full sm:w-auto bg-[#fec567] text-[#765100] px-6 sm:px-8 py-3.5 sm:py-4 rounded-full font-bold flex items-center justify-center gap-3"
+                  >
+                    Explore Quality
+                    <motion.span
+                      whileHover={{ x: 5 }}
+                      className="material-symbols-outlined"
+                    >
+                      arrow_forward
+                    </motion.span>
+                  </motion.button>
+
+                  <motion.button
+                    whileHover={{ scale: 1.04 }}
+                    whileTap={{ scale: 0.97 }}
+                    className="w-full sm:w-auto border border-white/20 text-white px-6 sm:px-8 py-3.5 sm:py-4 rounded-full font-bold"
+                  >
+                    Download Catalog
+                  </motion.button>
+                </motion.div>
+              </div>
             </motion.div>
-          </motion.div>
-        </motion.section>
+          </motion.section>
 
         {/* ── Mission / Vision / Pillars ── */}
         <section className="grid grid-cols-12 gap-5">

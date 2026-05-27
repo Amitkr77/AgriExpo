@@ -142,12 +142,29 @@ export default function Page() {
             farm-to-powder process ensures every gram meets rigorous global
             standards while supporting agricultural communities.
           </p>
-
           <div className="flex gap-4 items-center justify-center">
             <div className="flex -space-x-4">
-              <div className="w-12 h-12 rounded-full border-2 border-white bg-[#bceecf]" />
-              <div className="w-12 h-12 rounded-full border-2 border-white bg-[#ffdead]" />
-              <div className="w-12 h-12 rounded-full border-2 border-white bg-[#ffdcc6]" />
+              <div className="w-12 h-12 rounded-full border-2 border-white overflow-hidden">
+                <img
+                  src={vegimage.src}
+                  alt="avatar"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <div className="w-12 h-12 rounded-full border-2 border-white overflow-hidden">
+                <img
+                  src={fruitimage.src}
+                  alt="avatar"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <div className="w-12 h-12 rounded-full border-2 border-white overflow-hidden">
+                <img
+                  src={vegimage.src}
+                  alt="avatar"
+                  className="w-full h-full object-cover"
+                />
+              </div>
             </div>
 
             <span className="text-[#414943] text-xs tracking-widest font-bold">

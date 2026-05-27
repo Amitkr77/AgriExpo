@@ -86,13 +86,13 @@
           {"id": "future-of-fruit-powder-manufacturing", "title": "The Future of Fruit Powder Manufacturing", "level": 2},
           {"id": "conclusion", "title": "Conclusion", "level": 2}
         ],
-        "coverImage": {"url": "/BlogImg/fruitP.png", "alt": "Comparison of spray dried and dehydrated fruit powders in food manufacturing", "caption": "Understanding the differences between spray dried and dehydrated fruit powders", "width": 1200, "height": 630},
+        "coverImage":{"url": "/BlogImg/fruitP.png","alt": "Comparison of spray dried and dehydrated fruit powders in food manufacturing", "caption": "Understanding the differences between spray dried and dehydrated fruit powders", "width": 1200, "height": 630},
         "galleryImages": [
-          {"url": "/BlogImg/fruitP.png", "alt": "Fruit powder manufacturing process in industrial food facility", "caption": "Industrial fruit powder processing and drying systems"},
-          {"url": "/BlogImg/fruitP.png", "alt": "Natural fruit powders used in smoothies and supplements", "caption": "Fruit powders used in beverages and nutritional products"},
-          {"url": "/BlogImg/fruitP.png", "alt": "Fresh fruits prepared for dehydration and spray drying", "caption": "Fresh fruit sourcing for powder manufacturing"}
+          {"url": "/BlogImg/fruitP2.png", "alt": "Fruit powder manufacturing process in industrial food facility", "caption": "Industrial fruit powder processing and drying systems"},
+          {"url": "/BlogImg/fruitP2.png", "alt": "Natural fruit powders used in smoothies and supplements", "caption": "Fruit powders used in beverages and nutritional products"},
+          {"url": "/BlogImg/fruitP2.png", "alt": "Fresh fruits prepared for dehydration and spray drying", "caption": "Fresh fruit sourcing for powder manufacturing"}
         ],
-        "video": {"url": "https://youtube.com/watch?v=R0m7mW6O7fg", "thumbnail": "/BlogImg/fruitP.png", "duration": 780},
+        "video": {"url": "https://youtube.com/watch?v=R0m7mW6O7fg", "thumbnail": "/BlogImg/fruitP2.png", "duration": 780},
         "author": {"id": "author-ananya-mehta", "name": "Ananya Mehta", "username": "ananyamehtafoods", "bio": "Food ingredient industry researcher and technical content strategist specializing in fruit powders, spray drying technology, dehydrated foods, and functional ingredient sourcing.", "avatar": "https://randomuser.me/api/portraits/women/68.jpg", "email": "ananya@ingredientinsights.com", "website": "https://ingredientinsights.com", "socials": {"twitter": "https://twitter.com/ananyamehtafoods", "linkedin": "https://linkedin.com/in/ananyamehtafoods", "github": "https://github.com/ananyamehtafoods"}},
         "coAuthors": [],
         "category": {"id": "food-ingredients", "name": "Food Ingredients", "slug": "food-ingredients"},

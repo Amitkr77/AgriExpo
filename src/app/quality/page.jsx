@@ -47,6 +47,7 @@ const DS = {
   secondaryFixed: "#ffdead",
   onSecondaryFixed: "#604100",
   tertiaryFixed: "#ffdcc6",
+  tert1:"rgba(156, 202, 233, 0.87)",
 };
 
 /* ── animation helpers ── */
@@ -213,7 +214,7 @@ const qualitySteps = [
     icon: PackageCheck,
     title: "Secure Packaging",
     desc: "Multi-layer export-grade packaging preserves freshness, shelf-life and product integrity during transit.",
-    bg: DS.surfaceContHigh,
+    bg: DS.tert1,
     iconBg: DS.primary,
     iconColor: DS.onPrimary,
   },
@@ -768,44 +769,34 @@ export default function QualityPage() {
         </section>*/}
 
         <section
-          className="relative overflow-hidden px-6 lg:px-16 py-6 lg:py-10"
+          className="relative overflow-hidden px-4 sm:px-6 lg:px-16 pt-24 sm:pt-28 lg:pt-24 pb-6 lg:pb-10"
           style={{
             background:
-                "linear-gradient(135deg,#f7faf8 0%,#e8f1ec 30%,#d5e3db 65%,#c2d2ca 100%)",
+              "linear-gradient(135deg,#f7faf8 0%,#e8f1ec 30%,#d5e3db 65%,#c2d2ca 100%)",
           }}
         >
-
           {/* BACKGROUND IMAGE */}
-          <div
-            className="absolute inset-0 bg-cover bg-center opacity-[0.08]"
-            style={{
-              backgroundImage: `url(${qualityHero.src})`,
-            }}
-          />
+          <div className="absolute inset-0 bg-cover bg-center opacity-[0.08]" />
 
           {/* FLOATING PARTICLES */}
           <FloatingParticles count={16} />
 
           {/* PREMIUM FLOATING BUBBLES */}
           <div className="absolute inset-0 overflow-hidden pointer-events-none z-[1]">
-
             {BUBBLES.map((b, i) => (
               <Bubble key={i} {...b} />
             ))}
-
           </div>
 
           {/* MAIN WRAPPER */}
-          <div className="mt-8 relative z-10 mx-auto max-w-7xl flex flex-col gap-3">
-
-            {/* ═══════════════ TOP HERO CARD ═══════════════ */}
+          <div className="relative z-10 mx-auto max-w-7xl flex flex-col gap-3">
+            {/* TOP HERO CARD */}
             <motion.div
               variants={stagger(0.15, 0.2)}
               initial="hidden"
               animate={heroReady ? "show" : "hidden"}
-              className="relative overflow-hidden rounded-[2.5rem] min-h-[520px]"
+              className="relative overflow-hidden rounded-[1.8rem] sm:rounded-[2.5rem] min-h-auto lg:min-h-[420px]"
             >
-
               {/* BG IMAGE */}
               <div
                 className="absolute inset-0 bg-cover bg-center"
@@ -833,14 +824,11 @@ export default function QualityPage() {
               />
 
               {/* CONTENT */}
-              <div className="relative z-10 h-full flex flex-col justify-between p-6 md:p-8 lg:p-10">
-
+              <div className="relative z-10 h-full flex flex-col justify-between p-4 sm:p-6 md:p-8 lg:p-10">
                 {/* TOP CONTENT */}
                 <div>
-
                   {/* TOP ROW */}
-                  <div className="flex flex-wrap items-center justify-between gap-4">
-
+                  <div className="flex flex-col sm:flex-row sm:flex-wrap items-start sm:items-center justify-between gap-4">
                     {/* BADGE */}
                     <motion.div
                       variants={fadeUp}
@@ -852,7 +840,7 @@ export default function QualityPage() {
                         color: DS.onPrimaryContainer,
                       }}
                     >
-                      <ShieldCheck size={16} className="qp-bounce" />
+                      <ShieldCheck size={16} className="qp-bounce shrink-0" />
 
                       <span
                         style={{
@@ -864,7 +852,6 @@ export default function QualityPage() {
                       >
                         Export Certified Manufacturing
                       </span>
-
                     </motion.div>
 
                     {/* FLOATING GLASS CARD */}
@@ -872,14 +859,13 @@ export default function QualityPage() {
                       initial={{ opacity: 0, y: -20 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: 0.4 }}
-                      className="rounded-[1.5rem] px-5 py-3 text-center"
+                      className="w-full sm:w-auto rounded-[1.5rem] px-5 py-3 text-center"
                       style={{
                         background: "rgba(255,255,255,.08)",
                         border: "1px solid rgba(255,255,255,.14)",
                         backdropFilter: "blur(18px)",
                       }}
                     >
-
                       <p
                         style={{
                           fontSize: 10,
@@ -902,9 +888,7 @@ export default function QualityPage() {
                       >
                         99.8%
                       </h3>
-
                     </motion.div>
-
                   </div>
 
                   {/* HEADING */}
@@ -913,14 +897,13 @@ export default function QualityPage() {
                     className="mt-8 max-w-4xl"
                     style={{
                       fontFamily: "'Plus Jakarta Sans',sans-serif",
-                      fontSize: "clamp(40px,6vw,74px)",
-                      lineHeight: 0.92,
+                      fontSize: "clamp(34px,10vw,74px)",
+                      lineHeight: 0.95,
                       fontWeight: 800,
-                      letterSpacing: "-0.06em",
+                      letterSpacing: "-0.05em",
                       color: "#fff",
                     }}
                   >
-
                     Export-Grade
 
                     <span
@@ -931,13 +914,12 @@ export default function QualityPage() {
                     >
                       Quality at Every Stage
                     </span>
-
                   </motion.h1>
 
                   {/* DESCRIPTION */}
                   <motion.p
                     variants={fadeUp}
-                    className="mt-8 max-w-2xl"
+                    className="mt-6 sm:mt-8 max-w-2xl"
                     style={{
                       fontFamily: "'Plus Jakarta Sans',sans-serif",
                       fontSize: 15,
@@ -946,23 +928,19 @@ export default function QualityPage() {
                       fontWeight: 500,
                     }}
                   >
-                    AgriExpo follows internationally recognized food safety and
-                    quality systems to ensure every product meets strict import
-                    requirements of buyers across the US, EU, UAE, Australia and
-                    Asian markets.
+                    AgriExpo follows internationally recognized food safety and quality
+                    systems to ensure every product meets strict import requirements of
+                    buyers across the US, EU, UAE, Australia and Asian markets.
                   </motion.p>
-
                 </div>
 
                 {/* BOTTOM CONTENT */}
-                <div className="grid lg:grid-cols-[1fr_340px] gap-4 items-end -mt-26">
-
+                <div className="grid grid-cols-1 lg:grid-cols-[1fr_340px] gap-5 items-end lg:mt-0">
                   {/* BUTTONS */}
                   <motion.div
                     variants={fadeUp}
-                    className="flex flex-wrap gap-3"
+                    className="flex flex-col sm:flex-row flex-wrap gap-3"
                   >
-
                     {/* PRIMARY BUTTON */}
                     <motion.button
                       whileHover={{
@@ -975,6 +953,7 @@ export default function QualityPage() {
                         stiffness: 300,
                         damping: 20,
                       }}
+                      className="w-full sm:w-auto"
                       style={{
                         background: DS.secondaryContainer,
                         color: DS.onSecondaryContainer,
@@ -997,6 +976,7 @@ export default function QualityPage() {
                         backgroundColor: "rgba(255,255,255,.08)",
                       }}
                       whileTap={{ scale: 0.97 }}
+                      className="w-full sm:w-auto"
                       style={{
                         background: "rgba(255,255,255,.04)",
                         color: "#fff",
@@ -1011,7 +991,6 @@ export default function QualityPage() {
                     >
                       Download Quality Profile
                     </motion.button>
-
                   </motion.div>
 
                   {/* SIDE IMAGE GLASS CARD */}
@@ -1019,14 +998,13 @@ export default function QualityPage() {
                     initial={{ opacity: 0, y: 30 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.5 }}
-                    className="relative overflow-hidden rounded-[2rem] min-h-[190px]"
+                    className="relative overflow-hidden rounded-[1.5rem] sm:rounded-[2rem] min-h-[170px] sm:min-h-[190px]"
                     style={{
                       background: "rgba(255,255,255,.08)",
                       border: "1px solid rgba(255,255,255,.12)",
                       backdropFilter: "blur(24px)",
                     }}
                   >
-
                     {/* IMAGE */}
                     <motion.div
                       className="absolute inset-0 bg-cover bg-center"
@@ -1049,7 +1027,6 @@ export default function QualityPage() {
 
                     {/* BADGE */}
                     <div className="absolute bottom-4 left-4">
-
                       <div
                         className="rounded-full px-3 py-2"
                         style={{
@@ -1063,26 +1040,20 @@ export default function QualityPage() {
                       >
                         Export Ready
                       </div>
-
                     </div>
-
                   </motion.div>
-
                 </div>
-
               </div>
             </motion.div>
 
-            {/* ═══════════════ BOTTOM STATS ROW ═══════════════ */}
+            {/* BOTTOM STATS ROW */}
             <motion.div
-              className="grid grid-cols-2 lg:grid-cols-4 gap-3"
+              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3"
               variants={stagger(0.13, 0.55)}
               initial="hidden"
               animate={heroReady ? "show" : "hidden"}
             >
-
               {stats.map((s, i) => (
-
                 <motion.div
                   key={i}
                   variants={scaleIn}
@@ -1090,14 +1061,13 @@ export default function QualityPage() {
                     y: -4,
                     scale: 1.03,
                   }}
-                  className="relative overflow-hidden rounded-[2rem] p-5 flex flex-col items-center justify-center text-center"
+                  className="relative overflow-hidden rounded-[1.5rem] sm:rounded-[2rem] p-4 sm:p-5 flex flex-col items-center justify-center text-center"
                   style={{
                     background: "rgba(255,255,255,.08)",
                     border: "1px solid rgba(255,255,255,.14)",
                     backdropFilter: "blur(20px)",
                   }}
                 >
-
                   {/* INNER GLOW */}
                   <div
                     className="absolute inset-0"
@@ -1117,7 +1087,7 @@ export default function QualityPage() {
                     className="relative z-10"
                     style={{
                       fontFamily: "'Plus Jakarta Sans',sans-serif",
-                      fontSize: 34,
+                      fontSize: "clamp(28px,8vw,34px)",
                       fontWeight: 800,
                       color: "#fff",
                       letterSpacing: "-0.05em",
@@ -1139,13 +1109,9 @@ export default function QualityPage() {
                   >
                     {s.label}
                   </p>
-
                 </motion.div>
-
               ))}
-
             </motion.div>
-
           </div>
         </section>
         
@@ -1587,7 +1553,7 @@ export default function QualityPage() {
 
                 {/* mini stat pills */}
                 <motion.div
-                  className="mt-8 grid grid-cols-3 gap-4"
+                  className="mt-8 grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4"
                   variants={stagger(0.1, 0.7)}
                   initial="hidden"
                   whileInView="show"
@@ -1602,7 +1568,7 @@ export default function QualityPage() {
                       key={i}
                       variants={scaleIn}
                       whileHover={{
-                        scale: 1.07,
+                        scale: 1.04,
                         backgroundColor: DS.primaryFixed,
                       }}
                       transition={{
@@ -1610,32 +1576,34 @@ export default function QualityPage() {
                         stiffness: 280,
                         damping: 18,
                       }}
-                      className="text-center cursor-default"
+                      className="text-center cursor-default w-full"
                       style={{
                         background: DS.surfaceContHigh,
                         borderRadius: "9999px",
-                        padding: "16px 8px",
+                        padding: "14px 10px",
                       }}
                     >
                       <h4
                         style={{
                           fontFamily: "'Plus Jakarta Sans',sans-serif",
-                          fontSize: 22,
+                          fontSize: "clamp(18px, 5vw, 22px)",
                           fontWeight: 800,
                           color: DS.primary,
                         }}
                       >
                         {s.val}
                       </h4>
+
                       <p
                         style={{
                           fontFamily: "'Plus Jakarta Sans',sans-serif",
-                          fontSize: 12,
+                          fontSize: "clamp(10px, 3vw, 12px)",
                           fontWeight: 700,
                           letterSpacing: "0.08em",
                           textTransform: "uppercase",
                           color: DS.onSurfaceVariant,
                           marginTop: 4,
+                          lineHeight: 1.2,
                         }}
                       >
                         {s.label}
@@ -1796,10 +1764,11 @@ export default function QualityPage() {
       {/* ════ EXPORT TABLE — primary-container dark bg ════ */}
       <section
         id="export-section"
-        className="py-28 px-6 lg:px-16 relative overflow-hidden"
+        className="py-16 sm:py-20 lg:py-28 px-4 sm:px-6 lg:px-16 relative overflow-hidden"
         style={{ background: DS.primaryContainer }}
       >
         <FloatingParticles count={12} />
+
         <div className="max-w-7xl mx-auto relative z-10">
           <motion.div
             className="max-w-3xl"
@@ -1811,7 +1780,7 @@ export default function QualityPage() {
             <span
               style={{
                 fontFamily: "'Plus Jakarta Sans',sans-serif",
-                fontSize: 12,
+                fontSize: "clamp(10px, 2.5vw, 12px)",
                 fontWeight: 700,
                 letterSpacing: "0.1em",
                 textTransform: "uppercase",
@@ -1820,10 +1789,11 @@ export default function QualityPage() {
             >
               Global Export Compliance
             </span>
+
             <h2
               style={{
                 fontFamily: "'Plus Jakarta Sans',sans-serif",
-                fontSize: "clamp(32px,5vw,48px)",
+                fontSize: "clamp(30px, 8vw, 48px)",
                 fontWeight: 800,
                 lineHeight: 1.1,
                 letterSpacing: "-0.02em",
@@ -1833,27 +1803,29 @@ export default function QualityPage() {
             >
               Compliance by International Market
             </h2>
+
             <p
               style={{
                 fontFamily: "'Plus Jakarta Sans',sans-serif",
-                fontSize: 16,
+                fontSize: "clamp(14px, 3.5vw, 16px)",
                 fontWeight: 500,
                 lineHeight: "24px",
                 color: DS.onPrimaryContainer,
                 marginTop: 16,
               }}
             >
-              AgriExpo products are prepared according to documentation, testing
-              and regulatory requirements expected by international importers.
+              AgriExpo products are prepared according to documentation, testing and
+              regulatory requirements expected by international importers.
             </p>
           </motion.div>
 
+          {/* DESKTOP TABLE */}
           <motion.div
-            className="mt-16"
+            className="mt-10 sm:mt-12 lg:mt-16 hidden md:block overflow-hidden"
             style={{
               background: "rgba(255,255,255,.07)",
               border: `1px solid rgba(255,255,255,.12)`,
-              borderRadius: "3rem",
+              borderRadius: "2rem",
               backdropFilter: "blur(16px)",
             }}
             variants={fadeUp}
@@ -1862,14 +1834,14 @@ export default function QualityPage() {
             viewport={{ once: false, margin: "-60px" }}
             transition={{ delay: 0.25 }}
           >
-            <table className="w-full">
+            <table className="w-full table-fixed">
               <thead>
                 <tr style={{ borderBottom: "1px solid rgba(255,255,255,.12)" }}>
                   {["Market", "Required Certifications", "AgriExpo Status"].map(
                     (h) => (
                       <th
                         key={h}
-                        className="p-6 text-left"
+                        className="p-4 lg:p-6 text-left"
                         style={{
                           fontFamily: "'Plus Jakarta Sans',sans-serif",
                           fontSize: 12,
@@ -1885,6 +1857,7 @@ export default function QualityPage() {
                   )}
                 </tr>
               </thead>
+
               <motion.tbody
                 variants={stagger(0.09, 0.35)}
                 initial="hidden"
@@ -1900,29 +1873,33 @@ export default function QualityPage() {
                     style={{ borderBottom: "1px solid rgba(255,255,255,.06)" }}
                   >
                     <td
-                      className="p-6"
+                      className="p-4 lg:p-6 align-top"
                       style={{
                         fontFamily: "'Plus Jakarta Sans',sans-serif",
                         fontWeight: 700,
                         color: DS.surface,
+                        fontSize: 15,
                       }}
                     >
                       {r.market}
                     </td>
+
                     <td
-                      className="p-6"
+                      className="p-4 lg:p-6 align-top"
                       style={{
                         fontFamily: "'Plus Jakarta Sans',sans-serif",
                         fontWeight: 500,
                         color: DS.onPrimaryContainer,
+                        fontSize: 14,
+                        lineHeight: "22px",
                       }}
                     >
                       {r.certs}
                     </td>
-                    <td className="p-6">
-                      {/* pill status badge — design.md pill chip */}
+
+                    <td className="p-4 lg:p-6 align-top">
                       <motion.span
-                        whileHover={{ scale: 1.08 }}
+                        whileHover={{ scale: 1.05 }}
                         transition={{
                           type: "spring",
                           stiffness: 300,
@@ -1937,11 +1914,11 @@ export default function QualityPage() {
                           fontSize: 12,
                           fontWeight: 700,
                           letterSpacing: "0.08em",
-
-                          width: 140,
+                          minWidth: 120,
                           height: 34,
-
+                          padding: "0 14px",
                           textAlign: "center",
+                          whiteSpace: "nowrap",
                         }}
                       >
                         {r.status}
@@ -1951,6 +1928,95 @@ export default function QualityPage() {
                 ))}
               </motion.tbody>
             </table>
+          </motion.div>
+
+          {/* MOBILE CARD VIEW */}
+          <motion.div
+            className="mt-10 grid grid-cols-1 gap-4 md:hidden"
+            variants={stagger(0.09, 0.25)}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: false, margin: "-60px" }}
+          >
+            {regions.map((r, i) => (
+              <motion.div
+                key={i}
+                variants={fadeUp}
+                whileHover={{ scale: 1.02 }}
+                transition={{
+                  type: "spring",
+                  stiffness: 260,
+                  damping: 18,
+                }}
+                className="rounded-[1.5rem] p-5"
+                style={{
+                  background: "rgba(255,255,255,.07)",
+                  border: "1px solid rgba(255,255,255,.12)",
+                  backdropFilter: "blur(16px)",
+                }}
+              >
+                <div className="flex items-start justify-between gap-3">
+                  <h3
+                    style={{
+                      fontFamily: "'Plus Jakarta Sans',sans-serif",
+                      fontSize: 18,
+                      fontWeight: 800,
+                      color: DS.surface,
+                      lineHeight: "24px",
+                    }}
+                  >
+                    {r.market}
+                  </h3>
+
+                  <motion.span
+                    whileHover={{ scale: 1.04 }}
+                    className="shrink-0 inline-flex items-center justify-center"
+                    style={{
+                      background: DS.secondaryContainer,
+                      color: DS.onSecondaryContainer,
+                      borderRadius: 9999,
+                      fontFamily: "'Plus Jakarta Sans',sans-serif",
+                      fontSize: 10,
+                      fontWeight: 700,
+                      letterSpacing: "0.08em",
+                      padding: "8px 12px",
+                      textAlign: "center",
+                      whiteSpace: "nowrap",
+                    }}
+                  >
+                    {r.status}
+                  </motion.span>
+                </div>
+
+                <div className="mt-5">
+                  <p
+                    style={{
+                      fontFamily: "'Plus Jakarta Sans',sans-serif",
+                      fontSize: 10,
+                      fontWeight: 700,
+                      letterSpacing: "0.1em",
+                      textTransform: "uppercase",
+                      color: DS.secondaryContainer,
+                    }}
+                  >
+                    Required Certifications
+                  </p>
+
+                  <p
+                    style={{
+                      fontFamily: "'Plus Jakarta Sans',sans-serif",
+                      fontSize: 14,
+                      fontWeight: 500,
+                      lineHeight: "22px",
+                      color: DS.onPrimaryContainer,
+                      marginTop: 8,
+                    }}
+                  >
+                    {r.certs}
+                  </p>
+                </div>
+              </motion.div>
+            ))}
           </motion.div>
         </div>
       </section>

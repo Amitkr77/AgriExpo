@@ -2,7 +2,7 @@
 import { useEffect, useState, useMemo, useCallback, memo } from "react";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
-import blogData from "@/app/data/blogData.json"; // ✅ Fixed import
+import blogData from "@/app/data/blogData.json"; 
 
 // ─── Animation Variants ─────────────────────────────────────────────────────
 const fadeUp = {
@@ -47,7 +47,7 @@ const BlogFeedItem = memo(({ item, index, onClick }) => (
     animate={{ opacity: 1, x: 0 }}
     transition={{ delay: 0.8 + index * 0.06, duration: 0.5 }}
     onClick={() => onClick(item.slug)}
-    className="group flex items-center gap-3 md:gap-4 px-6 md:px-8 py-3 md:py-4 border-b border-[#e4e3d4] hover:bg-white transition-all duration-200 w-full text-left"
+    className="group flex items-center gap-3 md:gap-4 px-6 md:px-8 py-3 md:py-4 border-b border-[#e4e3d4] transition-all duration-200 w-full text-left"
   >
     <span className="min-w-6 font-mono text-[10px] md:text-[11px] text-[#c0c9c1] group-hover:text-[#14422d] transition-colors duration-300">
       {String(index + 1).padStart(2, "0")}
@@ -230,6 +230,7 @@ export default function Blog() {
         "from-[#f6dfe3] via-[#d88a96] to-[#a83f52]",
         "from-[#d9f1ee] via-[#7fc8bd] to-[#3c8a80]",
       ];
+      
 
   return (
     <div className="mx-auto max-w-7xl overflow-hidden bg-[#fbfaeb] font-sans text-[#1b1c13] pt-20 sm:pt-28 md:pt-32">
@@ -319,33 +320,60 @@ export default function Blog() {
           </div>
         </motion.div>
 
-        {/* Right Panel: Feed */}
-        {loading ? (
-          <FeedSkeleton />
-        ) : (
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.4, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-            className="w-full lg:w-[380px] xl:w-[420px] 2xl:w-[480px] bg-[#f5f4e5] border-t lg:border-t-0 border-[#e4e3d4] mt-8 lg:mt-0"
+{/* Right Panel: Feed */}
+{loading ? (
+  <FeedSkeleton />
+) : (
+  <motion.div
+    initial={{ opacity: 0, x: 20 }}
+    animate={{ opacity: 1, x: 0 }}
+    transition={{ delay: 0.4, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+    className="w-full lg:w-[380px] xl:w-[420px] 2xl:w-[480px] bg-[#f5f4e5] border-t lg:border-t-0 border-[#e4e3d4] mt-8 lg:mt-0"
+  >
+    <div className="px-6 md:px-8 py-4 md:py-5 border-b border-[#e4e3d4] flex items-center justify-between">
+      <span className="text-[10px] font-bold uppercase tracking-[0.3em] md:tracking-[0.35em] text-[#414943]">
+        Active Feed
+      </span>
+      <span className="font-mono text-[10px] text-[#c0c9c1]">// Latest</span>
+    </div>
+
+    <div className="flex-1 max-h-[320px] md:max-h-[400px] overflow-y-auto scrollbar-hide p-2">
+      {blogs.slice(0, 7).map((item, i) => {
+        const feedHoverColors = [
+          "hover:bg-[#fff1c9]",
+          "hover:bg-[#dff3e5]",
+          "hover:bg-[#dce9f7]",
+          "hover:bg-[#efe1f6]",
+          "hover:bg-[#f6dfe3]",
+          "hover:bg-[#d9f1ee]",
+          "hover:bg-[#ffe4d6]",
+        ];
+
+        return (
+          <div
+            key={item.id}
+            className={`
+              rounded-3xl overflow-hidden transition-all duration-300
+              ${feedHoverColors[i % feedHoverColors.length]}
+              hover:shadow-[0_10px_25px_rgba(20,66,45,0.10)]
+            `}
           >
-            <div className="px-6 md:px-8 py-4 md:py-5 border-b border-[#e4e3d4] flex items-center justify-between">
-              <span className="text-[10px] font-bold uppercase tracking-[0.3em] md:tracking-[0.35em] text-[#414943]">Active Feed</span>
-              <span className="font-mono text-[10px] text-[#c0c9c1]">// Latest</span>
-            </div>
-            <div className="flex-1 max-h-[320px] md:max-h-[400px] overflow-y-auto scrollbar-hide">
-              {blogs.slice(0, 7).map((item, i) => (
-                <BlogFeedItem key={item.id} item={item} index={i} onClick={navigateToBlog} />
-              ))}
-            </div>
-            <div className="h-10 sm:h-12 border-t border-[#e4e3d4] bg-[#fbfaeb] flex items-center px-6 md:px-8">
-              <div className="flex items-center gap-2 text-[#414943]">
-                <div className="w-1.5 h-1.5 rounded-full bg-[#14422d] animate-pulse" />
-                <span className="font-mono text-[9px] md:text-[10px] tracking-wider text-[#c0c9c1]">UPDATED REGULARLY</span>
-              </div>
-            </div>
-          </motion.div>
-        )}
+            <BlogFeedItem item={item} index={i} onClick={navigateToBlog} />
+          </div>
+        );
+      })}
+    </div>
+
+    <div className="h-10 sm:h-12 border-t border-[#e4e3d4] bg-[#fbfaeb] flex items-center px-6 md:px-8">
+      <div className="flex items-center gap-2 text-[#414943]">
+        <div className="w-1.5 h-1.5 rounded-full bg-[#14422d] animate-pulse" />
+        <span className="font-mono text-[9px] md:text-[10px] tracking-wider text-[#c0c9c1]">
+          UPDATED REGULARLY
+        </span>
+      </div>
+    </div>
+  </motion.div>
+)}
       </section>
 
       {/* ── Featured Grid ── */}
