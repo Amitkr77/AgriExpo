@@ -25,6 +25,11 @@ export const metadata = {
   description:
     "SRI GREEN exports ISO 22000-certified dehydrated fruit and vegetable powders globally.",
   metadataBase: new URL("https://srigreen.com/"),
+   icons: {
+    icon: "/favicon.png",
+    shortcut: "/favicon.png",
+    apple: "/favicon.png",
+  },
   openGraph: {
     siteName: "SRI GREEN Industries",
     type: "website",

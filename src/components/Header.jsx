@@ -102,7 +102,8 @@ const MobileNav = ({ isOpen, onClose, pathname }) => {
             {/* Header */}
             <div className="flex items-center justify-between px-6 h-20 border-b border-gray-100">
               <div className="scale-90 origin-left">
-                <Logo />
+                {/* <Logo /> */}
+              <img src="/new_logo.png" alt="SRI GREEN Logo" className="h-20" />
               </div>
               <button
                 onClick={onClose}
@@ -217,10 +218,10 @@ export default function Header() {
             className={clsx(
               "fixed top-0 left-0 w-full z-40 transition-all duration-500 ease-in-out",
              scrolled
-              ? "bg-[#F6F1D8]/90 backdrop-blur-md shadow-sm py-3"
+              ? "bg-[#F6F1D8]/90 backdrop-blur-md shadow-sm "
               : isBlogSlugPage
-                ? "bg-[#F6F1D8]/80 backdrop-blur-sm shadow-sm py-5"
-                : "bg-[#F6F1D8]/85 backdrop-blur-sm py-5"
+                ? "bg-[#F6F1D8]/80 backdrop-blur-sm shadow-sm "
+                : "bg-[#F6F1D8]/85 backdrop-blur-sm py-1"
             )}
           >
         <div className="max-w-360 mx-auto px-6 sm:px-10 flex items-center justify-between">
@@ -231,7 +232,10 @@ export default function Header() {
               scrolled ? "scale-95" : "scale-100",
             )}
           >
-            <Logo textBlack={textBlack} />
+            {/* <Logo textBlack={textBlack} /> */}
+            <img
+              src="/new_logo.png"
+              alt="SRI GREEN Logo" className="h-20 "/>
           </div>
 
           {/* Desktop Navigation */}
