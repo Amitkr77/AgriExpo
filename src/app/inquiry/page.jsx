@@ -10,6 +10,7 @@ import {
   MessageCircle,
 } from "lucide-react";
 import { HiMiniFire } from "react-icons/hi2";
+import { useSearchParams } from "next/navigation";
 import { trackEvent } from "@/lib/gtag";
 
 import {
@@ -19,6 +20,7 @@ import {
 
 export default function BulkInquiryPage() {
   const [submitted, setSubmitted] = useState(false);
+  const searchParams = useSearchParams();
 
   const [form, setForm] = useState({
     fullName: "",
@@ -26,7 +28,7 @@ export default function BulkInquiryPage() {
     email: "",
     phone: "",
     country: "",
-    product: "",
+    product: searchParams.get("product") || "",
     volume: "",
     inquiryType: "",
     message: "",
