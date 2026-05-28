@@ -221,7 +221,7 @@ export default function Page() {
               </h3>
               <p className="text-lg opacity-90 font-medium">
                 To be the world's most trusted partner in sustainable
-                agri-exports, where quality and ethics swirl together in every
+                sri green, where quality and ethics swirl together in every
                 gram of our produce.
               </p>
               <div className="absolute -right-10 -bottom-10 w-40 h-40 bg-[#fec567] rounded-full opacity-20 group-hover:opacity-30 transition-opacity duration-500" />

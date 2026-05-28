@@ -85,7 +85,7 @@ export default function ContactPage() {
 
   return (
     <div className="bg-[#fbfaeb] text-[#1b1c13] font-sans">
-      <main className="max-w-[1440px] mx-auto px-6 md:px-10 py-28">
+      <main className="max-w-[1440px] mx-auto px-6 md:px-10 py-12">
         {/* HEADER */}
         <header className="mb-12">
           <div className="inline-flex items-center gap-2 bg-[#14422d]/10 px-4 py-2 rounded-full mb-4">

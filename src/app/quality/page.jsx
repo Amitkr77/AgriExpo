@@ -574,7 +574,7 @@ export default function QualityPage() {
                       marginTop: 28,
                     }}
                   >
-                    AgriExpo follows internationally recognized food safety and
+                    SRI GREEN follows internationally recognized food safety and
                     quality systems to ensure every product meets strict import
                     requirements of buyers across the US, EU, UAE, Australia and
                     Asian markets.
