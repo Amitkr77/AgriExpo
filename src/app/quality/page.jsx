@@ -1837,7 +1837,7 @@ export default function QualityPage() {
             <table className="w-full table-fixed">
               <thead>
                 <tr style={{ borderBottom: "1px solid rgba(255,255,255,.12)" }}>
-                  {["Market", "Required Certifications", "Sri Green Status"].map(
+                  {["Market", "Required Certifications", "SRI GREEN Status"].map(
                     (h) => (
                       <th
                         key={h}
