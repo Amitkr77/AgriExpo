@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { Send } from "lucide-react";
+import { trackEvent } from "@/lib/gtag";
 
 export default function InlineInquiryCTA() {
   return (

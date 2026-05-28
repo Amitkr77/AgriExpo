@@ -10,6 +10,7 @@ import InlineInquiryCTA from "@/components/InlineInquiryCTA";
 import vegimage from "@/assets/vegimage.webp";
 // import Header from "@/components/Header";
 import fruitimage from "@/assets/fruitimg1.png";
+import { trackEvent } from "@/lib/gtag";
 // import { FRUIT_POWDERS } from "@/lib/products";
 
 export default function Page() {
