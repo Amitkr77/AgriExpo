@@ -3,6 +3,7 @@ import { useEffect, useState, useMemo, useCallback, memo } from "react";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import blogData from "@/app/data/blogData.json"; 
+import { trackEvent } from "@/lib/gtag";
 
 // ─── Animation Variants ─────────────────────────────────────────────────────
 const fadeUp = {
@@ -320,60 +321,60 @@ export default function Blog() {
           </div>
         </motion.div>
 
-{/* Right Panel: Feed */}
-{loading ? (
-  <FeedSkeleton />
-) : (
-  <motion.div
-    initial={{ opacity: 0, x: 20 }}
-    animate={{ opacity: 1, x: 0 }}
-    transition={{ delay: 0.4, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-    className="w-full lg:w-[380px] xl:w-[420px] 2xl:w-[480px] bg-[#f5f4e5] border-t lg:border-t-0 border-[#e4e3d4] mt-8 lg:mt-0"
-  >
-    <div className="px-6 md:px-8 py-4 md:py-5 border-b border-[#e4e3d4] flex items-center justify-between">
-      <span className="text-[10px] font-bold uppercase tracking-[0.3em] md:tracking-[0.35em] text-[#414943]">
-        Active Feed
-      </span>
-      <span className="font-mono text-[10px] text-[#c0c9c1]">// Latest</span>
-    </div>
-
-    <div className="flex-1 max-h-[320px] md:max-h-[400px] overflow-y-auto scrollbar-hide p-2">
-      {blogs.slice(0, 7).map((item, i) => {
-        const feedHoverColors = [
-          "hover:bg-[#fff1c9]",
-          "hover:bg-[#dff3e5]",
-          "hover:bg-[#dce9f7]",
-          "hover:bg-[#efe1f6]",
-          "hover:bg-[#f6dfe3]",
-          "hover:bg-[#d9f1ee]",
-          "hover:bg-[#ffe4d6]",
-        ];
-
-        return (
-          <div
-            key={item.id}
-            className={`
-              rounded-3xl overflow-hidden transition-all duration-300
-              ${feedHoverColors[i % feedHoverColors.length]}
-              hover:shadow-[0_10px_25px_rgba(20,66,45,0.10)]
-            `}
+        {/* Right Panel: Feed */}
+        {loading ? (
+          <FeedSkeleton />
+        ) : (
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.4, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+            className="w-full lg:w-[380px] xl:w-[420px] 2xl:w-[480px] bg-[#f5f4e5] border-t lg:border-t-0 border-[#e4e3d4] mt-8 lg:mt-0"
           >
-            <BlogFeedItem item={item} index={i} onClick={navigateToBlog} />
-          </div>
-        );
-      })}
-    </div>
+            <div className="px-6 md:px-8 py-4 md:py-5 border-b border-[#e4e3d4] flex items-center justify-between">
+              <span className="text-[10px] font-bold uppercase tracking-[0.3em] md:tracking-[0.35em] text-[#414943]">
+                Active Feed
+              </span>
+              <span className="font-mono text-[10px] text-[#c0c9c1]">// Latest</span>
+            </div>
 
-    <div className="h-10 sm:h-12 border-t border-[#e4e3d4] bg-[#fbfaeb] flex items-center px-6 md:px-8">
-      <div className="flex items-center gap-2 text-[#414943]">
-        <div className="w-1.5 h-1.5 rounded-full bg-[#14422d] animate-pulse" />
-        <span className="font-mono text-[9px] md:text-[10px] tracking-wider text-[#c0c9c1]">
-          UPDATED REGULARLY
-        </span>
-      </div>
-    </div>
-  </motion.div>
-)}
+            <div className="flex-1 max-h-[320px] md:max-h-[400px] overflow-y-auto scrollbar-hide p-2">
+              {blogs.slice(0, 7).map((item, i) => {
+                const feedHoverColors = [
+                  "hover:bg-[#fff1c9]",
+                  "hover:bg-[#dff3e5]",
+                  "hover:bg-[#dce9f7]",
+                  "hover:bg-[#efe1f6]",
+                  "hover:bg-[#f6dfe3]",
+                  "hover:bg-[#d9f1ee]",
+                  "hover:bg-[#ffe4d6]",
+                ];
+
+                return (
+                  <div
+                    key={item.id}
+                    className={`
+                      rounded-3xl overflow-hidden transition-all duration-300
+                      ${feedHoverColors[i % feedHoverColors.length]}
+                      hover:shadow-[0_10px_25px_rgba(20,66,45,0.10)]
+                    `}
+                  >
+                    <BlogFeedItem item={item} index={i} onClick={navigateToBlog} />
+                  </div>
+                );
+              })}
+            </div>
+
+            <div className="h-10 sm:h-12 border-t border-[#e4e3d4] bg-[#fbfaeb] flex items-center px-6 md:px-8">
+              <div className="flex items-center gap-2 text-[#414943]">
+                <div className="w-1.5 h-1.5 rounded-full bg-[#14422d] animate-pulse" />
+                <span className="font-mono text-[9px] md:text-[10px] tracking-wider text-[#c0c9c1]">
+                  UPDATED REGULARLY
+                </span>
+              </div>
+            </div>
+          </motion.div>
+        )}
       </section>
 
       {/* ── Featured Grid ── */}
@@ -450,14 +451,14 @@ export default function Blog() {
                 key={item.slug}
                 variants={fadeUp}
                 onClick={() => navigateToBlog(item.slug)}
-className={`
-  group relative flex cursor-pointer items-start gap-4 md:gap-5
-  px-4 m-2 sm:px-6 md:px-8 lg:px-11 py-5 md:py-7
-  border border-[#e4e3d4] rounded-4xl overflow-hidden
-  transition-all duration-500
- hover:bg-gradient-to-br ${blogGradients[index % blogGradients.length]}/10
-  hover:scale-[1.015] hover:shadow-[0_18px_45px_rgba(65,73,67,0.16)]
-`}
+                className={`
+                  group relative flex cursor-pointer items-start gap-4 md:gap-5
+                  px-4 m-2 sm:px-6 md:px-8 lg:px-11 py-5 md:py-7
+                  border border-[#e4e3d4] rounded-4xl overflow-hidden
+                  transition-all duration-500
+                  hover:bg-gradient-to-br ${blogGradients[index % blogGradients.length]}/10
+                  hover:scale-[1.015] hover:shadow-[0_18px_45px_rgba(65,73,67,0.16)]
+                `}
 
               >
                 <img src={item.image} alt={item.title} loading="lazy" className="h-16 w-16 shrink-0 rounded-2xl object-cover transition-opacity duration-300" />
@@ -467,8 +468,8 @@ className={`
                     {item.title}
                   </p>
                   <p className="text-[9px] sm:text-[10px] font-bold uppercase tracking-[0.12em] text-[#c0c9c1] transition-colors duration-300 group-hover:text-white">
-  {item.author.name} · {getReadTime(item.wordCount)}
-</p>
+                    {item.author.name} · {getReadTime(item.wordCount)}
+                  </p>
                 </div>
               </motion.div>
             ))
@@ -515,22 +516,24 @@ className={`
                 whileHover={{ y: -4 }}
                 transition={{ type: "spring", stiffness: 300, damping: 20 }}
                 onClick={() => navigateToBlog(card.slug)}
-className={`
-  group cursor-pointer border-transparent rounded-4xl m-4
-  p-6 sm:p-7 md:p-8 transition-all duration-500
-  bg-[#f5f4e5] hover:bg-gradient-to-br ${gridGradients[index % gridGradients.length]}
-  hover:shadow-lg hover:shadow-[#14422d]/[0.08]
-  border-r border-[#e4e3d4] last:border-r-0
-`}              >
+                className={`
+                  group cursor-pointer border-transparent rounded-4xl m-4
+                  p-6 sm:p-7 md:p-8 transition-all duration-500
+                  bg-[#f5f4e5] hover:bg-gradient-to-br ${gridGradients[index % gridGradients.length]}
+                  hover:shadow-lg hover:shadow-[#14422d]/[0.08]
+                  border-r border-[#e4e3d4] last:border-r-0
+                `}              
+                >
                 <img src={card.image} alt={card.title} loading="lazy" className="mb-4 sm:mb-5 h-32 md:h-36 w-full rounded-[1.5rem] object-cover opacity-70 transition-opacity duration-300 group-hover:opacity-90" />
                 <p className="mb-2 text-[9px] sm:text-[10px] font-bold uppercase tracking-[0.22em] sm:tracking-[0.28em] text-[#7e5700]">{card.tag}</p>
                 <p className="mb-2.5 text-[14px] sm:text-[15px] md:text-base font-extrabold tracking-[-0.015em] leading-[1.28] sm:leading-[1.3] text-[#414943] group-hover:text-[#14422d] transition-colors duration-300">{card.title}</p>
                 <p className="mb-4 text-[12px] sm:text-[13px] md:text-[14px] leading-[1.68] sm:leading-[1.7] text-[#414943] line-clamp-3">{card.excerpt}</p>
-<p className="text-[9px] sm:text-[10px] font-bold uppercase tracking-[0.12em] text-[#c0c9c1] transition-colors duration-300 group-hover:text-white/85">
-  {getReadTime(card.wordCount)}
-</p>              </motion.div>
+                <p className="text-[9px] sm:text-[10px] font-bold uppercase tracking-[0.12em] text-[#c0c9c1] transition-colors duration-300 group-hover:text-white/85">
+                  {getReadTime(card.wordCount)}
+                </p>              
+              </motion.div>
             ))
-          )}
+          )} 
         </motion.div>
 
         {/* Pagination */}
@@ -602,6 +605,13 @@ className={`
             <motion.button
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
+              onClick={() =>
+                trackEvent(
+                  "form_submit",
+                  "newsletter",
+                  "subscribe_button"
+                )
+              }
               className="shrink-0 bg-[#14422d] px-5 sm:px-6 py-3 sm:py-3.5 text-[10px] sm:text-[11px] font-bold uppercase tracking-[0.18em] sm:tracking-[0.22em] text-white hover:bg-[#0f3122] transition-colors rounded-4xl"
             >
               Subscribe

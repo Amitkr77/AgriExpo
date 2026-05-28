@@ -18,6 +18,7 @@ import {
 } from "lucide-react";
 import qualityHero from "@/assets/quality-hero.png";
 import cardimg from "@/assets/qualitycardimg.png";
+import { trackEvent } from "@/lib/gtag";
 
 /* ─────────────────────────────────────────
    DESIGN SYSTEM TOKENS  (design.md)
@@ -928,7 +929,7 @@ export default function QualityPage() {
                       fontWeight: 500,
                     }}
                   >
-                    Sri Green follows internationally recognized food safety and quality
+                    SRI GREEN follows internationally recognized food safety and quality
                     systems to ensure every product meets strict import requirements of
                     buyers across the US, EU, UAE, Australia and Asian markets.
                   </motion.p>
@@ -953,6 +954,13 @@ export default function QualityPage() {
                         stiffness: 300,
                         damping: 20,
                       }}
+                      onClick={() =>
+                        trackEvent(
+                          "certification_view",
+                          "quality",
+                          "view_certifications_button"
+                        )
+                      }
                       className="w-full sm:w-auto"
                       style={{
                         background: DS.secondaryContainer,
@@ -976,6 +984,13 @@ export default function QualityPage() {
                         backgroundColor: "rgba(255,255,255,.08)",
                       }}
                       whileTap={{ scale: 0.97 }}
+                      onClick={() =>
+                        trackEvent(
+                          "download_brochure",
+                          "downloads",
+                          "quality_profile_button"
+                        )
+                      }
                       className="w-full sm:w-auto"
                       style={{
                         background: "rgba(255,255,255,.04)",
@@ -2101,7 +2116,13 @@ export default function QualityPage() {
               whileHover={{ scale: 1.06, backgroundColor: "#f5b84a" }}
               whileTap={{ scale: 0.97 }}
               transition={{ type: "spring", stiffness: 300, damping: 20 }}
-              onClick={() => setActiveForm("certification")}
+              onClick={() =>{ setActiveForm("certification")
+                trackEvent(
+                  "quote_click",
+                  "conversion",
+                  "request_certifications_button"
+                );
+              }}
               style={{
                 background: DS.secondaryContainer,
                 color: DS.onSecondaryContainer,
@@ -2124,7 +2145,13 @@ export default function QualityPage() {
               }}
               whileTap={{ scale: 0.97 }}
               transition={{ type: "spring", stiffness: 300, damping: 20 }}
-              onClick={() => setActiveForm("export")}
+              onClick={() =>{ setActiveForm("export")
+                trackEvent(
+                  "contact_click",
+                  "engagement",
+                  "contact_export_team_button"
+                );
+              }}
               style={{
                 background: "transparent",
                 color: DS.surface,
@@ -2332,6 +2359,15 @@ export default function QualityPage() {
                   }}
                   whileTap={{ scale: 0.97 }}
                   transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                  onClick={() =>
+                    trackEvent(
+                      "form_submit",
+                      "forms",
+                      activeForm === "certification"
+                        ? "certification_form"
+                        : "export_contact_form"
+                    )
+                  }
                   style={{
                     background: DS.primary,
                     color: DS.onPrimary,
