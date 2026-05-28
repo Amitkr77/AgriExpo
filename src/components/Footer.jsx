@@ -98,28 +98,19 @@ export default function MegaFooter() {
             </p>
           </div>
 
-<<<<<<< HEAD
-          <a
-            href="/catalog.pdf"
-            className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-[#1b1c13] px-6 py-3 text-sm font-bold text-[#fbfaeb] transition hover:gap-3 sm:w-fit"
-            onClick={() =>
-              trackEvent(
-                "download_brochure",
-                "downloads",
-                "catalog_pdf"
-              )
-            }
-          >
-            <Download className="h-4 w-4" />
-            Download Catalog
-          </a>
-=======
             <div className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-[#1b1c13] px-6 py-3 text-sm font-bold text-[#fbfaeb] transition hover:gap-3 sm:w-fit">
               {/* Icon click = Download */}
               <a
                 href="/catalog.pdf"
                 download="catalog.pdf"
                 aria-label="Download Catalog"
+                onClick={() =>
+                  trackEvent(
+                    "download_brochure",
+                    "downloads",
+                    "catalog_icon"
+                  )
+                }
               >
                 <Download className="h-4 w-4" />
               </a>
@@ -129,11 +120,17 @@ export default function MegaFooter() {
                 href="/catalog.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={() =>
+                  trackEvent(
+                    "download_brochure",
+                    "downloads",
+                    "catalog_text"
+                  )
+                }
               >
                 Download Catalog
               </a>
             </div>
->>>>>>> 0083dd1ac064e324c0ea3182ce8651274fe3b10c
         </div>
 
         {/* MAIN UNIQUE GRID */}
