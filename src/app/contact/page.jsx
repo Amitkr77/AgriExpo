@@ -68,8 +68,8 @@ export default function ContactPage() {
           <div className="bg-[#f5f4e5] rounded-[2rem] p-6 mb-8 text-left space-y-3">
             <p className="text-sm font-bold text-[#14422d]">What happens next?</p>
             <p className="text-sm text-[#414943]">✓ Export specialist reviews your inquiry</p>
-            <p className="text-sm text-[#414943]">✓ You receive product specs & pricing within 24 hrs</p>
-            <p className="text-sm text-[#414943]">✓ Sample kit dispatched on request</p>
+            <p className="text-sm text-[#414943]">✓ You receive product specs & pricing within 24 hours</p>
+            <p className="text-sm text-[#414943]">✓ Sample kit dispatched on requests</p>
           </div>
           <div className="flex gap-4 justify-center flex-wrap">
             <Link
