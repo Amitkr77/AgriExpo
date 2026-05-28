@@ -233,7 +233,7 @@ export default function Blog() {
       
 
   return (
-    <div className="mx-auto max-w-7xl overflow-hidden bg-[#fbfaeb] font-sans text-[#1b1c13] pt-20 sm:pt-28 md:pt-32">
+    <div className="mx-auto max-w-7xl overflow-hidden bg-[#fbfaeb] font-sans text-[#1b1c13] pt-30 sm:pt-38 md:pt-42">
 
       {/* ── Hero Section ── */}
       <section className="flex flex-col lg:flex-row overflow-hidden pb-12 sm:pb-16 md:pb-20 lg:pb-24 border-b border-[#e4e3d4]">
