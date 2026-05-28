@@ -20,19 +20,6 @@ import {
 export default function BulkInquiryPage() {
   const [submitted, setSubmitted] = useState(false);
 
-  React.useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-
-    const product = params.get("product");
-
-    if (product) {
-      setForm((prev) => ({
-        ...prev,
-        product,
-      }));
-    }
-  }, []);
-
   const [form, setForm] = useState({
     fullName: "",
     company: "",
@@ -44,6 +31,19 @@ export default function BulkInquiryPage() {
     inquiryType: "",
     message: "",
   });
+
+   React.useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+
+    const product = params.get("product");
+
+    if (product) {
+      setForm((prev) => ({
+        ...prev,
+        product,
+      }));
+    }
+  }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -73,6 +73,13 @@ export default function BulkInquiryPage() {
           <div className="flex flex-wrap justify-center gap-4 mt-10">
             <Link
               href="/products"
+              onClick={() =>
+                trackEvent(
+                  "product_view",
+                  "products",
+                  "browse_products_button"
+                )
+              }
               className="bg-[#14422d] text-white px-8 py-4 rounded-full font-bold hover:bg-[#0f3122] transition"
             >
               Browse Products
@@ -81,6 +88,13 @@ export default function BulkInquiryPage() {
             <a
               href="https://wa.me/917091323777"
               target="_blank"
+              onClick={() =>
+                trackEvent(
+                  "whatsapp_click",
+                  "conversion",
+                  "whatsapp_success_page"
+                )
+              }
               className="bg-[#25D366] text-white px-8 py-4 rounded-full font-bold"
             >
               WhatsApp Us
