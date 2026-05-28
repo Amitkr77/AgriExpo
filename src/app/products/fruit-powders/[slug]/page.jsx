@@ -4,7 +4,6 @@ import { notFound } from "next/navigation";
 // ======================================================
 // GENERATE STATIC PARAMS
 // ======================================================
-
 export async function generateStaticParams() {
   return FRUIT_POWDERS.map((product) => ({
     slug: product.slug,
@@ -56,7 +55,6 @@ export async function generateMetadata({ params }) {
 
       type: "website",
     },
-
     alternates: {
       canonical: `https://www.srigreen.com/products/fruit-powders/${product.slug}`,
     },
