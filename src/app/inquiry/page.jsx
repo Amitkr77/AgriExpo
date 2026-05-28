@@ -10,6 +10,7 @@ import {
   MessageCircle,
 } from "lucide-react";
 import { HiMiniFire } from "react-icons/hi2";
+import { trackEvent } from "@/lib/gtag";
 
 import {
   VEGETABLE_POWDERS,
@@ -439,6 +440,13 @@ export default function BulkInquiryPage() {
                 {/* BUTTON */}
                 <button
                   type="submit"
+                  onClick={() =>
+                    trackEvent(
+                      "form_submit",
+                      "forms",
+                      "bulk_inquiry_form"
+                    )
+                  }
                   className="w-full bg-[#14422d] hover:bg-[#0f3122] text-white rounded-full py-5 font-black tracking-wide transition-all hover:-translate-y-1"
                 >
                   Submit Inquiry →

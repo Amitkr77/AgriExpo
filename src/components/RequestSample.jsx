@@ -14,6 +14,7 @@ import {
   CheckCircle2,
 } from "lucide-react";
 import { VEGETABLE_POWDERS, FRUIT_POWDERS } from "@/lib/products";
+import { trackEvent } from "@/lib/gtag";
 
 const allProducts = [
   ...VEGETABLE_POWDERS,
@@ -101,6 +102,12 @@ export default function RequestSample({ open, setOpen }) {
 
     if (validate()) {
       setSubmitted(true);
+
+      trackEvent(
+        "form_submit",
+        "forms",
+        "submit_request_button"
+      );
 
       setTimeout(() => {
         setSubmitted(false);

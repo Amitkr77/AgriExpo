@@ -75,6 +75,13 @@ export default function InlineInquiryCTA() {
             <button
               type="submit"
               className="mt-2 inline-flex w-full items-center justify-center gap-2 rounded-full bg-[#fec567] px-6 py-4 text-sm font-bold text-[#1b1c13] transition-all duration-300 hover:gap-3"
+              onClick={() =>
+                trackEvent(
+                  "form_submit",
+                  "forms",
+                  "inquiry_form"
+                )
+              }
             >
               Submit Inquiry
               <Send className="h-4 w-4" />

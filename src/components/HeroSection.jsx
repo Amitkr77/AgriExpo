@@ -18,6 +18,7 @@ import {
   useTransform,
   useReducedMotion,
 } from "framer-motion";
+import { trackEvent } from "@/lib/gtag";
 import heroimg from "@/assets/hero1.png";
 
 export default function Hero() {
@@ -313,6 +314,13 @@ export default function Hero() {
               <Link
                 href="/contact"
                 className="group relative inline-flex items-center justify-center overflow-hidden rounded-full border border-white/10 bg-white/10 backdrop-blur-xl px-8 py-4 text-sm md:text-base font-bold text-[#fbfaeb]"
+                onClick={() =>
+                  trackEvent(
+                    "quote_click",
+                    "conversion",
+                    "request_sample_button"
+                  )
+                }
               >
                 <span className="absolute inset-0 bg-white/0 transition-all duration-500 group-hover:bg-white/10" />
 

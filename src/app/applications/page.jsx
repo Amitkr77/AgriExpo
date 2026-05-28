@@ -5,6 +5,8 @@ import { motion } from "framer-motion";
 
 import apphero1 from "@/assets/apphero1.png";
 import apphero2 from "@/assets/apphero2.png";
+import { trackEvent } from "@/lib/gtag";
+import Request from "@/components/RequestSample";
 
 import {
   Factory,
@@ -25,7 +27,7 @@ import {
   Store,
 } from "lucide-react";
 import { useMotionValue, useSpring } from "framer-motion";
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
 
 /* ══════════════════════════════════════════════════
    DESIGN TOKENS — Artisanal Confectionary System
@@ -346,6 +348,8 @@ const fadeUp = {
 
 export default function ApplicationsPage() {
 
+const [open, setOpen] = useState(false);  
+
 useEffect(() => {
   const params = new URLSearchParams(window.location.search);
 
@@ -443,7 +447,18 @@ useEffect(() => {
                   <ArrowRight className="h-4 w-4" />
                 </Link>
 
-                <button className="rounded-full border border-[#9fcfb2]/60 bg-[#9fcfb2]/10 px-7 py-3.5 text-[14px] font-bold text-[#9fcfb2] backdrop-blur-sm transition-all duration-300 hover:bg-[#9fcfb2]/20">
+                <button
+                  onClick={() => {
+                    setOpen(true);
+
+                    trackEvent(
+                      "quote_click",
+                      "conversion",
+                      "request_samples_button"
+                    );
+                  }}
+                  className="rounded-full border border-[#9fcfb2]/60 bg-[#9fcfb2]/10 px-7 py-3.5 text-[14px] font-bold text-[#9fcfb2] backdrop-blur-sm transition-all duration-300 hover:bg-[#9fcfb2]/20"
+                >
                   Request Samples
                 </button>
               </div>
@@ -1102,9 +1117,19 @@ useEffect(() => {
                 Request Technical Specs
               </button>
 
-              <button className="w-full rounded-full border-2 border-[#281900]/20 bg-[#281900]/5 px-6 py-4 text-[13px] font-bold text-[#281900] backdrop-blur-sm transition-all duration-300 hover:bg-[#281900]/10 hover:-translate-y-0.5">
+              <Link
+                href="/inquiry"
+                onClick={() =>
+                  trackEvent(
+                    "quote_click",
+                    "conversion",
+                    "bulk_quote_button"
+                  )
+                }
+                className="block w-full rounded-full border-2 border-[#281900]/20 bg-[#281900]/5 px-6 py-4 text-center text-[13px] font-bold text-[#281900] backdrop-blur-sm transition-all duration-300 hover:bg-[#281900]/10 hover:-translate-y-0.5"
+              >
                 Get Bulk Quote
-              </button>
+              </Link>
             </div>
 
             {/* FOOT NOTE */}
@@ -1122,6 +1147,7 @@ useEffect(() => {
           </motion.div>
         </div>
       </section>
+      <Request open={open} setOpen={setOpen} />
     </main>
   );
 }

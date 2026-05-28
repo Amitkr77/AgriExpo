@@ -11,6 +11,7 @@ import {
   ArrowUpRight,
   Leaf,
 } from "lucide-react";
+import { trackEvent } from "@/lib/gtag";
 
 export default function MegaFooter() {
   const products = [
@@ -100,6 +101,13 @@ export default function MegaFooter() {
           <a
             href="/catalog.pdf"
             className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-[#1b1c13] px-6 py-3 text-sm font-bold text-[#fbfaeb] transition hover:gap-3 sm:w-fit"
+            onClick={() =>
+              trackEvent(
+                "download_brochure",
+                "downloads",
+                "catalog_pdf"
+              )
+            }
           >
             <Download className="h-4 w-4" />
             Download Catalog
@@ -184,6 +192,13 @@ export default function MegaFooter() {
               <a
                 href="https://wa.me/917091323777"
                 className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-[#2d5a43] px-5 py-3 text-sm font-bold text-[#fbfaeb] transition hover:bg-[#14422d] sm:w-fit lg:w-full"
+                onClick={() =>
+                  trackEvent(
+                    "whatsapp_click",
+                    "conversion",
+                    "whatsapp_inquiry_button"
+                  )
+                }
               >
                 <MessageCircle className="h-4 w-4" />
                 WhatsApp Inquiry
