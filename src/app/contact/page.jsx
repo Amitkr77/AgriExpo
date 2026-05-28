@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { VEGETABLE_POWDERS, FRUIT_POWDERS } from "@/lib/products";
+import { trackEvent } from "@/lib/gtag";
 
 const ALL_PRODUCTS = [
   ...VEGETABLE_POWDERS.map((p) => p.name),
@@ -71,10 +72,31 @@ export default function ContactPage() {
             <p className="text-sm text-[#414943]">✓ Sample kit dispatched on request</p>
           </div>
           <div className="flex gap-4 justify-center flex-wrap">
-            <Link href="/products" className="bg-[#14422d] text-white px-8 py-3 rounded-full font-bold hover:bg-[#0f3122] transition">
+            <Link
+              href="/products"
+              onClick={() =>
+                trackEvent(
+                  "product_view",
+                  "products",
+                  "browse_products_button"
+                )
+              }
+              className="bg-[#14422d] text-white px-8 py-3 rounded-full font-bold hover:bg-[#0f3122] transition"
+            >
               Browse Products
             </Link>
-            <a href="https://wa.me/917091323777" className="bg-[#25D366] text-white px-8 py-3 rounded-full font-bold hover:opacity-90 transition">
+
+            <a
+              href="https://wa.me/917091323777"
+              onClick={() =>
+                trackEvent(
+                  "whatsapp_click",
+                  "conversion",
+                  "whatsapp_button"
+                )
+              }
+              className="bg-[#25D366] text-white px-8 py-3 rounded-full font-bold hover:opacity-90 transition"
+            >
               WhatsApp Us
             </a>
           </div>
@@ -209,6 +231,13 @@ export default function ContactPage() {
 
               <button
                 type="submit"
+                onClick={() =>
+                  trackEvent(
+                    "form_submit",
+                    "forms",
+                    "submit_inquiry_button"
+                  )
+                }
                 className="w-full md:w-auto bg-[#14422d] text-white px-12 py-4 rounded-full text-base font-bold hover:bg-[#0f3122] transition shadow-lg"
               >
                 Submit Inquiry →
@@ -259,14 +288,28 @@ export default function ContactPage() {
               href="https://wa.me/917091323777?text=Hi%2C%20I%27m%20interested%20in%20a%20bulk%20powder%20inquiry%20from%20SRI%20GREEN."
               target="_blank"
               rel="noopener noreferrer"
+              onClick={() =>
+                trackEvent(
+                  "whatsapp_click",
+                  "conversion",
+                  "bulk_powder_whatsapp_inquiry"
+                )
+              }
               className="bg-[#25D366] text-white p-6 rounded-[2rem] flex items-center gap-4 hover:brightness-95 transition group"
             >
               <span className="text-3xl">💬</span>
+
               <div>
                 <p className="font-extrabold text-lg">WhatsApp Inquiry</p>
-                <p className="text-white/80 text-sm">Instant response for international buyers</p>
+
+                <p className="text-white/80 text-sm">
+                  Instant response for international buyers
+                </p>
               </div>
-              <span className="ml-auto text-2xl group-hover:translate-x-1 transition">→</span>
+
+              <span className="ml-auto text-2xl group-hover:translate-x-1 transition">
+                →
+              </span>
             </a>
 
             {/* Certifications */}

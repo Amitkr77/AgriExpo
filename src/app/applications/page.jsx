@@ -440,10 +440,19 @@ useEffect(() => {
               {/* BUTTONS — pill-shaped, high-contrast */}
               <div className="mt-8 flex flex-wrap gap-3">
                 <Link
-                  href="/products"
+                  href="/catalog.pdf"
+                  target="_blank"
+                  onClick={() =>
+                    trackEvent(
+                      "download_brochure",
+                      "downloads",
+                      "explore_catalog_button"
+                    )
+                  }
                   className="inline-flex items-center gap-3 rounded-full bg-[#fec567] px-7 py-3.5 text-[14px] font-bold text-[#281900] transition-all duration-300 hover:-translate-y-1 hover:bg-[#f5bd5f]"
                 >
                   Explore Catalog
+
                   <ArrowRight className="h-4 w-4" />
                 </Link>
 
