@@ -9,7 +9,9 @@ import {
 import React from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import vegetableimg from "@/assets/veg.png";
+import { trackEvent } from "@/lib/gtag";
 import { FRUIT_POWDERS, VEGETABLE_POWDERS } from "@/lib/products";
 
 const makeSlug = (name = "") =>
@@ -32,6 +34,8 @@ const ProductCard = ({ product, index, type }) => {
 
   const productHref =
     product.href || `${basePath}/${product.slug || makeSlug(product.name)}`;
+
+  const router = useRouter();  
 
   return (
     <motion.div
@@ -60,6 +64,17 @@ const ProductCard = ({ product, index, type }) => {
           <div className="absolute bottom-5 left-1/2 z-20 -translate-x-1/2 translate-y-6 opacity-0 transition-all duration-500 group-hover:translate-y-0 group-hover:opacity-100">
             <button
               type="button"
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+
+                trackEvent(
+                  "quote_click",
+                  "conversion",
+                  "send_inquiry_button"
+                );
+                router.push("/inquiry");
+              }}
               className="inline-flex items-center gap-2 rounded-full bg-white px-5 py-3 text-xs font-bold text-[#1b1c13] shadow-lg"
             >
               Send Inquiry
@@ -290,6 +305,13 @@ export default function Page() {
 
               <Link
                 href="/contact"
+                onClick={() =>
+                  trackEvent(
+                    "contact_click",
+                    "engagement",
+                    "rd_team_button"
+                  )
+                }  
                 className="bg-[#ffdcc6] text-[#7f410b] px-8 py-4 rounded-full font-bold tracking-[0.1em] hover:bg-white transition-colors"
               >
                 CONTACT OUR R&amp;D TEAM

@@ -149,6 +149,13 @@ export default function VegetablePowdersPage() {
             {/* CTA */}
             <Link
               href="/contact"
+              onClick={() =>
+                trackEvent(
+                  "quote_click",
+                  "conversion",
+                  "request_vegetable_bulk_quote_button"
+                )
+              }
               className="block w-full bg-[#14422d] text-white text-center py-3 rounded-full font-bold text-sm hover:bg-[#0f3122] transition"
             >
               Request Bulk Quote
@@ -225,7 +232,17 @@ export default function VegetablePowdersPage() {
       <div className="mt-16 rounded-[3rem] bg-[#2d5a43] p-8 text-center">
         <h3 className="text-2xl font-extrabold text-white mb-2">Need Custom Specifications?</h3>
         <p className="text-[#9fcfb2] mb-6">Our R&D team handles custom mesh sizes, moisture levels, and blending for industrial clients.</p>
-        <Link href="/contact" className="inline-flex items-center gap-2 bg-[#fec567] text-[#765100] px-8 py-4 rounded-full font-bold hover:brightness-95 transition">
+        <Link
+          href="/contact"
+          onClick={() =>
+            trackEvent(
+              "contact_click",
+              "engagement",
+              "custom_vegetable_requirements_button"
+            )
+          }
+          className="inline-flex items-center gap-2 bg-[#fec567] text-[#765100] px-8 py-4 rounded-full font-bold hover:brightness-95 transition"
+        >
           Contact Export Team <ArrowRight className="h-4 w-4" />
         </Link>
       </div>
