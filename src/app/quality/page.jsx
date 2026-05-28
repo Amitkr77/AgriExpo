@@ -928,7 +928,7 @@ export default function QualityPage() {
                       fontWeight: 500,
                     }}
                   >
-                    AgriExpo follows internationally recognized food safety and quality
+                    Sri Green follows internationally recognized food safety and quality
                     systems to ensure every product meets strict import requirements of
                     buyers across the US, EU, UAE, Australia and Asian markets.
                   </motion.p>
@@ -1814,7 +1814,7 @@ export default function QualityPage() {
                 marginTop: 16,
               }}
             >
-              AgriExpo products are prepared according to documentation, testing and
+              Sri Green products are prepared according to documentation, testing and
               regulatory requirements expected by international importers.
             </p>
           </motion.div>
@@ -1837,7 +1837,7 @@ export default function QualityPage() {
             <table className="w-full table-fixed">
               <thead>
                 <tr style={{ borderBottom: "1px solid rgba(255,255,255,.12)" }}>
-                  {["Market", "Required Certifications", "AgriExpo Status"].map(
+                  {["Market", "Required Certifications", "Sri Green Status"].map(
                     (h) => (
                       <th
                         key={h}
@@ -2088,7 +2088,7 @@ export default function QualityPage() {
             }}
           >
             From sourcing and manufacturing to testing and documentation,
-            AgriExpo follows premium quality systems that help importers,
+            Sri Green follows premium quality systems that help importers,
             wholesalers and distributors buy with confidence.
           </motion.p>
 
