@@ -98,6 +98,7 @@ export default function MegaFooter() {
             </p>
           </div>
 
+<<<<<<< HEAD
           <a
             href="/catalog.pdf"
             className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-[#1b1c13] px-6 py-3 text-sm font-bold text-[#fbfaeb] transition hover:gap-3 sm:w-fit"
@@ -112,6 +113,27 @@ export default function MegaFooter() {
             <Download className="h-4 w-4" />
             Download Catalog
           </a>
+=======
+            <div className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-[#1b1c13] px-6 py-3 text-sm font-bold text-[#fbfaeb] transition hover:gap-3 sm:w-fit">
+              {/* Icon click = Download */}
+              <a
+                href="/catalog.pdf"
+                download="catalog.pdf"
+                aria-label="Download Catalog"
+              >
+                <Download className="h-4 w-4" />
+              </a>
+
+              {/* Text click = Open */}
+              <a
+                href="/catalog.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Download Catalog
+              </a>
+            </div>
+>>>>>>> 0083dd1ac064e324c0ea3182ce8651274fe3b10c
         </div>
 
         {/* MAIN UNIQUE GRID */}

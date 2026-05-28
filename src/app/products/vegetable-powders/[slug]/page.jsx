@@ -60,8 +60,8 @@ export async function generateMetadata({ params }) {
     },
 
     alternates: {
-      canonical: `https://agri-expo.vercel.app/products/vegetable-powders/${product.slug}`,
-    },
+
+      canonical: `https://www.srigreen.com/products/vegetable-powders/${product.slug}`,},
   };
 }
 
