@@ -553,7 +553,7 @@ useEffect(() => {
       {/* ═══════════════════════════════════════════
           INTRO — Sky Blue bento card (informative)
           ═══════════════════════════════════════════ */}
-      <section className="px-5 py-24 lg:px-[40px] lg:py-32">
+      <section className="px-5 py-14 lg:px-[20px] lg:py-12">
         <div className="mx-auto max-w-7xl">
           <motion.div
             initial="hidden"
@@ -592,7 +592,7 @@ useEffect(() => {
       {/* ═══════════════════════════════════════════
           APPLICATIONS — Colorful Bento Grid
           ═══════════════════════════════════════════ */}
-      <section className="px-5 pb-24 lg:px-[40px] lg:pb-32">
+      <section className="px-5 pb-10 lg:px-[10px] lg:pb-12">
         <div className="mx-auto max-w-7xl">
           {/* HEADER */}
           <div className="mx-auto max-w-4xl text-center">
@@ -721,7 +721,7 @@ useEffect(() => {
       {/* ═══════════════════════════════════════════
           WHY CHOOSE — Cream canvas + colored pills + colored stats
           ═══════════════════════════════════════════ */}
-      <section className="px-5 py-24 lg:px-[40px] lg:py-32">
+      <section className="px-5 py-10 lg:px-[10px] lg:py-12">
         <div className="relative overflow-hidden mx-auto max-w-7xl rounded-[3rem] bg-[#f0efe0] p-6 md:p-10 lg:p-[32px]">
           {/* DECORATIVE BLOBS */}
           <div className="absolute -right-16 top-0 h-72 w-72 rounded-full bg-[#fec567]/15 blur-3xl" />
@@ -811,7 +811,7 @@ useEffect(() => {
       {/* ═══════════════════════════════════════════
           SUPPORT — Three colorful bento cards
           ═══════════════════════════════════════════ */}
-      <section className="px-5 py-24 lg:px-[40px] lg:py-32">
+      <section className="px-5 py-10 lg:px-[10px] lg:py-12">
         <div className="mx-auto max-w-7xl">
           {/* HEADER */}
           <div className="max-w-4xl">
@@ -908,7 +908,7 @@ useEffect(() => {
       {/* ═══════════════════════════════════════════
           INDUSTRIES — Four colorful bento cards
           ═══════════════════════════════════════════ */}
-      <section className="px-5 py-24 lg:px-[40px] lg:py-32">
+      <section className="px-5 py-10 lg:px-[10px] lg:py-12">
         <div className="mx-auto max-w-7xl">
           {/* HEADER */}
           <div className="max-w-4xl">
@@ -996,7 +996,7 @@ useEffect(() => {
       {/* ═══════════════════════════════════════════
           CTA — Dark chocolate panel + honey gold panel
           ═══════════════════════════════════════════ */}
-      <section className="px-5 py-24 lg:px-[40px] lg:py-32">
+      <section className="px-5 py-10 lg:px-[10px] lg:py-12">
         <div className="mx-auto grid max-w-7xl gap-5 lg:grid-cols-[1.2fr_0.8fr] lg:gap-8">
           {/* LEFT — Dark Chocolate editorial panel */}
           <motion.div
