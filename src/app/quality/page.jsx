@@ -15,6 +15,7 @@ import {
   Microscope,
   ClipboardCheck,
   Award,
+  Download,
 } from "lucide-react";
 import qualityHero from "@/assets/quality-hero.png";
 import cardimg from "@/assets/qualitycardimg.png";
@@ -985,34 +986,54 @@ export default function QualityPage() {
                     </motion.button>
 
                     {/* SECONDARY BUTTON */}
-                    <motion.button
-                      whileHover={{
-                        scale: 1.04,
-                        backgroundColor: "rgba(255,255,255,.08)",
-                      }}
-                      whileTap={{ scale: 0.97 }}
-                      onClick={() =>
-                        trackEvent(
-                          "download_brochure",
-                          "downloads",
-                          "quality_profile_button"
-                        )
-                      }
-                      className="w-full sm:w-auto"
-                      style={{
-                        background: "rgba(255,255,255,.04)",
-                        color: "#fff",
-                        border: "1px solid rgba(255,255,255,.2)",
-                        padding: "14px 28px",
-                        borderRadius: 9999,
-                        fontFamily: "'Plus Jakarta Sans',sans-serif",
-                        fontWeight: 700,
-                        fontSize: 14,
-                        backdropFilter: "blur(12px)",
-                      }}
-                    >
-                      Download Quality Profile
-                    </motion.button>
+                   <motion.button
+  whileHover={{
+    scale: 1.04,
+    backgroundColor: "rgba(255,255,255,.08)",
+  }}
+  whileTap={{ scale: 0.97 }}
+  onClick={() => {
+    trackEvent(
+      "download_brochure",
+      "downloads",
+      "quality_profile_button"
+    );
+
+    window.open("/Quality_Profile.pdf", "_blank");
+  }}
+  className="w-full sm:w-auto flex items-center justify-center gap-3"
+  style={{
+    background: "rgba(255,255,255,.04)",
+    color: "#fff",
+    border: "1px solid rgba(255,255,255,.2)",
+    padding: "14px 28px",
+    borderRadius: 9999,
+    fontFamily: "'Plus Jakarta Sans',sans-serif",
+    fontWeight: 700,
+    fontSize: 14,
+    backdropFilter: "blur(12px)",
+    cursor: "pointer",
+  }}
+>
+  <span>Download Quality Profile</span>
+
+  <a
+    href="/Quality_Profile.pdf"
+    download
+    onClick={(e) => {
+      e.stopPropagation();
+
+      trackEvent(
+        "download_brochure_direct",
+        "downloads",
+        "quality_profile_pdf"
+      );
+    }}
+    className="flex items-center"
+  >
+    <Download size={16} />
+  </a>
+</motion.button>
                   </motion.div>
 
                   {/* SIDE IMAGE GLASS CARD */}

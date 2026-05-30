@@ -108,13 +108,13 @@ export default function WhyChooseSriGreen() {
                     />
                   </div>
 
-                  {/* Arrow */}
+                  {/* Arrow 
                   <div className="flex h-10 w-10 items-center justify-center rounded-full bg-white/70 transition-transform duration-300 group-hover:rotate-12">
                     <ArrowUpRight
                       className="h-4 w-4 text-[#1b1c13]"
                       strokeWidth={2.3}
                     />
-                  </div>
+                  </div>*/}
                 </div>
 
                 {/* Content */}
