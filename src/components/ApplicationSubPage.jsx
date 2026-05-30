@@ -274,7 +274,7 @@ export default function ApplicationSubPage({ data }) {
           USE CASES
           ═══════════════════════════════════════════ */}
       {data.useCases && hasArray(data.useCases.items) && (
-        <section className="px-5 py-24 lg:px-[40px] lg:py-32">
+        <section className="px-5 py-5 lg:px-[40px] lg:py-32">
           <div className="mx-auto max-w-7xl">
             <motion.div
               initial="hidden"
@@ -338,7 +338,7 @@ export default function ApplicationSubPage({ data }) {
           QUALITY POINTS
           ═══════════════════════════════════════════ */}
       {data.qualityPoints && hasArray(data.qualityPoints.items) && (
-        <section className="px-5 pb-24 lg:px-[40px] lg:pb-32">
+        <section className="px-5 pb-5 lg:px-[40px] lg:pb-32">
           <div className="mx-auto max-w-7xl">
             <div className="rounded-[3rem] bg-[#2d5a43] p-8 md:p-12 lg:p-[48px]">
               <div className="grid gap-12 lg:grid-cols-[1fr_1.2fr] items-start">
@@ -387,7 +387,7 @@ export default function ApplicationSubPage({ data }) {
           FLEXIBILITY
           ═══════════════════════════════════════════ */}
       {data.flexibility && hasArray(data.flexibility.items) && (
-        <section className="px-5 pb-24 lg:px-[40px] lg:pb-32">
+        <section className="px-5 pb-5 lg:px-[40px] lg:pb-32">
           <div className="mx-auto max-w-7xl">
             <div className="grid gap-12 lg:grid-cols-[1fr_1fr] items-center">
               {/* LEFT */}
@@ -461,7 +461,7 @@ export default function ApplicationSubPage({ data }) {
           ═══════════════════════════════════════════ */}
       {((data.buyers && hasArray(data.buyers.items)) ||
         hasArray(data.whyUs)) && (
-        <section className="px-5 pb-24 lg:px-[40px] lg:pb-32">
+        <section className="px-5 pb-5 lg:px-[40px] lg:pb-32">
           <div className="mx-auto max-w-7xl">
             <div className="rounded-[3rem] bg-[#f0efe0] p-8 md:p-12 lg:p-[48px]">
               <div className="grid gap-12 lg:grid-cols-2">
@@ -538,7 +538,7 @@ export default function ApplicationSubPage({ data }) {
       {/* ═══════════════════════════════════════════
           CTA
           ═══════════════════════════════════════════ */}
-      <section className="px-5 pb-24 lg:px-[40px] lg:pb-32">
+      <section className="px-5 pb-5 lg:px-[40px] lg:pb-32">
         <div className="mx-auto max-w-7xl">
           <div className="grid gap-5 lg:grid-cols-[1.2fr_0.8fr]">
             {/* LEFT */}
