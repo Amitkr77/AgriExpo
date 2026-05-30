@@ -134,7 +134,7 @@ export default function Page() {
                     variants={fadeUp}
                     className="text-[#d7f0e0] text-sm sm:text-base lg:text-lg mt-6 sm:mt-8 max-w-2xl leading-6 sm:leading-7 lg:leading-8"
                   >
-                    SRI GREEN Industries is a premium exporter of dehydrated and
+                    SRI GREEN Agro is a premium exporter of dehydrated and
                     spray-dried fruit & vegetable powders trusted across 24+ countries.
                   </motion.p>
                 </div>
@@ -548,7 +548,7 @@ export default function Page() {
             >
               Whether you are scaling production as a food manufacturer,
               building a private label supplement line, or sourcing ingredients
-              for bulk distribution — SRI GREEN Industries is equipped to
+              for bulk distribution — SRI GREEN Agro is equipped to
               supply, certify, and ship.
             </motion.p>
 

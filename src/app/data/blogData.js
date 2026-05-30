@@ -8,7 +8,7 @@ export const BLOG_DATA = [
 
 ## Introduction
 
-India has become one of the leading global suppliers of dehydrated onion products, including premium-quality onion powder used across food manufacturing, seasoning, retail, and foodservice industries.
+India has become one of the leading global suppliers of dehydrated onion products, including premium-quality onion powder used across food manufacturing, seasoning, retail, and foodservice Agro.
 
 This guide explains everything international buyers should know before sourcing onion powder from India.
 
@@ -165,7 +165,7 @@ Indian manufacturers often provide:
 
 ## Global Demand Trends
 
-Industries driving demand include:
+Agro driving demand include:
 
 - Snack manufacturing
 - Frozen foods
@@ -215,7 +215,7 @@ For importers, food manufacturers, and private label brands, India remains one o
 
 ## Introduction
 
-Fruit powders are widely used in food, beverage, nutraceutical, bakery, dairy, and health supplement industries.
+Fruit powders are widely used in food, beverage, nutraceutical, bakery, dairy, and health supplement Agro.
 
 Two major manufacturing methods dominate the market:
 
@@ -325,7 +325,7 @@ Often retain more natural nutrients and fiber.
 
 ---
 
-## Which Is Better for Different Industries?
+## Which Is Better for Different Agro?
 
 ### Beverage Industry
 
@@ -422,7 +422,7 @@ The best choice depends on formulation goals, product positioning, budget, and t
     id: "9b1d4c7f-3f2e-48b7-8f1a-c7d6a5e2f914",
     title: "How Food Manufacturers Use Tomato Powder in Ready-to-Eat Products",
     slug: "how-food-manufacturers-use-tomato-powder-ready-to-eat-products",
-    excerpt: "Learn how food manufacturers use tomato powder in ready-to-eat products for flavor enhancement, natural coloring, shelf stability, cost efficiency, and clean-label formulations across global food industries.",
+    excerpt: "Learn how food manufacturers use tomato powder in ready-to-eat products for flavor enhancement, natural coloring, shelf stability, cost efficiency, and clean-label formulations across global food Agro.",
     content: `# How Food Manufacturers Use Tomato Powder in Ready-to-Eat Products
 
 ## Introduction

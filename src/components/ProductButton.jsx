@@ -6,7 +6,7 @@ export default function ProductButtons({ product }) {
   return (
     <div className="mt-10 flex gap-4 flex-wrap">
       <a
-        href={`https://wa.me/917091323777?text=Hi%2C%20I%27m%20interested%20in%20bulk%20supply%20of%20${encodeURIComponent(product.name)}%20from%20SRI%20GREEN%20Industries.`}
+        href={`https://wa.me/917091323777?text=Hi%2C%20I%27m%20interested%20in%20bulk%20supply%20of%20${encodeURIComponent(product.name)}%20from%20SRI%20GREEN%20Agro.`}
         target="_blank"
         rel="noopener noreferrer"
         onClick={() =>

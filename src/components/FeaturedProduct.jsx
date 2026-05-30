@@ -104,7 +104,7 @@ export default function FeaturedProduct() {
 
         <p className="mx-auto mt-4 max-w-2xl text-sm leading-relaxed text-[#414943] md:text-base">
           Premium fruit and vegetable powders crafted for global food,
-          nutraceutical, and seasoning industries.
+          nutraceutical, and seasoning Agro.
         </p>
       </motion.div>
 
