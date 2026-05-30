@@ -38,7 +38,7 @@ const Dot = () => <span className="h-0.5 w-0.5 rounded-full bg-[#c0c9c1]" />;
 
 const ArrowUpRight = () => (
   <svg width="9" height="9" viewBox="0 0 10 10" fill="none">
-    <path d="M2 8L8 2M8 2H3M8 2v5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" className="text-[#c0c9c1] group-hover:text-[#14422d] transition-colors" />
+    <path d="M2 8L8 2M8 2H3M8 2v5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" className="text-[#c0c9c1] group-hover:text-[#fec567]/90 transition-colors" />
   </svg>
 );
 
@@ -93,7 +93,7 @@ const FeaturedCard = memo(({ blog, onClick }) => (
         <span className="text-[9px] md:text-[10px] font-bold uppercase tracking-[0.12em] text-white/60">{getReadTime(blog.wordCount)}</span>
         <Dot />
         <span className="text-[9px] md:text-[10px] font-bold uppercase tracking-[0.12em] text-white/40">{formatDate(blog.publishedAt)}</span>
-        <div className="ml-auto flex h-7 w-7 sm:h-8 sm:w-8 items-center justify-center rounded-full border border-white/20 group-hover:border-[#fec567]/40 group-hover:bg-[#fec567]/10 transition-all duration-300">
+        <div className="ml-auto flex h-7 w-7 sm:h-8 sm:w-8 items-center justify-center rounded-full border border-white/20 group-hover:border-[#fec567]/90 group-hover:bg-[#fec567]/10 transition-all duration-300">
           <ArrowUpRight />
         </div>
       </div>
