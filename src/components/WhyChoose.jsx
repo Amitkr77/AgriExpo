@@ -14,35 +14,35 @@ const features = [
     title: "Farm-Direct Sourcing",
     desc: "Direct procurement from India's major agricultural belts for consistent quality and traceability.",
     icon: Wheat,
-    bg: "bg-[#eae9da]",
+    bg: "bg-[#fec567]",
     iconBg: "bg-[#d9d8c8]",
   },
   {
     title: "Strict QA at Every Stage",
     desc: "HACCP processes, lab-tested batches, and strict quality checks across production cycles.",
     icon: ShieldCheck,
-    bg: "bg-[#fec567]",
+    bg: "bg-[#e9965b]",
     iconBg: "bg-[#ffd98f]",
   },
   {
     title: "Flexible Packaging",
     desc: "Packaging solutions from 25kg export bags to large-scale industrial bulk container formats.",
     icon: Package,
-    bg: "bg-[#f5f4e5]",
-    iconBg: "bg-[#e8e6d6]",
+    bg: "bg-[#89c2e8]",
+    iconBg: "bg-[#ffd98f]",
   },
   {
     title: "Export Compliance Ready",
     desc: "Documentation and export support aligned with US, EU, UAE, and global import standards.",
     icon: Globe2,
-    bg: "bg-[#e4e3d4]",
+    bg: "bg-[#9fcfb2]",
     iconBg: "bg-[#d4d3c5]",
   },
 ];
 
 export default function WhyChooseSriGreen() {
   return (
-    <section className="mb-24">
+    <section className="mb-12">
       {/* Heading */}
       <motion.div
         initial={{ opacity: 0, y: 18 }}
@@ -52,7 +52,7 @@ export default function WhyChooseSriGreen() {
           duration: 0.6,
           ease: [0.22, 1, 0.36, 1],
         }}
-        className="mb-10 text-center"
+        className="mb-4 text-center"
       >
         <span className="mb-2 block text-[11px] font-bold uppercase tracking-[0.14em] text-[#7e5700]">
           Why Choose Us
@@ -78,49 +78,109 @@ export default function WhyChooseSriGreen() {
               key={index}
               initial={{
                 opacity: 0,
-                y: 24,
+                y: 40,
+                scale: 0.96,
               }}
               whileInView={{
                 opacity: 1,
                 y: 0,
+                scale: 1,
+              }}
+              whileHover={{
+                y: -10,
+                scale: 1.02,
               }}
               viewport={{ once: true }}
               transition={{
-                duration: 0.65,
-                delay: index * 0.06,
+                duration: 0.7,
+                delay: index * 0.08,
                 ease: [0.22, 1, 0.36, 1],
               }}
-              className={`group relative overflow-hidden rounded-[2.5rem] ${feature.bg} p-7 md:p-8`}
+              className={`group relative overflow-hidden rounded-[2.5rem] ${feature.bg}
+                p-5 md:p-6
+                shadow-[0_10px_30px_rgba(0,0,0,0.03)]
+                hover:shadow-[0_25px_60px_rgba(20,66,45,0.12)]
+                transition-all duration-100
+                
+                before:absolute
+                before:inset-0
+                before:rounded-[2.5rem]
+                before:bg-gradient-to-br
+                before:from-white/30
+                before:via-white/10
+                before:to-transparent
+                before:opacity-0
+                hover:before:opacity-100
+                before:transition-all
+                before:duration-700`
+                }
             >
               {/* Soft Glow */}
-              <div className="absolute right-0 top-0 h-40 w-40 rounded-full bg-white/20 blur-3xl" />
+              <motion.div
+                className="absolute inset-0 opacity-0 group-hover:opacity-100"
+                initial={false}
+              >
+                <div
+                  className="
+                    absolute -left-1/2 top-0 h-full w-1/3
+                    rotate-12 bg-white/20 blur-xl
+                    transition-all duration-1500
+                    group-hover:left-[120%]
+                  "
+                />
+              </motion.div>
 
               <div className="relative z-10 flex h-full flex-col">
                 {/* Top */}
                 <div className="mb-6 flex items-start justify-between">
                   {/* Icon */}
-                  <div
+                  <motion.div
+                    whileHover={{
+                      rotate: 10,
+                      scale: 1.1,
+                    }}
+                    transition={{
+                      type: "spring",
+                      stiffness: 300,
+                      damping: 12,
+                    }}
                     className={`flex h-14 w-14 items-center justify-center rounded-full ${feature.iconBg}`}
                   >
                     <Icon
                       className="h-6 w-6 text-[#1b1c13]"
                       strokeWidth={2.1}
                     />
-                  </div>
+                  </motion.div>
 
                   {/* Arrow 
-                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-white/70 transition-transform duration-300 group-hover:rotate-12">
+                  <motion.div
+                    initial={{ opacity: 0.7 }}
+                    whileHover={{
+                      rotate: 45,
+                      scale: 1.08,
+                    }}
+                    className="
+                      flex h-10 w-10 items-center justify-center
+                      rounded-full bg-white/70
+                      shadow-sm
+                    "
+                  >
                     <ArrowUpRight
                       className="h-4 w-4 text-[#1b1c13]"
                       strokeWidth={2.3}
                     />
-                  </div>*/}
+                  </motion.div>*/}
                 </div>
 
                 {/* Content */}
-                <h3 className="max-w-sm text-2xl font-extrabold tracking-[-0.03em] text-[#1b1c13]">
+                <motion.h3
+                  className="max-w-sm text-2xl font-extrabold tracking-[-0.03em] text-[#1b1c13]"
+                  whileHover={{
+                    x: 4,
+                  }}
+                >
                   {feature.title}
-                </h3>
+                </motion.h3>
 
                 <p className="mt-4 max-w-xl text-sm leading-relaxed text-[#414943] md:text-[15px]">
                   {feature.desc}
@@ -128,7 +188,14 @@ export default function WhyChooseSriGreen() {
               </div>
 
               {/* Border */}
-              <div className="absolute inset-0 rounded-[2.5rem] border border-black/[0.04]" />
+              <div
+                className="
+                  absolute inset-0 rounded-[2.5rem]
+                  border border-black/[0.04]
+                  group-hover:border-[#14422d]/20
+                  transition-all duration-500
+                "
+              />
             </motion.div>
           );
         })}
