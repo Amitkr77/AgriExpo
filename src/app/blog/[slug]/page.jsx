@@ -86,26 +86,7 @@ export default async function BlogPostPage({ params }) {
         {/* Hero Content */}
         <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 md:px-8 pt-28 sm:pt-32 md:pt-36 pb-12 sm:pb-16 md:pb-20">
 
-          {/* Breadcrumb */}
-          <nav className="mb-6 sm:mb-8 flex items-center gap-2 flex-wrap">
-            <Link
-              href="/"
-              className="text-[10px] sm:text-[11px] font-bold uppercase tracking-[0.2em] text-white/40 hover:text-white/70 transition-colors duration-200"
-            >
-              Home
-            </Link>
-            <span className="text-white/20 text-[10px]">/</span>
-            <Link
-              href="/blog"
-              className="text-[10px] sm:text-[11px] font-bold uppercase tracking-[0.2em] text-white/40 hover:text-white/70 transition-colors duration-200"
-            >
-              Blog
-            </Link>
-            <span className="text-white/20 text-[10px]">/</span>
-            <span className="text-[10px] sm:text-[11px] font-bold uppercase tracking-[0.2em] text-white/60 truncate max-w-[200px]">
-              {post.title}
-            </span>
-          </nav>
+
 
           {/* Tags */}
           {post.tags?.length > 0 && (
@@ -180,12 +161,33 @@ export default async function BlogPostPage({ params }) {
 
         {/* Bottom Curve */}
         <div className="absolute bottom-0 left-0 right-0 h-6 sm:h-8 bg-[#fbfaeb] rounded-t-[2.5rem] sm:rounded-t-[3rem]" />
+        
       </header>
 
       {/* ══════════════════════════════════════════════════════════════
           MAIN CONTENT LAYOUT
       ══════════════════════════════════════════════════════════════ */}
       <div className="mx-auto max-w-7xl px-4 sm:px-6 md:px-8 lg:px-10 pb-16 sm:pb-20 md:pb-24">
+                  {/* Breadcrumb */}
+          <nav className="mb-6 sm:mb-8 flex items-center gap-2 flex-wrap">
+            <Link
+              href="/"
+              className="text-[12px] sm:text-[16px] font-bold uppercase tracking-[0.2em] text-blue-600/50 hover:text-blue-700/70 transition-colors duration-200"
+            >
+              Home
+            </Link>
+            <span className="text-blue-700/50 text-[12px]">/</span>
+            <Link
+              href="/blog"
+              className="text-[12px] sm:text-[16px] font-bold uppercase tracking-[0.2em] text-blue-600/50 hover:text-blue-700/70 transition-colors duration-200"
+            >
+              Blog
+            </Link>
+            <span className="text-blue-700/50 text-[12px]">/</span>
+            <span className="text-[12px] sm:text-[16px] font-bold uppercase tracking-[0.2em] text-blue-600/50 truncate max-w-[200px]">
+              {post.title}
+            </span>
+          </nav>
         <div className="flex flex-col lg:flex-row gap-8 lg:gap-12 -mt-2">
 
           {/* ── SIDEBAR ── */}
@@ -390,7 +392,7 @@ export default async function BlogPostPage({ params }) {
                         </a>
                       </p>
                     )}
-                    <div className="flex flex-wrap gap-2 mt-3">
+                    {/* <div className="flex flex-wrap gap-2 mt-3">
                       {post.author.website && (
                         <a
                           href={post.author.website}
@@ -431,7 +433,7 @@ export default async function BlogPostPage({ params }) {
                           GitHub
                         </a>
                       )}
-                    </div>
+                    </div> */}
                   </div>
                 </div>
               </section>
@@ -459,7 +461,7 @@ export default async function BlogPostPage({ params }) {
               </section>
             )}
 
-            {/* ── Attachments ── */}
+            {/* ── Attachments ── 
             {post.attachments?.length > 0 && (
               <section className="mt-10 sm:mt-12 rounded-[2rem] border border-[#e4e3d4] bg-[#f5f4e5] p-5 sm:p-7">
                 <div className="mb-4 flex items-center gap-2.5">
@@ -487,7 +489,7 @@ export default async function BlogPostPage({ params }) {
                   ))}
                 </div>
               </section>
-            )}
+            )}*/}
 
             {/* ── Custom Fields ── */}
             {post.customFields && (
