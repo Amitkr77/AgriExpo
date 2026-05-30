@@ -237,7 +237,7 @@ export default function Blog() {
     <div className="mx-auto max-w-7xl overflow-hidden bg-[#fbfaeb] font-sans text-[#1b1c13] pt-30 sm:pt-38 md:pt-42">
 
       {/* ── Hero Section ── */}
-      <section className="flex flex-col lg:flex-row overflow-hidden pb-12 sm:pb-16 md:pb-20 lg:pb-24 border-b border-[#e4e3d4]">
+      <section className="flex flex-col lg:flex-row overflow-hidden pb-12 sm:pb-16 md:pb-20 lg:pb-24 border-b border-[#fbfaeb]">
 
         {/* Left Panel */}
         <motion.div
@@ -377,6 +377,9 @@ export default function Blog() {
         )}
       </section>
 
+      {/* Faded Divider */}
+      <div className="w-64 md:w-128 h-[3px] mx-auto my-4 rounded-full bg-gradient-to-r from-transparent via-[#14422d]/40 to-transparent" />
+
       {/* ── Featured Grid ── */}
       {loading ? (
         <FeaturedSkeleton />
@@ -386,13 +389,14 @@ export default function Blog() {
           initial="hidden"
           whileInView="show"
           viewport={{ once: true }}
-          className="grid grid-cols-1 m-2 sm:grid-cols-2 gap-3 border-b border-[#e4e3d4]"
+          className="grid grid-cols-1 m-2 sm:grid-cols-2 gap-3"
         >
           {featuredBlogs.slice(0, 2).map(blog => (
             <FeaturedCard key={blog.id} blog={blog} onClick={navigateToBlog} />
           ))}
         </motion.div>
       )}
+      
 
       {/* ── Wide Card ── */}
       {!loading && nonFeaturedBlogs.slice(0, 1).map(item => (
@@ -403,7 +407,7 @@ export default function Blog() {
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
           onClick={() => navigateToBlog(item.slug)}
-          className="group relative rounded-4xl m-2 h-60 sm:h-64 md:h-72 lg:h-80 cursor-pointer overflow-hidden border-b border-[#e4e3d4]"
+          className="group relative rounded-4xl m-2 h-60 sm:h-64 md:h-72 lg:h-80 cursor-pointer overflow-hidden border border-[#e4e3d4]"
         >
           <img src={item.image} alt={item.title} loading="lazy" className="absolute inset-0 h-full w-full object-cover transition-all duration-700 ease-out group-hover:scale-[1.03]" />
           <div className="absolute inset-0 bg-gradient-to-r from-[#0B2818]/80 to-transparent" />
@@ -430,13 +434,14 @@ export default function Blog() {
 
       {/* ── Recent Articles ── */}
       <motion.div initial="hidden" whileInView="show" viewport={{ once: true }} className="border-b border-[#e4e3d4]">
-        <div className="flex items-center justify-between border-b border-[#e4e3d4] px-4 sm:px-6 md:px-8 lg:px-11 py-6 sm:py-7 md:py-8">
+        <div className="flex items-center justify-between px-4 sm:px-6 md:px-8 lg:px-11 py-6 sm:py-7 md:py-8">
           <span className="text-[10px] md:text-[11px] font-bold uppercase tracking-[0.3em] md:tracking-[0.35em] text-[#414943]">Recent articles</span>
         </div>
+        <div className="w-120 h-[3px] mx-auto rounded-full bg-gradient-to-r from-transparent via-[#14422d]/40 to-transparent" />
         <div className="grid grid-cols-1 rounded-4xl sm:grid-cols-2">
           {loading ? (
             Array.from({ length: 6 }).map((_, i) => (
-              <div key={i} className="flex  rounded-4xl items-start gap-4 md:gap-5 px-6 md:px-11 py-5 md:py-7 border-b border-[#e4e3d4] sm:border-r border-[#e4e3d4]">
+              <div key={i} className="flex rounded-4xl items-start gap-4 md:gap-5 px-6 md:px-11 py-5 md:py-7">
                 <Skeleton className="h-16 w-16 shrink-0 rounded-2xl" />
                 <div className="flex-1 flex flex-col gap-2 mt-1">
                   <Skeleton className="h-3 w-14" />
@@ -457,7 +462,7 @@ export default function Blog() {
                   border border-[#e4e3d4] rounded-4xl overflow-hidden
                   transition-all duration-500
                   hover:bg-gradient-to-br ${blogGradients[index % blogGradients.length]}/10
-                  hover:scale-[1.015] hover:shadow-[0_18px_45px_rgba(65,73,67,0.16)]
+                  hover:scale-[1.015]
                 `}
 
               >

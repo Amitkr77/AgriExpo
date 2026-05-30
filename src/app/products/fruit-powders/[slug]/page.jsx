@@ -29,7 +29,7 @@ export async function generateMetadata({ params }) {
   }
 
   return {
-    title: `${product.name} | SRI GREEN Industries`,
+    title: `${product.name} | SRI GREEN Agro`,
 
     description: product.desc,
 
@@ -44,7 +44,7 @@ export async function generateMetadata({ params }) {
     ],
 
     openGraph: {
-      title: `${product.name} | SRI GREEN Industries`,
+      title: `${product.name} | SRI GREEN Agro`,
       description: product.desc,
 
       images: [

@@ -78,7 +78,7 @@ export default function Applications() {
 
         <p className="mx-auto mt-4 max-w-2xl text-sm leading-relaxed text-[#414943] md:text-base">
           Trusted across food, beverage, nutraceutical, and private-label
-          industries worldwide.
+          Agro worldwide.
         </p>
       </motion.div>
 

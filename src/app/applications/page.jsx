@@ -618,7 +618,7 @@ useEffect(() => {
             >
               Industrial Applications
               <span className="block text-[#717973]">
-                Across Food Industries
+                Across Food Agro
               </span>
             </h2>
 
@@ -915,7 +915,7 @@ useEffect(() => {
         </div>
       </section>
       {/* ═══════════════════════════════════════════
-          INDUSTRIES — Four colorful bento cards
+          Agro — Four colorful bento cards
           ═══════════════════════════════════════════ */}
       <section className="px-5 py-10 lg:px-[10px] lg:py-12">
         <div className="mx-auto max-w-7xl">
@@ -925,7 +925,7 @@ useEffect(() => {
               className="text-[12px] font-bold uppercase text-[#7e5700]"
               style={{ letterSpacing: "0.1em" }}
             >
-              Industries We Serve
+              Agro We Serve
             </span>
             <h2
               className="mt-5 text-[32px] font-extrabold leading-[0.92] tracking-[-0.02em] text-[#1b1c13] md:text-[48px]"

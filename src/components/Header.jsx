@@ -178,7 +178,7 @@ const MobileNav = ({ isOpen, onClose, pathname, setOpen }) => {
                 Bulk Inquiry
               </Link>
               <p className="text-center text-[10px] text-gray-400 tracking-widest uppercase mt-4">
-                © {new Date().getFullYear()} Sri Green Industries
+                © {new Date().getFullYear()} Sri Green Agro
               </p>
             </div>
           </motion.div>

@@ -84,7 +84,7 @@ export default function MegaFooter() {
 
               <div>
                 <h2 className="text-xl font-black tracking-tight sm:text-2xl">
-                  SRI GREEN Industries
+                  SRI GREEN Agro
                 </h2>
                 <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[#7e5700]">
                   Natural Ingredient Supplier
@@ -250,7 +250,7 @@ export default function MegaFooter() {
         </div>
         {/* BOTTOM */}
         <div className="mt-6 flex flex-col items-center justify-between gap-4 text-center text-xs font-medium text-[#414943] md:flex-row">
-          <p>© 2025 SRI GREEN Industries. Export-grade ingredient supplier.</p>
+          <p>© 2025 SRI GREEN Agro. Export-grade ingredient supplier.</p>
 
           <div className="flex gap-6">
             <Link href="/privacy" className="hover:text-[#14422d]">

@@ -22,8 +22,8 @@ const geistMono = Geist_Mono({
 
 export const metadata = {
   title: {
-    default: "SRI GREEN Industries | Fruit & Vegetable Powder Exporters",
-    template: "%s | SRI GREEN Industries",
+    default: "SRI GREEN Agro | Fruit & Vegetable Powder Exporters",
+    template: "%s | SRI GREEN Agro",
   },
 
   description:
@@ -38,7 +38,7 @@ export const metadata = {
   },
 
   openGraph: {
-    siteName: "SRI GREEN Industries",
+    siteName: "SRI GREEN Agro",
     type: "website",
     locale: "en_US",
   },
