@@ -107,7 +107,7 @@ function useMagnet() {
 const applications = [
   {
     title: "Food Manufacturing",
-    id:"food-manufacturers",
+    id:"food-manufacturing",
     icon: Factory,
     desc: "Dehydrated and spray-dried ingredient powders for sauces, seasoning blends, snack coatings, frozen food formulations, bakery fillings and ready-to-eat meal production. Optimized for industrial mixing, batching and automated processing lines.",
     large: true,
@@ -179,7 +179,7 @@ const applications = [
   },
   {
     title: "Hotel & Food Service",
-    id:"hotel-food-service",
+    id:"hotel-food-services",
     icon: Globe2,
     desc: "Bulk ingredient solutions for hotel kitchens, restaurant chains, catering operations and institutional food service. Consistent quality at volume with simplified procurement and logistics support.",
     bg: "bg-[#f0efe0]",
@@ -440,19 +440,10 @@ useEffect(() => {
               {/* BUTTONS — pill-shaped, high-contrast */}
               <div className="mt-8 flex flex-wrap gap-3">
                 <Link
-                  href="/catalog.pdf"
-                  target="_blank"
-                  onClick={() =>
-                    trackEvent(
-                      "download_brochure",
-                      "downloads",
-                      "explore_catalog_button"
-                    )
-                  }
+                  href="/products"
                   className="inline-flex items-center gap-3 rounded-full bg-[#fec567] px-7 py-3.5 text-[14px] font-bold text-[#281900] transition-all duration-300 hover:-translate-y-1 hover:bg-[#f5bd5f]"
                 >
                   Explore Catalog
-
                   <ArrowRight className="h-4 w-4" />
                 </Link>
 
@@ -562,7 +553,7 @@ useEffect(() => {
       {/* ═══════════════════════════════════════════
           INTRO — Sky Blue bento card (informative)
           ═══════════════════════════════════════════ */}
-      <section className="px-5 py-14 lg:px-[20px] lg:py-12">
+      <section className="px-5 py-24 lg:px-[40px] lg:py-32">
         <div className="mx-auto max-w-7xl">
           <motion.div
             initial="hidden"
@@ -601,7 +592,7 @@ useEffect(() => {
       {/* ═══════════════════════════════════════════
           APPLICATIONS — Colorful Bento Grid
           ═══════════════════════════════════════════ */}
-      <section className="px-5 pb-10 lg:px-[10px] lg:pb-12">
+      <section className="px-5 pb-24 lg:px-[40px] lg:pb-32">
         <div className="mx-auto max-w-7xl">
           {/* HEADER */}
           <div className="mx-auto max-w-4xl text-center">
@@ -699,7 +690,8 @@ useEffect(() => {
 
                         {/* RIGHT CTA — pill button */}
                         <div className="flex items-end shrink-0">
-                          <button
+                          <Link
+                            href={`/applications/${item.id}`}
                             className={`
                               ${item.ctaBg} ${item.ctaText}
                               group/button inline-flex items-center gap-2
@@ -712,7 +704,7 @@ useEffect(() => {
                           >
                             Learn More
                             <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover/button:translate-x-1" />
-                          </button>
+                          </Link>
                         </div>
                       </div>
 
@@ -730,7 +722,7 @@ useEffect(() => {
       {/* ═══════════════════════════════════════════
           WHY CHOOSE — Cream canvas + colored pills + colored stats
           ═══════════════════════════════════════════ */}
-      <section className="px-5 py-10 lg:px-[10px] lg:py-12">
+      <section className="px-5 py-24 lg:px-[40px] lg:py-32">
         <div className="relative overflow-hidden mx-auto max-w-7xl rounded-[3rem] bg-[#f0efe0] p-6 md:p-10 lg:p-[32px]">
           {/* DECORATIVE BLOBS */}
           <div className="absolute -right-16 top-0 h-72 w-72 rounded-full bg-[#fec567]/15 blur-3xl" />
@@ -820,7 +812,7 @@ useEffect(() => {
       {/* ═══════════════════════════════════════════
           SUPPORT — Three colorful bento cards
           ═══════════════════════════════════════════ */}
-      <section className="px-5 py-10 lg:px-[10px] lg:py-12">
+      <section className="px-5 py-24 lg:px-[40px] lg:py-32">
         <div className="mx-auto max-w-7xl">
           {/* HEADER */}
           <div className="max-w-4xl">
@@ -917,7 +909,7 @@ useEffect(() => {
       {/* ═══════════════════════════════════════════
           INDUSTRIES — Four colorful bento cards
           ═══════════════════════════════════════════ */}
-      <section className="px-5 py-10 lg:px-[10px] lg:py-12">
+      <section className="px-5 py-24 lg:px-[40px] lg:py-32">
         <div className="mx-auto max-w-7xl">
           {/* HEADER */}
           <div className="max-w-4xl">
@@ -1005,7 +997,7 @@ useEffect(() => {
       {/* ═══════════════════════════════════════════
           CTA — Dark chocolate panel + honey gold panel
           ═══════════════════════════════════════════ */}
-      <section className="px-5 py-10 lg:px-[10px] lg:py-12">
+      <section className="px-5 py-24 lg:px-[40px] lg:py-32">
         <div className="mx-auto grid max-w-7xl gap-5 lg:grid-cols-[1.2fr_0.8fr] lg:gap-8">
           {/* LEFT — Dark Chocolate editorial panel */}
           <motion.div

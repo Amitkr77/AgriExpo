@@ -7,6 +7,7 @@ import Applications from "@/components/Application";
 import ExportPresence from "@/components/ExportPresence";
 import WhyChooseSriGreen from "@/components/WhyChoose";
 import InlineInquiryCTA from "@/components/InlineInquiryCTA";
+import Application from "@/components/ApplicationSubPage";
 import vegimage from "@/assets/vegimage.webp";
 // import Header from "@/components/Header";
 import fruitimage from "@/assets/fruitimg1.png";
@@ -126,6 +127,7 @@ export default function Page() {
         {/* Featured Product */}
         <FeaturedProduct />
         <Applications />
+        <Application />
         <ExportPresence />
         <WhyChooseSriGreen />
         <section className="text-center mb-16">

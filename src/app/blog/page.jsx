@@ -577,7 +577,6 @@ export default function Blog() {
           </div>
         )}
       </div>
-
       {/* ── Newsletter ── */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
@@ -620,7 +619,6 @@ export default function Blog() {
           <p className="text-[9px] sm:text-[10px] tracking-wider text-[#c0c9c1]">No spam. Unsubscribe any time.</p>
         </div>
       </motion.div>
-
     </div>
   );
 }
