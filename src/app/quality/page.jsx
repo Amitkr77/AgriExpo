@@ -954,13 +954,20 @@ export default function QualityPage() {
                         stiffness: 300,
                         damping: 20,
                       }}
-                      onClick={() =>
+                      onClick={() =>{
                         trackEvent(
                           "certification_view",
                           "quality",
                           "view_certifications_button"
-                        )
-                      }
+                        );
+
+                         document
+                          .getElementById("certifications")
+                          ?.scrollIntoView({
+                            behavior: "smooth",
+                            block: "center",
+                          });
+                      }}
                       className="w-full sm:w-auto"
                       style={{
                         background: DS.secondaryContainer,
