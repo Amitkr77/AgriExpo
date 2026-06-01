@@ -347,10 +347,10 @@ export default function Page() {
             </h2>
             <Link
               href="/products/fruit-powders"
-              className="group flex items-center gap-3 rounded-full bg-[#f5f4e5] border border-[#d8d5c0] px-6 py-3 font-semibold text-[#14422d] shadow-sm transition-all duration-300 hover:shadow-xl hover:-translate-y-1"
+              className="group flex items-center gap-3 rounded-full bg-[#f5f4e5] border border-[#d8d5c0] px-4 py-2 font-semibold text-[#14422d] shadow-sm transition-all duration-300 hover:shadow-xl hover:-translate-y-1"
             >
               <span>View All Products</span>
-            <div className="flex items-center justify-center w-10 h-10 rounded-full bg-[#14422d] border-2 border-white">
+              <div className="flex items-center justify-center w-10 h-10 rounded-full bg-[#14422d] border-2 border-white">
               <ChevronRight className="w-5 h-5 text-white" strokeWidth={3} />
             </div>
             </Link>
@@ -385,7 +385,7 @@ export default function Page() {
 
             <Link
               href="/products/vegetable-powders"
-              className="group flex items-center gap-3 rounded-full bg-[#f5f4e5] border border-[#d8d5c0] px-6 py-3 font-semibold text-[#14422d] shadow-sm transition-all duration-300 hover:shadow-xl hover:-translate-y-1"
+              className="group flex items-center gap-3 rounded-full bg-[#f5f4e5] border border-[#d8d5c0] px-4 py-2 font-semibold text-[#14422d] shadow-sm transition-all duration-300 hover:shadow-xl hover:-translate-y-1"
             >
               <span>View All Products</span>
               <div className="flex items-center justify-center w-10 h-10 rounded-full bg-[#14422d] border-2 border-white">
