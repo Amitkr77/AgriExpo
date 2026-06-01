@@ -215,12 +215,12 @@ export default function Page() {
                   for culinary excellence and seasoning perfection.
                 </p>
 
-                <button className="bg-[#14422d] text-white px-8 py-4 rounded-full text-[16px] font-semibold flex items-center gap-2 hover:opacity-90 transition-opacity">
+                {/* <button className="bg-[#14422d] text-white px-8 py-4 rounded-full text-[16px] font-semibold flex items-center gap-2 hover:opacity-90 transition-opacity">
                   View Varieties
                   <span className="material-symbols-outlined">
                     arrow_forward
                   </span>
-                </button>
+                </button> */}
               </div>
 
               <div className="flex-1 order-1 md:order-2 relative w-full h-75 md:h-full ">
