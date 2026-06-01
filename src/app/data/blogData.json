@@ -33,9 +33,26 @@
         ],
         "coverImage": {"url": "/BlogImg/onionP.png", "alt": "Bulk onion powder manufacturing and export facility in India", "caption": "India is one of the leading exporters of dehydrated onion powder worldwide", "width": 1200, "height": 630},
         "galleryImages": [
-          {"url": "https://images.unsplash.com/photo-1587049633312-d628ae50a8ae", "alt": "Dehydrated onion powder in industrial food processing facility", "caption": "Premium-quality onion powder production process"},
-          {"url": "https://images.unsplash.com/photo-1515003197210-e0cd71810b5f", "alt": "Fresh onions prepared for dehydration and processing", "caption": "Fresh onion sourcing for dehydrated food manufacturing"},
-          {"url": "https://images.unsplash.com/photo-1520607162513-77705c0f0d4a", "alt": "Export packaging for bulk food ingredients", "caption": "Industrial export packaging for international buyers"}
+          {
+            "url": "https://images.unsplash.com/photo-1587049633312-d628ae50a8ae?auto=format&fit=crop&w=1200&q=80",
+            "alt": "Dehydrated onion powder in industrial food processing facility",
+            "caption": "Premium-quality onion powder production process"
+          },
+          {
+            "url": "https://images.unsplash.com/photo-1515003197210-e0cd71810b5f?auto=format&fit=crop&w=1200&q=80",
+            "alt": "Fresh onions prepared for dehydration and processing",
+            "caption": "Fresh onion sourcing for dehydrated food manufacturing"
+          },
+          {
+            "url": "https://images.unsplash.com/photo-1520607162513-77705c0f0d4a?auto=format&fit=crop&w=1200&q=80",
+            "alt": "Export packaging for bulk food ingredients",
+            "caption": "Industrial export packaging for international buyers"
+          },
+          {
+            "url": "https://images.unsplash.com/photo-1517048676732-d65bc937f952?auto=format&fit=crop&w=1200&q=80",
+            "alt": "Quality control and inspection of dehydrated onion powder for export",
+            "caption": "Strict quality testing and inspection for global export standards"
+          }
         ],
         "video": {"url": "https://youtube.com/watch?v=Q3gQvM0v2zQ", "thumbnail": "/BlogImg/onionP.png", "duration": 720},
         "author": {"id": "author-priya-sharma", "name": "Priya Sharma", "username": "priyasharmafoods", "bio": "Food processing industry analyst and B2B export content strategist specializing in dehydrated vegetables, spice manufacturing, food safety standards, and global sourcing trends.", "avatar": "https://randomuser.me/api/portraits/women/52.jpg", "email": "priya@foodexportinsights.com", "website": "https://foodexportinsights.com", "socials": {"twitter": "https://twitter.com/priyasharmafoods", "linkedin": "https://linkedin.com/in/priyasharmafoods", "github": "https://github.com/priyasharmafoods"}},
@@ -88,9 +105,11 @@
         ],
         "coverImage":{"url": "/BlogImg/fruits.png","alt": "Comparison of spray dried and dehydrated fruit powders in food manufacturing", "caption": "Understanding the differences between spray dried and dehydrated fruit powders", "width": 1200, "height": 630},
         "galleryImages": [
-          {"url": "/BlogImg/fruits.png", "alt": "Fruit powder manufacturing process in industrial food facility", "caption": "Industrial fruit powder processing and drying systems"},
-          {"url": "/BlogImg/fruits.png", "alt": "Natural fruit powders used in smoothies and supplements", "caption": "Fruit powders used in beverages and nutritional products"},
-          {"url": "/BlogImg/fruits.png", "alt": "Fresh fruits prepared for dehydration and spray drying", "caption": "Fresh fruit sourcing for powder manufacturing"}
+          {"url": "/BlogImg/Manu.png", "alt": "Fruit powder manufacturing process in industrial food facility", "caption": "Industrial fruit powder processing and drying systems"},
+          {"url": "/BlogImg/Natu.png", "alt": "Natural fruit powders used in smoothies and supplements", "caption": "Fruit powders used in beverages and nutritional products"},
+          {"url": "/BlogImg/Manu.png", "alt": "Fresh fruits prepared for dehydration and spray drying", "caption": "Fresh fruit sourcing for powder manufacturing"},
+          {"url": "/BlogImg/Manu.png", "alt": "Quality control and testing of fruit powders for food applications", "caption": "Strict quality testing for food ingredient standards"}
+        
         ],
         "video": {"url": "https://youtube.com/watch?v=R0m7mW6O7fg", "thumbnail": "/BlogImg/fruits.png", "duration": 780},
         "author": {"id": "author-ananya-mehta", "name": "Ananya Mehta", "username": "ananyamehtafoods", "bio": "Food ingredient industry researcher and technical content strategist specializing in fruit powders, spray drying technology, dehydrated foods, and functional ingredient sourcing.", "avatar": "https://randomuser.me/api/portraits/women/68.jpg", "email": "ananya@ingredientinsights.com", "website": "https://ingredientinsights.com", "socials": {"twitter": "https://twitter.com/ananyamehtafoods", "linkedin": "https://linkedin.com/in/ananyamehtafoods", "github": "https://github.com/ananyamehtafoods"}},
@@ -143,7 +162,8 @@
         "galleryImages": [
           {"url": "https://images.unsplash.com/photo-1515003197210-e0cd71810b5f", "alt": "Fresh tomatoes prepared for dehydration and powder production", "caption": "Fresh tomatoes used for industrial tomato powder manufacturing"},
           {"url": "https://images.unsplash.com/photo-1504674900247-0877df9cc836", "alt": "Instant noodles and ready-to-eat meals using tomato seasoning", "caption": "Tomato powder is widely used in instant foods and meal kits"},
-          {"url": "https://images.unsplash.com/photo-1498837167922-ddd27525d352", "alt": "Snack food seasoning production with tomato powder", "caption": "Snack manufacturers use tomato powder for flavor and natural coloring"}
+          {"url": "https://images.unsplash.com/photo-1498837167922-ddd27525d352", "alt": "Snack food seasoning production with tomato powder", "caption": "Snack manufacturers use tomato powder for flavor and natural coloring"},
+          {"url": "https://images.unsplash.com/photo-1523983308690-1c8e6c9bde0b", "alt": "Quality control testing of tomato powder for food safety", "caption": "Food manufacturers conduct strict quality testing for tomato powder ingredients"}
         ],
         "video": {"url": "https://youtube.com/watch?v=7fQ8nL8mP0Y", "thumbnail": "/BlogImg/tomatoP.png", "duration": 690},
         "author": {"id": "author-rhea-kapoor", "name": "Rhea Kapoor", "username": "rheakapoorfoods", "bio": "Food industry content strategist and ingredient market researcher specializing in dehydrated vegetables, food processing technologies, and ready-to-eat product innovation.", "avatar": "https://randomuser.me/api/portraits/women/41.jpg", "email": "rhea@foodmanufacturinginsights.com", "website": "https://foodmanufacturinginsights.com", "socials": {"twitter": "https://twitter.com/rheakapoorfoods", "linkedin": "https://linkedin.com/in/rheakapoorfoods", "github": "https://github.com/rheakapoorfoods"}},
@@ -201,7 +221,8 @@
         "galleryImages": [
           {"url": "https://images.unsplash.com/photo-1514996937319-344454492b37", "alt": "Functional nutraceutical powders with beetroot ingredients", "caption": "Beetroot powder in functional nutrition formulations"},
           {"url": "https://images.unsplash.com/photo-1490645935967-10de6ba17061", "alt": "Sports nutrition smoothie with beetroot powder", "caption": "Beetroot powder is commonly used in sports nutrition beverages"},
-          {"url": "/BlogImg/beetP.png", "alt": "Natural beetroot powder for supplement manufacturing", "caption": "Natural beetroot powder for nutraceutical production"}
+          {"url": "/BlogImg/beetP.png", "alt": "Natural beetroot powder for supplement manufacturing", "caption": "Natural beetroot powder for nutraceutical production"},
+          {"url": "https://images.unsplash.com/photo-1506801310323-534be5e7a86c", "alt": "Beetroot powder capsules and tablets for heart health supplements", "caption": "Beetroot powder in heart health formulations"}
         ],
         "video": {"url": "https://youtube.com/watch?v=2k8uN5QwJxA", "thumbnail": "/BlogImg/beetP.png", "duration": 750},
         "author": {"id": "author-neha-verma", "name": "Neha Verma", "username": "nehavermawellness", "bio": "Nutraceutical industry writer and functional ingredient researcher specializing in plant-based supplements, sports nutrition, wellness ingredients, and clean-label product development.", "avatar": "https://randomuser.me/api/portraits/women/36.jpg", "email": "neha@wellnessingredientinsights.com", "website": "https://wellnessingredientinsights.com", "socials": {"twitter": "https://twitter.com/nehavermawellness", "linkedin": "https://linkedin.com/in/nehavermawellness", "github": "https://github.com/nehavermawellness"}},
@@ -254,9 +275,10 @@
         ],
         "coverImage": {"url": "/BlogImg/import.png", "alt": "Fruit powder export packaging and global shipping from India", "caption": "India is a major global supplier of spray dried and dehydrated fruit powders", "width": 1200, "height": 630},
         "galleryImages": [
-          {"url": "/BlogImg/fruit-powder-manufacturing.jpg", "alt": "Spray dried fruit powder manufacturing process", "caption": "Modern fruit powder production for global export markets"},
-          {"url": "/BlogImg/fruit-powder-formulations.jpg", "alt": "Fruit powders used in beverage and nutraceutical formulations", "caption": "Fruit powders are widely used across food and wellness Agro"},
-          {"url": "/BlogImg/fruit-powder-packaging.jpg", "alt": "Export packaging for industrial fruit powder shipments", "caption": "Proper packaging is essential for international fruit powder exports"}
+          {"url": "/BlogImg/packaging.png", "alt": "Spray dried fruit powder manufacturing process", "caption": "Modern fruit powder production for global export markets"},
+          {"url": "/BlogImg/fruits.png", "alt": "Fruit powders used in beverage and nutraceutical formulations", "caption": "Fruit powders are widely used across food and wellness Agro"},
+          {"url": "/BlogImg/import.png", "alt": "Export packaging for industrial fruit powder shipments", "caption": "Proper packaging is essential for international fruit powder exports"},
+          {"url": "/BlogImg/Manu.png", "alt": "Quality testing of fruit powders for export compliance", "caption": "Quality verification is critical for successful importing"}
         ],
         "video": {"url": "https://youtube.com/watch?v=5YxKQmXr9wI", "thumbnail": "/BlogImg/import.png", "duration": 840},
         "author": {"id": "author-aarav-mehta", "name": "Aarav Mehta", "username": "aaravmehtaexports", "bio": "Food ingredient export consultant and B2B sourcing strategist specializing in dehydrated ingredients, nutraceutical exports, and global food supply chains.", "avatar": "https://randomuser.me/api/portraits/men/42.jpg", "email": "aarav@globalfoodexportinsights.com", "website": "https://globalfoodexportinsights.com", "socials": {"twitter": "https://twitter.com/aaravexports", "linkedin": "https://linkedin.com/in/aaravmehtaexports", "github": "https://github.com/aaravmehtaexports"}},
@@ -316,7 +338,8 @@
         "galleryImages": [
           {"url": "/BlogImg/g.png", "alt": "Fresh garlic cloves prepared for dehydration", "caption": "Fresh garlic selection is critical for high-quality garlic powder production"},
           {"url": "/BlogImg/g.png", "alt": "Industrial dehydration process for garlic slices", "caption": "Controlled dehydration preserves garlic flavor and shelf stability"},
-          {"url": "/BlogImg/g.png", "alt": "Garlic powder used in seasoning blends and food manufacturing", "caption": "Garlic powder is widely used across the global food industry"}
+          {"url": "/BlogImg/g.png", "alt": "Garlic powder used in seasoning blends and food manufacturing", "caption": "Garlic powder is widely used across the global food industry"},
+          {"url": "/BlogImg/g.png", "alt": "Quality testing of garlic powder for food safety compliance", "caption": "Quality control is essential for safe and consistent garlic powder products"}
         ],
         "video": {"url": "https://youtube.com/watch?v=3mX7dYkL5qA", "thumbnail": "https://images.unsplash.com/photo-1615485290382-441e4d049cb5", "duration": 780},
         "author": {"id": "author-raghav-sharma", "name": "Raghav Sharma", "username": "raghavfoodprocessing", "bio": "Food processing consultant and dehydrated ingredient specialist with expertise in spice processing, industrial dehydration technologies, and food manufacturing systems.", "avatar": "https://randomuser.me/api/portraits/men/51.jpg", "email": "raghav@foodprocessinginsights.com", "website": "https://foodprocessinginsights.com", "socials": {"twitter": "https://twitter.com/raghavprocessing", "linkedin": "https://linkedin.com/in/raghavsharmafoodprocessing", "github": "https://github.com/raghavfoodprocessing"}},
@@ -374,7 +397,8 @@
         "galleryImages": [
           {"url": "/BlogImg/MangoP.png", "alt": "Mango smoothie beverage formulation with fruit powder", "caption": "Mango powder improves beverage flavor and formulation stability"},
           {"url": "/BlogImg/MangoP.png", "alt": "Instant tropical beverage powder production", "caption": "Spray dried fruit powders support convenient beverage manufacturing"},
-          {"url": "/BlogImg/MangoP.png", "alt": "Industrial spray drying process for mango powder", "caption": "Spray drying technology creates fine soluble mango powder"}
+          {"url": "/BlogImg/MangoP.png", "alt": "Industrial spray drying process for mango powder", "caption": "Spray drying technology creates fine soluble mango powder"},
+          {"url": "/BlogImg/MangoP.png", "alt": "Mango powder used in sports drink formulations", "caption": "Sports nutrition beverages benefit from natural fruit flavoring with mango powder"}
         ],
         "video": {"url": "https://youtube.com/watch?v=7mQnK2xL9sE", "thumbnail": "https://images.unsplash.com/photo-1623065422902-30a2d299bbe4", "duration": 720},
         "author": {"id": "author-ishita-malhotra", "name": "Ishita Malhotra", "username": "ishitabeverageinsights", "bio": "Food ingredient strategist and beverage industry writer specializing in spray dried ingredients, functional beverages, and clean-label product innovation.", "avatar": "https://randomuser.me/api/portraits/women/48.jpg", "email": "ishita@beverageingredientinsights.com", "website": "https://beverageingredientinsights.com", "socials": {"twitter": "https://twitter.com/ishitabeverages", "linkedin": "https://linkedin.com/in/ishitamalhotrabeverages", "github": "https://github.com/ishitabeverages"}},
@@ -430,7 +454,8 @@
         "galleryImages": [
           {"url": "/BlogImg/freshonion.png", "alt": "Fresh onions used in commercial kitchens", "caption": "Fresh onions are commonly used in restaurants and cooking applications"},
           {"url": "/BlogImg/freshonion.png", "alt": "Onion powder used in seasoning blends", "caption": "Onion powder offers consistency and convenience for food manufacturing"},
-          {"url": "/BlogImg/freshonion.png", "alt": "Industrial food seasoning production using onion powder", "caption": "Onion powder supports scalable industrial food processing"}
+          {"url": "/BlogImg/freshonion.png", "alt": "Industrial food seasoning production using onion powder", "caption": "Onion powder supports scalable industrial food processing"},
+          {"url": "/BlogImg/freshonion.png", "alt": "Bulk onion powder storage for food manufacturing", "caption": "Onion powder is easier to store and transport for large-scale food production"}
         ],
         "video": {"url": "https://youtube.com/watch?v=8kN7zXfP2gQ", "thumbnail": "https://images.unsplash.com/photo-1508747703725-719777637510", "duration": 760},
         "author": {"id": "author-neeraj-kapoor", "name": "Neeraj Kapoor", "username": "neerajfoodindustry", "bio": "Food ingredient analyst and food processing consultant specializing in dehydrated vegetable ingredients, seasoning systems, and industrial food manufacturing.", "avatar": "https://randomuser.me/api/portraits/men/42.jpg", "email": "neeraj@foodindustryinsights.com", "website": "https://foodindustryinsights.com", "socials": {"twitter": "https://twitter.com/neerajfoodtech", "linkedin": "https://linkedin.com/in/neerajkapoorfoodtech", "github": "https://github.com/neerajfoodtech"}},
@@ -489,7 +514,8 @@
         "galleryImages": [
           {"url": "https://images.unsplash.com/photo-1520607162513-77705c0f0d4a", "alt": "Food manufacturing quality inspection process", "caption": "Food safety audits help exporters meet international compliance requirements"},
           {"url": "https://images.unsplash.com/photo-1581092921461-eab10380d70f", "alt": "Factory food safety management systems", "caption": "Structured food safety systems improve operational reliability"},
-          {"url": "https://images.unsplash.com/photo-1556740749-887f6717d7e4", "alt": "International export compliance documentation", "caption": "Export certifications support global market access"}
+          {"url": "https://images.unsplash.com/photo-1556740749-887f6717d7e4", "alt": "International export compliance documentation", "caption": "Export certifications support global market access"},
+          {"url": "https://images.unsplash.com/photo-1564758866814-1b0cdb7e9d8a", "alt": "Food safety certification audit process", "caption": "Certification audits verify compliance with global food safety standards"}
         ],
         "video": {"url": "https://youtube.com/watch?v=5QvL6M0T3dA", "thumbnail": "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40", "duration": 840},
         "author": {"id": "author-raghav-sharma-safety", "name": "Raghav Sharma", "username": "raghavfoodsafety", "bio": "Food safety consultant and export compliance specialist helping food manufacturers implement global certification systems and international quality standards.", "avatar": "https://randomuser.me/api/portraits/men/55.jpg", "email": "raghav@foodsafetyexports.com", "website": "https://foodsafetyexports.com", "socials": {"twitter": "https://twitter.com/raghavfoodsafety", "linkedin": "https://linkedin.com/in/raghavsharmafoodsafety", "github": "https://github.com/raghavfoodsafety"}},

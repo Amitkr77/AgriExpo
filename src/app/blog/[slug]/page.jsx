@@ -169,25 +169,33 @@ export default async function BlogPostPage({ params }) {
       ══════════════════════════════════════════════════════════════ */}
       <div className="mx-auto max-w-7xl px-4 sm:px-6 md:px-8 lg:px-10 pb-16 sm:pb-20 md:pb-24">
                   {/* Breadcrumb */}
-          <nav className="mb-6 sm:mb-8 flex items-center gap-2 flex-wrap">
-            <Link
-              href="/"
-              className="text-[12px] sm:text-[16px] font-bold uppercase tracking-[0.2em] text-blue-600/50 hover:text-blue-700/70 transition-colors duration-200"
-            >
-              Home
-            </Link>
-            <span className="text-blue-700/50 text-[12px]">/</span>
-            <Link
-              href="/blog"
-              className="text-[12px] sm:text-[16px] font-bold uppercase tracking-[0.2em] text-blue-600/50 hover:text-blue-700/70 transition-colors duration-200"
-            >
-              Blog
-            </Link>
-            <span className="text-blue-700/50 text-[12px]">/</span>
-            <span className="text-[12px] sm:text-[16px] font-bold uppercase tracking-[0.2em] text-blue-600/50 truncate max-w-[200px]">
-              {post.title}
-            </span>
-          </nav>
+  <nav className="mb-6 sm:mb-8 flex items-center gap-1 flex-wrap">
+  <Link
+    href="/"
+    className="text-[10px] sm:text-[12px] font-medium uppercase tracking-[0.15em] text-gray-500 hover:text-gray-700 transition-colors duration-200"
+  >
+    Home
+  </Link>
+
+  <span className="text-gray-400 text-[16px] sm:text-[18px] font-light">
+    /
+  </span>
+
+  <Link
+    href="/blog"
+    className="text-[10px] sm:text-[12px] font-medium uppercase tracking-[0.15em] text-gray-500 hover:text-gray-700 transition-colors duration-200"
+  >
+    Blog
+  </Link>
+
+  <span className="text-gray-400 text-[16px] sm:text-[18px] font-light">
+    /
+  </span>
+
+  <span className="text-[10px] sm:text-[12px] font-medium uppercase tracking-[0.15em] text-gray-500 truncate max-w-[200px]">
+    {post.title}
+  </span>
+</nav>
         <div className="flex flex-col lg:flex-row gap-8 lg:gap-12 -mt-2">
 
           {/* ── SIDEBAR ── */}
@@ -491,7 +499,7 @@ export default async function BlogPostPage({ params }) {
               </section>
             )}*/}
 
-            {/* ── Custom Fields ── */}
+            {/* ── Custom Fields ── 
             {post.customFields && (
               <section className="mt-10 sm:mt-12 rounded-[2rem] border border-[#e4e3d4] bg-[#f5f4e5] p-5 sm:p-7">
                 <div className="mb-4 flex items-center gap-2.5">
@@ -521,7 +529,7 @@ export default async function BlogPostPage({ params }) {
                   )}
                 </div>
               </section>
-            )}
+            )}*/}
 
             {/* ── Related Posts ── */}
             {relatedPosts.length > 0 && (
