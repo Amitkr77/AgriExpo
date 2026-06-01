@@ -101,174 +101,174 @@ export default function ApplicationSubPage({ data }) {
       {/* ═══════════════════════════════════════════
           HERO
           ═══════════════════════════════════════════ */}
-{data.hero && (
-  <section className="relative overflow-hidden px-5 mt-20 py-8 md:px-10 lg:px-[40px] lg:py-12">
-    <div className="absolute inset-0 opacity-[0.04] bg-[radial-gradient(circle,#717973_1px,transparent_1px)] bg-[size:20px_20px]" />
+      {data.hero && (
+        <section className="relative overflow-hidden px-5 mt-20 py-8 md:px-10 lg:px-[40px] lg:py-12">
+          <div className="absolute inset-0 opacity-[0.04] bg-[radial-gradient(circle,#717973_1px,transparent_1px)] bg-[size:20px_20px]" />
 
-    <div className="relative z-20 mx-auto max-w-7xl">
-      {/* MAIN GRID */}
-      <div className="grid gap-5 lg:gap-6 lg:grid-cols-[0.85fr_1.7fr]">
-        
-        {/* LEFT COLUMN - BREADCRUMB + STATS */}
-        <div className="flex flex-col gap-4 lg:gap-5">
-          
-          {/* BREADCRUMB CARD */}
-          {breadcrumb.length > 0 && (
-            <motion.div
-              initial={{ opacity: 0, y: -10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4 }}
-              className="rounded-[2rem] bg-[#f0efe0] p-5 lg:p-6"
-            >
-              <p className="text-[11px] font-bold uppercase text-[#717973] tracking-[0.15em] mb-2">
-                You are here
-              </p>
-              <nav className="flex flex-wrap items-center gap-2 text-[13px] text-[#414943]">
-                <Link
-                  href="/"
-                  className="hover:text-[#14422d] transition-colors"
-                >
-                  Home
-                </Link>
-                <span className="text-[#717973]">/</span>
-                <Link
-                  href="/applications"
-                  className="hover:text-[#14422d] transition-colors"
-                >
-                  Applications
-                </Link>
-                <span className="text-[#717973]">/</span>
-                <span className="font-bold text-[#14422d]">
-                  {data.hero.heading}
-                </span>
-              </nav>
-            </motion.div>
-          )}
-
-          {/* STATS GRID - 2x2 */}
-          {hasArray(data.stats) && (
-            <div className="grid grid-cols-2 gap-4 lg:gap-5 flex-1">
-              {data.stats.map((item, i) => (
-                <motion.div
-                  key={i}
-                  initial={{ opacity: 0, y: 14 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.4, delay: i * 0.07 }}
-                  className={`${item.bg} ${item.text} rounded-[2rem] p-5 text-center flex flex-col justify-center items-center min-h-[130px] lg:min-h-[150px]`}
-                >
-                  <h3 className="text-[2rem] lg:text-[2.2rem] font-extrabold tracking-[-0.04em] leading-none">
-                    {item.value}
-                  </h3>
-                  <p
-                    className="mt-2 text-[10px] font-bold uppercase opacity-70 leading-tight"
-                    style={{ letterSpacing: "0.1em" }}
+          <div className="relative z-20 mx-auto max-w-7xl">
+            {/* MAIN GRID */}
+            <div className="grid gap-5 lg:gap-6 lg:grid-cols-[0.85fr_1.7fr]">
+              
+              {/* LEFT COLUMN - BREADCRUMB + STATS */}
+              <div className="flex flex-col gap-4 lg:gap-5">
+                
+                {/* BREADCRUMB CARD */}
+                {breadcrumb.length > 0 && (
+                  <motion.div
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.4 }}
+                    className="rounded-[2rem] bg-[#f0efe0] p-5 lg:p-6"
                   >
-                    {item.label}
-                  </p>
-                </motion.div>
-              ))}
-            </div>
-          )}
-        </div>
+                    <p className="text-[11px] font-bold uppercase text-[#717973] tracking-[0.15em] mb-2">
+                      You are here
+                    </p>
+                    <nav className="flex flex-wrap items-center gap-2 text-[13px] text-[#414943]">
+                      <Link
+                        href="/"
+                        className="hover:text-[#14422d] transition-colors"
+                      >
+                        Home
+                      </Link>
+                      <span className="text-[#717973]">/</span>
+                      <Link
+                        href="/applications"
+                        className="hover:text-[#14422d] transition-colors"
+                      >
+                        Applications
+                      </Link>
+                      <span className="text-[#717973]">/</span>
+                      <span className="font-bold text-[#14422d]">
+                        {data.hero.heading}
+                      </span>
+                    </nav>
+                  </motion.div>
+                )}
 
-        {/* RIGHT COLUMN - HERO CARD */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7 }}
-          className={`relative overflow-hidden rounded-[3rem] ${
-            data.hero.color?.bg ?? "bg-gradient-to-br from-orange-400 to-orange-500"
-          } min-h-[500px] lg:min-h-[580px]`}
-        >
-          {/* BACKGROUND PATTERN */}
-          <div className="absolute inset-0 opacity-[0.04] bg-[radial-gradient(circle,#ffffff_1px,transparent_1px)] bg-[size:20px_20px]" />
+                {/* STATS GRID - 2x2 */}
+                {hasArray(data.stats) && (
+                  <div className="grid grid-cols-2 gap-4 lg:gap-5 flex-1">
+                    {data.stats.map((item, i) => (
+                      <motion.div
+                        key={i}
+                        initial={{ opacity: 0, y: 14 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.4, delay: i * 0.07 }}
+                        className={`${item.bg} ${item.text} rounded-[2rem] p-5 text-center flex flex-col justify-center items-center min-h-[130px] lg:min-h-[150px]`}
+                      >
+                        <h3 className="text-[2rem] lg:text-[2.2rem] font-extrabold tracking-[-0.04em] leading-none">
+                          {item.value}
+                        </h3>
+                        <p
+                          className="mt-2 text-[10px] font-bold uppercase opacity-70 leading-tight"
+                          style={{ letterSpacing: "0.1em" }}
+                        >
+                          {item.label}
+                        </p>
+                      </motion.div>
+                    ))}
+                  </div>
+                )}
+              </div>
 
-          {/* CONTENT */}
-          <div className="relative z-10 flex h-full flex-col justify-center p-6 md:p-8 lg:p-10">
-            
-            {/* BADGE */}
-            {data.hero.badge && (
+              {/* RIGHT COLUMN - HERO CARD */}
               <motion.div
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.4, delay: 0.1 }}
-                className={`inline-flex items-center gap-3 rounded-full ${
-                  data.hero.color?.badge ?? "bg-white/15 backdrop-blur-sm"
-                } px-5 py-2.5 w-fit border border-white/20`}
-              >
-                <div className="h-2 w-2 rounded-full bg-white" />
-                <span
-                  className={`text-[11px] font-bold uppercase tracking-[0.15em] ${
-                    data.hero.color?.badgeText ?? "text-[#5a3a00]"
-                  }`}
-                >
-                  {data.hero.badge}
-                </span>
-              </motion.div>
-            )}
-
-            {/* HEADING */}
-            <motion.h1
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-              className="mt-6 text-[36px] md:text-[48px] lg:text-[56px] font-extrabold leading-[1.05] tracking-[-0.03em] text-white"
-            >
-              {data.hero.heading}
-              {data.hero.headingAccent && (
-                <span
-                  className={`block mt-1 ${
-                    data.hero.color?.accent ?? "text-[#5a3a00]"
-                  }`}
-                >
-                  {data.hero.headingAccent}
-                </span>
-              )}
-            </motion.h1>
-
-            {/* SUBHEADING */}
-            {data.hero.subheading && (
-              <motion.p
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.3 }}
-                className={`mt-6 max-w-2xl text-[14px] lg:text-[15px] font-medium leading-[1.6] ${
-                  data.hero.color?.body ?? "text-white/90"
-                }`}
+                transition={{ duration: 0.7 }}
+                className={`relative overflow-hidden rounded-[3rem] ${
+                  data.hero.color?.bg ?? "bg-gradient-to-br from-orange-400 to-orange-500"
+                } min-h-[500px] lg:min-h-[580px]`}
               >
-                {data.hero.subheading}
-              </motion.p>
-            )}
+                {/* BACKGROUND PATTERN */}
+                <div className="absolute inset-0 opacity-[0.04] bg-[radial-gradient(circle,#ffffff_1px,transparent_1px)] bg-[size:20px_20px]" />
 
-            {/* CTA BUTTONS */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.4 }}
-              className="mt-8 flex flex-wrap gap-3"
-            >
-              <button
-                type="button"
-                onClick={() => openRequest("request_samples_hero")}
-                className="inline-flex items-center justify-center gap-2 rounded-full bg-[#fec567] px-6 py-3 text-[13px] font-bold text-[#281900] transition-all duration-300 hover:shadow-xl hover:-translate-y-0.5 active:translate-y-0"
-              >
-                Request Sample
-                <ArrowRight className="h-4 w-4" />
-              </button>
+                {/* CONTENT */}
+                <div className="relative z-10 flex h-full flex-col justify-center p-6 md:p-8 lg:p-10">
+                  
+                  {/* BADGE */}
+                  {data.hero.badge && (
+                    <motion.div
+                      initial={{ opacity: 0, scale: 0.9 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      transition={{ duration: 0.4, delay: 0.1 }}
+                      className={`inline-flex items-center gap-3 rounded-full ${
+                        data.hero.color?.badge ?? "bg-white/15 backdrop-blur-sm"
+                      } px-5 py-2.5 w-fit border border-white/20`}
+                    >
+                      <div className="h-2 w-2 rounded-full bg-white" />
+                      <span
+                        className={`text-[11px] font-bold uppercase tracking-[0.15em] ${
+                          data.hero.color?.badgeText ?? "text-[#5a3a00]"
+                        }`}
+                      >
+                        {data.hero.badge}
+                      </span>
+                    </motion.div>
+                  )}
 
-              <Link
-                href="/contact"
-                className="inline-flex items-center justify-center rounded-full border-2 border-white/40 bg-white/10 px-6 py-3 text-[13px] font-bold text-white backdrop-blur-sm transition-all duration-300 hover:bg-white/25 hover:border-white/60"
-              >
-                Get Bulk Quote
-              </Link>
-            </motion.div>
+                  {/* HEADING */}
+                  <motion.h1
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5, delay: 0.2 }}
+                    className="mt-6 text-[36px] md:text-[48px] lg:text-[56px] font-extrabold leading-[1.05] tracking-[-0.03em] text-white"
+                  >
+                    {data.hero.heading}
+                    {data.hero.headingAccent && (
+                      <span
+                        className={`block mt-1 ${
+                          data.hero.color?.accent ?? "text-[#5a3a00]"
+                        }`}
+                      >
+                        {data.hero.headingAccent}
+                      </span>
+                    )}
+                  </motion.h1>
+
+                  {/* SUBHEADING */}
+                  {data.hero.subheading && (
+                    <motion.p
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.5, delay: 0.3 }}
+                      className={`mt-6 max-w-2xl text-[14px] lg:text-[15px] font-medium leading-[1.6] ${
+                        data.hero.color?.body ?? "text-white/90"
+                      }`}
+                    >
+                      {data.hero.subheading}
+                    </motion.p>
+                  )}
+
+                  {/* CTA BUTTONS */}
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5, delay: 0.4 }}
+                    className="mt-8 flex flex-wrap gap-3"
+                  >
+                    <button
+                      type="button"
+                      onClick={() => openRequest("request_samples_hero")}
+                      className="inline-flex items-center justify-center gap-2 rounded-full bg-[#fec567] px-6 py-3 text-[13px] font-bold text-[#281900] transition-all duration-300 hover:shadow-xl hover:-translate-y-0.5 active:translate-y-0"
+                    >
+                      Request Sample
+                      <ArrowRight className="h-4 w-4" />
+                    </button>
+
+                    <Link
+                      href="/inquiry"
+                      className="inline-flex items-center justify-center rounded-full border-2 border-white/40 bg-white/10 px-6 py-3 text-[13px] font-bold text-white backdrop-blur-sm transition-all duration-300 hover:bg-white/25 hover:border-white/60"
+                    >
+                      Get Bulk Quote
+                    </Link>
+                  </motion.div>
+                </div>
+              </motion.div>
+            </div>
           </div>
-        </motion.div>
-      </div>
-    </div>
-  </section>
-)}
+        </section>
+      )}
 
       {/* ═══════════════════════════════════════════
           USE CASES
@@ -608,7 +608,7 @@ export default function ApplicationSubPage({ data }) {
                   Request Samples
                 </button>
                 <Link
-                  href="/contact"
+                  href="/inquiry"
                   className="block w-full rounded-full border-2 border-[#281900]/20 bg-[#281900]/5 px-6 py-4 text-center text-[13px] font-bold text-[#281900] transition-all hover:bg-[#281900]/10 hover:-translate-y-0.5"
                 >
                   Get Bulk Quote

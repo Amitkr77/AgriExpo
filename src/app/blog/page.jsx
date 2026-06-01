@@ -38,7 +38,7 @@ const Dot = () => <span className="h-0.5 w-0.5 rounded-full bg-[#c0c9c1]" />;
 
 const ArrowUpRight = () => (
   <svg width="9" height="9" viewBox="0 0 10 10" fill="none">
-    <path d="M2 8L8 2M8 2H3M8 2v5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" className="text-[#c0c9c1] group-hover:text-[#14422d] transition-colors" />
+    <path d="M2 8L8 2M8 2H3M8 2v5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" className="text-[#c0c9c1] group-hover:text-[#fec567]/90 transition-colors" />
   </svg>
 );
 
@@ -93,7 +93,7 @@ const FeaturedCard = memo(({ blog, onClick }) => (
         <span className="text-[9px] md:text-[10px] font-bold uppercase tracking-[0.12em] text-white/60">{getReadTime(blog.wordCount)}</span>
         <Dot />
         <span className="text-[9px] md:text-[10px] font-bold uppercase tracking-[0.12em] text-white/40">{formatDate(blog.publishedAt)}</span>
-        <div className="ml-auto flex h-7 w-7 sm:h-8 sm:w-8 items-center justify-center rounded-full border border-white/20 group-hover:border-[#fec567]/40 group-hover:bg-[#fec567]/10 transition-all duration-300">
+        <div className="ml-auto flex h-7 w-7 sm:h-8 sm:w-8 items-center justify-center rounded-full border border-white/20 group-hover:border-[#fec567]/90 group-hover:bg-[#fec567]/10 transition-all duration-300">
           <ArrowUpRight />
         </div>
       </div>
@@ -245,7 +245,7 @@ export default function Blog() {
           animate="visible"
           className="flex-1 flex flex-col justify-start relative lg:border-r border-[#e4e3d4] px-4 sm:px-6 md:px-8 lg:px-10"
         >
-          <div className="space-y-5 sm:space-y-6 mb-7 sm:mb-8 md:mb-10">
+          <div className="space-y-5 sm:space-y-6 mb-4 sm:mb-5 md:mb-6">
             <motion.div
               variants={{ hidden: { opacity: 0, x: -20 }, visible: { opacity: 1, x: 0 } }}
               transition={{ duration: 0.6, delay: 0.2 }}
@@ -260,35 +260,50 @@ export default function Blog() {
               <span className="text-[10px] md:text-[11px] font-bold uppercase tracking-[0.4em] md:tracking-[0.5em] text-[#414943]">The Journal</span>
             </motion.div>
 
-            <div className="space-y-[-0.04em]">
+            <div className="-mt-12 space-y-[0.04em]">
               {[{ text: "Ingredient", delay: 0.3 }].map(({ text, delay }) => (
-                <div key={text} className="overflow-hidden">
+                <div key={text} className="overflow-hidden py-5">
                   <motion.h1
                     initial={{ y: "110%" }}
                     animate={{ y: 0 }}
-                    transition={{ duration: 1, delay, ease: [0.76, 0, 0.24, 1] }}
-                    className="text-[clamp(2rem,10vw,9rem)] font-black leading-[0.85] tracking-[-0.04em] text-[#1b1c13]"
+                    transition={{
+                      duration: 1,
+                      delay,
+                      ease: [0.76, 0, 0.24, 1],
+                    }}
+                    className="text-[80px] sm:text-[100px] md:text-[120px] font-extrabold leading-[0.98] tracking-[-0.05em] text-[#1b1c13]"
                   >
                     {text}
                   </motion.h1>
                 </div>
               ))}
 
-              <div className="overflow-hidden flex items-center gap-3 md:gap-6">
+              <div className="overflow-hidden flex items-center gap-3 md:gap-6 pb-5">
                 {["&", "industry"].map((word, i) => (
                   <motion.span
                     key={word}
                     initial={{ y: "110%" }}
                     animate={{ y: 0 }}
-                    transition={{ duration: 1, delay: 0.4 + i * 0.05, ease: [0.76, 0, 0.24, 1] }}
-                    className={`relative text-[clamp(2rem,10vw,9rem)] font-black leading-[0.85] tracking-[-0.04em] text-[#c0c9c1] ${word === "industry" ? "italic" : ""}`}
+                    transition={{
+                      duration: 1,
+                      delay: 0.4 + i * 0.05,
+                      ease: [0.76, 0, 0.24, 1],
+                    }}
+                    className={`relative text-[80px] sm:text-[100px] md:text-[120px] font-extrabold leading-[0.98] tracking-[-0.05em] text-[#c0c9c1] ${
+                      word === "industry" ? "italic" : ""
+                    }`}
                   >
                     {word === "&" ? "& " : word}
+
                     {word === "industry" && (
                       <motion.span
                         initial={{ scaleX: 0 }}
                         animate={{ scaleX: 1 }}
-                        transition={{ duration: 0.8, delay: 1.2, ease: [0.76, 0, 0.24, 1] }}
+                        transition={{
+                          duration: 0.8,
+                          delay: 1.2,
+                          ease: [0.76, 0, 0.24, 1],
+                        }}
                         className="absolute left-0 top-3/4 w-full h-[2px] sm:h-[3px] md:h-1 bg-[#fec567]/60 origin-left -rotate-2"
                       />
                     )}
@@ -296,12 +311,16 @@ export default function Blog() {
                 ))}
               </div>
 
-              <div className="overflow-hidden">
+              <div className="overflow-hidden pb-5">
                 <motion.h1
                   initial={{ y: "110%" }}
                   animate={{ y: 0 }}
-                  transition={{ duration: 1, delay: 0.5, ease: [0.76, 0, 0.24, 1] }}
-                  className="text-[clamp(2rem,10vw,9rem)] font-black leading-[0.85] tracking-[-0.04em] text-[#14422d]"
+                  transition={{
+                    duration: 1,
+                    delay: 0.5,
+                    ease: [0.76, 0, 0.24, 1],
+                  }}
+                  className="text-[80px] sm:text-[100px] md:text-[120px] font-extrabold leading-[0.98] tracking-[-0.05em] text-[#14422d]"
                 >
                   insights.
                 </motion.h1>
@@ -309,7 +328,7 @@ export default function Blog() {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 gap-6 md:gap-8 border-t border-[#e4e3d4] pt-6 md:pt-8">
+          <div className="grid grid-cols-1 gap-6 md:gap-8 border-t border-[#e4e3d4] pt-4 md:pt-6">
             <motion.p
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -434,7 +453,7 @@ export default function Blog() {
 
       {/* ── Recent Articles ── */}
       <motion.div initial="hidden" whileInView="show" viewport={{ once: true }} className="border-b border-[#e4e3d4]">
-        <div className="flex items-center justify-between px-4 sm:px-6 md:px-8 lg:px-11 py-6 sm:py-7 md:py-8">
+        <div className="flex items-center justify-between px-4 sm:px-6 md:px-8 lg:px-11 py-4 sm:py-5 md:py-6">
           <span className="text-[10px] md:text-[11px] font-bold uppercase tracking-[0.3em] md:tracking-[0.35em] text-[#414943]">Recent articles</span>
         </div>
         <div className="w-120 h-[3px] mx-auto rounded-full bg-gradient-to-r from-transparent via-[#14422d]/40 to-transparent" />
