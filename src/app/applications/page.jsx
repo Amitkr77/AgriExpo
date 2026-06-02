@@ -5,6 +5,8 @@ import { motion } from "framer-motion";
 
 import apphero1 from "@/assets/apphero1.png";
 import apphero2 from "@/assets/apphero2.png";
+import { trackEvent } from "@/lib/gtag";
+import Request from "@/components/RequestSample";
 
 import {
   Factory,
@@ -25,7 +27,7 @@ import {
   Store,
 } from "lucide-react";
 import { useMotionValue, useSpring } from "framer-motion";
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
 
 /* ══════════════════════════════════════════════════
    DESIGN TOKENS — Artisanal Confectionary System
@@ -105,7 +107,7 @@ function useMagnet() {
 const applications = [
   {
     title: "Food Manufacturing",
-    id:"food-manufacturers",
+    id:"food-manufacturing",
     icon: Factory,
     desc: "Dehydrated and spray-dried ingredient powders for sauces, seasoning blends, snack coatings, frozen food formulations, bakery fillings and ready-to-eat meal production. Optimized for industrial mixing, batching and automated processing lines.",
     large: true,
@@ -177,7 +179,7 @@ const applications = [
   },
   {
     title: "Hotel & Food Service",
-    id:"hotel-food-service",
+    id:"hotel-food-services",
     icon: Globe2,
     desc: "Bulk ingredient solutions for hotel kitchens, restaurant chains, catering operations and institutional food service. Consistent quality at volume with simplified procurement and logistics support.",
     bg: "bg-[#f0efe0]",
@@ -346,6 +348,8 @@ const fadeUp = {
 
 export default function ApplicationsPage() {
 
+const [open, setOpen] = useState(false);  
+
 useEffect(() => {
   const params = new URLSearchParams(window.location.search);
 
@@ -443,7 +447,18 @@ useEffect(() => {
                   <ArrowRight className="h-4 w-4" />
                 </Link>
 
-                <button className="rounded-full border border-[#9fcfb2]/60 bg-[#9fcfb2]/10 px-7 py-3.5 text-[14px] font-bold text-[#9fcfb2] backdrop-blur-sm transition-all duration-300 hover:bg-[#9fcfb2]/20">
+                <button
+                  onClick={() => {
+                    setOpen(true);
+
+                    trackEvent(
+                      "quote_click",
+                      "conversion",
+                      "request_samples_button"
+                    );
+                  }}
+                  className="rounded-full border border-[#9fcfb2]/60 bg-[#9fcfb2]/10 px-7 py-3.5 text-[14px] font-bold text-[#9fcfb2] backdrop-blur-sm transition-all duration-300 hover:bg-[#9fcfb2]/20"
+                >
                   Request Samples
                 </button>
               </div>
@@ -594,7 +609,7 @@ useEffect(() => {
             >
               Industrial Applications
               <span className="block text-[#717973]">
-                Across Food Industries
+                Across Food Agro
               </span>
             </h2>
 
@@ -675,7 +690,8 @@ useEffect(() => {
 
                         {/* RIGHT CTA — pill button */}
                         <div className="flex items-end shrink-0">
-                          <button
+                          <Link
+                            href={`/applications/${item.id}`}
                             className={`
                               ${item.ctaBg} ${item.ctaText}
                               group/button inline-flex items-center gap-2
@@ -688,7 +704,7 @@ useEffect(() => {
                           >
                             Learn More
                             <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover/button:translate-x-1" />
-                          </button>
+                          </Link>
                         </div>
                       </div>
 
@@ -891,7 +907,7 @@ useEffect(() => {
         </div>
       </section>
       {/* ═══════════════════════════════════════════
-          INDUSTRIES — Four colorful bento cards
+          Agro — Four colorful bento cards
           ═══════════════════════════════════════════ */}
       <section className="px-5 py-24 lg:px-[40px] lg:py-32">
         <div className="mx-auto max-w-7xl">
@@ -901,7 +917,7 @@ useEffect(() => {
               className="text-[12px] font-bold uppercase text-[#7e5700]"
               style={{ letterSpacing: "0.1em" }}
             >
-              Industries We Serve
+              Agro We Serve
             </span>
             <h2
               className="mt-5 text-[32px] font-extrabold leading-[0.92] tracking-[-0.02em] text-[#1b1c13] md:text-[48px]"
@@ -1102,9 +1118,19 @@ useEffect(() => {
                 Request Technical Specs
               </button>
 
-              <button className="w-full rounded-full border-2 border-[#281900]/20 bg-[#281900]/5 px-6 py-4 text-[13px] font-bold text-[#281900] backdrop-blur-sm transition-all duration-300 hover:bg-[#281900]/10 hover:-translate-y-0.5">
+              <Link
+                href="/inquiry"
+                onClick={() =>
+                  trackEvent(
+                    "quote_click",
+                    "conversion",
+                    "bulk_quote_button"
+                  )
+                }
+                className="block w-full rounded-full border-2 border-[#281900]/20 bg-[#281900]/5 px-6 py-4 text-center text-[13px] font-bold text-[#281900] backdrop-blur-sm transition-all duration-300 hover:bg-[#281900]/10 hover:-translate-y-0.5"
+              >
                 Get Bulk Quote
-              </button>
+              </Link>
             </div>
 
             {/* FOOT NOTE */}
@@ -1122,6 +1148,7 @@ useEffect(() => {
           </motion.div>
         </div>
       </section>
+      <Request open={open} setOpen={setOpen} />
     </main>
   );
 }

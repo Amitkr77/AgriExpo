@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { Send } from "lucide-react";
+import { trackEvent } from "@/lib/gtag";
 
 export default function InlineInquiryCTA() {
   return (
@@ -49,21 +50,49 @@ export default function InlineInquiryCTA() {
               <input
                 type="text"
                 placeholder="Company Name"
-                className="w-full rounded-2xl border border-white bg-white/5 px-4 py-3 text-sm text-white placeholder:text-white/50 outline-none backdrop-blur-md"
+                className="w-full rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white placeholder:text-white/50 outline-none backdrop-blur-md"
               />
 
-              <select className="w-full rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white/100 outline-none backdrop-blur-md sm:col-span-2">
-               
-              <option value="" disabled className=" text-gray-400">
-                Product Interest
-              </option>
-              <option className="text-black">Onion Powder</option>
-              <option className="text-black">Garlic Powder</option>
-              <option className="text-black">Mango Powder</option>
-              <option className="text-black">Tomato Powder</option>
-              <option className="text-black">Beetroot Powder</option>
-              <option className="text-black">Pomegranate Powder</option>
+              <select
+                defaultValue=""
+                className="w-full rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white outline-none backdrop-blur-md"
+              >
+                <option value="" disabled className="text-gray-400">
+                  Product Interest
+                </option>
+                <option className="text-black">Onion Powder</option>
+                <option className="text-black">Garlic Powder</option>
+                <option className="text-black">Mango Powder</option>
+                <option className="text-black">Tomato Powder</option>
+                <option className="text-black">Beetroot Powder</option>
+                <option className="text-black">Pomegranate Powder</option>
               </select>
+
+              <select
+                defaultValue=""
+                className="w-full rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white outline-none backdrop-blur-md"
+              >
+                <option value="" disabled className="text-gray-400">
+                  Inquiry Type
+                </option>
+                <option className="text-black">Bulk Purchase</option>
+                <option className="text-black">Private Label</option>
+                <option className="text-black">Sample Request</option>
+                <option className="text-black">Export Inquiry</option>
+                <option className="text-black">Custom Formulation</option>
+              </select>
+
+              <input
+                type="text"
+                placeholder="Required Volume / MOQ"
+                className="w-full rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white placeholder:text-white/50 outline-none backdrop-blur-md"
+              />
+
+              <input
+                type="text"
+                placeholder="Country / Market"
+                className="w-full rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white placeholder:text-white/50 outline-none backdrop-blur-md"
+              />
 
               <input
                 type="email"
@@ -75,6 +104,13 @@ export default function InlineInquiryCTA() {
             <button
               type="submit"
               className="mt-2 inline-flex w-full items-center justify-center gap-2 rounded-full bg-[#fec567] px-6 py-4 text-sm font-bold text-[#1b1c13] transition-all duration-300 hover:gap-3"
+              onClick={() =>
+                trackEvent(
+                  "form_submit",
+                  "forms",
+                  "inquiry_form"
+                )
+              }
             >
               Submit Inquiry
               <Send className="h-4 w-4" />

@@ -7,6 +7,7 @@ import Applications from "@/components/Application";
 import ExportPresence from "@/components/ExportPresence";
 import WhyChooseSriGreen from "@/components/WhyChoose";
 import InlineInquiryCTA from "@/components/InlineInquiryCTA";
+import Application from "@/components/ApplicationSubPage";
 import vegimage from "@/assets/vegimage.webp";
 // import Header from "@/components/Header";
 import fruitimage from "@/assets/fruitimg1.png";
@@ -126,6 +127,7 @@ export default function Page() {
         {/* Featured Product */}
         <FeaturedProduct />
         <Applications />
+        <Application />
         <ExportPresence />
         <WhyChooseSriGreen />
         <section className="text-center mb-16">
@@ -146,21 +148,21 @@ export default function Page() {
             <div className="flex -space-x-4">
               <div className="w-12 h-12 rounded-full border-2 border-white overflow-hidden">
                 <img
-                  src={vegimage.src}
+                  src="/avatar1.png"
                   alt="avatar"
                   className="w-full h-full object-cover"
                 />
               </div>
               <div className="w-12 h-12 rounded-full border-2 border-white overflow-hidden">
                 <img
-                  src={fruitimage.src}
+                  src="/avatar2.png"
                   alt="avatar"
                   className="w-full h-full object-cover"
                 />
               </div>
               <div className="w-12 h-12 rounded-full border-2 border-white overflow-hidden">
                 <img
-                  src={vegimage.src}
+                  src="/avatar3.png"
                   alt="avatar"
                   className="w-full h-full object-cover"
                 />

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import {
   ArrowRight,
@@ -18,10 +18,13 @@ import {
   useTransform,
   useReducedMotion,
 } from "framer-motion";
+import { trackEvent } from "@/lib/gtag";
 import heroimg from "@/assets/hero1.png";
+import RequestSample from "@/components/RequestSample";
 
 export default function Hero() {
   const reduceMotion = useReducedMotion();
+  const [open, setOpen] = useState(false);
 
   const cardRef = useRef(null);
 
@@ -310,14 +313,22 @@ export default function Hero() {
               }
               whileTap={{ scale: 0.98 }}
             >
-              <Link
-                href="/contact"
+              <button
+                onClick={() => {
+                  setOpen(true);
+
+                  trackEvent(
+                    "quote_click",
+                    "conversion",
+                    "request_sample_button"
+                  );
+                }}
                 className="group relative inline-flex items-center justify-center overflow-hidden rounded-full border border-white/10 bg-white/10 backdrop-blur-xl px-8 py-4 text-sm md:text-base font-bold text-[#fbfaeb]"
               >
                 <span className="absolute inset-0 bg-white/0 transition-all duration-500 group-hover:bg-white/10" />
 
                 <span className="relative z-10">Request a Sample</span>
-              </Link>
+              </button>
             </motion.div>
           </motion.div>
 
@@ -460,6 +471,7 @@ export default function Hero() {
           </motion.div>
         </motion.div>
       </motion.div>
+      <RequestSample open={open} setOpen={setOpen} />
     </section>
   );
 }

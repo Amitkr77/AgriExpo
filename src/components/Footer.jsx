@@ -11,11 +11,64 @@ import {
   ArrowUpRight,
   Leaf,
 } from "lucide-react";
+import { trackEvent } from "@/lib/gtag";
 
 export default function MegaFooter() {
-  const products = ["Vegetable Powders", "Fruit Powders", "By Application"];
-  const company = ["About", "Our Process", "Quality & Certs", "Blog"];
-  const certs = ["ISO 22000", "HACCP", "FSSC 22000", "GMP", "Lab Tested"];
+  const products = [
+    {
+      name: "Vegetable Powders",
+      link: "/products/vegetable-powders",
+    },
+    {
+      name: "Fruit Powders",
+      link: "/products/fruit-powders",
+    },
+    {
+      name: "By Application",
+      link: "/applications",
+    },
+  ];
+
+  const company = [
+    {
+      name: "About",
+      link: "/about",
+    },
+    {
+      name: "Our Process",
+      link: "/process",
+    },
+    {
+      name: "Quality & Certs",
+      link: "/quality",
+    },
+    {
+      name: "Blog",
+      link: "/blog",
+    },
+  ];
+  const certs = [
+    {
+      name: "ISO 22000",
+      link: "/quality#iso-22000",
+    },
+    {
+      name: "HACCP",
+      link: "/quality#haccp",
+    },
+    {
+      name: "FSSC 22000",
+      link: "/quality#fssc-22000",
+    },
+    {
+      name: "GMP",
+      link: "/quality#gmp",
+    },
+    {
+      name: "Lab Tested",
+      link: "/quality#laboratory-testing",
+    },
+  ]; 
 
   return (
     <footer className="relative overflow-hidden bg-[#fbfaeb] text-[#1b1c13]">
@@ -31,7 +84,7 @@ export default function MegaFooter() {
 
               <div>
                 <h2 className="text-xl font-black tracking-tight sm:text-2xl">
-                  SRI GREEN Industries
+                  SRI GREEN Agro
                 </h2>
                 <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[#7e5700]">
                   Natural Ingredient Supplier
@@ -45,13 +98,39 @@ export default function MegaFooter() {
             </p>
           </div>
 
-          <a
-            href="/catalog.pdf"
-            className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-[#1b1c13] px-6 py-3 text-sm font-bold text-[#fbfaeb] transition hover:gap-3 sm:w-fit"
-          >
-            <Download className="h-4 w-4" />
-            Download Catalog
-          </a>
+            <div className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-[#1b1c13] px-6 py-3 text-sm font-bold text-[#fbfaeb] transition hover:gap-3 sm:w-fit">
+              {/* Icon click = Download */}
+              <a
+                href="/catalog.pdf"
+                download="catalog.pdf"
+                aria-label="Download Catalog"
+                onClick={() =>
+                  trackEvent(
+                    "download_brochure",
+                    "downloads",
+                    "catalog_icon"
+                  )
+                }
+              >
+                <Download className="h-4 w-4" />
+              </a>
+
+              {/* Text click = Open */}
+              <a
+                href="/catalog.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() =>
+                  trackEvent(
+                    "download_brochure",
+                    "downloads",
+                    "catalog_text"
+                  )
+                }
+              >
+                Download Catalog
+              </a>
+            </div>
         </div>
 
         {/* MAIN UNIQUE GRID */}
@@ -66,15 +145,15 @@ export default function MegaFooter() {
             <div className="space-y-1">
               {products.map((item, index) => (
                 <Link
-                  key={item}
-                  href="#"
+                  key={item.name}
+                  href={item.link}
                   className="group flex items-center justify-between py-4 text-sm font-semibold text-[#414943] transition hover:text-[#14422d]"
                 >
                   <span className="flex items-center gap-3">
                     <span className="text-xs text-[#7e5700]/70">
                       0{index + 1}
                     </span>
-                    {item}
+                    {item.name}
                   </span>
                   <ArrowUpRight className="h-4 w-4 opacity-0 transition group-hover:opacity-100" />
                 </Link>
@@ -91,15 +170,15 @@ export default function MegaFooter() {
             <div className="space-y-1">
               {company.map((item, index) => (
                 <Link
-                  key={item}
-                  href="#"
+                  key={item.name}
+                  href={item.link}
                   className="group flex items-center justify-between py-2 text-sm font-semibold text-[#414943] transition hover:text-[#14422d]"
                 >
                   <span className="flex items-center gap-3">
                     <span className="text-xs text-[#7e5700]/70">
                       0{index + 1}
                     </span>
-                    {item}
+                    {item.name}
                   </span>
                   <ArrowUpRight className="h-4 w-4 opacity-0 transition group-hover:opacity-100" />
                 </Link>
@@ -132,6 +211,13 @@ export default function MegaFooter() {
               <a
                 href="https://wa.me/917091323777"
                 className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-[#2d5a43] px-5 py-3 text-sm font-bold text-[#fbfaeb] transition hover:bg-[#14422d] sm:w-fit lg:w-full"
+                onClick={() =>
+                  trackEvent(
+                    "whatsapp_click",
+                    "conversion",
+                    "whatsapp_inquiry_button"
+                  )
+                }
               >
                 <MessageCircle className="h-4 w-4" />
                 WhatsApp Inquiry
@@ -147,20 +233,24 @@ export default function MegaFooter() {
 
             <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-1">
               {certs.map((c) => (
-                <div
-                  key={c}
-                  className="flex items-center gap-3 text-sm font-semibold text-[#414943]"
+                <Link
+                  key={c.name}
+                  href={c.link}
+                  className="group flex items-center gap-3 text-sm font-semibold text-[#414943] transition hover:text-[#14422d]"
                 >
                   <BadgeCheck className="h-4 w-4 shrink-0 text-[#2d5a43]" />
-                  {c}
-                </div>
+
+                  <span>{c.name}</span>
+
+                  <ArrowUpRight className="h-4 w-4 opacity-0 transition group-hover:opacity-100" />
+                </Link>
               ))}
             </div>
           </div>
         </div>
         {/* BOTTOM */}
         <div className="mt-6 flex flex-col items-center justify-between gap-4 text-center text-xs font-medium text-[#414943] md:flex-row">
-          <p>© 2025 SRI GREEN Industries. Export-grade ingredient supplier.</p>
+          <p>© 2025 SRI GREEN Agro. Export-grade ingredient supplier.</p>
 
           <div className="flex gap-6">
             <Link href="/privacy" className="hover:text-[#14422d]">

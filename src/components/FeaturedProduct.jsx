@@ -104,7 +104,7 @@ export default function FeaturedProduct() {
 
         <p className="mx-auto mt-4 max-w-2xl text-sm leading-relaxed text-[#414943] md:text-base">
           Premium fruit and vegetable powders crafted for global food,
-          nutraceutical, and seasoning industries.
+          nutraceutical, and seasoning Agro.
         </p>
       </motion.div>
 
@@ -149,7 +149,7 @@ export default function FeaturedProduct() {
                     onClick={(e) => {
                       e.preventDefault();
                       e.stopPropagation();
-                      window.location.href = `/contact?product=${encodeURIComponent(product.name)}`;
+                      window.location.href = `/inquiry?product=${encodeURIComponent(product.name)}`;
                     }}
                     className="inline-flex items-center gap-2 rounded-full bg-white px-5 py-3 text-sm font-bold text-[#1b1c13] shadow-lg"
                   >

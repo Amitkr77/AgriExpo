@@ -3,6 +3,7 @@ import { useEffect, useState, useMemo, useCallback, memo } from "react";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import blogData from "@/app/data/blogData.json"; 
+import { trackEvent } from "@/lib/gtag";
 
 // ─── Animation Variants ─────────────────────────────────────────────────────
 const fadeUp = {
@@ -37,7 +38,7 @@ const Dot = () => <span className="h-0.5 w-0.5 rounded-full bg-[#c0c9c1]" />;
 
 const ArrowUpRight = () => (
   <svg width="9" height="9" viewBox="0 0 10 10" fill="none">
-    <path d="M2 8L8 2M8 2H3M8 2v5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" className="text-[#c0c9c1] group-hover:text-[#14422d] transition-colors" />
+    <path d="M2 8L8 2M8 2H3M8 2v5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" className="text-[#c0c9c1] group-hover:text-[#fec567]/90 transition-colors" />
   </svg>
 );
 
@@ -92,7 +93,7 @@ const FeaturedCard = memo(({ blog, onClick }) => (
         <span className="text-[9px] md:text-[10px] font-bold uppercase tracking-[0.12em] text-white/60">{getReadTime(blog.wordCount)}</span>
         <Dot />
         <span className="text-[9px] md:text-[10px] font-bold uppercase tracking-[0.12em] text-white/40">{formatDate(blog.publishedAt)}</span>
-        <div className="ml-auto flex h-7 w-7 sm:h-8 sm:w-8 items-center justify-center rounded-full border border-white/20 group-hover:border-[#fec567]/40 group-hover:bg-[#fec567]/10 transition-all duration-300">
+        <div className="ml-auto flex h-7 w-7 sm:h-8 sm:w-8 items-center justify-center rounded-full border border-white/20 group-hover:border-[#fec567]/90 group-hover:bg-[#fec567]/10 transition-all duration-300">
           <ArrowUpRight />
         </div>
       </div>
@@ -233,10 +234,10 @@ export default function Blog() {
       
 
   return (
-    <div className="mx-auto max-w-7xl overflow-hidden bg-[#fbfaeb] font-sans text-[#1b1c13] pt-20 sm:pt-28 md:pt-32">
+    <div className="mx-auto max-w-7xl overflow-hidden bg-[#fbfaeb] font-sans text-[#1b1c13] pt-30 sm:pt-38 md:pt-42">
 
       {/* ── Hero Section ── */}
-      <section className="flex flex-col lg:flex-row overflow-hidden pb-12 sm:pb-16 md:pb-20 lg:pb-24 border-b border-[#e4e3d4]">
+      <section className="flex flex-col lg:flex-row overflow-hidden pb-12 sm:pb-16 md:pb-20 lg:pb-24 border-b border-[#fbfaeb]">
 
         {/* Left Panel */}
         <motion.div
@@ -244,7 +245,7 @@ export default function Blog() {
           animate="visible"
           className="flex-1 flex flex-col justify-start relative lg:border-r border-[#e4e3d4] px-4 sm:px-6 md:px-8 lg:px-10"
         >
-          <div className="space-y-5 sm:space-y-6 mb-7 sm:mb-8 md:mb-10">
+          <div className="space-y-5 sm:space-y-6 mb-4 sm:mb-5 md:mb-6">
             <motion.div
               variants={{ hidden: { opacity: 0, x: -20 }, visible: { opacity: 1, x: 0 } }}
               transition={{ duration: 0.6, delay: 0.2 }}
@@ -259,35 +260,50 @@ export default function Blog() {
               <span className="text-[10px] md:text-[11px] font-bold uppercase tracking-[0.4em] md:tracking-[0.5em] text-[#414943]">The Journal</span>
             </motion.div>
 
-            <div className="space-y-[-0.04em]">
+            <div className="-mt-12 space-y-[0.04em]">
               {[{ text: "Ingredient", delay: 0.3 }].map(({ text, delay }) => (
-                <div key={text} className="overflow-hidden">
+                <div key={text} className="overflow-hidden py-5">
                   <motion.h1
                     initial={{ y: "110%" }}
                     animate={{ y: 0 }}
-                    transition={{ duration: 1, delay, ease: [0.76, 0, 0.24, 1] }}
-                    className="text-[clamp(2rem,10vw,9rem)] font-black leading-[0.85] tracking-[-0.04em] text-[#1b1c13]"
+                    transition={{
+                      duration: 1,
+                      delay,
+                      ease: [0.76, 0, 0.24, 1],
+                    }}
+                    className="text-[80px] sm:text-[100px] md:text-[120px] font-extrabold leading-[0.98] tracking-[-0.05em] text-[#1b1c13]"
                   >
                     {text}
                   </motion.h1>
                 </div>
               ))}
 
-              <div className="overflow-hidden flex items-center gap-3 md:gap-6">
+              <div className="overflow-hidden flex items-center gap-3 md:gap-6 pb-5">
                 {["&", "industry"].map((word, i) => (
                   <motion.span
                     key={word}
                     initial={{ y: "110%" }}
                     animate={{ y: 0 }}
-                    transition={{ duration: 1, delay: 0.4 + i * 0.05, ease: [0.76, 0, 0.24, 1] }}
-                    className={`relative text-[clamp(2rem,10vw,9rem)] font-black leading-[0.85] tracking-[-0.04em] text-[#c0c9c1] ${word === "industry" ? "italic" : ""}`}
+                    transition={{
+                      duration: 1,
+                      delay: 0.4 + i * 0.05,
+                      ease: [0.76, 0, 0.24, 1],
+                    }}
+                    className={`relative text-[80px] sm:text-[100px] md:text-[120px] font-extrabold leading-[0.98] tracking-[-0.05em] text-[#c0c9c1] ${
+                      word === "industry" ? "italic" : ""
+                    }`}
                   >
                     {word === "&" ? "& " : word}
+
                     {word === "industry" && (
                       <motion.span
                         initial={{ scaleX: 0 }}
                         animate={{ scaleX: 1 }}
-                        transition={{ duration: 0.8, delay: 1.2, ease: [0.76, 0, 0.24, 1] }}
+                        transition={{
+                          duration: 0.8,
+                          delay: 1.2,
+                          ease: [0.76, 0, 0.24, 1],
+                        }}
                         className="absolute left-0 top-3/4 w-full h-[2px] sm:h-[3px] md:h-1 bg-[#fec567]/60 origin-left -rotate-2"
                       />
                     )}
@@ -295,12 +311,16 @@ export default function Blog() {
                 ))}
               </div>
 
-              <div className="overflow-hidden">
+              <div className="overflow-hidden pb-5">
                 <motion.h1
                   initial={{ y: "110%" }}
                   animate={{ y: 0 }}
-                  transition={{ duration: 1, delay: 0.5, ease: [0.76, 0, 0.24, 1] }}
-                  className="text-[clamp(2rem,10vw,9rem)] font-black leading-[0.85] tracking-[-0.04em] text-[#14422d]"
+                  transition={{
+                    duration: 1,
+                    delay: 0.5,
+                    ease: [0.76, 0, 0.24, 1],
+                  }}
+                  className="text-[80px] sm:text-[100px] md:text-[120px] font-extrabold leading-[0.98] tracking-[-0.05em] text-[#14422d]"
                 >
                   insights.
                 </motion.h1>
@@ -308,7 +328,7 @@ export default function Blog() {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 gap-6 md:gap-8 border-t border-[#e4e3d4] pt-6 md:pt-8">
+          <div className="grid grid-cols-1 gap-6 md:gap-8 border-t border-[#e4e3d4] pt-4 md:pt-6">
             <motion.p
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -320,61 +340,64 @@ export default function Blog() {
           </div>
         </motion.div>
 
-{/* Right Panel: Feed */}
-{loading ? (
-  <FeedSkeleton />
-) : (
-  <motion.div
-    initial={{ opacity: 0, x: 20 }}
-    animate={{ opacity: 1, x: 0 }}
-    transition={{ delay: 0.4, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-    className="w-full lg:w-[380px] xl:w-[420px] 2xl:w-[480px] bg-[#f5f4e5] border-t lg:border-t-0 border-[#e4e3d4] mt-8 lg:mt-0"
-  >
-    <div className="px-6 md:px-8 py-4 md:py-5 border-b border-[#e4e3d4] flex items-center justify-between">
-      <span className="text-[10px] font-bold uppercase tracking-[0.3em] md:tracking-[0.35em] text-[#414943]">
-        Active Feed
-      </span>
-      <span className="font-mono text-[10px] text-[#c0c9c1]">// Latest</span>
-    </div>
-
-    <div className="flex-1 max-h-[320px] md:max-h-[400px] overflow-y-auto scrollbar-hide p-2">
-      {blogs.slice(0, 7).map((item, i) => {
-        const feedHoverColors = [
-          "hover:bg-[#fff1c9]",
-          "hover:bg-[#dff3e5]",
-          "hover:bg-[#dce9f7]",
-          "hover:bg-[#efe1f6]",
-          "hover:bg-[#f6dfe3]",
-          "hover:bg-[#d9f1ee]",
-          "hover:bg-[#ffe4d6]",
-        ];
-
-        return (
-          <div
-            key={item.id}
-            className={`
-              rounded-3xl overflow-hidden transition-all duration-300
-              ${feedHoverColors[i % feedHoverColors.length]}
-              hover:shadow-[0_10px_25px_rgba(20,66,45,0.10)]
-            `}
+        {/* Right Panel: Feed */}
+        {loading ? (
+          <FeedSkeleton />
+        ) : (
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.4, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+            className="w-full lg:w-[380px] xl:w-[420px] 2xl:w-[480px] bg-[#f5f4e5] border-t lg:border-t-0 border-[#e4e3d4] mt-8 lg:mt-0"
           >
-            <BlogFeedItem item={item} index={i} onClick={navigateToBlog} />
-          </div>
-        );
-      })}
-    </div>
+            <div className="px-6 md:px-8 py-4 md:py-5 border-b border-[#e4e3d4] flex items-center justify-between">
+              <span className="text-[10px] font-bold uppercase tracking-[0.3em] md:tracking-[0.35em] text-[#414943]">
+                Active Feed
+              </span>
+              <span className="font-mono text-[10px] text-[#c0c9c1]">// Latest</span>
+            </div>
 
-    <div className="h-10 sm:h-12 border-t border-[#e4e3d4] bg-[#fbfaeb] flex items-center px-6 md:px-8">
-      <div className="flex items-center gap-2 text-[#414943]">
-        <div className="w-1.5 h-1.5 rounded-full bg-[#14422d] animate-pulse" />
-        <span className="font-mono text-[9px] md:text-[10px] tracking-wider text-[#c0c9c1]">
-          UPDATED REGULARLY
-        </span>
-      </div>
-    </div>
-  </motion.div>
-)}
+            <div className="flex-1 max-h-[320px] md:max-h-[400px] overflow-y-auto scrollbar-hide p-2">
+              {blogs.slice(0, 7).map((item, i) => {
+                const feedHoverColors = [
+                  "hover:bg-[#fff1c9]",
+                  "hover:bg-[#dff3e5]",
+                  "hover:bg-[#dce9f7]",
+                  "hover:bg-[#efe1f6]",
+                  "hover:bg-[#f6dfe3]",
+                  "hover:bg-[#d9f1ee]",
+                  "hover:bg-[#ffe4d6]",
+                ];
+
+                return (
+                  <div
+                    key={item.id}
+                    className={`
+                      rounded-3xl overflow-hidden transition-all duration-300
+                      ${feedHoverColors[i % feedHoverColors.length]}
+                      hover:shadow-[0_10px_25px_rgba(20,66,45,0.10)]
+                    `}
+                  >
+                    <BlogFeedItem item={item} index={i} onClick={navigateToBlog} />
+                  </div>
+                );
+              })}
+            </div>
+
+            <div className="h-10 sm:h-12 border-t border-[#e4e3d4] bg-[#fbfaeb] flex items-center px-6 md:px-8">
+              <div className="flex items-center gap-2 text-[#414943]">
+                <div className="w-1.5 h-1.5 rounded-full bg-[#14422d] animate-pulse" />
+                <span className="font-mono text-[9px] md:text-[10px] tracking-wider text-[#c0c9c1]">
+                  UPDATED REGULARLY
+                </span>
+              </div>
+            </div>
+          </motion.div>
+        )}
       </section>
+
+      {/* Faded Divider */}
+      <div className="w-64 md:w-128 h-[3px] mx-auto my-4 rounded-full bg-gradient-to-r from-transparent via-[#14422d]/40 to-transparent" />
 
       {/* ── Featured Grid ── */}
       {loading ? (
@@ -385,13 +408,14 @@ export default function Blog() {
           initial="hidden"
           whileInView="show"
           viewport={{ once: true }}
-          className="grid grid-cols-1 m-2 sm:grid-cols-2 gap-3 border-b border-[#e4e3d4]"
+          className="grid grid-cols-1 m-2 sm:grid-cols-2 gap-3"
         >
           {featuredBlogs.slice(0, 2).map(blog => (
             <FeaturedCard key={blog.id} blog={blog} onClick={navigateToBlog} />
           ))}
         </motion.div>
       )}
+      
 
       {/* ── Wide Card ── */}
       {!loading && nonFeaturedBlogs.slice(0, 1).map(item => (
@@ -402,7 +426,7 @@ export default function Blog() {
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
           onClick={() => navigateToBlog(item.slug)}
-          className="group relative rounded-4xl m-2 h-60 sm:h-64 md:h-72 lg:h-80 cursor-pointer overflow-hidden border-b border-[#e4e3d4]"
+          className="group relative rounded-4xl m-2 h-60 sm:h-64 md:h-72 lg:h-80 cursor-pointer overflow-hidden border border-[#e4e3d4]"
         >
           <img src={item.image} alt={item.title} loading="lazy" className="absolute inset-0 h-full w-full object-cover transition-all duration-700 ease-out group-hover:scale-[1.03]" />
           <div className="absolute inset-0 bg-gradient-to-r from-[#0B2818]/80 to-transparent" />
@@ -429,13 +453,14 @@ export default function Blog() {
 
       {/* ── Recent Articles ── */}
       <motion.div initial="hidden" whileInView="show" viewport={{ once: true }} className="border-b border-[#e4e3d4]">
-        <div className="flex items-center justify-between border-b border-[#e4e3d4] px-4 sm:px-6 md:px-8 lg:px-11 py-6 sm:py-7 md:py-8">
+        <div className="flex items-center justify-between px-4 sm:px-6 md:px-8 lg:px-11 py-4 sm:py-5 md:py-6">
           <span className="text-[10px] md:text-[11px] font-bold uppercase tracking-[0.3em] md:tracking-[0.35em] text-[#414943]">Recent articles</span>
         </div>
+        <div className="w-120 h-[3px] mx-auto rounded-full bg-gradient-to-r from-transparent via-[#14422d]/40 to-transparent" />
         <div className="grid grid-cols-1 rounded-4xl sm:grid-cols-2">
           {loading ? (
             Array.from({ length: 6 }).map((_, i) => (
-              <div key={i} className="flex  rounded-4xl items-start gap-4 md:gap-5 px-6 md:px-11 py-5 md:py-7 border-b border-[#e4e3d4] sm:border-r border-[#e4e3d4]">
+              <div key={i} className="flex rounded-4xl items-start gap-4 md:gap-5 px-6 md:px-11 py-5 md:py-7">
                 <Skeleton className="h-16 w-16 shrink-0 rounded-2xl" />
                 <div className="flex-1 flex flex-col gap-2 mt-1">
                   <Skeleton className="h-3 w-14" />
@@ -450,14 +475,14 @@ export default function Blog() {
                 key={item.slug}
                 variants={fadeUp}
                 onClick={() => navigateToBlog(item.slug)}
-className={`
-  group relative flex cursor-pointer items-start gap-4 md:gap-5
-  px-4 m-2 sm:px-6 md:px-8 lg:px-11 py-5 md:py-7
-  border border-[#e4e3d4] rounded-4xl overflow-hidden
-  transition-all duration-500
- hover:bg-gradient-to-br ${blogGradients[index % blogGradients.length]}/10
-  hover:scale-[1.015] hover:shadow-[0_18px_45px_rgba(65,73,67,0.16)]
-`}
+                className={`
+                  group relative flex cursor-pointer items-start gap-4 md:gap-5
+                  px-4 m-2 sm:px-6 md:px-8 lg:px-11 py-5 md:py-7
+                  border border-[#e4e3d4] rounded-4xl overflow-hidden
+                  transition-all duration-500
+                  hover:bg-gradient-to-br ${blogGradients[index % blogGradients.length]}/10
+                  hover:scale-[1.015]
+                `}
 
               >
                 <img src={item.image} alt={item.title} loading="lazy" className="h-16 w-16 shrink-0 rounded-2xl object-cover transition-opacity duration-300" />
@@ -467,8 +492,8 @@ className={`
                     {item.title}
                   </p>
                   <p className="text-[9px] sm:text-[10px] font-bold uppercase tracking-[0.12em] text-[#c0c9c1] transition-colors duration-300 group-hover:text-white">
-  {item.author.name} · {getReadTime(item.wordCount)}
-</p>
+                    {item.author.name} · {getReadTime(item.wordCount)}
+                  </p>
                 </div>
               </motion.div>
             ))
@@ -515,22 +540,24 @@ className={`
                 whileHover={{ y: -4 }}
                 transition={{ type: "spring", stiffness: 300, damping: 20 }}
                 onClick={() => navigateToBlog(card.slug)}
-className={`
-  group cursor-pointer border-transparent rounded-4xl m-4
-  p-6 sm:p-7 md:p-8 transition-all duration-500
-  bg-[#f5f4e5] hover:bg-gradient-to-br ${gridGradients[index % gridGradients.length]}
-  hover:shadow-lg hover:shadow-[#14422d]/[0.08]
-  border-r border-[#e4e3d4] last:border-r-0
-`}              >
+                className={`
+                  group cursor-pointer border-transparent rounded-4xl m-4
+                  p-6 sm:p-7 md:p-8 transition-all duration-500
+                  bg-[#f5f4e5] hover:bg-gradient-to-br ${gridGradients[index % gridGradients.length]}
+                  hover:shadow-lg hover:shadow-[#14422d]/[0.08]
+                  border-r border-[#e4e3d4] last:border-r-0
+                `}              
+                >
                 <img src={card.image} alt={card.title} loading="lazy" className="mb-4 sm:mb-5 h-32 md:h-36 w-full rounded-[1.5rem] object-cover opacity-70 transition-opacity duration-300 group-hover:opacity-90" />
                 <p className="mb-2 text-[9px] sm:text-[10px] font-bold uppercase tracking-[0.22em] sm:tracking-[0.28em] text-[#7e5700]">{card.tag}</p>
                 <p className="mb-2.5 text-[14px] sm:text-[15px] md:text-base font-extrabold tracking-[-0.015em] leading-[1.28] sm:leading-[1.3] text-[#414943] group-hover:text-[#14422d] transition-colors duration-300">{card.title}</p>
                 <p className="mb-4 text-[12px] sm:text-[13px] md:text-[14px] leading-[1.68] sm:leading-[1.7] text-[#414943] line-clamp-3">{card.excerpt}</p>
-<p className="text-[9px] sm:text-[10px] font-bold uppercase tracking-[0.12em] text-[#c0c9c1] transition-colors duration-300 group-hover:text-white/85">
-  {getReadTime(card.wordCount)}
-</p>              </motion.div>
+                <p className="text-[9px] sm:text-[10px] font-bold uppercase tracking-[0.12em] text-[#c0c9c1] transition-colors duration-300 group-hover:text-white/85">
+                  {getReadTime(card.wordCount)}
+                </p>              
+              </motion.div>
             ))
-          )}
+          )} 
         </motion.div>
 
         {/* Pagination */}
@@ -574,7 +601,6 @@ className={`
           </div>
         )}
       </div>
-
       {/* ── Newsletter ── */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
@@ -602,6 +628,13 @@ className={`
             <motion.button
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
+              onClick={() =>
+                trackEvent(
+                  "form_submit",
+                  "newsletter",
+                  "subscribe_button"
+                )
+              }
               className="shrink-0 bg-[#14422d] px-5 sm:px-6 py-3 sm:py-3.5 text-[10px] sm:text-[11px] font-bold uppercase tracking-[0.18em] sm:tracking-[0.22em] text-white hover:bg-[#0f3122] transition-colors rounded-4xl"
             >
               Subscribe
@@ -610,7 +643,6 @@ className={`
           <p className="text-[9px] sm:text-[10px] tracking-wider text-[#c0c9c1]">No spam. Unsubscribe any time.</p>
         </div>
       </motion.div>
-
     </div>
   );
 }

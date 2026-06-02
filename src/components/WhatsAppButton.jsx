@@ -30,7 +30,7 @@ export default function WhatsAppButton() {
 
   return (
     <a
-      href="https://wa.me/917091323777?text=Hi%2C%20I%27m%20interested%20in%20bulk%20powder%20inquiry%20from%20SRI%20GREEN%20Industries."
+      href="https://wa.me/917091323777?text=Hi%2C%20I%27m%20interested%20in%20bulk%20powder%20inquiry%20from%20SRI%20GREEN%20Agro."
       target="_blank"
       rel="noopener noreferrer"
       className={`fixed right-6 z-50 flex items-center gap-2 bg-[#25D366] text-white rounded-full shadow-2xl hover:scale-105 transition-all duration-300 group ${

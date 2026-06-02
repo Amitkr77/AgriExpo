@@ -1,6 +1,9 @@
 "use client";
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
+import { useRouter } from "next/navigation";
+import { trackEvent } from "@/lib/gtag";
+import { Download } from "lucide-react";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 40 },
@@ -67,6 +70,7 @@ const cardHover = {
 };
 
 export default function Page() {
+  const router = useRouter();
   return (
     <div className="bg-[#fbfaeb] text-[#1b1c13] font-[Plus_Jakarta_Sans] mt-20">
       <main className="max-w-[1440px] mx-auto px-10 py-10 flex flex-col gap-5">
@@ -130,7 +134,7 @@ export default function Page() {
                     variants={fadeUp}
                     className="text-[#d7f0e0] text-sm sm:text-base lg:text-lg mt-6 sm:mt-8 max-w-2xl leading-6 sm:leading-7 lg:leading-8"
                   >
-                    SRI GREEN Industries is a premium exporter of dehydrated and
+                    SRI GREEN Agro is a premium exporter of dehydrated and
                     spray-dried fruit & vegetable powders trusted across 24+ countries.
                   </motion.p>
                 </div>
@@ -143,9 +147,18 @@ export default function Page() {
                   <motion.button
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.97 }}
+                    onClick={() => {
+                      trackEvent(
+                        "product_view",
+                        "quality",
+                        "explore_quality_button"
+                      );
+                      router.push("/quality");
+                    }}
                     className="w-full sm:w-auto bg-[#fec567] text-[#765100] px-6 sm:px-8 py-3.5 sm:py-4 rounded-full font-bold flex items-center justify-center gap-3"
                   >
                     Explore Quality
+
                     <motion.span
                       whileHover={{ x: 5 }}
                       className="material-symbols-outlined"
@@ -157,9 +170,35 @@ export default function Page() {
                   <motion.button
                     whileHover={{ scale: 1.04 }}
                     whileTap={{ scale: 0.97 }}
-                    className="w-full sm:w-auto border border-white/20 text-white px-6 sm:px-8 py-3.5 sm:py-4 rounded-full font-bold"
+                    onClick={() => {
+                      trackEvent(
+                        "download_brochure",
+                        "downloads",
+                        "catalog_open_button"
+                      );
+
+                      window.open("/catalog.pdf", "_blank");
+                    }}
+                    className="w-full sm:w-auto border border-white/20 text-white px-6 sm:px-8 py-3.5 sm:py-4 rounded-full font-bold flex items-center justify-center gap-3"
                   >
-                    Download Catalog
+                    <span>Download Catalog</span>
+
+                    <a
+                      href="/catalog.pdf"
+                      download="catalog.pdf"
+                      onClick={(e) => {
+                        e.stopPropagation();
+
+                        trackEvent(
+                          "download_brochure",
+                          "downloads",
+                          "catalog_download_icon"
+                        );
+                      }}
+                      className="flex items-center justify-center"
+                    >
+                      <Download className="h-5 w-5" />
+                    </a>
                   </motion.button>
                 </motion.div>
               </div>
@@ -221,7 +260,7 @@ export default function Page() {
               </h3>
               <p className="text-lg opacity-90 font-medium">
                 To be the world's most trusted partner in sustainable
-                agri-exports, where quality and ethics swirl together in every
+                sri green, where quality and ethics swirl together in every
                 gram of our produce.
               </p>
               <div className="absolute -right-10 -bottom-10 w-40 h-40 bg-[#fec567] rounded-full opacity-20 group-hover:opacity-30 transition-opacity duration-500" />
@@ -509,7 +548,7 @@ export default function Page() {
             >
               Whether you are scaling production as a food manufacturer,
               building a private label supplement line, or sourcing ingredients
-              for bulk distribution — SRI GREEN Industries is equipped to
+              for bulk distribution — SRI GREEN Agro is equipped to
               supply, certify, and ship.
             </motion.p>
 
@@ -524,6 +563,13 @@ export default function Page() {
                 whileHover={{ scale: 1.06, backgroundColor: "#f5b84a" }}
                 whileTap={{ scale: 0.96 }}
                 transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                onClick={() =>
+                  trackEvent(
+                    "quote_click",
+                    "conversion",
+                    "request_sample_kit_button"
+                  )
+                }
                 className="bg-[#fec567] text-[#765100] px-10 py-4 rounded-full font-bold cursor-pointer border-none transition-colors duration-200"
               >
                 Request Sample Kit
@@ -536,9 +582,35 @@ export default function Page() {
                 }}
                 whileTap={{ scale: 0.96 }}
                 transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                className="border-2 border-white px-10 py-4 rounded-full font-bold cursor-pointer bg-transparent text-white transition-colors duration-200"
+                onClick={() => {
+                  trackEvent(
+                    "download_brochure",
+                    "downloads",
+                    "catalog_open_button"
+                  );
+
+                  window.open("/catalog.pdf", "_blank");
+                }}
+                className="w-full sm:w-auto border-2 border-white px-5 sm:px-8 py-3 sm:py-4 rounded-full font-bold cursor-pointer bg-transparent text-white transition-colors duration-200 flex items-center justify-center gap-3"
               >
-                Download Catalog
+                <span>Download Catalog</span>
+
+                <a
+                  href="/catalog.pdf"
+                  download="catalog.pdf"
+                  onClick={(e) => {
+                    e.stopPropagation();
+
+                    trackEvent(
+                      "download_brochure",
+                      "downloads",
+                      "catalog_download_icon"
+                    );
+                  }}
+                  className="flex items-center justify-center"
+                >
+                  <Download className="h-4 w-4" />
+                </a>
               </motion.button>
             </motion.div>
           </div>

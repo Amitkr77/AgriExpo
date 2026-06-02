@@ -10,6 +10,7 @@ import {
   MessageCircle,
 } from "lucide-react";
 import { HiMiniFire } from "react-icons/hi2";
+import { trackEvent } from "@/lib/gtag";
 
 import {
   VEGETABLE_POWDERS,
@@ -30,6 +31,19 @@ export default function BulkInquiryPage() {
     inquiryType: "",
     message: "",
   });
+
+   React.useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+
+    const product = params.get("product");
+
+    if (product) {
+      setForm((prev) => ({
+        ...prev,
+        product,
+      }));
+    }
+  }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -59,6 +73,13 @@ export default function BulkInquiryPage() {
           <div className="flex flex-wrap justify-center gap-4 mt-10">
             <Link
               href="/products"
+              onClick={() =>
+                trackEvent(
+                  "product_view",
+                  "products",
+                  "browse_products_button"
+                )
+              }
               className="bg-[#14422d] text-white px-8 py-4 rounded-full font-bold hover:bg-[#0f3122] transition"
             >
               Browse Products
@@ -67,6 +88,13 @@ export default function BulkInquiryPage() {
             <a
               href="https://wa.me/917091323777"
               target="_blank"
+              onClick={() =>
+                trackEvent(
+                  "whatsapp_click",
+                  "conversion",
+                  "whatsapp_success_page"
+                )
+              }
               className="bg-[#25D366] text-white px-8 py-4 rounded-full font-bold"
             >
               WhatsApp Us
@@ -439,6 +467,13 @@ export default function BulkInquiryPage() {
                 {/* BUTTON */}
                 <button
                   type="submit"
+                  onClick={() =>
+                    trackEvent(
+                      "form_submit",
+                      "forms",
+                      "bulk_inquiry_form"
+                    )
+                  }
                   className="w-full bg-[#14422d] hover:bg-[#0f3122] text-white rounded-full py-5 font-black tracking-wide transition-all hover:-translate-y-1"
                 >
                   Submit Inquiry →

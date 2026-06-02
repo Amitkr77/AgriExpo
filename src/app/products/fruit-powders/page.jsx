@@ -137,7 +137,17 @@ export default function FruitPowdersPage() {
                 ))}
               </div>
             </div>
-            <Link href="/contact" className="block w-full bg-[#fec567] text-[#765100] text-center py-3 rounded-full font-bold text-sm hover:brightness-95 transition">
+            <Link
+              href="/inquiry"
+              onClick={() =>
+                trackEvent(
+                  "quote_click",
+                  "conversion",
+                  "request_fruit_bulk_quote_button"
+                )
+              }
+              className="block w-full bg-[#fec567] text-[#765100] text-center py-3 rounded-full font-bold text-sm hover:brightness-95 transition"
+            >
               Request Bulk Quote
             </Link>
           </div>
@@ -206,8 +216,19 @@ export default function FruitPowdersPage() {
       <div className="mt-16 rounded-[3rem] bg-[#fec567] p-8 text-center">
         <h3 className="text-2xl font-extrabold text-[#281900] mb-2">Looking for a Specific Fruit Powder?</h3>
         <p className="text-[#765100] mb-6">We can source and process specialty fruit powders on request. Our R&D team works with food technologists.</p>
-        <Link href="/contact" className="inline-flex items-center gap-2 bg-[#281900] text-[#fec567] px-8 py-4 rounded-full font-bold hover:opacity-90 transition">
-          Discuss Custom Requirements <ArrowRight className="h-4 w-4" />
+        <Link
+          href="/contact"
+          onClick={() =>
+            trackEvent(
+              "contact_click",
+              "engagement",
+              "custom_fruit_requirements_button"
+            )
+          }
+          className="inline-flex items-center gap-2 bg-[#281900] text-[#fec567] px-8 py-4 rounded-full font-bold hover:opacity-90 transition"
+        >
+          Discuss Custom Requirements
+          <ArrowRight className="h-4 w-4" />
         </Link>
       </div>
     </div>

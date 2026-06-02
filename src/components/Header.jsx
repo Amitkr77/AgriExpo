@@ -178,7 +178,7 @@ const MobileNav = ({ isOpen, onClose, pathname, setOpen }) => {
                 Bulk Inquiry
               </Link>
               <p className="text-center text-[10px] text-gray-400 tracking-widest uppercase mt-4">
-                © {new Date().getFullYear()} Sri Green Industries
+                © {new Date().getFullYear()} Sri Green Agro
               </p>
             </div>
           </motion.div>
@@ -196,7 +196,10 @@ export default function Header() {
   const pathname = usePathname();
 
   const isBlogSlugPage = pathname?.startsWith("/blog/") && pathname !== "/blog";
-  const textBlack = isBlogSlugPage && !scrolled;
+  const textBlack =
+  typeof window !== "undefined"
+    ? isBlogSlugPage && !scrolled
+    : false;
 
   // Scroll Effect
   useEffect(() => {

@@ -15,9 +15,11 @@ import {
   Microscope,
   ClipboardCheck,
   Award,
+  Download,
 } from "lucide-react";
 import qualityHero from "@/assets/quality-hero.png";
 import cardimg from "@/assets/qualitycardimg.png";
+import { trackEvent } from "@/lib/gtag";
 
 /* ─────────────────────────────────────────
    DESIGN SYSTEM TOKENS  (design.md)
@@ -574,7 +576,7 @@ export default function QualityPage() {
                       marginTop: 28,
                     }}
                   >
-                    AgriExpo follows internationally recognized food safety and
+                    SRI GREEN follows internationally recognized food safety and
                     quality systems to ensure every product meets strict import
                     requirements of buyers across the US, EU, UAE, Australia and
                     Asian markets.
@@ -928,7 +930,7 @@ export default function QualityPage() {
                       fontWeight: 500,
                     }}
                   >
-                    AgriExpo follows internationally recognized food safety and quality
+                    SRI GREEN follows internationally recognized food safety and quality
                     systems to ensure every product meets strict import requirements of
                     buyers across the US, EU, UAE, Australia and Asian markets.
                   </motion.p>
@@ -953,6 +955,20 @@ export default function QualityPage() {
                         stiffness: 300,
                         damping: 20,
                       }}
+                      onClick={() =>{
+                        trackEvent(
+                          "certification_view",
+                          "quality",
+                          "view_certifications_button"
+                        );
+
+                         document
+                          .getElementById("certifications")
+                          ?.scrollIntoView({
+                            behavior: "smooth",
+                            block: "center",
+                          });
+                      }}
                       className="w-full sm:w-auto"
                       style={{
                         background: DS.secondaryContainer,
@@ -970,27 +986,54 @@ export default function QualityPage() {
                     </motion.button>
 
                     {/* SECONDARY BUTTON */}
-                    <motion.button
-                      whileHover={{
-                        scale: 1.04,
-                        backgroundColor: "rgba(255,255,255,.08)",
-                      }}
-                      whileTap={{ scale: 0.97 }}
-                      className="w-full sm:w-auto"
-                      style={{
-                        background: "rgba(255,255,255,.04)",
-                        color: "#fff",
-                        border: "1px solid rgba(255,255,255,.2)",
-                        padding: "14px 28px",
-                        borderRadius: 9999,
-                        fontFamily: "'Plus Jakarta Sans',sans-serif",
-                        fontWeight: 700,
-                        fontSize: 14,
-                        backdropFilter: "blur(12px)",
-                      }}
-                    >
-                      Download Quality Profile
-                    </motion.button>
+                   <motion.button
+  whileHover={{
+    scale: 1.04,
+    backgroundColor: "rgba(255,255,255,.08)",
+  }}
+  whileTap={{ scale: 0.97 }}
+  onClick={() => {
+    trackEvent(
+      "download_brochure",
+      "downloads",
+      "quality_profile_button"
+    );
+
+    window.open("/Quality_Profile.pdf", "_blank");
+  }}
+  className="w-full sm:w-auto flex items-center justify-center gap-3"
+  style={{
+    background: "rgba(255,255,255,.04)",
+    color: "#fff",
+    border: "1px solid rgba(255,255,255,.2)",
+    padding: "14px 28px",
+    borderRadius: 9999,
+    fontFamily: "'Plus Jakarta Sans',sans-serif",
+    fontWeight: 700,
+    fontSize: 14,
+    backdropFilter: "blur(12px)",
+    cursor: "pointer",
+  }}
+>
+  <span>Download Quality Profile</span>
+
+  <a
+    href="/Quality_Profile.pdf"
+    download
+    onClick={(e) => {
+      e.stopPropagation();
+
+      trackEvent(
+        "download_brochure_direct",
+        "downloads",
+        "quality_profile_pdf"
+      );
+    }}
+    className="flex items-center"
+  >
+    <Download size={16} />
+  </a>
+</motion.button>
                   </motion.div>
 
                   {/* SIDE IMAGE GLASS CARD */}
@@ -1814,7 +1857,7 @@ export default function QualityPage() {
                 marginTop: 16,
               }}
             >
-              AgriExpo products are prepared according to documentation, testing and
+              Sri Green products are prepared according to documentation, testing and
               regulatory requirements expected by international importers.
             </p>
           </motion.div>
@@ -1837,7 +1880,7 @@ export default function QualityPage() {
             <table className="w-full table-fixed">
               <thead>
                 <tr style={{ borderBottom: "1px solid rgba(255,255,255,.12)" }}>
-                  {["Market", "Required Certifications", "AgriExpo Status"].map(
+                  {["Market", "Required Certifications", "SRI GREEN Status"].map(
                     (h) => (
                       <th
                         key={h}
@@ -2088,7 +2131,7 @@ export default function QualityPage() {
             }}
           >
             From sourcing and manufacturing to testing and documentation,
-            AgriExpo follows premium quality systems that help importers,
+            Sri Green follows premium quality systems that help importers,
             wholesalers and distributors buy with confidence.
           </motion.p>
 
@@ -2101,7 +2144,13 @@ export default function QualityPage() {
               whileHover={{ scale: 1.06, backgroundColor: "#f5b84a" }}
               whileTap={{ scale: 0.97 }}
               transition={{ type: "spring", stiffness: 300, damping: 20 }}
-              onClick={() => setActiveForm("certification")}
+              onClick={() =>{ setActiveForm("certification")
+                trackEvent(
+                  "quote_click",
+                  "conversion",
+                  "request_certifications_button"
+                );
+              }}
               style={{
                 background: DS.secondaryContainer,
                 color: DS.onSecondaryContainer,
@@ -2124,7 +2173,13 @@ export default function QualityPage() {
               }}
               whileTap={{ scale: 0.97 }}
               transition={{ type: "spring", stiffness: 300, damping: 20 }}
-              onClick={() => setActiveForm("export")}
+              onClick={() =>{ setActiveForm("export")
+                trackEvent(
+                  "contact_click",
+                  "engagement",
+                  "contact_export_team_button"
+                );
+              }}
               style={{
                 background: "transparent",
                 color: DS.surface,
@@ -2332,6 +2387,15 @@ export default function QualityPage() {
                   }}
                   whileTap={{ scale: 0.97 }}
                   transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                  onClick={() =>
+                    trackEvent(
+                      "form_submit",
+                      "forms",
+                      activeForm === "certification"
+                        ? "certification_form"
+                        : "export_contact_form"
+                    )
+                  }
                   style={{
                     background: DS.primary,
                     color: DS.onPrimary,
