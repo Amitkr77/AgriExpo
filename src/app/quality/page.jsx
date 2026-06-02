@@ -782,7 +782,7 @@ export default function QualityPage() {
           <FloatingParticles count={16} />
 
           {/* PREMIUM FLOATING BUBBLES */}
-          <div className="absolute inset-0 overflow-hidden pointer-events-none z-[1]">
+          <div className="absolute inset-0 overflow-hidden pointer-events-none z-1">
             {BUBBLES.map((b, i) => (
               <Bubble key={i} {...b} />
             ))}
@@ -795,7 +795,7 @@ export default function QualityPage() {
               variants={stagger(0.15, 0.2)}
               initial="hidden"
               animate={heroReady ? "show" : "hidden"}
-              className="relative overflow-hidden rounded-[1.8rem] sm:rounded-[2.5rem] min-h-auto lg:min-h-[420px]"
+              className="relative overflow-hidden rounded-[1.8rem] sm:rounded-[2.5rem] min-h-auto lg:min-h-105"
             >
               {/* BG IMAGE */}
               <div
@@ -859,7 +859,7 @@ export default function QualityPage() {
                       initial={{ opacity: 0, y: -20 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: 0.4 }}
-                      className="w-full sm:w-auto rounded-[1.5rem] px-5 py-3 text-center"
+                      className="w-full sm:w-auto rounded-3xl px-5 py-3 text-center"
                       style={{
                         background: "rgba(255,255,255,.08)",
                         border: "1px solid rgba(255,255,255,.14)",
@@ -998,7 +998,7 @@ export default function QualityPage() {
                     initial={{ opacity: 0, y: 30 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.5 }}
-                    className="relative overflow-hidden rounded-[1.5rem] sm:rounded-[2rem] min-h-[170px] sm:min-h-[190px]"
+                    className="relative overflow-hidden rounded-3xl sm:rounded-4xl min-h-42.5 sm:min-h-47.5"
                     style={{
                       background: "rgba(255,255,255,.08)",
                       border: "1px solid rgba(255,255,255,.12)",
@@ -1023,7 +1023,7 @@ export default function QualityPage() {
                     />
 
                     {/* OVERLAY */}
-                    <div className="absolute inset-0 bg-gradient-to-b from-black/10 to-black/20" />
+                    <div className="absolute inset-0 bg-linear-to-b from-black/10 to-black/20" />
 
                     {/* BADGE */}
                     <div className="absolute bottom-4 left-4">

@@ -4,6 +4,7 @@ import { Suspense } from "react";
 
 import GoogleAnalytics from "./components/google-analytics";
 import GAPageTracker from "./components/ga-page-tracker";
+import Script from "next/script";
 
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -69,11 +70,32 @@ export default function RootLayout({ children }) {
       </head>
 
       <body className="min-h-full flex flex-col">
+         <noscript>
+    <iframe
+      src="https://www.googletagmanager.com/ns.html?id=GTM-WNTKLWX3"
+      height="0"
+      width="0"
+      style={{ display: "none", visibility: "hidden" }}
+    />
+  </noscript>
+        <Script id="gtm" strategy="afterInteractive">
+          {`
+      (function(w,d,s,l,i){w[l]=w[l]||[];
+      w[l].push({'gtm.start':
+      new Date().getTime(),event:'gtm.js'});
+      var f=d.getElementsByTagName(s)[0],
+      j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';
+      j.async=true;
+      j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;
+      f.parentNode.insertBefore(j,f);
+      })(window,document,'script','dataLayer','GTM-WNTKLWX3');
+    `}
+        </Script>
         {/* Google Analytics */}
-        <GoogleAnalytics />
+        {/* <GoogleAnalytics />
         <Suspense fallback={null}>
           <GAPageTracker />
-        </Suspense>
+        </Suspense> */}
 
         <Header />
 
