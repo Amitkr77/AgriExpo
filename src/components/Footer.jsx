@@ -195,7 +195,7 @@ export default function MegaFooter() {
             <div className="space-y-4 text-sm font-medium text-[#414943]">
               <div className="flex gap-3">
                 <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-[#2d5a43]" />
-                <span>Gujarat, India</span>
+                <span>New Delhi, India</span>
               </div>
 
               <div className="flex gap-3">
