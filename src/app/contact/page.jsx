@@ -63,7 +63,7 @@ export default function ContactPage() {
           <div className="text-6xl mb-6">✅</div>
           <h1 className="text-4xl font-extrabold text-[#14422d] mb-4">Inquiry Received!</h1>
           <p className="text-[#414943] text-lg mb-8">
-            Our export team will respond within <strong>24 hours</strong> with product specifications, MOQ details, and a custom quote.
+            Our export team will respond within <strong>24 hours</strong> with product specifications, MOQ details, and a custom quotes.
           </p>
           <div className="bg-[#f5f4e5] rounded-[2rem] p-6 mb-8 text-left space-y-3">
             <p className="text-sm font-bold text-[#14422d]">What happens next?</p>
